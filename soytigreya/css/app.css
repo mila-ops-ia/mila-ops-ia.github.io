@@ -405,3 +405,32 @@ h2 { color: #515769; }
 .canje .mini-btn { flex: none; align-self: center; }
 .cupon-fila { width: 100%; background: #FBE9E7; border-radius: 10px; padding: 8px 10px; color: #9E180E; font-weight: 700; }
 .escaner { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px; margin-bottom: 12px; border: 2px dashed #BFC1C7; }
+
+/* ---------- Escritorio (desde 1024 px): menú al costado y dos columnas ---------- */
+.dash, .dcol { display: block; }
+@media (min-width: 1024px) {
+  .shell.phone { max-width: 1240px; padding: 0 28px 48px; display: grid; grid-template-columns: 236px minmax(0, 1fr); column-gap: 32px; align-items: start; }
+  .shell.phone.sin-sesion { display: block; max-width: 520px; }
+  .shell.phone .top { grid-column: 1 / -1; grid-row: 1; margin: 0 -28px 16px; padding: 14px 28px 10px; }
+  .shell.phone .roles { grid-column: 1 / -1; grid-row: 2; margin: 0 0 20px; max-width: 560px; }
+  .shell.phone .bottom { grid-column: 1; grid-row: 3; position: sticky; top: 96px; left: auto; transform: none; width: auto; max-width: none; flex-direction: column; gap: 2px; background: #fff; border: 0; border-radius: 16px; box-shadow: var(--sombra); padding: 10px; z-index: 5; }
+  .shell.phone .bottom button { flex: none; flex-direction: row; justify-content: flex-start; gap: 12px; font-size: .95rem; padding: 12px 14px; border-radius: 10px; text-align: left; }
+  .shell.phone .bottom button span { font-size: 1.25rem; }
+  .shell.phone .bottom button.on { background: #FBE9E7; }
+  .shell.phone .bottom i { top: -4px; right: -10px; }
+  .shell.phone .main { grid-column: 2; grid-row: 3; padding: 0; min-width: 0; max-width: 1000px; }
+  .dash { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 32px; align-items: start; }
+  .dash .dcol > .tigri-card:first-child { margin-top: 0; }
+  .carrusel { margin: 0; padding-left: 0; padding-right: 0; }
+  .accesos button { padding: 16px 6px; font-size: .82rem; }
+  .mapa { height: 480px; }
+  .chico-mapa { height: 280px; }
+  .productos, .lista { max-width: 860px; }
+  .fab { right: 36px; bottom: 32px; }
+  .barra-carrito { left: auto; right: 36px; transform: none; bottom: 104px; width: 420px; }
+  #toast { bottom: 40px; }
+  .velo { animation: fade .2s; }
+  .sheet { top: 50%; bottom: auto; left: 50%; transform: translate(-50%, -50%); max-width: 540px; max-height: 86vh; border-radius: 22px; animation: aparece .2s ease-out; }
+  .sheet.chat { height: 80vh; }
+  @keyframes aparece { from { opacity: 0; transform: translate(-50%, -46%); } to { opacity: 1; transform: translate(-50%, -50%); } }
+}

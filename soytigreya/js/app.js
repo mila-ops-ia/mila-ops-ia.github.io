@@ -181,6 +181,7 @@ function render() {
   document.body.classList.toggle('letra-grande', !!S.letra);
   app.className = 'shell ' + (S.rol === 'vecino' ? 'phone' : 'wide');
   if (S.rol === 'vecino' && !S.sesion) {
+    app.className += ' sin-sesion';
     app.innerHTML = rolesBar() + vIngreso() + sheet();
     after(); save(); return;
   }
@@ -259,6 +260,7 @@ function vInicio() {
   <section class="hola"><p class="muted">Hola,</p><h1>${esc(S.usuario.nombre.split(' ')[0])} 👋</h1></section>
   <input class="buscar" type="search" placeholder="🔎 Buscá comercios, beneficios o trámites" value="${esc(S.busca)}" data-f="busca">
   <div id="resBusca">${resultadosBusca()}</div>
+  <div class="dash"><div class="dcol">
   ${puntosMini()}
   <div class="card ahorro">
     <p>Este mes ahorraste con tu tarjeta ${MARCA.tarjeta}</p>
@@ -272,11 +274,13 @@ function vInicio() {
   </button>
   <h2>¿Qué necesitás?</h2>
   <div class="accesos">${accesos.map(([e, t, a, v]) => `<button data-a="${a}" data-v="${v}"><span>${e}</span>${t}</button>`).join('')}</div>
+  </div><div class="dcol">
   <button class="card tigri-card" data-a="sheet" data-v="tigri"><span class="tg-avatar">🐯</span><div><b>¿Te ayudo con algo?</b><span class="muted">Preguntale a Tigri: "farmacia de turno", "quiero pizza", "hay un bache"…</span></div></button>
   <h2>Cerca tuyo, en ${esc(S.usuario.loc)}</h2>
   <div class="carrusel">${cerca2.map(miniComercio).join('') || '<p class="muted">Todavía no hay comercios con pedidos en tu localidad.</p>'}</div>
   <h2>Avisos</h2>
-  <div class="lista">${AVISOS.map((a) => `<div class="fila"><span class="ico">${a.emoji}</span><div><b>${a.titulo}</b><p class="muted">${a.texto}</p></div></div>`).join('')}</div>`;
+  <div class="lista">${AVISOS.map((a) => `<div class="fila"><span class="ico">${a.emoji}</span><div><b>${a.titulo}</b><p class="muted">${a.texto}</p></div></div>`).join('')}</div>
+  </div></div>`;
 }
 
 function resultadosBusca() {
@@ -1387,3 +1391,6 @@ document.addEventListener('change', (e) => {
 });
 
 render();
+
+// Instalable en el celu (solo en https, por ejemplo en GitHub Pages).
+if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});

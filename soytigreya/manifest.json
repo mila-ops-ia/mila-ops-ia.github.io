@@ -1,0 +1,18 @@
+{
+  "id": "./",
+  "name": "SoyTigreYa · Prototipo académico",
+  "short_name": "SoyTigreYa",
+  "description": "Beneficios Soy Tigre, comercio de barrio y trámites en una sola app. Prototipo académico, no oficial.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F2F3F5",
+  "theme_color": "#D02013",
+  "lang": "es-AR",
+  "icons": [
+    { "src": "img/icon/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "img/icon/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "img/icon/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
