@@ -149,7 +149,7 @@ doc.add_heading('Cómo funcionaría', 2)
 viñetas([
     ('Credencial digital: ', 'un código QR que cambia cada 30 segundos para validar la identidad en la caja, más un historial que muestra cuánto ahorró el vecino cada mes.'),
     ('Beneficios: ', 'un directorio con lista y mapa de los comercios adheridos, filtrado por rubro y localidad, que distingue los beneficios para usar en el local de los que también se pueden pedir por la app.'),
-    ('Compras con retiro en el local (takeaway): ', 'el vecino arma su pedido, el descuento se aplica solo, elige el horario de retiro y paga con Mercado Pago, Cuenta DNI, tarjeta o en efectivo. Recibe avisos cuando el pedido está en preparación y listo, y retira con un código que el comercio valida.'),
+    ('Compras con retiro en el local (takeaway): ', 'el vecino arma su pedido, el descuento se aplica solo, elige el horario de retiro y paga con Mercado Pago, Cuenta DNI, tarjeta o en efectivo. Recibe avisos cuando el pedido está en preparación y listo, y retira con un código que el comercio valida. Si algo sale mal, lo reporta: el comercio tiene 24 horas para proponer una solución y, si no hay acuerdo, media el municipio.'),
     ('Trámites y pagos: ', 'turnos (licencia de conducir, zoonosis, salud), reclamos con foto, ubicación en el mapa y seguimiento por etapas, pago de tasas, consulta y pago de multas con descuento, y estacionamiento medido con saldo.'),
     ('Servicios propios de Tigre: ', 'altura del río con pronóstico y niveles de alerta, arribos de colectivos, farmacias de turno y un botón de alerta que envía la ubicación al Centro de Operaciones.'),
     ('Tigri, la asistente: ', 'un asistente conversacional con la identidad del programa que responde en lenguaje cotidiano ("quiero pizza", "hay un bache en mi calle", "¿qué farmacia está de turno?") y lleva al vecino directamente a la acción que necesita.'),
@@ -210,6 +210,7 @@ tabla([
     ['Financiamiento del descuento', 'Esquema compartido municipio–comercio con topes, como en Billetera Santa Fe.'],
     ['Competencia de plataformas privadas', 'Competir por precio final y cercanía, no por publicidad.'],
     ['Protección de datos personales', 'Cumplir la Ley 25.326, usar datos agregados y consentimiento explícito.'],
+    ['Problemas con una compra', 'El comercio responde en 24 horas con reintegro o reposición; si no hay acuerdo, media la oficina municipal de defensa del consumidor (Ley 13.133).'],
     ['Brecha digital', 'Modo accesible, versión web y canal por WhatsApp.'],
     ['Costo y abuso de los Puntos Tigre', 'Canjes con tope, vencimiento a 12 meses, puntos solo por compras con QR y reclamos validados; el descuento en tasas requiere ordenanza.'],
 ], [5.6, 10.4])

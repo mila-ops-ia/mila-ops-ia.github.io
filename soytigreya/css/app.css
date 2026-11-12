@@ -596,3 +596,18 @@ h2 { font-size: 1rem; letter-spacing: -0.01em; margin: 24px 0 10px; }
 .onb-puntos { display: flex; gap: 6px; }
 .onb-puntos i { width: 8px; height: 8px; border-radius: 50%; background: #DFE1E5; }
 .onb-puntos i.on { background: #D02013; width: 22px; border-radius: 4px; }
+
+/* reclamos de compras */
+.rp-link { display: inline-flex; gap: 6px; align-items: center; text-align: left; font-size: .82rem; color: #9E180E; margin-top: 6px; padding: 4px 0; }
+.rp-box { margin-top: 10px; border: 1px solid #F2C4BF; background: #FFF8F7; border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; font-size: .88rem; }
+.rp-box.resuelto, .rp-box.cerrado { border-color: #CFE9DA; background: #F3FAF6; }
+.rp-cab { display: flex; justify-content: space-between; gap: 8px; align-items: flex-start; }
+.rp-acc { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.rp-acc.col-acc { flex-direction: column; align-items: stretch; }
+.rp-card { display: flex; flex-direction: column; gap: 8px; }
+.rp-plazo { font-size: .8rem; font-weight: 700; color: #9E180E; }
+.rp-parcial { display: inline-flex; gap: 6px; align-items: center; font-weight: 600; }
+.rp-parcial input { width: 100px; padding: 7px 8px; border: 1px solid var(--linea); border-radius: 8px; }
+.mini-btn.claro { background: #fff; color: #D02013; border: 1.5px solid #D02013; }
+.rp-foto { width: 120px; height: 90px; object-fit: cover; border-radius: 8px; }
+.rp-motivos { flex-wrap: wrap; }
