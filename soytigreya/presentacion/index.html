@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SoyTigreYa · Presentación</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="../img/icon/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root { --rojo:#D02013; --rojo-o:#9E180E; --rosa:#FBE9E7; --piz:#515769; --osc:#2F333E; --fondo:#F5F5F7; --papel:#FFFFFF; --txt:#333; --muted:#6B6F7B; --linea:#E3E5EA; --verde:#1B8A4B; }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: #1E2129; font-family: 'Montserrat', Arial, sans-serif; color: var(--txt); overflow: hidden; }
+button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+#escena { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; transform-origin: center center; }
+.slide { position: absolute; inset: 0; background: var(--fondo); padding: 96px 120px 120px; display: flex; flex-direction: column; gap: 36px; opacity: 0; visibility: hidden; transition: opacity .45s ease, transform .45s ease; transform: translateX(40px); overflow: hidden; }
+.slide.on { opacity: 1; visibility: visible; transform: none; }
+.slide.prev { transform: translateX(-40px); }
+.slide.oscura { background: var(--osc); color: #F5F5F7; }
+.slide.roja { background: var(--rojo); color: #fff; }
+h1 { font-size: 140px; font-weight: 800; letter-spacing: -4px; margin: 0; line-height: .95; }
+h2 { font-size: 66px; font-weight: 800; letter-spacing: -1.5px; margin: 0; line-height: 1.05; color: var(--piz); }
+.oscura h2, .roja h2 { color: #fff; }
+h3 { font-size: 34px; margin: 0; font-weight: 700; }
+p { margin: 0; font-size: 30px; line-height: 1.45; }
+.muted { color: var(--muted); }
+.oscura .muted { color: #B9BDC7; }
+.ceja { font-size: 22px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--rojo); display: flex; gap: 14px; align-items: center; }
+.oscura .ceja { color: #FF8F84; } .roja .ceja { color: #fff; }
+.mod { font-size: 18px; font-weight: 700; letter-spacing: 1px; background: var(--rosa); color: var(--rojo-o); padding: 6px 12px; border-radius: 8px; text-transform: none; }
+.oscura .mod { background: rgba(255,255,255,.1); color: #FFC9C3; }
+.cab { display: flex; flex-direction: column; gap: 14px; border-left: 8px solid var(--rojo); padding-left: 28px; }
+.oscura .cab { border-color: #FF8F84; } .roja .cab { border-color: #fff; }
+.fila { display: flex; gap: 32px; }
+.col { display: flex; flex-direction: column; gap: 20px; }
+.card { background: var(--papel); border: 1px solid var(--linea); border-radius: 18px; padding: 32px; }
+.oscura .card { background: #3A3F4D; border-color: #4A5060; }
+.num { font-size: 120px; font-weight: 800; color: var(--rojo); letter-spacing: -3px; line-height: 1; }
+.oscura .num { color: #FF8F84; }
+.chip { display: inline-flex; align-items: center; gap: 10px; font-size: 22px; font-weight: 700; padding: 10px 18px; border-radius: 10px; background: var(--rosa); color: var(--rojo-o); }
+.btn { background: var(--rojo); color: #fff; font-weight: 700; font-size: 24px; padding: 16px 26px; border-radius: 12px; display: inline-flex; gap: 10px; align-items: center; }
+.btn.claro { background: #fff; color: var(--rojo); border: 2px solid var(--rojo); }
+.pie { position: absolute; left: 120px; right: 120px; bottom: 44px; display: flex; justify-content: space-between; font-size: 18px; color: var(--muted); }
+.oscura .pie { color: #9EA3AE; } .roja .pie { color: #FFD3CE; }
+.toque { font-size: 18px; color: var(--muted); display: inline-flex; gap: 8px; align-items: center; }
+.oscura .toque { color: #B9BDC7; }
+svg.lucide { width: 1em; height: 1em; stroke-width: 2; vertical-align: -0.12em; }
+
+/* 1 portada */
+.portada { display: grid; grid-template-columns: 1fr 420px; gap: 80px; align-items: center; flex: 1; }
+.portada h1 span { color: #FFD3CE; font-weight: 500; }
+.tel { width: 360px; height: 740px; border-radius: 44px; background: #111; padding: 14px; box-shadow: 0 30px 80px rgba(0,0,0,.35); }
+.tel img, .tel iframe { width: 100%; height: 100%; border-radius: 32px; border: 0; object-fit: cover; object-position: top; background: #fff; display: block; }
+.qr { background: #fff; border-radius: 18px; padding: 14px; width: 190px; height: 190px; }
+.qr img { width: 100%; height: 100%; display: block; }
+
+/* 2 a dónde van los $100 */
+.cien { display: flex; flex-direction: column; gap: 26px; }
+.cien-barra { height: 110px; display: flex; border-radius: 16px; overflow: hidden; background: #E3E5EA; }
+.cien-barra div { display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; color: #fff; transition: flex-basis .8s cubic-bezier(.2,.8,.2,1); white-space: nowrap; overflow: hidden; }
+.b-com { background: var(--verde); } .b-app { background: var(--piz); } .b-pas { background: #9EA3AE; }
+.toggle { display: inline-flex; background: #E3E5EA; border-radius: 14px; padding: 6px; }
+.toggle button { font-size: 24px; font-weight: 700; padding: 14px 26px; border-radius: 10px; color: var(--muted); }
+.toggle button.on { background: #fff; color: var(--rojo); box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+
+/* 3 mapa de empatía */
+.empatia { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 16px; flex: 1; position: relative; }
+.cuad { background: #fff; border: 1px solid var(--linea); border-radius: 16px; padding: 24px 28px; text-align: left; display: flex; flex-direction: column; gap: 10px; transition: background .2s, border-color .2s; }
+.cuad h3 { font-size: 28px; color: var(--piz); display: flex; gap: 10px; align-items: center; }
+.cuad p { font-size: 24px; color: var(--muted); opacity: 0; transform: translateY(8px); transition: .35s; }
+.cuad.on p { opacity: 1; transform: none; color: var(--txt); }
+.cuad.on { border-color: var(--rojo); background: #FFF8F7; }
+.centro-emp { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 150px; height: 150px; border-radius: 50%; background: var(--rojo); color: #fff; display: grid; place-items: center; font-size: 54px; font-weight: 800; border: 8px solid var(--fondo); }
+.pov { font-size: 34px; line-height: 1.5; }
+.pov span { padding: 2px 10px; border-radius: 8px; transition: .3s; }
+.pov .u { background: #E8F3FB; } .pov .n { background: var(--rosa); } .pov .i { background: #FFF3D6; }
+
+/* 4 calculadora */
+.calc { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; flex: 1; align-items: center; }
+.slider { display: flex; flex-direction: column; gap: 10px; }
+.slider label { display: flex; justify-content: space-between; font-size: 26px; font-weight: 600; }
+.slider label b { color: #FF8F84; }
+input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
+.res-num { font-size: 150px; font-weight: 800; color: #FF8F84; letter-spacing: -4px; line-height: 1; }
+
+/* 5 perfiles */
+.perfiles { display: grid; grid-template-columns: 1fr 380px; gap: 64px; flex: 1; align-items: center; }
+.p-lista { display: flex; flex-direction: column; gap: 16px; }
+.p-item { display: flex; gap: 22px; align-items: center; text-align: left; background: #fff; border: 2px solid var(--linea); border-radius: 18px; padding: 22px 26px; transition: .2s; }
+.p-item.on { border-color: var(--rojo); background: #FFF8F7; }
+.p-av { width: 72px; height: 72px; border-radius: 50%; color: #fff; display: grid; place-items: center; font-size: 32px; font-weight: 800; flex: none; }
+.p-item b { font-size: 30px; display: block; } .p-item span { font-size: 22px; color: var(--muted); }
+
+/* 6 doble diamante */
+.diamante { display: flex; flex-direction: column; gap: 26px; flex: 1; }
+.dd { position: relative; height: 230px; }
+.dd svg.forma { position: absolute; inset: 0; width: 100%; height: 100%; }
+.fases { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(5, 1fr); align-items: center; }
+.fase { justify-self: center; background: #fff; border: 3px solid var(--rojo); color: var(--rojo); font-weight: 800; font-size: 24px; padding: 14px 22px; border-radius: 40px; transition: .2s; }
+.fase.on { background: var(--rojo); color: #fff; transform: scale(1.08); }
+.fase-det { display: grid; grid-template-columns: 1.2fr 1fr; gap: 32px; }
+.fase-det h3 { font-size: 40px; color: var(--piz); }
+.herr { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* 7 lean canvas */
+.canvas { display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: 1fr 1fr .8fr; gap: 12px; flex: 1; }
+.blq { background: #fff; border: 1px solid var(--linea); border-radius: 14px; padding: 18px 20px; text-align: left; display: flex; flex-direction: column; gap: 8px; transition: .2s; overflow: hidden; }
+.blq h4 { margin: 0; font-size: 19px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--rojo); }
+.blq p { font-size: 21px; line-height: 1.35; }
+.blq.on, .blq:hover { border-color: var(--rojo); box-shadow: 0 10px 28px rgba(208,32,19,.12); }
+.blq.pv { background: #FFF8F7; border-color: #F2C4BF; }
+.c-prob { grid-column: 1; grid-row: 1 / span 2; } .c-sol { grid-column: 2; grid-row: 1; } .c-met { grid-column: 2; grid-row: 2; }
+.c-pv { grid-column: 3; grid-row: 1 / span 2; } .c-vent { grid-column: 4; grid-row: 1; } .c-can { grid-column: 4; grid-row: 2; }
+.c-seg { grid-column: 5; grid-row: 1 / span 2; } .c-cost { grid-column: 1 / span 3; grid-row: 3; } .c-ing { grid-column: 4 / span 2; grid-row: 3; }
+
+/* 8 MVP */
+.mvp { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.inc { text-align: left; background: #fff; border: 2px solid var(--linea); border-radius: 18px; padding: 26px; display: flex; flex-direction: column; gap: 12px; transition: .2s; position: relative; }
+.inc.on { border-color: var(--rojo); }
+.inc .vehic { font-size: 64px; color: var(--rojo); }
+.inc .tramo { font-size: 20px; font-weight: 700; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+.inc p { font-size: 23px; }
+.inc .precio { font-size: 40px; font-weight: 800; color: var(--piz); }
+.agil { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+.agil .card { padding: 22px 26px; } .agil p { font-size: 22px; } .agil h3 { font-size: 26px; display: flex; gap: 10px; align-items: center; color: var(--piz); }
+
+/* 9 medir y crecer */
+.medir { display: grid; grid-template-columns: 1.05fr 1fr; gap: 36px; flex: 1; }
+.embudo { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+.emb { background: var(--rojo); color: #fff; border-radius: 10px; padding: 12px 18px; display: flex; justify-content: space-between; font-size: 22px; font-weight: 700; width: 0; transition: width 1s cubic-bezier(.2,.8,.2,1); white-space: nowrap; overflow: hidden; }
+.cuadrante { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.cuadrante div { background: #fff; border: 1px solid var(--linea); border-radius: 12px; padding: 16px 18px; }
+.cuadrante b { font-size: 22px; color: var(--rojo); display: block; margin-bottom: 4px; } .cuadrante p { font-size: 20px; }
+.gauge { display: flex; gap: 20px; align-items: center; }
+
+/* 10 cierre */
+.cierre { display: grid; grid-template-columns: 1fr 460px; gap: 72px; align-items: center; flex: 1; }
+.pasos-c { display: flex; flex-direction: column; gap: 18px; }
+.pasos-c div { display: flex; gap: 20px; align-items: center; font-size: 32px; }
+.pasos-c i { font-style: normal; width: 56px; height: 56px; border-radius: 50%; background: #fff; color: var(--rojo); display: grid; place-items: center; font-weight: 800; flex: none; }
+
+/* navegación */
+#barra { position: fixed; left: 0; right: 0; bottom: 0; height: 5px; background: rgba(255,255,255,.1); z-index: 20; }
+#barra i { display: block; height: 100%; background: var(--rojo); transition: width .4s; }
+#nav { position: fixed; right: 18px; bottom: 18px; display: flex; gap: 8px; z-index: 21; }
+#nav button { width: 44px; height: 44px; border-radius: 12px; background: rgba(30,33,41,.75); color: #fff; display: grid; place-items: center; backdrop-filter: blur(6px); }
+#cont { position: fixed; left: 18px; bottom: 18px; color: #fff; background: rgba(30,33,41,.75); padding: 10px 14px; border-radius: 12px; font-size: 14px; font-weight: 700; z-index: 21; }
+#notas { position: fixed; left: 50%; bottom: 76px; transform: translateX(-50%); width: min(900px, 92vw); background: rgba(20,22,28,.94); color: #E9EAEE; padding: 18px 22px; border-radius: 14px; font-size: 16px; line-height: 1.5; z-index: 22; display: none; }
+#notas.on { display: block; }
+.ayuda { position: fixed; top: 14px; left: 50%; transform: translateX(-50%); color: #fff; background: rgba(30,33,41,.75); padding: 8px 14px; border-radius: 10px; font-size: 13px; z-index: 21; transition: opacity .6s; }
+@media print {
+  @page { size: 1920px 1080px; margin: 0; }
+  html, body { overflow: visible; height: auto; background: #fff; }
+  #escena { position: static; transform: none !important; width: 1920px; height: auto; }
+  .slide { position: relative; opacity: 1; visibility: visible; transform: none; height: 1080px; page-break-after: always; break-after: page; }
+  #barra, #nav, #cont, #notas, .ayuda, .toque { display: none !important; }
+  .cuad p { opacity: 1; transform: none; } .emb { width: var(--w) !important; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<div id="escena">
+
+<!-- 1 · PORTADA -->
+<section class="slide roja on" data-notas="Buen día. Soy Milagros, de mila·ops. Les presento SoyTigreYa: convertir la tarjeta Soy Tigre en una plataforma donde el vecino ahorra, el comercio vende sin comisión y el municipio mide. No es una idea en papel: el prototipo funciona y lo pueden abrir ahora escaneando el QR.">
+  <div class="portada">
+    <div class="col" style="gap:34px;">
+      <p class="ceja">Trabajo Final Integrador · Diplomatura en Negocios Digitales e Innovación</p>
+      <h1>SOYTIGRE<span>YA</span></h1>
+      <p style="font-size:44px; font-weight:600;">Beneficios, comercio de barrio y trámites en una sola app.</p>
+      <div class="fila" style="align-items:center; gap:30px;">
+        <div class="qr"><img src="../img/qr-soytigreya.png" alt="QR para abrir la app"></div>
+        <div class="col" style="gap:8px;"><p style="font-size:34px; font-weight:800;">Escaneá y probala</p><p style="font-size:26px;">mila-ops-ia.github.io/soytigreya</p><p style="font-size:24px; opacity:.85;">Milagros Belén Sanabria · mila·ops · UNDelta · 2026</p></div>
+      </div>
+    </div>
+    <div class="tel"><img src="../capturas/inicio.jpg" alt="Inicio de la app"></div>
+  </div>
+  <div class="pie"><span>Prototipo académico · no es una app oficial del Municipio de Tigre</span><span>1</span></div>
+</section>
+
+<!-- 2 · PITCH Y PROBLEMA -->
+<section class="slide" data-notas="El pitch en una frase. Después el problema con un ejemplo simple: de cada 100 pesos que un vecino gasta en una app de delivery, entre 20 y 30 se van en comisión, fuera del distrito. Tocar el botón para comparar con SoyTigreYa: el comercio cobra casi todo, solo paga la pasarela de pago, menos del 1%. Tigre tiene 446.925 habitantes y más de 500 comercios adheridos a la tarjeta: la base ya existe.">
+  <div class="cab"><p class="ceja">El problema <span class="mod">M1 · Research e hipótesis de oportunidad</span></p><h2>De cada $100, ¿cuánto queda en Tigre?</h2></div>
+  <div class="fila" style="flex:1; gap:64px; align-items:center;">
+    <div class="col" style="flex:1; gap:28px;">
+      <p style="font-size:36px; font-weight:600; color:var(--piz);">SoyTigreYa ayuda a los <b style="color:var(--rojo)">vecinos de Tigre</b> a ahorrar y resolver trámites, y a los <b style="color:var(--rojo)">comercios de barrio</b> a vender sin pagar comisión.</p>
+      <div class="cien">
+        <div class="toggle" id="t100"><button class="on" data-v="hoy">Hoy, con apps privadas</button><button data-v="sty">Con SoyTigreYa</button></div>
+        <div class="cien-barra"><div class="b-com" id="b-com" style="flex-basis:75%">$75 al comercio</div><div class="b-app" id="b-app" style="flex-basis:25%">$25 comisión</div><div class="b-pas" id="b-pas" style="flex-basis:0%"></div></div>
+        <p class="muted" id="t100-txt" style="font-size:24px;">Las apps de delivery cobran entre 20% y 30% por pedido, con cargos de hasta 35%. Esa plata sale del distrito.</p>
+      </div>
+    </div>
+    <div class="col" style="width:520px; gap:20px;">
+      <div class="card"><p class="num" style="font-size:96px;">446.925</p><p class="muted">habitantes en Tigre (Censo 2022)</p></div>
+      <div class="card"><p class="num" style="font-size:96px;">+500</p><p class="muted">comercios ya adheridos a la tarjeta Soy Tigre</p></div>
+    </div>
+  </div>
+  <div class="pie"><span>Fuentes: Develop Argentina (2026), iProfesional (2026), Censo 2022, Parlamentario (2024)</span><span>2</span></div>
+</section>
+
+<!-- 3 · EMPATIZAR Y DEFINIR -->
+<section class="slide" data-notas="Así entendimos el problema, con Design Thinking. Este es el mapa de empatía de Lucía, nuestra proto-persona: tocar cada cuadrante. De ahí sale el punto de vista, el POV: usuario, necesidad e insight. El insight clave es que hoy el vecino no ve cuánto ahorra ni a dónde va su plata.">
+  <div class="cab"><p class="ceja">Empatizar y definir <span class="mod">M1 · M2 · M3 · Design Thinking</span></p><h2>Lucía, 41 años, vecina de Tigre Centro</h2></div>
+  <div class="fila" style="flex:1; gap:44px;">
+    <div class="empatia" style="flex:1.1;">
+      <button class="cuad" data-c><h3><i data-lucide="brain"></i>Piensa y siente</h3><p>"Quiero apoyar al comercio del barrio, pero me sale más caro y todo está disperso."</p></button>
+      <button class="cuad" data-c><h3><i data-lucide="eye"></i>Ve</h3><p>Promos que no sabe dónde aplican, varias apps del municipio, filas para trámites.</p></button>
+      <button class="cuad" data-c><h3><i data-lucide="ear"></i>Oye</h3><p>"El reclamo de la luz nunca lo resolvieron." "En la app los precios son más altos."</p></button>
+      <button class="cuad" data-c><h3><i data-lucide="message-square"></i>Dice y hace</h3><p>Pide comida los viernes, paga la tasa cuando se acuerda, reclama por teléfono.</p></button>
+      <div class="centro-emp">L</div>
+    </div>
+    <div class="col" style="flex:1; justify-content:center; gap:30px;">
+      <p class="ceja" style="color:var(--piz);">Punto de vista (POV)</p>
+      <p class="pov"><span class="u">Lucía, vecina de Tigre Centro,</span> necesita <span class="n">resolver compras, beneficios y trámites desde el celu</span> porque <span class="i">hoy todo está disperso, paga de más y no ve su ahorro.</span></p>
+      <div class="herr"><span class="chip">Mapa de empatía</span><span class="chip">Proto-persona</span><span class="chip">Guided tour</span><span class="chip">Preguntas poderosas</span></div>
+      <p class="toque"><i data-lucide="pointer"></i> Tocá cada cuadrante</p>
+    </div>
+  </div>
+  <div class="pie"><span>Espacio del problema del doble diamante</span><span>3</span></div>
+</section>
+
+<!-- 4 · CALCULADORA -->
+<section class="slide oscura" data-notas="Lo que cuesta no hacer nada. Esta calculadora es en vivo: moverla con los valores que quiera el jurado. Con 100 comercios, 60 pedidos por mes, ticket de 20.000 pesos y 25% de comisión, quedan 360 millones por año en Tigre, 2,4 veces la inversión del primer año. Es un escenario para dimensionar, no una proyección de ventas. Contenido aplicado: ROI y KPIs del módulo 3.">
+  <div class="cab"><p class="ceja">El costo de no hacer nada <span class="mod">M3 · ROI y KPIs</span></p><h2>¿Cuánto queda en Tigre por año?</h2></div>
+  <div class="calc">
+    <div class="col" style="gap:30px;">
+      <div class="slider"><label>Comercios activos <b id="o-com">100</b></label><input type="range" id="s-com" min="20" max="500" step="10" value="100"></div>
+      <div class="slider"><label>Pedidos por comercio por mes <b id="o-ped">60</b></label><input type="range" id="s-ped" min="10" max="300" step="10" value="60"></div>
+      <div class="slider"><label>Ticket promedio <b id="o-tic">$20.000</b></label><input type="range" id="s-tic" min="8000" max="40000" step="1000" value="20000"></div>
+      <div class="slider"><label>Comisión de las apps <b id="o-por">25%</b></label><input type="range" id="s-por" min="15" max="35" step="1" value="25"></div>
+      <p class="toque"><i data-lucide="sliders-horizontal"></i> Mové los valores</p>
+    </div>
+    <div class="col" style="gap:16px;">
+      <p class="muted" style="font-size:28px;">Comisiones que quedan en el distrito, por año</p>
+      <p class="res-num" id="r-anio">$360 M</p>
+      <p style="font-size:34px;"><b id="r-x" style="color:#FF8F84;">2,4 veces</b> la inversión del primer año ($151 M)</p>
+      <p class="muted" id="r-ped" style="font-size:24px;">6.000 pedidos por mes · $120 M en ventas</p>
+    </div>
+  </div>
+  <div class="pie"><span>ROI = (beneficio − inversión) / inversión × 100 · Escenario de referencia, no proyección</span><span>4</span></div>
+</section>
+
+<!-- 5 · LA SOLUCIÓN -->
+<section class="slide" data-notas="La solución: una plataforma, cuatro personas. Tocar cada perfil y la app real se carga en el celular de la derecha: es el prototipo publicado, no una imagen. Lucía usa la app; Rosa recibe pedidos sin comisión; Carlos gestiona reclamos en el mapa; Marina mide el impacto. Para la demo completa, abrir el recorrido guiado.">
+  <div class="cab"><p class="ceja">La solución, funcionando <span class="mod">M1 · Transformación digital · M4 · UX/UI</span></p><h2>Una plataforma, cuatro personas</h2></div>
+  <div class="perfiles">
+    <div class="p-lista">
+      <button class="p-item on" data-p="lucia"><span class="p-av" style="background:#D02013">L</span><div><b>Lucía · vecina</b><span>Credencial, beneficios, compras con retiro, trámites, Puntos Tigre y Tigri</span></div></button>
+      <button class="p-item" data-p="rosa"><span class="p-av" style="background:#b5541c">R</span><div><b>Rosa · comercio</b><span>Recibe pedidos pagados, lanza ofertas flash y ve la comisión que ahorró</span></div></button>
+      <button class="p-item" data-p="carlos"><span class="p-av" style="background:#515769">C</span><div><b>Carlos · Atención al Vecino</b><span>Reclamos en el mapa con foto y etapas, y turnos del día</span></div></button>
+      <button class="p-item" data-p="marina"><span class="p-av" style="background:#3A3F4D">M</span><div><b>Marina · Desarrollo Económico</b><span>Embudo del producto, objetivos SMART, NPS e impacto por localidad</span></div></button>
+      <a class="btn" href="../?tour=1" target="_blank" rel="noopener" style="text-decoration:none; align-self:flex-start;"><i data-lucide="play"></i> Ver el recorrido guiado</a>
+    </div>
+    <div class="tel"><iframe id="demo" title="App SoyTigreYa en vivo" src="../?perfil=lucia" loading="lazy"></iframe></div>
+  </div>
+  <div class="pie"><span>App real embebida · mila-ops-ia.github.io/soytigreya</span><span>5</span></div>
+</section>
+
+<!-- 6 · DOBLE DIAMANTE -->
+<section class="slide" data-notas="Cómo se diseñó: el doble diamante del módulo 3. Tocar cada fase. Empatizar: guided tour y mapa de empatía. Definir: POV e historias de usuario. Idear: brainstorming, 6-3-5 y SCAMPER. Prototipar: de baja a alta fidelidad, este prototipo navegable. Testear: pruebas con 5 usuarios por perfil, think aloud y las heurísticas de Nielsen.">
+  <div class="cab"><p class="ceja">Cómo lo diseñamos <span class="mod">M2 · M3 · M4 · Doble diamante y UX</span></p><h2>Del problema a la solución, iterando</h2></div>
+  <div class="diamante">
+    <div class="dd">
+      <svg class="forma" viewBox="0 0 1680 230" preserveAspectRatio="none" aria-hidden="true"><path d="M10 115 L420 10 L830 115 L420 220 Z M850 115 L1260 10 L1670 115 L1260 220 Z" fill="#FBE9E7" stroke="#F2C4BF" stroke-width="3"/></svg>
+      <div class="fases">
+        <button class="fase on" data-f="0">Empatizar</button><button class="fase" data-f="1">Definir</button><button class="fase" data-f="2">Idear</button><button class="fase" data-f="3">Prototipar</button><button class="fase" data-f="4">Testear</button>
+      </div>
+    </div>
+    <div class="fase-det card" id="fase-det"></div>
+    <p class="toque"><i data-lucide="pointer"></i> Tocá cada fase</p>
+  </div>
+  <div class="pie"><span>Deseabilidad · Factibilidad · Viabilidad</span><span>6</span></div>
+</section>
+
+<!-- 7 · LEAN CANVAS -->
+<section class="slide" data-notas="El modelo de negocio en un Lean Canvas, del módulo 2. Lo más importante: la propuesta de valor única, en el centro, y la ventaja difícil de copiar: la tarjeta Soy Tigre con más de 500 comercios ya adheridos y la legitimidad del municipio. Los ingresos vienen de un piloto, el escalamiento y una licencia; los costos son el equipo y una infraestructura casi gratuita.">
+  <div class="cab"><p class="ceja">Modelo de negocio <span class="mod">M2 · Lean Canvas y propuesta de valor</span></p><h2>Lean Canvas de SoyTigreYa</h2></div>
+  <div class="canvas">
+    <div class="blq c-prob"><h4>Problema</h4><p>Comisiones de 20–30% a los comercios.</p><p>Beneficios, compras y trámites dispersos.</p><p>El municipio no mide el impacto.</p></div>
+    <div class="blq c-sol"><h4>Solución</h4><p>App con descuento automático, compra con retiro y trámites.</p></div>
+    <div class="blq c-met"><h4>Métricas clave</h4><p>Vecinos activos, retención, NPS, comisiones evitadas.</p></div>
+    <div class="blq c-pv pv"><h4>Propuesta de valor única</h4><p style="font-size:26px; font-weight:700; color:var(--piz);">Que el ahorro y la venta se queden en Tigre: el vecino paga menos y el comercio cobra el 100%.</p></div>
+    <div class="blq c-vent"><h4>Ventaja injusta</h4><p>+500 comercios y la tarjeta Soy Tigre ya instalada; aval municipal.</p></div>
+    <div class="blq c-can"><h4>Canales</h4><p>App municipal, comercios, cámaras y canales del municipio.</p></div>
+    <div class="blq c-seg"><h4>Segmentos</h4><p>Vecinos con tarjeta Soy Tigre.</p><p>Comercios de barrio.</p><p>Early adopters: gastronomía de Tigre Centro.</p></div>
+    <div class="blq c-cost"><h4>Estructura de costos</h4><p>Equipo de 4 personas ($3,5 M brutos c/u por mes), base de datos USD 25/mes + uso, hosting y mapas sin costo, pasarela 0,6–0,8%.</p></div>
+    <div class="blq c-ing"><h4>Fuentes de ingreso</h4><p>Piloto $55 M · Escalamiento $55 M · Licencia $6,9 M/mes (+ IVA).</p></div>
+  </div>
+  <div class="pie"><span>Precios referenciales: costo del equipo + 30% de margen · Sueldos: Develop Argentina, jun. 2026</span><span>7</span></div>
+</section>
+
+<!-- 8 · MVP Y AGILIDAD -->
+<section class="slide" data-notas="Implementación ágil. El MVP crece por incrementos, como la patineta que se convierte en auto: cada etapa ya es útil. El financiamiento es por tramos, metered funding: cada tramo se libera solo si el anterior validó su hipótesis. Trabajamos con Scrum en sprints de dos semanas, Kanban con límite de trabajo en curso e historias de usuario.">
+  <div class="cab"><p class="ceja">Implementación <span class="mod">M2 · M3 · MVP, Scrum, Kanban, financiamiento por tramos</span></p><h2>Empezar chico, crecer con resultados</h2></div>
+  <div class="mvp">
+    <button class="inc on" data-i><i data-lucide="bike" class="vehic"></i><span class="tramo">Tramo 1 · meses 1–3</span><h3>Piloto en Tigre Centro</h3><p>Credencial, beneficios y compra con retiro. 40 comercios.</p><span class="precio">$55 M</span></button>
+    <button class="inc" data-i><i data-lucide="car" class="vehic"></i><span class="tramo">Tramo 2 · meses 4–6</span><h3>Escalamiento</h3><p>Todas las localidades, tasas, estacionamiento y reclamos.</p><span class="precio">$55 M</span></button>
+    <button class="inc" data-i><i data-lucide="rocket" class="vehic"></i><span class="tramo">Tramo 3 · meses 7–12</span><h3>Super-app inteligente</h3><p>Tigri con IA, Puntos Tigre y WhatsApp.</p><span class="precio">$6,9 M/mes</span></button>
+  </div>
+  <div class="agil">
+    <div class="card"><h3><i data-lucide="repeat"></i>Scrum</h3><p>Sprints de 2 semanas con revisión junto al municipio.</p></div>
+    <div class="card"><h3><i data-lucide="columns-3"></i>Kanban</h3><p>Pedidos y reclamos en columnas, con límite de trabajo en curso.</p></div>
+    <div class="card"><h3><i data-lucide="notebook-pen"></i>Historia de usuario</h3><p>"Como vecina quiero pedir para retirar con mi descuento para ahorrar sin perder tiempo."</p></div>
+  </div>
+  <div class="pie"><span>Cada tramo se libera solo si el anterior validó su hipótesis · Primer año: unos $151 M</span><span>8</span></div>
+</section>
+
+<!-- 9 · MEDIR Y CRECER -->
+<section class="slide" data-notas="Medir y crecer, módulos 3 y 5. Objetivos SMART del piloto, el embudo AARRR para saber dónde se pierden usuarios y el NPS para el Product-Market Fit. Para crecer usamos growth hacking: gamificación con Puntos Tigre, escasez con ofertas flash y referidos. Y separamos lo que explotamos hoy de lo que exploramos: delivery y Tigri con IA.">
+  <div class="cab"><p class="ceja">Medir y crecer <span class="mod">M3 · M5 · SMART, AARRR, PMF y growth hacking</span></p><h2>Lo que no se mide, no se mejora</h2></div>
+  <div class="medir">
+    <div class="col" style="gap:18px;">
+      <h3 style="color:var(--piz);">Embudo AARRR del piloto</h3>
+      <div class="embudo">
+        <div class="emb" style="--w:100%">Adquisición · vecinos registrados <span>3.240</span></div>
+        <div class="emb" style="--w:76%">Activación · primer pedido <span>1.410</span></div>
+        <div class="emb" style="--w:58%">Retención · repiten en 30 días <span>820</span></div>
+        <div class="emb" style="--w:46%">Referidos <span>260</span></div>
+        <div class="emb" style="--w:50%">Ingresos · 3 compras o más <span>410</span></div>
+      </div>
+      <div class="herr"><span class="chip"><i data-lucide="target"></i> 40 comercios</span><span class="chip"><i data-lucide="users"></i> 2.000 vecinos</span><span class="chip"><i data-lucide="smile"></i> NPS ≥ 40</span><span class="chip"><i data-lucide="check"></i> 95% sin incidencias</span></div>
+    </div>
+    <div class="col" style="gap:18px;">
+      <h3 style="color:var(--piz);">Growth hacking</h3>
+      <div class="herr"><span class="chip"><i data-lucide="trophy"></i> Gamificación: Puntos Tigre</span><span class="chip"><i data-lucide="timer"></i> Escasez: ofertas flash</span><span class="chip"><i data-lucide="share-2"></i> Referidos</span></div>
+      <h3 style="color:var(--piz);">Explore / Exploit</h3>
+      <div class="cuadrante">
+        <div><b>Exploit · hoy</b><p>Beneficios, compra con retiro, trámites y pagos.</p></div>
+        <div><b>Explore · mañana</b><p>Delivery con cooperativas, Tigri con IA, WhatsApp.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="pie"><span>Datos del embudo: demostración · Objetivos SMART medibles al cierre del piloto (semana 12)</span><span>9</span></div>
+</section>
+
+<!-- 10 · CIERRE -->
+<section class="slide roja" data-notas="Cierre con el llamado a la acción: firmar el piloto. Tres pasos concretos. Invitar a todos a escanear el QR y probar el recorrido guiado. Agradecer y abrir a preguntas. Preguntas probables: quién paga el descuento (esquema compartido municipio y comercio con topes), y el delivery (después del piloto, con cooperativas).">
+  <div class="cierre">
+    <div class="col" style="gap:34px;">
+      <p class="ceja">El próximo paso</p>
+      <h2 style="font-size:96px;">Firmemos el piloto</h2>
+      <div class="pasos-c">
+        <div><i>1</i>Demo con Desarrollo Económico y Modernización</div>
+        <div><i>2</i>Carta de intención y referente municipal</div>
+        <div><i>3</i>Lanzamiento con 40 comercios en 6 semanas</div>
+      </div>
+      <p style="font-size:38px; font-weight:800;">Que el ahorro y la venta se queden en Tigre. ¡Gracias!</p>
+    </div>
+    <div class="col" style="align-items:center; gap:18px;">
+      <div class="qr" style="width:400px; height:400px; padding:22px;"><img src="../img/qr-soytigreya.png" alt="QR para abrir la app"></div>
+      <p style="font-size:30px; font-weight:800;">Escaneá y probala</p>
+      <p style="font-size:24px;">mila-ops-ia.github.io/soytigreya</p>
+    </div>
+  </div>
+  <div class="pie"><span>Milagros Belén Sanabria · mila·ops · Diplomatura en Negocios Digitales e Innovación</span><span>10</span></div>
+</section>
+
+</div>
+
+<div id="barra"><i></i></div>
+<div id="cont">1 / 10</div>
+<div id="nav"><button id="b-not" title="Notas del orador (N)"><i data-lucide="message-square-text"></i></button><button id="b-full" title="Pantalla completa (F)"><i data-lucide="maximize"></i></button><button id="b-ant" title="Anterior (←)"><i data-lucide="chevron-left"></i></button><button id="b-sig" title="Siguiente (→)"><i data-lucide="chevron-right"></i></button></div>
+<div id="notas"></div>
+<div class="ayuda" id="ayuda">← → para avanzar · N notas · F pantalla completa</div>
+
+<script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+<script>
+const slides = [...document.querySelectorAll('.slide')];
+let i = 0;
+const escena = document.getElementById('escena');
+function ajustar() { const k = Math.min(innerWidth / 1920, innerHeight / 1080); escena.style.transform = `translate(-50%, -50%) scale(${k})`; }
+addEventListener('resize', ajustar); ajustar();
+function ir(n) {
+  n = Math.max(0, Math.min(slides.length - 1, n));
+  slides.forEach((s, k) => { s.classList.toggle('on', k === n); s.classList.toggle('prev', k < n); });
+  i = n;
+  document.querySelector('#barra i').style.width = ((n + 1) / slides.length * 100) + '%';
+  document.getElementById('cont').textContent = `${n + 1} / ${slides.length}`;
+  document.getElementById('notas').textContent = slides[n].dataset.notas || '';
+  if (n === 8) setTimeout(() => document.querySelectorAll('.emb').forEach((e) => { e.style.width = e.style.getPropertyValue('--w'); }), 250);
+  else document.querySelectorAll('.emb').forEach((e) => { e.style.width = '0'; });
+  history.replaceState(null, '', '#' + (n + 1));
+}
+document.getElementById('b-sig').onclick = () => ir(i + 1);
+document.getElementById('b-ant').onclick = () => ir(i - 1);
+document.getElementById('b-not').onclick = () => document.getElementById('notas').classList.toggle('on');
+document.getElementById('b-full').onclick = () => (document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen());
+addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT') return;
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(i + 1); }
+  if (['ArrowLeft', 'PageUp'].includes(e.key)) ir(i - 1);
+  if (e.key.toLowerCase() === 'n') document.getElementById('notas').classList.toggle('on');
+  if (e.key.toLowerCase() === 'f') document.getElementById('b-full').click();
+  if (e.key === 'Home') ir(0); if (e.key === 'End') ir(slides.length - 1);
+});
+setTimeout(() => { document.getElementById('ayuda').style.opacity = 0; }, 4000);
+
+// 2 · ¿A dónde van los $100?
+document.querySelectorAll('#t100 button').forEach((b) => b.onclick = () => {
+  document.querySelectorAll('#t100 button').forEach((x) => x.classList.toggle('on', x === b));
+  const hoy = b.dataset.v === 'hoy';
+  const com = document.getElementById('b-com'), app = document.getElementById('b-app'), pas = document.getElementById('b-pas');
+  com.style.flexBasis = hoy ? '75%' : '99.3%'; com.textContent = hoy ? '$75 al comercio' : '$99,30 al comercio';
+  app.style.flexBasis = hoy ? '25%' : '0%'; app.textContent = hoy ? '$25 comisión' : '';
+  pas.style.flexBasis = hoy ? '0%' : '0.7%';
+  document.getElementById('t100-txt').textContent = hoy ? 'Las apps de delivery cobran entre 20% y 30% por pedido, con cargos de hasta 35%. Esa plata sale del distrito.' : 'Sin comisión de plataforma: solo la pasarela de pago, 0,6% a 0,8% con QR. El precio no se infla y la venta queda en Tigre.';
+});
+
+// 3 · Mapa de empatía
+document.querySelectorAll('[data-c]').forEach((c) => c.onclick = () => c.classList.toggle('on'));
+
+// 4 · Calculadora
+const fmt = (n) => n.toLocaleString('es-AR');
+function calc() {
+  const com = +document.getElementById('s-com').value, ped = +document.getElementById('s-ped').value, tic = +document.getElementById('s-tic').value, por = +document.getElementById('s-por').value;
+  document.getElementById('o-com').textContent = com; document.getElementById('o-ped').textContent = ped;
+  document.getElementById('o-tic').textContent = '$' + fmt(tic); document.getElementById('o-por').textContent = por + '%';
+  const ventasMes = com * ped * tic, anio = ventasMes * por / 100 * 12;
+  document.getElementById('r-anio').textContent = '$' + fmt(Math.round(anio / 1e6)) + ' M';
+  const x = anio / 151e6;
+  document.getElementById('r-x').textContent = (x >= 10 ? Math.round(x) : x.toFixed(1).replace('.', ',')) + ' veces';
+  document.getElementById('r-ped').textContent = `${fmt(com * ped)} pedidos por mes · $${fmt(Math.round(ventasMes / 1e6))} M en ventas`;
+}
+document.querySelectorAll('input[type=range]').forEach((r) => r.oninput = calc); calc();
+
+// 5 · Perfiles con la app embebida
+document.querySelectorAll('.p-item').forEach((b) => b.onclick = () => {
+  document.querySelectorAll('.p-item').forEach((x) => x.classList.toggle('on', x === b));
+  document.getElementById('demo').src = '../?perfil=' + b.dataset.p;
+});
+
+// 6 · Doble diamante
+const FASES = [
+  ['Empatizar', 'Recorrimos el problema con los ojos de cada actor: vecina, comercio y municipio. Investigamos antecedentes (MuniShop, Billetera Santa Fe, Boti) y datos reales de comisiones.', ['Guided tour', 'Mapa de empatía', 'Investigación secundaria', 'Preguntas poderosas']],
+  ['Definir', 'Convergimos en el punto de vista de Lucía y en historias de usuario con criterios de aceptación. Priorizamos: primero compra con retiro, después delivery.', ['POV', 'Historias de usuario', 'Proto-personas', 'Hipótesis de oportunidad']],
+  ['Idear', 'Generamos ideas sin juzgar y después elegimos. SCAMPER: sustituir el cupón de papel por un QR, combinar beneficios y compras, eliminar la comisión.', ['Brainstorming', 'Brainwriting 6-3-5', 'SCAMPER', 'Mapa mental']],
+  ['Prototipar', 'De bocetos a un prototipo de alta fidelidad, navegable e instalable, con la identidad del municipio. Fail fast: el prototipo barato de hoy evita el producto caro que nadie usa.', ['Baja → alta fidelidad', 'Prototipo navegable', 'Identidad visual', 'Onboarding']],
+  ['Testear', 'Plan de pruebas de usabilidad: 5 usuarios por perfil (detectan el 85% de los problemas), think aloud y tareas del recorrido guiado. Revisión con las 10 heurísticas de Nielsen y accesibilidad POUR.', ['5 usuarios por perfil', 'Think aloud', 'Heurísticas de Nielsen', 'Accesibilidad POUR']],
+];
+function fase(n) {
+  document.querySelectorAll('.fase').forEach((f, k) => f.classList.toggle('on', k === n));
+  const [t, d, h] = FASES[n];
+  document.getElementById('fase-det').innerHTML = `<div class="col" style="gap:14px;"><h3>${t}</h3><p>${d}</p></div><div class="col" style="gap:14px;"><p class="ceja" style="color:var(--piz);">Herramientas</p><div class="herr">${h.map((x) => `<span class="chip">${x}</span>`).join('')}</div></div>`;
+}
+document.querySelectorAll('.fase').forEach((f) => f.onclick = () => fase(+f.dataset.f)); fase(0);
+
+// 7 · Lean Canvas: resaltar al tocar
+document.querySelectorAll('.blq').forEach((b) => b.onclick = () => b.classList.toggle('on'));
+// 8 · Incrementos del MVP
+document.querySelectorAll('[data-i]').forEach((b) => b.onclick = () => { document.querySelectorAll('[data-i]').forEach((x) => x.classList.toggle('on', x === b)); });
+
+if (window.lucide) lucide.createIcons();
+const h = parseInt(location.hash.slice(1), 10); ir(isNaN(h) ? 0 : h - 1);
+</script>
+</body>
+</html>

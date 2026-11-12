@@ -487,3 +487,112 @@ h2 { color: #515769; }
 .qr-entrada .qr { width: 110px; flex: none; }
 .qr-entrada div:last-child { display: flex; flex-direction: column; gap: 4px; }
 @media (min-width: 760px) { .qr-entrada { display: flex; } }
+
+/* =====================================================================
+   Rediseño v12: estilo sobrio, íconos de línea, sin look "generado"
+   ===================================================================== */
+:root { --radio: 12px; --sombra: 0 0 0 1px #E3E5EA; --linea: #E3E5EA; }
+body { letter-spacing: -0.005em; }
+.ic, [data-lucide] { width: 1.15em; height: 1.15em; display: inline-block; vertical-align: -0.2em; stroke-width: 1.8; flex: none; }
+svg.lucide { width: 1.15em; height: 1.15em; vertical-align: -0.2em; flex: none; }
+.titulo { font-size: 1.35rem; letter-spacing: -0.02em; }
+h2 { font-size: 1rem; letter-spacing: -0.01em; margin: 24px 0 10px; }
+.muted { color: #6B6F7B; }
+
+/* barra superior y logo */
+.top { padding: 12px 16px 10px; border-bottom: 3px solid #D02013; }
+.logo { width: 32px; height: 32px; border-radius: 8px; background: #D02013; color: #fff; font-size: 1rem; }
+.logo svg { width: 18px; height: 18px; }
+.marca b { font-size: 1rem; }
+.sos { background: transparent; color: #D02013; border: 1.5px solid #F2C4BF; border-radius: 8px; padding: 4px 7px; }
+.campana { color: #515769; }
+.avatar-p { font-weight: 700; color: #fff; font-size: 1rem; box-shadow: none; }
+.avatar-p.grande { font-size: 1.9rem; }
+
+/* tarjetas: planas, con borde fino */
+.card, .fila, .comercio, .prod, .accesos button, .tped, .trow, .kpi, .mini, .perfil-card, .panel-cab, .ing-lista li, .tels a, .tigri-card, .puntos-mini, .qr-entrada { box-shadow: none !important; border: 1px solid var(--linea); }
+.card { border-radius: 12px; }
+.fila { border-radius: 10px; }
+.ico { width: 38px; height: 38px; border-radius: 10px; background: #F2F3F5; color: #515769; display: grid; place-items: center; font-size: 1.1rem; flex: none; }
+.ico svg { width: 20px; height: 20px; }
+
+/* inicio */
+.hola h1 { font-size: 1.45rem; }
+.ahorro { background: #fff; color: #333; border: 1px solid var(--linea); border-left: 4px solid #D02013; }
+.ahorro::after { display: none; }
+.ahorro p, .ahorro span { color: #6B6F7B; opacity: 1; }
+.ahorro strong { color: #D02013; font-size: 2rem; }
+.btn-claro { background: #FBE9E7; color: #9E180E; }
+.accesos { gap: 8px; }
+.accesos button { border-radius: 12px; padding: 14px 4px 12px; background: #fff; color: #333; font-weight: 600; }
+.accesos span { width: 40px; height: 40px; border-radius: 12px; background: #FBE9E7; color: #D02013; display: grid; place-items: center; font-size: 1.15rem; }
+.accesos span svg { width: 20px; height: 20px; }
+.rio-mini { border-left-width: 4px; }
+.rio-ico { width: 38px; height: 38px; border-radius: 10px; background: #E8F3FB; color: #1F6FB2; display: grid; place-items: center; }
+.tigri-card { background: #fff; }
+.tg-avatar { background: #D02013; color: #fff; box-shadow: none; font-size: 1.2rem; }
+.puntos-mini { border-color: #F2C4BF; }
+
+/* barra inferior */
+.bottom { border-top: 1px solid var(--linea); }
+.bottom button span { filter: none; opacity: .55; font-size: 1.25rem; color: #515769; }
+.bottom button.on span { opacity: 1; color: #D02013; }
+.bottom button span svg { width: 22px; height: 22px; }
+
+/* comercios y productos */
+.avatar, .mini-img, .hero { color: #fff; }
+.avatar svg { width: 24px; height: 24px; }
+.mini-img svg { width: 36px; height: 36px; }
+.hero { height: 110px; }
+.hero svg { width: 48px; height: 48px; }
+.prod-ico { width: 40px; height: 40px; border-radius: 10px; background: #F2F3F5; color: #6B6F7B; display: grid; place-items: center; font-size: 1.05rem; }
+.prod-ico svg { width: 20px; height: 20px; }
+.mini-img em, .desc, .tag.desc { border-radius: 6px; }
+.chip { border-radius: 8px; }
+.chip svg { width: 15px; height: 15px; }
+.seg, .roles { border-radius: 10px; }
+.btn { border-radius: 10px; }
+.fab { padding: 6px 14px 6px 6px; border-radius: 12px; box-shadow: 0 6px 18px rgba(208, 32, 19, .28); }
+.fab span { width: 30px; height: 30px; border-radius: 8px; color: #D02013; }
+.credencial { border-radius: 16px; }
+.credencial::before { display: none; }
+
+/* perfiles */
+.perfil-card { border-radius: 14px; }
+.perfil-card:hover { border-color: #D02013; }
+.ing-logo { border-radius: 22px; font-size: 2.6rem; color: #fff; }
+.ing-logo svg { width: 46px; height: 46px; }
+
+/* contenidos de la Diplomatura */
+.metodo-btn { max-width: 520px; display: flex; gap: 8px; justify-content: center; align-items: center; }
+.metodo { text-align: left; padding-top: 16px; max-width: 760px; margin: 0 auto; }
+.diamante { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 8px 0 14px; }
+.diamante div { border: 1.5px solid #D02013; padding: 14px; display: flex; flex-direction: column; gap: 2px; text-align: center; background: #fff; }
+.diamante div:first-child { border-radius: 60px 0 0 60px; border-right: 0; }
+.diamante div:last-child { border-radius: 0 60px 60px 0; background: #FBE9E7; }
+.diamante span { font-size: .8rem; color: #6B6F7B; }
+.metodo-item .tag-mini { display: inline-block; margin-top: 6px; }
+.flash { width: 100%; text-align: left; display: flex; flex-direction: column; gap: 3px; margin-bottom: 12px; border-color: #F2C4BF !important; background: #FFF8F7; }
+.flash-tag { align-self: flex-start; background: #D02013; color: #fff; font-size: .7rem; font-weight: 700; padding: 2px 8px; border-radius: 6px; text-transform: uppercase; letter-spacing: .04em; }
+.flash-panel { display: flex; flex-direction: column; gap: 6px; margin-top: 14px; align-items: flex-start; }
+.flash-panel .btn { width: auto; }
+.nps { margin-bottom: 12px; display: flex; flex-direction: column; gap: 10px; }
+.nps-cab { display: flex; gap: 10px; align-items: flex-start; justify-content: space-between; }
+.cerrar-nps { color: #6B6F7B; }
+.nps-escala { display: grid; grid-template-columns: repeat(11, 1fr); gap: 4px; }
+.nps-escala button { border: 1px solid var(--linea); border-radius: 8px; padding: 8px 0; font-weight: 700; font-size: .85rem; background: #fff; }
+.nps-escala button:hover { background: #FBE9E7; border-color: #D02013; color: #D02013; }
+.nps-ref { display: flex; justify-content: space-between; font-size: .72rem; color: #6B6F7B; }
+.referidos { display: flex; flex-direction: column; gap: 6px; margin-top: 14px; }
+.ref-cod { display: flex; gap: 10px; align-items: center; }
+.ref-cod code { background: #F2F3F5; border: 1px dashed #BFC1C7; border-radius: 8px; padding: 8px 12px; font-weight: 700; letter-spacing: .06em; }
+.emb { margin-bottom: 10px; }
+.emb-bar { width: var(--w); background: #D02013; color: #fff; border-radius: 6px; padding: 6px 10px; display: flex; justify-content: space-between; gap: 8px; font-size: .85rem; min-width: 190px; }
+.smart { margin-bottom: 10px; }
+.onb { text-align: center; display: flex; flex-direction: column; gap: 10px; align-items: center; padding: 10px 0; }
+.onb h2 { margin: 0; padding: 0; font-size: 1.2rem; }
+.onb-ico { width: 64px; height: 64px; border-radius: 18px; background: #FBE9E7; color: #D02013; display: grid; place-items: center; font-size: 1.8rem; }
+.onb-ico svg { width: 32px; height: 32px; }
+.onb-puntos { display: flex; gap: 6px; }
+.onb-puntos i { width: 8px; height: 8px; border-radius: 50%; background: #DFE1E5; }
+.onb-puntos i.on { background: #D02013; width: 22px; border-radius: 4px; }

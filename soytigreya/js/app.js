@@ -183,7 +183,7 @@ function render() {
   if (!perf) {
     if (S.sheet && S.sheet !== 'pagando') S.sheet = null;
     app.className = 'shell landing';
-    app.innerHTML = vPerfiles() + tourCard() + sheet();
+    app.innerHTML = (S.metodo ? vMetodo() : vPerfiles()) + tourCard() + sheet();
     after(); save(); return;
   }
   S.rol = perf.vista === 'vecino' ? 'vecino' : perf.vista === 'comercio' ? 'comercio' : 'municipio';
@@ -198,7 +198,7 @@ function render() {
 function perfilActual() { return PERFILES.find((x) => x.id === S.perfil) || null; }
 
 function avatarHtml(perf, cls = '') {
-  return `<span class="avatar-p ${cls}" style="background:${perf.color}">${perf.avatar}</span>`;
+  return `<span class="avatar-p ${cls}" style="background:${perf.color}">${perf.nombre[0]}</span>`;
 }
 
 function topbar(perf) {
@@ -235,6 +235,7 @@ function vPerfiles() {
         <span class="perfil-entra">🔐 ${p.entra}</span>
       </button>`).join('')}</div>
     <div class="qr-entrada"><div class="qr" data-qr="https://mila-ops-ia.github.io/soytigreya"></div><div><b>📱 Abrila en tu celu</b><span class="muted">Escaneá el código o entrá a mila-ops-ia.github.io/soytigreya</span></div></div>
+    <button class="btn claro metodo-btn" data-a="metodo">📋 Cómo lo diseñamos: la Diplomatura dentro de la app</button>
     <p class="muted chico centro">Prototipo académico de demostración: no se conecta con Mi Argentina ni con sistemas del municipio.<br>
       <button class="link" data-a="reiniciar">↺ Reiniciar los datos de la demo</button></p>
   </main>`;
@@ -270,6 +271,8 @@ function vInicio() {
   <input class="buscar" type="search" placeholder="🔎 Buscá comercios, beneficios o trámites" value="${esc(S.busca)}" data-f="busca">
   <div id="resBusca">${resultadosBusca()}</div>
   <div class="dash"><div class="dcol">
+  ${bannerFlash()}
+  ${encuestaNps()}
   ${puntosMini()}
   <div class="card ahorro">
     <p>Este mes ahorraste con tu tarjeta ${MARCA.tarjeta}</p>
@@ -397,10 +400,11 @@ function totalesCarrito() {
     return { pid, nombre: p.nombre, precio: p.precio, qty, emoji: p.emoji };
   });
   const subtotal = items.reduce((a, it) => a + it.precio * it.qty, 0);
-  const descuento = Math.round(subtotal * c.desc / 100);
+  const extra = flashActiva(c) ? c.flash.extra : 0;
+  const descuento = Math.round(subtotal * (c.desc + extra) / 100);
   const hayCupon = S.puntos.cupones.some((x) => x.tipo === 'cupon');
   const cupon = hayCupon && !S.noUsarCupon ? Math.min(2000, subtotal - descuento) : 0;
-  return { c, items, subtotal, descuento, hayCupon, cupon, total: subtotal - descuento - cupon, unidades: items.reduce((a, it) => a + it.qty, 0) };
+  return { c, extra, items, subtotal, descuento, hayCupon, cupon, total: subtotal - descuento - cupon, unidades: items.reduce((a, it) => a + it.qty, 0) };
 }
 
 // ---------- Puntos Tigre ----------
@@ -426,6 +430,7 @@ function sPuntos() {
   <h2>Canjeá tus puntos</h2>
   <div class="lista">${CANJES.map((c) => { const ok = p.saldo >= c.costo; const pend = c.id === 'tasa' && p.descTasa; return `<div class="fila canje"><span class="ico">${c.emoji}</span><div><b>${c.txt}</b><p class="muted">${c.detalle}</p></div><button class="btn mini-btn" data-a="canjear" data-v="${c.id}" ${ok && !pend ? '' : 'disabled'}>${pend ? 'Pendiente' : `⭐ ${c.costo}`}</button></div>`; }).join('')}</div>
   ${p.cupones.length ? `<h2>Mis cupones</h2><div class="lista">${p.cupones.map((c) => `<div class="fila"><span class="ico">🎟️</span><div><b>${esc(c.txt)}</b><p class="muted">Código ${c.codigo}</p></div></div>`).join('')}</div>` : ''}
+  <div class="card referidos"><b>🤝 Invitá a un vecino</b><span class="muted">Cuando se registra con tu código, sumás 50 puntos cada uno.</span><div class="ref-cod"><code>${S.usuario.nro.replace('ST-', 'TIGRE-')}</code><button class="btn mini-btn" data-a="invitar">Compartir</button></div></div>
   <h2>Cómo sumar</h2>
   <div class="lista">${FORMAS_SUMAR.map((f) => `<div class="fila"><span class="ico">${f.emoji}</span><div><b>${f.txt}</b></div><span class="tag-mini">${f.pts}</span></div>`).join('')}</div>
   <button class="btn grande" data-a="sub" data-v="reciclar">♻️ Reciclar ahora y sumar</button>
@@ -765,6 +770,17 @@ function sheet() {
       <label>Número de trámite (está en el frente del DNI)<input id="inTramite" inputmode="numeric" placeholder="00123456789" value="00123456789"></label>
       <label>Sexo<select id="inSexo"><option>F</option><option>M</option><option>X</option></select></label>
       <button class="btn grande" data-a="ingresar" data-v="dni">Validar e ingresar</button></div>`;
+  } else if (s === 'onboarding') {
+    const pasos = [
+      ['🪪', 'Tu credencial Soy Tigre, en el celu', 'Mostrá el QR en la caja de cualquier comercio adherido. Cambia cada 30 segundos para que nadie la copie.'],
+      ['🛍️', 'Comprá en el barrio, sin comisión', 'Pedí para retirar: el descuento se aplica solo y el comercio cobra el 100% de la venta.'],
+      ['⭐', 'Sumá Puntos Tigre', 'Comprando en el barrio, pagando a tiempo o reciclando. Los canjeás por descuentos y saldo.'],
+    ];
+    const i = S.onbPaso || 0, pa = pasos[i];
+    html = `<div class="onb"><span class="onb-ico">${pa[0]}</span><h2>${pa[1]}</h2><p class="muted">${pa[2]}</p>
+      <div class="onb-puntos">${pasos.map((_, k) => `<i class="${k === i ? 'on' : ''}"></i>`).join('')}</div>
+      <button class="btn grande" data-a="onbSig">${i < pasos.length - 1 ? 'Siguiente' : 'Empezar'}</button>
+      ${i < pasos.length - 1 ? '<button class="link" data-a="onbFin">Saltear</button>' : ''}</div>`;
   } else if (s === 'perfil') {
     const perf = perfilActual();
     html = `<div class="perfil-hoja">${avatarHtml(perf, 'grande')}<h2>${perf.nombre}</h2><p class="muted">${perf.rol}</p><p>${perf.hace}</p><p class="muted chico">🔐 ${perf.entra}</p>
@@ -901,7 +917,7 @@ function pcPedidos(c) {
   };
   const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
   const entregadosHoy = ped.filter((p) => p.estado === 'retirado' && p.creado >= hoy.getTime()).length;
-  return `<div class="kanban">${col('recibido', '🆕 Nuevos')}${col('preparacion', '👩‍🍳 En preparación')}${col('listo', '✅ Listos para retirar')}</div>
+  return `<div class="kanban">${col('recibido', '🆕 Nuevos')}${col('preparacion', '👩‍🍳 En preparación · máx. 5')}${col('listo', '✅ Listos para retirar')}</div>
   <p class="muted">Entregados hoy: ${entregadosHoy}. Los pedidos nuevos llegan cuando un vecino compra desde la app. Sin comisión por venta.</p>`;
 }
 
@@ -932,6 +948,7 @@ function pcProductos(c) {
       <label class="precio-input">$<input type="number" min="0" step="100" value="${p.precio}" data-f="precio" data-v="${p.id}"></label>
       <button class="switch ${p.disponible ? 'on' : ''}" data-a="toggleProd" data-v="${p.id}">${p.disponible ? 'Disponible' : 'Agotado'}</button>
     </div>`).join('')}</div>
+  <div class="card flash-panel">${flashActiva(c) ? `<b>⏱ Oferta flash activa: ${c.desc + c.flash.extra}% de descuento</b><span class="muted">Termina en ${restaFlash(c)}. Los vecinos la ven en el inicio.</span><button class="link rojo" data-a="finFlash">Terminar oferta</button>` : `<b>Oferta flash</b><span class="muted">Sumá 15% extra durante 2 horas para mover la venta en horario bajo. Es una táctica de growth hacking: escasez y descuento.</span><button class="btn" data-a="flash">Lanzar oferta flash</button>`}</div>
   <h2>Agregar producto</h2>
   <div class="card form fila-form">
     <label class="angosto">Ícono<input id="npEmoji" value="🍽️" maxlength="2"></label>
@@ -1016,6 +1033,8 @@ function vEconomia() {
     ${kpi('Pagos hechos por la app', (1840 + S.pagosApp).toLocaleString('es-AR'), '', 'tasas, multas y estacionamiento')}
   </div>
   <div class="dos">
+    <div class="card"><h3>Embudo del producto (AARRR)</h3>${embudo()}</div>
+    <div class="card"><h3>Objetivos SMART del piloto</h3>${objetivosSmart()}</div>
     <div class="card"><h3>Consumo por localidad</h3>
       ${porLoc.map((x) => `<div class="hbar"><span class="hbar-t">${x.l}<small>${x.n} comercios</small></span><div class="hbar-b"><i style="width:${(x.v / maxLoc) * 100}%;opacity:${0.35 + 0.65 * (x.v / maxLoc)}"></i></div><b>${plata(x.v)}</b></div>`).join('')}
     </div>
@@ -1077,7 +1096,51 @@ function initMaps() {
 
 // ---------- después de pintar ----------
 let timerId = null;
+// ---------- íconos: los emojis del contenido pasan a íconos de línea (Lucide) ----------
+const EMOJI_ICONO = {
+  '🏠': 'house', '🎁': 'gift', '🛍️': 'shopping-bag', '🛍': 'shopping-bag', '🏛️': 'landmark', '🏛': 'landmark', '🪪': 'id-card', '🔔': 'bell', '🆘': 'siren',
+  '🔎': 'search', '⭐': 'star', '🌊': 'waves', '🚌': 'bus', '💊': 'pill', '🚗': 'car', '🧾': 'receipt', '📣': 'megaphone', '📅': 'calendar',
+  '📍': 'map-pin', '📷': 'camera', '🥡': 'utensils', '🛒': 'shopping-basket', '💳': 'credit-card', '♻️': 'recycle', '♻': 'recycle', '🎟️': 'ticket', '🎟': 'ticket',
+  '🏆': 'trophy', '🐯': 'paw-print', '🍔': 'utensils', '🥬': 'carrot', '🐾': 'paw-print', '📚': 'book-open', '👕': 'shirt', '🩺': 'stethoscope',
+  '🚤': 'sailboat', '🏋️': 'dumbbell', '🏋': 'dumbbell', '🎓': 'graduation-cap', '🔧': 'wrench', '💡': 'lightbulb', '🚧': 'construction', '🌳': 'trees',
+  '🗑️': 'trash-2', '🗑': 'trash-2', '🚦': 'traffic-cone', '🌧️': 'cloud-rain', '🌧': 'cloud-rain', '💧': 'droplet', '🎪': 'tent', '🎶': 'music', '🎨': 'palette',
+  '🏃': 'footprints', '🚔': 'shield-alert', '🚑': 'ambulance', '🔥': 'flame', '💜': 'heart-handshake', '📦': 'package', '📈': 'chart-line', '🆕': 'inbox',
+  '👩‍🍳': 'chef-hat', '✅': 'circle-check', '💙': 'wallet', '🟢': 'wallet', '💵': 'banknote', '🔄': 'refresh-cw', '🔐': 'lock', '🙋': 'user',
+  '🥩': 'beef', '🍝': 'soup', '☕': 'coffee', '🍣': 'fish', '🍕': 'pizza', '🍗': 'drumstick', '🌭': 'sandwich', '🧀': 'egg-fried', '🥗': 'salad',
+  '🥤': 'cup-soda', '🥔': 'carrot', '🍲': 'soup', '🍰': 'cake-slice', '🥪': 'sandwich', '🍌': 'banana', '🍋': 'citrus', '🥟': 'croissant', '🧅': 'pizza',
+  '🥧': 'cookie', '🥛': 'milk', '🧉': 'coffee', '🫗': 'droplets', '🥖': 'croissant', '🍅': 'apple', '🧺': 'shopping-basket',
+  '🐕': 'dog', '🐈': 'cat', '🪨': 'package', '📓': 'notebook', '✏️': 'pencil', '✏': 'pencil', '📄': 'file-text', '🧴': 'spray-can', '🧼': 'hand', '👶': 'baby',
+  '🧥': 'shirt', '🧦': 'footprints', '🍽️': 'utensils', '🍽': 'utensils', '🚨': 'triangle-alert', '🍦': 'ice-cream-cone', '🍺': 'beer', '🥐': 'croissant',
+  '👓': 'glasses', '🏝️': 'palmtree', '🏝': 'palmtree', '👟': 'footprints', '🎉': 'party-popper', '⚠️': 'triangle-alert', '⚠': 'triangle-alert',
+  '👩‍💼': 'user', '👨‍💼': 'user', '🛠️': 'wrench', '🛠': 'wrench', '📋': 'list', '🗺️': 'map', '🗺': 'map', '✨': 'layout-grid', '📱': 'smartphone',
+  '👋': '', '🙈': '', '🐶': 'dog', '🎮': 'gamepad-2', '⏱': 'timer', '🔠': 'type', '🏪': 'store', '📊': 'chart-column', '🤝': 'handshake',
+};
+const RE_EMOJI = /(?:\p{Extended_Pictographic}|\p{Regional_Indicator})(?:️|\p{Emoji_Modifier})?(?:‍(?:\p{Extended_Pictographic})(?:️|\p{Emoji_Modifier})?)*/gu;
+const sinEmoji = (t) => String(t).replace(RE_EMOJI, '').replace(/️/g, '').replace(/^\s+/, '');
+function iconizar(raiz) {
+  const tw = document.createTreeWalker(raiz, NodeFilter.SHOW_TEXT);
+  const nodos = [];
+  while (tw.nextNode()) { if (RE_EMOJI.test(tw.currentNode.nodeValue)) nodos.push(tw.currentNode); RE_EMOJI.lastIndex = 0; }
+  nodos.forEach((n) => {
+    if (n.parentNode && /^(OPTION|TEXTAREA|SCRIPT|STYLE)$/.test(n.parentNode.nodeName)) { n.nodeValue = sinEmoji(n.nodeValue); return; }
+    const frag = document.createDocumentFragment();
+    let ult = 0; const v = n.nodeValue;
+    v.replace(RE_EMOJI, (m, i) => {
+      frag.appendChild(document.createTextNode(v.slice(ult, i)));
+      const base = m.replace(/[\u{1F3FB}-\u{1F3FF}]/gu, '');
+      const nombre = EMOJI_ICONO[base] ?? EMOJI_ICONO[base.replace(/️/g, '')];
+      if (nombre) { const el = document.createElement('i'); el.setAttribute('data-lucide', nombre); el.className = 'ic'; frag.appendChild(el); }
+      ult = i + m.length; return m;
+    });
+    frag.appendChild(document.createTextNode(v.slice(ult).replace(/^\s{2,}/, ' ')));
+    n.parentNode.replaceChild(frag, n);
+  });
+  raiz.querySelectorAll('[placeholder]').forEach((el) => { el.placeholder = sinEmoji(el.placeholder); });
+  if (window.lucide) lucide.createIcons({ attrs: { 'stroke-width': 1.8 } });
+}
+
 function after() {
+  iconizar(document.getElementById('app'));
   document.querySelectorAll('[data-qr]').forEach((el) => {
     const txt = el.dataset.qr === 'token' ? tokenCredencial() : el.dataset.qr;
     el.innerHTML = qrSvg(txt);
@@ -1126,7 +1189,7 @@ let toastId = null;
 function toast(txt) {
   let t = $('#toast');
   if (!t) { t = document.createElement('div'); t.id = 'toast'; document.body.appendChild(t); }
-  t.textContent = txt; t.className = 'show';
+  t.textContent = sinEmoji(txt); t.className = 'show';
   clearTimeout(toastId); toastId = setTimeout(() => { t.className = ''; }, 3200);
 }
 
@@ -1160,7 +1223,7 @@ function crearPedido(t, retiro) {
   const p = armarPedido({
     id: 'P' + (Math.max(...S.pedidos.map((x) => Number(x.id.slice(1)))) + 1), cid: t.c.id,
     items: t.items.map(({ pid, nombre, precio, qty }) => ({ pid, nombre, precio, qty })),
-    desc: t.c.desc, pago: S.pago, creado: Date.now(), estado: 'recibido', mio: true, loc: t.c.loc, retiro: `a las ${retiro}`,
+    desc: t.c.desc + (t.extra || 0), pago: S.pago, creado: Date.now(), estado: 'recibido', mio: true, loc: t.c.loc, retiro: `a las ${retiro}`,
   });
   if (t.cupon) { p.cupon = t.cupon; p.total -= t.cupon; S.puntos.cupones.splice(S.puntos.cupones.findIndex((c) => c.tipo === 'cupon'), 1); }
   S.pedidos.push(p);
@@ -1168,6 +1231,106 @@ function crearPedido(t, retiro) {
   S.carrito = null; S.sheet = null; S.abierto = null; S.tab = 'comprar'; S.comprarTab = 'pedidos';
   if (!S.tour) setTimeout(() => toast(`✅ Pedido enviado. Ahorraste ${plata(p.descuento + (p.cupon || 0))} y sumaste ⭐ ${pts} puntos.`), 100);
   return p;
+}
+
+// ---------- contenidos de la Diplomatura en la app ----------
+function flashActiva(c) { return !!(c && c.flash && c.flash.hasta > Date.now()); }
+function restaFlash(c) { const m = Math.max(0, Math.round((c.flash.hasta - Date.now()) / 60000)); return `${Math.floor(m / 60)} h ${m % 60} min`; }
+function bannerFlash() {
+  const c = S.comercios.find(flashActiva);
+  if (!c) return '';
+  return `<button class="card flash" data-a="abrir" data-v="${c.id}"><span class="flash-tag">Oferta flash</span><b>${esc(c.nombre)}: ${c.desc + c.flash.extra}% de descuento</b><span class="muted">Solo por ${restaFlash(c)} · pedí para retirar</span></button>`;
+}
+function encuestaNps() {
+  if (!S.npsPendiente) return '';
+  return `<div class="card nps"><div class="nps-cab"><b>¿Qué tan probable es que recomiendes SoyTigreYa a un vecino?</b><button class="cerrar-nps" data-a="npsCerrar" aria-label="Cerrar">✕</button></div>
+    <div class="nps-escala">${Array.from({ length: 11 }, (_, k) => `<button data-a="nps" data-v="${k}">${k}</button>`).join('')}</div>
+    <div class="nps-ref"><span>Nada probable</span><span>Muy probable</span></div></div>`;
+}
+function npsActual() {
+  const base = [];
+  for (let k = 0; k < 60; k++) base.push(k < 31 ? 9 + (k % 2) : k < 49 ? 7 + (k % 2) : 3 + (k % 4));
+  const todas = [...base, ...(S.encuestas || []).map((e) => e.nota)];
+  const pro = todas.filter((n) => n >= 9).length, det = todas.filter((n) => n <= 6).length;
+  return { nps: Math.round(((pro - det) / todas.length) * 100), n: todas.length };
+}
+function embudo() {
+  const activos = 1410 + S.pedidos.filter((p) => p.mio && p.creado > Date.now() - 864e5).length;
+  const pasos = [
+    ['Adquisición', 'Vecinos registrados', 3240],
+    ['Activación', 'Hicieron su primer pedido', activos],
+    ['Retención', 'Volvieron a pedir en 30 días', 820],
+    ['Referidos', 'Llegaron invitados por otro vecino', 260],
+    ['Ingresos', 'Compraron 3 veces o más', 410],
+  ];
+  return pasos.map(([n, d, v], i) => `<div class="emb" style="--w:${Math.max(22, (v / pasos[0][2]) * 100)}%"><div class="emb-bar"><b>${n}</b><span>${v.toLocaleString('es-AR')}</span></div><small class="muted">${d}${i ? ` · ${Math.round((v / pasos[0][2]) * 100)}% de los registrados` : ''}</small></div>`).join('') + '<p class="muted chico">Datos de demostración. Modelo AARRR de growth hacking.</p>';
+}
+function objetivosSmart() {
+  const n = npsActual();
+  const obj = [
+    ['40 comercios con catálogo activo al cierre del piloto (semana 12)', S.comercios.length, 40],
+    ['2.000 vecinos con al menos un pedido en 12 semanas', 1410, 2000],
+    [`NPS de 40 o más (hoy ${n.nps}, sobre ${n.n} respuestas)`, Math.max(0, n.nps), 40],
+    ['95% de pedidos entregados sin incidencias', 97, 95],
+  ];
+  return obj.map(([t, v, m]) => { const pct = Math.min(100, Math.round((v / m) * 100)); return `<div class="smart"><div class="linea"><span>${t}</span><b class="${pct >= 100 ? 'verde' : ''}">${pct}%</b></div><div class="barra-nivel"><i style="width:${pct}%"></i></div></div>`; }).join('');
+}
+
+const METODO = [
+  { id: 'm1', mod: 'Módulo 1', titulo: 'Transformación digital', items: [
+    ['Digitalización vs. transformación digital', 'No se pasó la tarjeta a una app: se reorganizó la relación entre vecino, comercio y municipio alrededor de datos compartidos.', 'Perfiles de Marina y Carlos'],
+    ['Research e hipótesis de oportunidad', 'Problema: los comercios pierden 20–30% en comisiones y el vecino tiene todo disperso. Hipótesis: un canal municipal sin comisión.', 'Pantalla de entrada'],
+    ['Empatizar y modelos mentales', 'Lucía, Rosa, Carlos y Marina son proto-personas: cada una ve solo lo que necesita.', 'Los 4 perfiles'],
+    ['Ética digital y cumplimiento', 'Ley 25.326, datos agregados, consentimiento y banda de "prototipo no oficial".', 'Banda superior'],
+    ['Ciclo de vida y adopción', 'Piloto con early adopters (40 comercios) antes de escalar a todo el distrito.', 'Objetivos SMART de Marina'],
+    ['Sobreexpectación (curva de Gartner)', 'Tigri funciona con reglas: la IA llega en la etapa 3, cuando haya datos y casos claros.', 'Chat con Tigri'],
+  ] },
+  { id: 'm2', mod: 'Módulo 2', titulo: 'Metodologías ágiles', items: [
+    ['Manifiesto ágil e iteración', 'Prototipo construido en iteraciones cortas, con cambios después de cada revisión.', 'Toda la app'],
+    ['Kanban con límite WIP', 'Rosa ve sus pedidos en columnas: nuevos, en preparación (máximo 5) y listos.', 'Panel de Rosa'],
+    ['Persona y propuesta de valor', 'Para el vecino: ahorrar y resolver todo en una app. Para el comercio: vender sin comisión.', 'Inicio de Lucía'],
+    ['Ideación (brainstorming, 6-3-5)', 'De las ideas a la priorización: takeaway primero, delivery después.', 'Comprar en el barrio'],
+    ['Prototipar y testear', 'Prototipo de alta fidelidad navegable, listo para pruebas con usuarios.', 'Recorrido guiado'],
+    ['Lean Canvas y estructura de costos', 'Comisión 0%, costos de equipo e infraestructura; ingresos por plan piloto y licencia.', 'Presentación y trabajo'],
+  ] },
+  { id: 'm3', mod: 'Módulo 3', titulo: 'Innovación y diseño', items: [
+    ['Doble diamante', 'Espacio del problema (empatizar, definir) y de la solución (idear, prototipar, testear).', 'Cómo lo diseñamos'],
+    ['POV', 'Lucía, vecina de Tigre Centro, necesita resolver compras y trámites desde el celu porque hoy está todo disperso y no ve su ahorro.', 'Inicio de Lucía'],
+    ['SCAMPER', 'Sustituir el cupón de papel por QR, Combinar beneficios y compras, Eliminar la comisión.', 'Credencial y compras'],
+    ['MVP e historias de usuario', '"Como vecina quiero pedir para retirar con mi descuento para ahorrar sin perder tiempo."', 'Compra con retiro'],
+    ['Deseabilidad, factibilidad, viabilidad', 'El vecino lo quiere, se puede construir con tecnología abierta y se sostiene sin comisión.', 'Planes del piloto'],
+    ['Medir: SMART, KPIs y ROI', 'Embudo de producto, objetivos SMART y retorno en comisiones que quedan en Tigre.', 'Panel de Marina'],
+  ] },
+  { id: 'm4', mod: 'Módulo 4', titulo: 'UX/UI', items: [
+    ['Onboarding', 'Tres pantallas la primera vez que entra Lucía: credencial, compras y puntos.', 'Entrar como Lucía'],
+    ['Visibilidad del estado (Nielsen)', 'El pedido muestra en qué paso está; el reclamo, su línea de tiempo.', 'Mis pedidos y reclamos'],
+    ['Prevención de errores', 'Confirmaciones antes de rechazar, cancelar o canjear; validación del código de retiro.', 'Panel de Rosa'],
+    ['Accesibilidad (POUR)', 'Modo de letra grande y alto contraste; textos claros; íconos con texto.', 'Credencial › Mis datos'],
+    ['Ley de Hick y arquitectura de la información', 'Cinco secciones fijas en la barra de abajo y accesos directos agrupados.', 'Barra inferior'],
+    ['Pruebas de usabilidad', 'Plan: 5 usuarios por perfil, think aloud y tareas del recorrido guiado.', 'Recorrido guiado'],
+  ] },
+  { id: 'm5', mod: 'Módulo 5', titulo: 'Gestión de productos', items: [
+    ['Product Vision Board', 'Visión: que el ahorro y la venta se queden en Tigre. Grupo: vecinos y comercios. Necesidad: comprar y resolver sin intermediarios.', 'Presentación'],
+    ['Explore / Exploit', 'Explore: delivery y Tigri con IA. Exploit: takeaway, beneficios y trámites que ya funcionan.', 'Roadmap'],
+    ['Product-Market Fit', 'Se mide con retención, NPS y uso recurrente en el piloto.', 'Encuesta NPS y embudo'],
+    ['Growth hacking: gamificación', 'Puntos Tigre con niveles y canjes.', 'Puntos Tigre'],
+    ['Growth hacking: escasez y descuentos', 'Ofertas flash de 2 horas que lanza el comercio.', 'Panel de Rosa › Productos'],
+    ['Growth hacking: referidos', 'Invitá a un vecino y suman 50 puntos cada uno.', 'Puntos Tigre'],
+  ] },
+];
+
+function vMetodo() {
+  const m = METODO.find((x) => x.id === S.metodoTab) || METODO[0];
+  return `<main class="main metodo">
+    <button class="volver" data-a="cerrarMetodo">‹ Volver</button>
+    <h1 class="titulo">Cómo lo diseñamos</h1>
+    <p class="muted sub">Cada contenido de la Diplomatura en Negocios Digitales e Innovación, y dónde se ve dentro de la app.</p>
+    <div class="diamante"><div><b>Espacio del problema</b><span>Empatizar · Definir</span></div><div><b>Espacio de la solución</b><span>Idear · Prototipar · Testear</span></div></div>
+    <div class="seg metodo-tabs">${METODO.map((x) => `<button class="${x.id === m.id ? 'on' : ''}" data-a="metodoTab" data-v="${x.id}">${x.mod.replace('Módulo ', 'M')}</button>`).join('')}</div>
+    <h2>${m.mod} · ${m.titulo}</h2>
+    <div class="lista">${m.items.map(([t, d, d2]) => `<div class="fila metodo-item"><div><b>${t}</b><p class="muted">${d}</p><span class="tag-mini app">Dónde verlo: ${d2}</span></div></div>`).join('')}</div>
+    <button class="btn grande" data-a="tourIniciar">▶ Verlo en el recorrido guiado</button>
+  </main>`;
 }
 
 // ---------- recorrido guiado ----------
@@ -1185,7 +1348,7 @@ const TOUR = [
     prep() { S.tab = 'comprar'; S.comprarTab = 'pedidos'; S.sheet = 'notifs'; S.notifs.forEach((n) => { n.leida = true; }); } },
   { perfil: 'rosa', titulo: 'Rosa entrega con el código', texto: 'Rosa valida el código de Lucía y entrega el pedido. La venta queda registrada sin intermediarios.',
     prep() { S.panelTab = 'pedidos'; },
-    accion() { const p = S.pedidos.find((x) => x.id === S.tour.pedido); if (p && p.estado !== 'retirado') { p.estado = 'retirado'; notificar(p, 'Retiraste tu pedido. ¡Gracias por comprar en el barrio!', '🎉'); } } },
+    accion() { const p = S.pedidos.find((x) => x.id === S.tour.pedido); if (p && p.estado !== 'retirado') { p.estado = 'retirado'; S.npsPendiente = p.id; notificar(p, 'Retiraste tu pedido. ¡Gracias por comprar en el barrio!', '🎉'); } } },
   { perfil: 'lucia', titulo: 'Lucía reporta un bache', texto: 'Volviendo a casa ve un pozo. Lo reporta con la dirección y el lugar exacto en el mapa (también puede sumar una foto).',
     prep() { S.tab = 'servicios'; S.servTab = 'reclamos'; S.sheet = null; S.recForm = { tipo: 'bacheo', loc: 'Tigre Centro', dir: 'Mitre 120', texto: 'Pozo grande en la esquina, ya se cayó una moto.', foto: null, pos: null }; },
     accion() { ACT.enviarReclamo(); S.tour.reclamo = S.reclamos[S.reclamos.length - 1].id; } },
@@ -1230,9 +1393,25 @@ const ACT = {
   perfil(v) {
     S.perfil = v; S.sheet = null; S.sub = null; S.abierto = null; S.tab = 'inicio'; S.panelTab = 'pedidos';
     if (v === 'lucia' && !S.chat.length) S.chat.push({ de: 'tg', html: saludo(), acciones: [] });
+    if (v === 'lucia' && !S.onboard && !S.tour) { S.sheet = 'onboarding'; S.onbPaso = 0; }
     const msg = mientrasTanto(v) || `👋 Entraste como ${PERFILES.find((x) => x.id === v).nombre}.`;
     setTimeout(() => toast(msg), 150);
     window.scrollTo(0, 0);
+  },
+  metodo() { S.metodo = true; S.metodoTab = S.metodoTab || 'm1'; window.scrollTo(0, 0); },
+  metodoTab(v) { S.metodoTab = v; },
+  cerrarMetodo() { S.metodo = false; window.scrollTo(0, 0); },
+  onbSig() { if ((S.onbPaso || 0) >= 2) { S.onboard = true; S.sheet = null; } else S.onbPaso = (S.onbPaso || 0) + 1; },
+  onbFin() { S.onboard = true; S.sheet = null; },
+  nps(v) { S.encuestas = S.encuestas || []; S.encuestas.push({ nota: Number(v), t: Date.now() }); S.npsPendiente = null; sumarPuntos(20, 'Respondiste la encuesta', '⭐'); toast('Gracias. Tu opinión mejora la app y sumaste 20 puntos.'); },
+  npsCerrar() { S.npsPendiente = null; },
+  flash() { const c = comercio(S.panelCid); c.flash = { extra: 15, hasta: Date.now() + 2 * 36e5 }; toast('Oferta flash lanzada por 2 horas.'); },
+  finFlash() { const c = comercio(S.panelCid); c.flash = null; },
+  invitar() {
+    const txt = `Sumate a SoyTigreYa con mi código ${S.usuario.nro.replace('ST-', 'TIGRE-')}: https://mila-ops-ia.github.io/soytigreya`;
+    if (navigator.share) navigator.share({ title: 'SoyTigreYa', text: txt }).catch(() => {});
+    else if (navigator.clipboard) navigator.clipboard.writeText(txt).then(() => toast('Invitación copiada.')).catch(() => {});
+    return false;
   },
   cambiarPerfil() { S.perfil = null; S.tour = null; S.sheet = null; S.sub = null; window.scrollTo(0, 0); },
   tourIniciar() { S.tour = { paso: 0 }; irPaso(0); },
@@ -1388,6 +1567,7 @@ const ACT = {
     if (cod !== p.codigo) { toast('❌ El código no coincide. Pedíselo al vecino.'); return false; }
     p.estado = 'retirado';
     notificar(p, 'Retiraste tu pedido. ¡Gracias por comprar en el barrio!', '🎉');
+    if (p.mio) S.npsPendiente = p.id;
     toast('✅ Pedido entregado.');
   },
   toggleProd(pid) { const p = comercio(S.panelCid).productos.find((x) => x.id === pid); p.disponible = !p.disponible; },
@@ -1482,6 +1662,14 @@ document.addEventListener('change', (e) => {
 });
 
 render();
+
+// Enlaces directos: ?perfil=lucia|rosa|carlos|marina y ?tour=1 (los usa la presentación)
+(() => {
+  const q = new URLSearchParams(location.search);
+  const perf = q.get('perfil');
+  if (perf && PERFILES.some((x) => x.id === perf)) { S.perfil = perf; S.onboard = true; S.sheet = null; render(); }
+  if (q.get('tour') === '1') { ACT.tourIniciar(); render(); }
+})();
 
 // Instalable en el celu (solo en https, por ejemplo en GitHub Pages).
 if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});

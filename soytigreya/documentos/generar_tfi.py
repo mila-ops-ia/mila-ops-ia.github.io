@@ -157,7 +157,7 @@ viñetas([
     ('Panel del comercio: ', 'pedidos en tres columnas (nuevos, en preparación, listos), carga de productos y precios, porcentaje de descuento y un resumen con las ventas y la comisión que se ahorró.'),
     ('Paneles del municipio: ', 'Atención al Vecino gestiona los reclamos en un mapa (con foto y etapas) y los turnos del día; Desarrollo Económico ve las ventas por localidad y rubro, el ahorro de los vecinos y las comisiones que quedaron en el distrito.'),
 ])
-p('Como parte del trabajo desarrollé un prototipo funcional navegable que implementa estos módulos con datos de demostración, de modo que la propuesta se puede recorrer y probar, no solo describir. Está publicado en mila-ops-ia.github.io/soytigreya, se puede instalar en el celular e incluye un recorrido guiado de diez pasos que muestra cómo un pedido y un reclamo pasan por los cuatro perfiles; en el Anexo se incluyen capturas.')
+p('Como parte del trabajo desarrollé un prototipo funcional navegable que implementa estos módulos con datos de demostración, de modo que la propuesta se puede recorrer y probar, no solo describir. Está publicado en mila-ops-ia.github.io/soytigreya, se puede instalar en el celular e incluye un recorrido guiado de diez pasos que muestra cómo un pedido y un reclamo pasan por los cuatro perfiles; en el Anexo B se incluyen capturas.')
 doc.add_heading('Qué valor aporta', 2)
 p('El diferencial no es competir con las grandes plataformas en volumen o publicidad, sino en precio final y en cercanía: como el comercio no paga una comisión del 30%, el mismo plato puede costar menos en SoyTigreYa, y el vecino suma además el descuento de su tarjeta. Para el municipio, la propuesta transforma un programa de descuentos pasivo en una herramienta activa de desarrollo económico, con datos para decidir y un canal directo con la comunidad.')
 
@@ -175,14 +175,16 @@ p('Se contemplan también usuarios secundarios con necesidades particulares, com
 
 # ---------- 5 ----------
 doc.add_heading('5. Aplicación de contenidos de la Diplomatura', 1)
-doc.add_heading('Innovación y transformación digital', 2)
-p('La propuesta combina mejora continua e innovación disruptiva. Por un lado, digitaliza procesos existentes (validar el descuento, pedir un turno, pagar una tasa). Por otro, cambia el modelo de un sector: un actor público ofrece un canal de comercialización sin comisión, algo que altera la lógica de intermediación de las plataformas privadas. La transformación digital no consiste en pasar a una app lo que ya existe, sino en reorganizar la relación entre municipio, comercio y vecino alrededor de datos compartidos.')
-doc.add_heading('Design Thinking y experiencia de usuario (UX/UI)', 2)
-p('Partí de la empatía con los tres actores para definir el problema desde sus necesidades reales y no desde la tecnología. A partir del mapa del recorrido del vecino (customer journey) identifiqué puntos de fricción: no saber dónde usar el beneficio, hacer filas, no tener respuesta a los reclamos. El diseño responde a esos puntos: el descuento se aplica solo, el pedido se sigue en tres pasos, el reclamo muestra una línea de tiempo y la asistente Tigri traduce lenguaje cotidiano en acciones. Se incorporaron criterios de accesibilidad, como el modo de letra grande y alto contraste, y elementos de gamificación (puntos, niveles y canjes) para motivar conductas deseadas y aumentar la retención.')
-doc.add_heading('Lean Startup y metodologías ágiles', 2)
-p('El prototipo funcional es un producto mínimo viable (MVP) pensado para validar hipótesis con el menor costo posible antes de invertir en desarrollo completo. El roadmap se organiza en etapas incrementales y el trabajo se plantea en sprints de dos semanas, con revisión frecuente junto a comercios y vecinos. Las metas se formulan con el criterio SMART; por ejemplo: "lograr que 40 comercios de Tigre Centro publiquen su catálogo y que 2.000 vecinos hagan al menos un pedido en los primeros tres meses del piloto".')
-doc.add_heading('Comercio electrónico, gestión de producto y monetización', 2)
-p('SoyTigreYa es un marketplace de cercanía con pasarelas de pago locales y modalidad takeaway para resolver el problema logístico del delivery. Como producto digital, se gestiona con indicadores (KPIs): adopción, retención, satisfacción y eficiencia operativa. En cuanto a monetización, el modelo no busca rentabilidad comercial sino sostenibilidad: un esquema freemium para comercios (uso básico gratuito y servicios destacados opcionales), publicidad local optativa y el ahorro de costos operativos del municipio por la digitalización de trámites, sobre una infraestructura en la nube sin servidores propios (serverless) que escala con el uso. Los Puntos Tigre se financian de forma compartida: los cupones los aporta el comercio, que gana clientes, y el descuento en tasas lo absorbe el municipio, que a cambio mejora el cobro en término.')
+p('Todos los módulos se aplicaron en la propuesta y se pueden ver en el prototipo: la pantalla "Cómo lo diseñamos" muestra, contenido por contenido, dónde aparece cada uno. La propuesta combina mejora continua (digitalizar procesos existentes) e innovación disruptiva (un canal público sin comisión que cambia la lógica de intermediación de las plataformas).')
+tabla([
+    ['Módulo', 'Contenidos aplicados', 'Cómo se aplican en SoyTigreYa'],
+    ['1 · Transformación digital', 'Digitalización vs. transformación; research e hipótesis de oportunidad; ética digital; sobreexpectación; adopción y gestión del cambio', 'No se digitaliza la tarjeta: se reorganiza la relación vecino–comercio–municipio con datos compartidos. Hipótesis: un canal municipal sin comisión. Ley 25.326 y aviso de prototipo. Tigri funciona con reglas antes que con IA. Piloto con early adopters antes de escalar.'],
+    ['2 · Metodologías ágiles', 'Manifiesto ágil, Scrum, Kanban y Lean; Design Thinking; persona y propuesta de valor; ideación; prototipado y testeo; Lean Canvas', 'Sprints de dos semanas; Kanban de pedidos con límite de trabajo en curso en el panel del comercio; cuatro proto-personas; brainstorming y 6-3-5 para priorizar el retiro en el local antes que el delivery; Lean Canvas (Anexo A).'],
+    ['3 · Innovación', 'Doble diamante; deseabilidad, factibilidad y viabilidad; POV; SCAMPER; MVP e historias de usuario; financiamiento por tramos; SMART, KPIs y ROI; explore/exploit', 'POV de Lucía; SCAMPER: QR en lugar del cupón de papel, combinar beneficios y compras, eliminar la comisión. MVP por incrementos con tramos que se liberan si se valida la hipótesis. Objetivos SMART y ROI en el panel de Desarrollo Económico.'],
+    ['4 · UX/UI', 'Diseño centrado en las personas; heurísticas de Nielsen; onboarding; accesibilidad POUR; leyes de Hick y Fitts; arquitectura de la información; pruebas de usabilidad', 'Onboarding de tres pantallas; estado visible del pedido y del reclamo; prevención de errores con confirmaciones y validación del código; modo de letra grande; cinco secciones fijas y botones amplios; plan de prueba con 5 usuarios por perfil (Anexo A).'],
+    ['5 · Gestión de productos', 'Product Vision Board; Product-Market Fit; growth hacking: gamificación, escasez y referidos', 'Visión: que el ahorro y la venta se queden en Tigre. PMF medido con retención y NPS, con encuesta dentro de la app. Puntos Tigre, ofertas flash e invitaciones entre vecinos. Embudo AARRR en el panel municipal.'],
+    ['Clase final', 'Pitch, presentación efectiva, KPIs y monetización', 'Presentación interactiva con calculadora de impacto y la app embebida; ingresos por piloto, escalamiento y licencia.'],
+], [3.0, 5.4, 7.6])
 
 # ---------- 6 ----------
 doc.add_heading('6. Plan de implementación', 1)
@@ -197,15 +199,7 @@ viñetas([
     ('Tecnología: ', 'aplicación web progresiva, base de datos en la nube, pasarela de pagos, validación de identidad (Mi Argentina o RENAPER) y servicios de mapas.'),
     ('Comunicación: ', 'campaña para vecinos y comercios aprovechando los canales municipales existentes.'),
 ])
-doc.add_heading('Presupuesto estimado de la Etapa 1', 2)
-tabla([
-    ['Rubro', 'Detalle', 'Costo estimado'],
-    ['Equipo de producto', 'Líder, UX/UI y 2 desarrolladores semi senior durante 3 meses (sueldo de referencia: $2,5 a $4,5 millones brutos por mes)', '$30 a $54 millones'],
-    ['Base de datos en la nube', 'Supabase, plan Pro', 'USD 25 por mes más uso'],
-    ['Hosting y mapas', 'GitHub Pages y OpenStreetMap', 'Sin costo'],
-    ['Pasarela de pagos', 'Mercado Pago: QR con saldo / tarjeta de crédito con acreditación inmediata', '0,6% a 0,8% / hasta 6%, más IVA'],
-    ['Capacitación y difusión', 'Equipos y canales propios del municipio', 'Sin costo adicional'],
-], [3.6, 8.4, 4.0])
+p('Presupuesto estimado de la Etapa 1: equipo de 4 personas durante 3 meses, entre $30 y $54 millones según sueldos de referencia de $2,5 a $4,5 millones brutos por mes; base de datos en la nube desde USD 25 por mes; hosting y mapas sin costo, y pasarela de pagos de 0,6% a 0,8% por operación con QR (detalle en el Lean Canvas, Anexo A).')
 doc.add_heading('Posibles aliados', 2)
 p('Secretaría de Desarrollo Económico del Municipio, cámaras de comercio locales, Mercado Pago y Banco Provincia (Cuenta DNI) como medios de pago, cooperativas de mensajería para el delivery, la Universidad Nacional del Delta para investigación y prácticas, y el área de Modernización para la integración con los sistemas existentes.')
 doc.add_heading('Principales desafíos o riesgos', 2)
@@ -228,7 +222,7 @@ viñetas([
     ('Impacto en la comunidad: ', 'el consumo queda dentro del partido y fortalece el empleo local. La propuesta tiene triple impacto: económico, porque protege el bolsillo del vecino y el margen del comerciante; social, porque conecta a la comunidad; y de gestión, porque posiciona al municipio como referente de innovación.'),
     ('Crecimiento futuro: ', 'asistente con inteligencia artificial, puntos ciudadanos, integración con transporte y turismo del Delta, y un modelo replicable en otros municipios, ya que la marca y las localidades se configuran fácilmente.'),
 ])
-p('Viabilidad económica: mila·ops ofrece un piloto de 3 meses ($55 millones + IVA), el escalamiento ($55 millones) y una licencia con soporte ($6,9 millones por mes). En un escenario conservador, las comisiones que quedan en el distrito rondan los $360 millones por año, 2,4 veces la inversión del primer año (ver la propuesta comercial).')
+p('Viabilidad económica: mila·ops ofrece un piloto de 3 meses ($55 millones + IVA), el escalamiento ($55 millones) y una licencia con soporte ($6,9 millones por mes). En un escenario conservador, las comisiones que quedan en el distrito rondan los $360 millones por año, 2,4 veces la inversión del primer año (ver el Lean Canvas en el Anexo A).')
 p('Para medir el éxito se proponen estos indicadores: vecinos activos por mes, tasa de retención a 90 días, pedidos semanales, comercios activos, ahorro acumulado de los vecinos, comisiones evitadas, tiempo promedio de resolución de reclamos, porcentaje de tasas pagadas en término, puntos sumados y canjeados, y satisfacción de los usuarios (NPS).')
 
 # ---------- 8 ----------
@@ -238,7 +232,57 @@ p('SoyTigreYa muestra que la transformación digital puede ser una herramienta d
 
 # ---------- anexo ----------
 doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
-doc.add_heading('Anexo: capturas del prototipo funcional', 1)
+doc.add_heading('Anexo A: herramientas aplicadas', 1)
+doc.add_heading('Mapa de empatía de Lucía (proto-persona)', 2)
+tabla([
+    ['Piensa y siente', 'Ve'],
+    ['"Quiero apoyar al comercio del barrio, pero me sale más caro y todo está disperso."', 'Promociones que no sabe dónde aplican, varias apps del municipio y filas para trámites.'],
+    ['Oye', 'Dice y hace'],
+    ['"El reclamo de la luz nunca lo resolvieron." "En la app los precios son más altos."', 'Pide comida los viernes, paga la tasa cuando se acuerda y reclama por teléfono.'],
+], [8.0, 8.0])
+p('Punto de vista (POV): Lucía, vecina de Tigre Centro, necesita resolver compras, beneficios y trámites desde el celular porque hoy todo está disperso, paga de más y no ve su ahorro.')
+doc.add_heading('Historias de usuario', 2)
+tabla([
+    ['Historia', 'Criterio de aceptación'],
+    ['Como vecina quiero pedir para retirar con mi descuento para ahorrar sin perder tiempo.', 'El descuento se aplica solo y recibo un código de retiro.'],
+    ['Como dueña de un comercio quiero recibir pedidos ya pagados para vender sin pagar comisión.', 'El pedido aparece en "Nuevos" y avanza a "Listo" en dos toques.'],
+    ['Como agente de Atención al Vecino quiero ver los reclamos en un mapa para asignarlos más rápido.', 'Cada reclamo muestra ubicación, foto y etapa.'],
+    ['Como responsable de Desarrollo Económico quiero medir ventas por localidad para decidir políticas.', 'El tablero muestra ventas, comisiones evitadas y embudo del producto.'],
+], [9.0, 7.0])
+doc.add_heading('Lean Canvas', 2)
+tabla([
+    ['Bloque', 'Contenido'],
+    ['Problema', 'Comisiones de 20% a 30% para los comercios; beneficios, compras y trámites dispersos; el municipio no mide el impacto.'],
+    ['Segmentos', 'Vecinos con tarjeta Soy Tigre y comercios de barrio. Early adopters: gastronomía de Tigre Centro.'],
+    ['Propuesta de valor única', 'Que el ahorro y la venta se queden en Tigre: el vecino paga menos y el comercio cobra el 100%.'],
+    ['Solución', 'App con descuento automático, compra con retiro, trámites, pagos, puntos y paneles de gestión.'],
+    ['Canales', 'App municipal, comercios adheridos, cámaras de comercio y canales del municipio.'],
+    ['Fuentes de ingreso', 'Piloto ($55 M), escalamiento ($55 M) y licencia ($6,9 M por mes), más IVA.'],
+    ['Estructura de costos', 'Equipo de 4 personas; base de datos USD 25 por mes más uso; hosting y mapas sin costo; pasarela 0,6% a 0,8%.'],
+    ['Métricas clave', 'Vecinos activos, retención, NPS, comercios activos y comisiones evitadas.'],
+    ['Ventaja injusta', 'Más de 500 comercios y la tarjeta Soy Tigre ya instalada, con el aval del municipio.'],
+], [4.0, 12.0])
+doc.add_heading('Product Vision Board', 2)
+tabla([
+    ['Visión', 'Grupo objetivo', 'Necesidades', 'Producto', 'Objetivos'],
+    ['Que el ahorro y la venta se queden en Tigre.', 'Vecinos, comercios y áreas del municipio.', 'Comprar y resolver sin intermediarios; vender sin comisión; medir.', 'Super-app con cuatro perfiles conectados.', 'Consumo local, formalización y cobro en término.'],
+], [3.2, 3.2, 3.4, 3.2, 3.0])
+doc.add_heading('Objetivos SMART del piloto y embudo AARRR', 2)
+viñetas([
+    '40 comercios con catálogo activo en Tigre Centro al cierre de la semana 12.',
+    '2.000 vecinos con al menos un pedido en las primeras 12 semanas.',
+    'NPS de 40 o más y 95% de pedidos entregados sin incidencias al cierre del piloto.',
+    'Embudo AARRR: adquisición (registro), activación (primer pedido), retención (repite en 30 días), referidos (invitaciones) e ingresos (tres compras o más).',
+])
+doc.add_heading('Plan de prueba de usabilidad', 2)
+viñetas([
+    'Cinco participantes por perfil, porque cinco usuarios detectan cerca del 85% de los problemas de usabilidad.',
+    'Tareas: pedir para retirar, cargar un reclamo con foto, canjear puntos (vecina); preparar y entregar un pedido (comercio).',
+    'Técnica think aloud, con moderador y observador, consentimiento informado y medición de éxito o fracaso por tarea.',
+    'Revisión complementaria con las 10 heurísticas de Nielsen y los principios de accesibilidad POUR.',
+])
+doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
+doc.add_heading('Anexo B: capturas del prototipo funcional', 1)
 p('Prototipo navegable desarrollado para este trabajo, con datos de demostración. Disponible en mila-ops-ia.github.io/soytigreya.')
 _qr = doc.add_paragraph(); _qr.alignment = WD_ALIGN_PARAGRAPH.CENTER
 _qr.add_run().add_picture(CAPT.rsplit('/', 1)[0] + '/img/qr-soytigreya.png', width=Cm(3))

@@ -2,7 +2,7 @@
 
 **Beneficios Soy Tigre, comercio de barrio y trámites municipales en una sola app.**
 
-Prototipo funcional, propuesto por **mila·ops**, del Trabajo Final Integrador de la **Diplomatura en Negocios Digitales e Innovación** (Universidad Nacional del Delta, 2026). Autora: Milagros Belén Sanabria.
+Prototipo funcional del Trabajo Final Integrador de la **Diplomatura en Negocios Digitales e Innovación** (Universidad Nacional del Delta, 2026). Autora: Milagros Belén Sanabria.
 
 👉 **Probala en vivo:** https://mila-ops-ia.github.io/soytigreya
 
@@ -47,12 +47,15 @@ El botón **"▶ Ver el recorrido guiado"** muestra, en 10 pasos, cómo un pedid
 
 ## Documentos
 
-- [Presentación: pitch de venta y defensa del TFI (PDF, 22 diapositivas)](documentos/Presentacion%20-%20SoyTigreYa.pdf)
-- [Propuesta comercial de mila·ops para el Municipio de Tigre (PDF)](documentos/Propuesta%20comercial%20-%20SoyTigreYa%20-%20mila-ops.pdf): planes, precios, retorno esperado y plan del piloto
-- [Propuesta comercial (Word)](documentos/Propuesta%20comercial%20-%20SoyTigreYa%20-%20mila-ops.docx)
+- **[Presentación interactiva (10 diapositivas)](https://mila-ops-ia.github.io/soytigreya/presentacion/)**: con calculadora de impacto, doble diamante, Lean Canvas y la app embebida. Flechas para avanzar, N para notas y F para pantalla completa.
+- [Presentación en PDF](documentos/Presentacion%20-%20SoyTigreYa.pdf)
 - [Trabajo Final Integrador (PDF)](documentos/Trabajo%20Final%20Integrador%20-%20SoyTigreYa.pdf)
 - [Trabajo Final Integrador (Word)](documentos/Trabajo%20Final%20Integrador%20-%20SoyTigreYa.docx)
 - [Capturas del prototipo](capturas/)
+
+## La Diplomatura dentro de la app
+
+La pantalla **"Cómo lo diseñamos"** (en la entrada) muestra cada contenido de los cinco módulos y dónde se ve en la app. Por ejemplo: onboarding y heurísticas de Nielsen (UX/UI), Kanban con límite de trabajo en curso en el panel del comercio (metodologías ágiles), encuesta NPS, embudo AARRR y objetivos SMART en el panel municipal (medición), y Puntos Tigre, ofertas flash y referidos (growth hacking).
 
 ## Cómo está hecha
 
