@@ -92,6 +92,35 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
 .p-av { width: 72px; height: 72px; border-radius: 50%; color: #fff; display: grid; place-items: center; font-size: 32px; font-weight: 800; flex: none; }
 .p-item b { font-size: 30px; display: block; } .p-item span { font-size: 22px; color: var(--muted); }
 
+/* 5 perfiles: tarjetas con vista previa */
+.perfiles4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; flex: 1; }
+.pcard { background: #fff; border: 2px solid var(--linea); border-radius: 20px; padding: 18px 18px 22px; display: flex; flex-direction: column; gap: 14px; text-align: left; transition: border-color .2s, transform .2s, box-shadow .2s; }
+.pcard:hover { border-color: var(--rojo); transform: translateY(-6px); box-shadow: 0 18px 40px rgba(208,32,19,.14); }
+.pv { height: 330px; border-radius: 14px; overflow: hidden; background: #ECEDF1; display: grid; place-items: center; }
+.pv img { display: block; }
+.tel-mini img { height: 312px; width: auto; border-radius: 18px; border: 6px solid #1E2129; }
+.pc-mini img { width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+.pc-txt { display: flex; gap: 14px; align-items: center; }
+.pc-txt .p-av { width: 52px; height: 52px; font-size: 24px; }
+.pc-txt b { font-size: 28px; display: block; } .pc-txt span { font-size: 20px; color: var(--muted); }
+.pcard p { font-size: 21px; color: var(--muted); flex: 1; }
+.ver { align-self: flex-start; display: inline-flex; gap: 8px; align-items: center; font-size: 20px; font-weight: 800; color: #fff; background: var(--rojo); padding: 10px 16px; border-radius: 10px; }
+
+/* demo en vivo, por encima de la presentación (fuera del escenario escalado) */
+#demo-capa { position: fixed; inset: 0; z-index: 50; background: rgba(20,22,28,.92); backdrop-filter: blur(6px); display: none; flex-direction: column; align-items: center; gap: 14px; padding: 16px; }
+#demo-capa.on { display: flex; }
+.demo-barra { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; justify-content: center; }
+.demo-barra button { color: #fff; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18); padding: 9px 14px; border-radius: 10px; font-size: 14px; font-weight: 700; display: inline-flex; gap: 8px; align-items: center; }
+.demo-barra button.on { background: #D02013; border-color: #D02013; }
+.demo-barra .sep { width: 1px; height: 26px; background: rgba(255,255,255,.2); margin: 0 4px; }
+.demo-marco { flex: 1; min-height: 0; display: grid; place-items: center; width: 100%; }
+.marco-tel { height: 100%; max-height: 900px; aspect-ratio: 390 / 844; background: #0E0F13; border-radius: 46px; padding: 12px; box-shadow: 0 30px 80px rgba(0,0,0,.5); }
+.marco-pc { width: min(1440px, 96vw); height: 100%; max-height: 900px; background: #0E0F13; border-radius: 14px; padding: 28px 10px 10px; box-shadow: 0 30px 80px rgba(0,0,0,.5); position: relative; }
+.marco-pc::before { content: ''; position: absolute; top: 11px; left: 14px; width: 9px; height: 9px; border-radius: 50%; background: #ff5f57; box-shadow: 15px 0 #febc2e, 30px 0 #28c840; }
+.marco-tel iframe, .marco-pc iframe { width: 100%; height: 100%; border: 0; border-radius: 34px; background: #fff; display: block; }
+.marco-pc iframe { border-radius: 6px; }
+.demo-pie { color: #B9BDC7; font-size: 13px; }
+
 /* 6 doble diamante */
 .diamante { display: flex; flex-direction: column; gap: 26px; flex: 1; }
 .dd { position: relative; height: 230px; }
@@ -243,19 +272,19 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
 </section>
 
 <!-- 5 · LA SOLUCIÓN -->
-<section class="slide" data-notas="La solución: una plataforma, cuatro personas. Tocar cada perfil y la app real se carga en el celular de la derecha: es el prototipo publicado, no una imagen. Lucía usa la app; Rosa recibe pedidos sin comisión; Carlos gestiona reclamos en el mapa; Marina mide el impacto. Para la demo completa, abrir el recorrido guiado.">
+<section class="slide" data-notas="La solución: una plataforma, cuatro personas, que comparten los mismos datos. Cada tarjeta es la pantalla real de cada perfil. Tocar Ver en vivo para abrir la app en grande, por encima de la presentación: arriba se cambia de perfil, y con Esc se vuelve. Lo más potente es el recorrido guiado: en diez pasos muestra cómo un pedido y un reclamo pasan por las cuatro personas.">
   <div class="cab"><p class="ceja">La solución, funcionando <span class="mod">M1 · Transformación digital · M4 · UX/UI</span></p><h2>Una plataforma, cuatro personas</h2></div>
-  <div class="perfiles">
-    <div class="p-lista">
-      <button class="p-item on" data-p="lucia"><span class="p-av" style="background:#D02013">L</span><div><b>Lucía · vecina</b><span>Credencial, beneficios, compras con retiro, trámites, Puntos Tigre y Tigri</span></div></button>
-      <button class="p-item" data-p="rosa"><span class="p-av" style="background:#b5541c">R</span><div><b>Rosa · comercio</b><span>Recibe pedidos pagados, lanza ofertas flash y ve la comisión que ahorró</span></div></button>
-      <button class="p-item" data-p="carlos"><span class="p-av" style="background:#515769">C</span><div><b>Carlos · Atención al Vecino</b><span>Reclamos en el mapa con foto y etapas, y turnos del día</span></div></button>
-      <button class="p-item" data-p="marina"><span class="p-av" style="background:#3A3F4D">M</span><div><b>Marina · Desarrollo Económico</b><span>Embudo del producto, objetivos SMART, NPS e impacto por localidad</span></div></button>
-      <a class="btn" href="../?tour=1" target="_blank" rel="noopener" style="text-decoration:none; align-self:flex-start;"><i data-lucide="play"></i> Ver el recorrido guiado</a>
-    </div>
-    <div class="tel"><iframe id="demo" title="App SoyTigreYa en vivo" src="../?perfil=lucia" loading="lazy"></iframe></div>
+  <div class="perfiles4">
+    <button class="pcard" data-demo="lucia"><div class="pv tel-mini"><img src="../capturas/inicio.jpg" alt="Pantalla de Lucía"></div><div class="pc-txt"><span class="p-av" style="background:#D02013">L</span><div><b>Lucía</b><span>Vecina · app en el celu</span></div></div><p>Credencial, beneficios, compra con retiro, trámites, puntos y Tigri.</p><span class="ver"><i data-lucide="play"></i> Ver en vivo</span></button>
+    <button class="pcard" data-demo="rosa"><div class="pv pc-mini"><img src="../capturas/rosa.jpg" alt="Panel de Rosa"></div><div class="pc-txt"><span class="p-av" style="background:#b5541c">R</span><div><b>Rosa</b><span>Comercio · panel del local</span></div></div><p>Recibe pedidos pagados, sin comisión, y lanza ofertas flash.</p><span class="ver"><i data-lucide="play"></i> Ver en vivo</span></button>
+    <button class="pcard" data-demo="carlos"><div class="pv pc-mini"><img src="../capturas/carlos.jpg" alt="Panel de Carlos"></div><div class="pc-txt"><span class="p-av" style="background:#515769">C</span><div><b>Carlos</b><span>Atención al Vecino</span></div></div><p>Reclamos en el mapa con foto y etapas, y turnos del día.</p><span class="ver"><i data-lucide="play"></i> Ver en vivo</span></button>
+    <button class="pcard" data-demo="marina"><div class="pv pc-mini"><img src="../capturas/marina.jpg" alt="Panel de Marina"></div><div class="pc-txt"><span class="p-av" style="background:#3A3F4D">M</span><div><b>Marina</b><span>Desarrollo Económico</span></div></div><p>Embudo AARRR, objetivos SMART, NPS e impacto por localidad.</p><span class="ver"><i data-lucide="play"></i> Ver en vivo</span></button>
   </div>
-  <div class="pie"><span>App real embebida · mila-ops-ia.github.io/soytigreya</span><span>5</span></div>
+  <div class="fila" style="align-items:center; gap:28px;">
+    <button class="btn" data-demo="tour" style="font-size:28px; padding:20px 32px;"><i data-lucide="route"></i> Recorrido guiado en vivo: un pedido y un reclamo, de punta a punta</button>
+    <p class="toque"><i data-lucide="pointer"></i> Se abre la app real en grande · Esc para volver</p>
+  </div>
+  <div class="pie"><span>Los cuatro perfiles comparten los mismos datos · mila-ops-ia.github.io/soytigreya</span><span>5</span></div>
 </section>
 
 <!-- 6 · DOBLE DIAMANTE -->
@@ -359,6 +388,15 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
 
 </div>
 
+<div id="demo-capa" role="dialog" aria-label="App SoyTigreYa en vivo">
+  <div class="demo-barra">
+    <button data-dp="lucia">Lucía · vecina</button><button data-dp="rosa">Rosa · comercio</button><button data-dp="carlos">Carlos · Atención al Vecino</button><button data-dp="marina">Marina · Desarrollo Económico</button>
+    <span class="sep"></span><button data-dp="tour"><i data-lucide="route"></i> Recorrido guiado</button><button data-dp="entrada"><i data-lucide="layout-grid"></i> Pantalla de entrada</button>
+    <span class="sep"></span><button id="demo-cerrar"><i data-lucide="x"></i> Volver (Esc)</button>
+  </div>
+  <div class="demo-marco" id="demo-marco"></div>
+  <p class="demo-pie">App real publicada en mila-ops-ia.github.io/soytigreya · prototipo académico con datos de demostración</p>
+</div>
 <div id="barra"><i></i></div>
 <div id="cont">1 / 10</div>
 <div id="nav"><button id="b-not" title="Notas del orador (N)"><i data-lucide="message-square-text"></i></button><button id="b-full" title="Pantalla completa (F)"><i data-lucide="maximize"></i></button><button id="b-ant" title="Anterior (←)"><i data-lucide="chevron-left"></i></button><button id="b-sig" title="Siguiente (→)"><i data-lucide="chevron-right"></i></button></div>
@@ -388,6 +426,8 @@ document.getElementById('b-ant').onclick = () => ir(i - 1);
 document.getElementById('b-not').onclick = () => document.getElementById('notas').classList.toggle('on');
 document.getElementById('b-full').onclick = () => (document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen());
 addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && capa.classList.contains('on')) { cerrarDemo(); return; }
+  if (capa.classList.contains('on')) return;
   if (e.target.tagName === 'INPUT') return;
   if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(i + 1); }
   if (['ArrowLeft', 'PageUp'].includes(e.key)) ir(i - 1);
@@ -425,11 +465,20 @@ function calc() {
 }
 document.querySelectorAll('input[type=range]').forEach((r) => r.oninput = calc); calc();
 
-// 5 · Perfiles con la app embebida
-document.querySelectorAll('.p-item').forEach((b) => b.onclick = () => {
-  document.querySelectorAll('.p-item').forEach((x) => x.classList.toggle('on', x === b));
-  document.getElementById('demo').src = '../?perfil=' + b.dataset.p;
-});
+
+// 5 · Demo en vivo en grande
+const capa = document.getElementById('demo-capa'), marco = document.getElementById('demo-marco');
+function abrirDemo(cual) {
+  const tel = cual === 'lucia';
+  const url = cual === 'tour' ? '../?tour=1' : cual === 'entrada' ? '../' : '../?perfil=' + cual;
+  marco.innerHTML = `<div class="${tel ? 'marco-tel' : 'marco-pc'}"><iframe title="App SoyTigreYa en vivo" src="${url}"></iframe></div>`;
+  capa.querySelectorAll('[data-dp]').forEach((b) => b.classList.toggle('on', b.dataset.dp === cual));
+  capa.classList.add('on');
+}
+function cerrarDemo() { capa.classList.remove('on'); marco.innerHTML = ''; }
+document.querySelectorAll('[data-demo]').forEach((b) => b.onclick = () => abrirDemo(b.dataset.demo));
+capa.querySelectorAll('[data-dp]').forEach((b) => b.onclick = () => abrirDemo(b.dataset.dp));
+document.getElementById('demo-cerrar').onclick = cerrarDemo;
 
 // 6 · Doble diamante
 const FASES = [

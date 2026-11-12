@@ -1,7 +1,7 @@
 // SoyTigreYa: prototipo con tres vistas (Vecino, Comercio, Municipio) que comparten los mismos datos.
 // Todo se guarda en el navegador (localStorage). "Reiniciar demo" (vista Municipio) vuelve a los datos iniciales.
 
-const KEY = 'soytigreya-v3';
+const KEY = 'soytigreya-v4';
 const ESTADOS = ['recibido', 'preparacion', 'listo', 'retirado'];
 const ESTADO_TXT = { recibido: 'Recibido', preparacion: 'En preparación', listo: 'Listo para retirar', retirado: 'Retirado', rechazado: 'Rechazado' };
 const RECLAMO_TXT = { recibido: 'Recibido', asignado: 'Asignado a una cuadrilla', 'en curso': 'En curso', resuelto: 'Resuelto' };
@@ -91,6 +91,15 @@ function seed() {
       }));
     }
   }
+
+  // Pedidos en curso de otros vecinos, para que el panel del comercio no arranque vacío.
+  const c2 = comercios.find((c) => c.id === 'c2');
+  [['recibido', [[0, 1], [3, 1]], 8], ['preparacion', [[1, 2]], 18]].forEach(([estado, its, min], k) => {
+    pedidos.push(armarPedido({
+      id: 'P' + n++, cid: 'c2', items: its.map(([j, q]) => ({ pid: c2.productos[j].id, nombre: c2.productos[j].nombre, precio: c2.productos[j].precio, qty: q })),
+      desc: c2.desc, pago: k ? 'dni' : 'mp', creado: ahora - min * 60000, estado, mio: false, loc: c2.loc, retiro: `a las ${hora(ahora + (30 - min) * 60000)}`,
+    }));
+  });
 
   const reclamos = [];
   for (let i = 0; i < 46; i++) {
