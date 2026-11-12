@@ -483,3 +483,7 @@ h2 { color: #515769; }
   .tour, .landing .tour, .shell.wide .tour { top: 8px; bottom: auto; }
   .en-tour .sheet { max-height: 60vh; }
 }
+.qr-entrada { display: none; align-items: center; gap: 16px; background: #fff; border-radius: 16px; padding: 14px 18px; box-shadow: var(--sombra); text-align: left; margin-top: 6px; }
+.qr-entrada .qr { width: 110px; flex: none; }
+.qr-entrada div:last-child { display: flex; flex-direction: column; gap: 4px; }
+@media (min-width: 760px) { .qr-entrada { display: flex; } }

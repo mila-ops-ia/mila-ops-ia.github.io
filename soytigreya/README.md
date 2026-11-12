@@ -2,9 +2,11 @@
 
 **Beneficios Soy Tigre, comercio de barrio y trámites municipales en una sola app.**
 
-Prototipo funcional del Trabajo Final Integrador de la **Diplomatura en Negocios Digitales e Innovación** (Universidad Nacional del Delta, 2026). Autora: Milagros Belén Sanabria.
+Prototipo funcional, propuesto por **mila·ops**, del Trabajo Final Integrador de la **Diplomatura en Negocios Digitales e Innovación** (Universidad Nacional del Delta, 2026). Autora: Milagros Belén Sanabria.
 
 👉 **Probala en vivo:** https://mila-ops-ia.github.io/soytigreya
+
+<img src="img/qr-soytigreya.png" alt="Código QR para abrir SoyTigreYa" width="160">
 Se puede instalar en el celular: en Android, menú ⋮ › "Instalar app"; en iPhone, Compartir › "Agregar a inicio".
 
 > ⚠️ **Prototipo académico.** No es una app oficial del Municipio de Tigre ni está vinculada con él. Los comercios, las personas y los números son de demostración. Usa la identidad visual pública del municipio solo como referencia para la propuesta.
@@ -45,6 +47,8 @@ El botón **"▶ Ver el recorrido guiado"** muestra, en 10 pasos, cómo un pedid
 
 ## Documentos
 
+- [Propuesta comercial de mila·ops para el Municipio de Tigre (PDF)](documentos/Propuesta%20comercial%20-%20SoyTigreYa%20-%20mila-ops.pdf): planes, precios, retorno esperado y plan del piloto
+- [Propuesta comercial (Word)](documentos/Propuesta%20comercial%20-%20SoyTigreYa%20-%20mila-ops.docx)
 - [Trabajo Final Integrador (PDF)](documentos/Trabajo%20Final%20Integrador%20-%20SoyTigreYa.pdf)
 - [Trabajo Final Integrador (Word)](documentos/Trabajo%20Final%20Integrador%20-%20SoyTigreYa.docx)
 - [Capturas del prototipo](capturas/)

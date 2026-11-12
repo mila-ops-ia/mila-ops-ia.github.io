@@ -226,9 +226,9 @@ viñetas([
     ('Para los usuarios: ', 'ahorro concreto y visible cada mes, menos tiempo en filas y trámites, seguimiento de pedidos y reclamos, y una sola app para la vida en el distrito.'),
     ('Para los comercios y el municipio: ', 'más ventas sin comisiones abusivas, un canal digital propio y un incentivo a la formalización. El municipio obtiene datos de consumo por localidad, mejora la gestión de reclamos y aumenta la recaudación digital.'),
     ('Impacto en la comunidad: ', 'el consumo queda dentro del partido y fortalece el empleo local. La propuesta tiene triple impacto: económico, porque protege el bolsillo del vecino y el margen del comerciante; social, porque conecta a la comunidad; y de gestión, porque posiciona al municipio como referente de innovación.'),
-    ('Comportamientos que se refuerzan: ', 'con los Puntos Tigre se espera aumentar el pago de tasas en término, el reciclaje y la compra en comercios locales, con una meta inicial de 80% de cuotas pagadas a tiempo entre los usuarios del programa.'),
     ('Crecimiento futuro: ', 'asistente con inteligencia artificial, puntos ciudadanos, integración con transporte y turismo del Delta, y un modelo replicable en otros municipios, ya que la marca y las localidades se configuran fácilmente.'),
 ])
+p('Viabilidad económica: mila·ops ofrece un piloto de 3 meses ($55 millones + IVA), el escalamiento ($55 millones) y una licencia con soporte ($6,9 millones por mes). En un escenario conservador, las comisiones que quedan en el distrito rondan los $360 millones por año, 2,4 veces la inversión del primer año (ver la propuesta comercial).')
 p('Para medir el éxito se proponen estos indicadores: vecinos activos por mes, tasa de retención a 90 días, pedidos semanales, comercios activos, ahorro acumulado de los vecinos, comisiones evitadas, tiempo promedio de resolución de reclamos, porcentaje de tasas pagadas en término, puntos sumados y canjeados, y satisfacción de los usuarios (NPS).')
 
 # ---------- 8 ----------
@@ -240,6 +240,10 @@ p('SoyTigreYa muestra que la transformación digital puede ser una herramienta d
 doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
 doc.add_heading('Anexo: capturas del prototipo funcional', 1)
 p('Prototipo navegable desarrollado para este trabajo, con datos de demostración. Disponible en mila-ops-ia.github.io/soytigreya.')
+_qr = doc.add_paragraph(); _qr.alignment = WD_ALIGN_PARAGRAPH.CENTER
+_qr.add_run().add_picture(CAPT.rsplit('/', 1)[0] + '/img/qr-soytigreya.png', width=Cm(3))
+_ley = doc.add_paragraph(); _ley.alignment = WD_ALIGN_PARAGRAPH.CENTER
+_r = _ley.add_run('Escaneá el código para abrir la app en el celular'); _r.font.size = Pt(9); _r.italic = True
 
 def figura_ancha(n, f, txt):
     par = doc.add_paragraph(); par.alignment = WD_ALIGN_PARAGRAPH.CENTER

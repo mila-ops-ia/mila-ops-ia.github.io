@@ -234,6 +234,7 @@ function vPerfiles() {
         <span class="perfil-hace">${p.hace}</span>
         <span class="perfil-entra">🔐 ${p.entra}</span>
       </button>`).join('')}</div>
+    <div class="qr-entrada"><div class="qr" data-qr="https://mila-ops-ia.github.io/soytigreya"></div><div><b>📱 Abrila en tu celu</b><span class="muted">Escaneá el código o entrá a mila-ops-ia.github.io/soytigreya</span></div></div>
     <p class="muted chico centro">Prototipo académico de demostración: no se conecta con Mi Argentina ni con sistemas del municipio.<br>
       <button class="link" data-a="reiniciar">↺ Reiniciar los datos de la demo</button></p>
   </main>`;
