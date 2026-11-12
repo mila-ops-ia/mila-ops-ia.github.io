@@ -434,3 +434,52 @@ h2 { color: #515769; }
   .sheet.chat { height: 80vh; }
   @keyframes aparece { from { opacity: 0; transform: translate(-50%, -46%); } to { opacity: 1; transform: translate(-50%, -50%); } }
 }
+
+/* ---------- Perfiles y recorrido guiado ---------- */
+.shell.landing { max-width: 1040px; padding: 0 16px 48px; }
+.perfiles { text-align: center; padding-top: 28px; display: flex; flex-direction: column; gap: 14px; align-items: center; }
+.perfiles h1 { font-size: 2.1rem; font-weight: 800; color: #D02013; text-transform: uppercase; letter-spacing: .01em; }
+.perfiles h1 span { color: #515769; font-weight: 400; }
+.perfiles .lead { font-size: 1.05rem; color: #515769; max-width: 520px; }
+.tour-btn { max-width: 420px; display: flex; flex-direction: column; align-items: center; gap: 2px; box-shadow: 0 10px 26px rgba(208, 32, 19, .3); }
+.tour-btn small { font-weight: 500; opacity: .85; font-size: .78rem; }
+.perfiles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; width: 100%; margin-top: 8px; }
+.perfil-card { background: #fff; border-radius: 18px; padding: 20px 16px; box-shadow: var(--sombra); display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; border: 2px solid transparent; transition: border-color .15s, transform .15s; }
+.perfil-card:hover { border-color: #D02013; transform: translateY(-2px); }
+.perfil-card b { font-size: 1.2rem; color: #333; }
+.perfil-rol { font-size: .82rem; font-weight: 700; color: #D02013; }
+.perfil-hace { font-size: .85rem; color: var(--muted); line-height: 1.4; }
+.perfil-entra { font-size: .72rem; color: #515769; background: #F2F3F5; border-radius: 8px; padding: 4px 8px; margin-top: 4px; }
+.avatar-p { width: 38px; height: 38px; border-radius: 50%; display: inline-grid; place-items: center; font-size: 1.3rem; flex: none; box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgba(0,0,0,.06); }
+.avatar-p.grande { width: 72px; height: 72px; font-size: 2.4rem; }
+.quien { display: flex; align-items: center; gap: 8px; padding: 2px 4px 2px 2px; border-radius: 30px; }
+.quien-txt { display: none; flex-direction: column; text-align: left; line-height: 1.15; }
+.quien-txt small { font-size: .7rem; color: var(--muted); }
+.marca-sub { font-size: .72rem; font-weight: 700; color: #515769; background: #ECEDF1; border-radius: 6px; padding: 2px 7px; margin-left: 6px; text-transform: uppercase; letter-spacing: .04em; }
+.panel-nombre { font-size: 1.2rem; color: #333; }
+.gest.de-app { background: #FFF6F5; border-radius: 10px; padding: 8px; }
+.perfil-hoja { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.perfil-hoja h2 { margin: 4px 0 0; padding: 0; }
+.perfil-hoja .btn { margin-top: 4px; }
+.tour { position: fixed; z-index: 70; left: 10px; right: 10px; bottom: 74px; background: #3A3F4D; color: #fff; border-radius: 18px; padding: 14px 14px 12px; box-shadow: 0 14px 40px rgba(0,0,0,.35); display: flex; flex-direction: column; gap: 8px; animation: fade .25s; max-width: 460px; margin: 0 auto; }
+.landing .tour { bottom: 16px; }
+.tour-cab { display: flex; gap: 10px; align-items: center; }
+.tour-cab small { display: block; font-size: .7rem; opacity: .75; }
+.tour-cab b { font-size: 1rem; }
+.tour p { font-size: .88rem; line-height: 1.45; color: #E6E7EB; }
+.tour .btn { background: #D02013; padding: 11px; }
+.tour-barra { height: 4px; background: rgba(255,255,255,.15); border-radius: 3px; overflow: hidden; }
+.tour-barra i { display: block; height: 100%; background: #FF8A80; }
+.cerrar-tour { color: #fff; opacity: .7; font-size: 1rem; padding: 4px 6px; }
+.shell.wide .tour { bottom: 20px; }
+@media (min-width: 760px) { .quien-txt { display: flex; } }
+@media (min-width: 1024px) {
+  .tour { left: 24px; right: auto; bottom: 24px; width: 380px; margin: 0; }
+  .perfiles h1 { font-size: 2.6rem; }
+}
+.perfiles .ing-logo { background: #D02013; box-shadow: 0 12px 30px rgba(208, 32, 19, .3); }
+@media (min-width: 1024px) { .tour { left: auto; right: 24px; } }
+@media (max-width: 1023px) {
+  .tour, .landing .tour, .shell.wide .tour { top: 8px; bottom: auto; }
+  .en-tour .sheet { max-height: 60vh; }
+}

@@ -1,7 +1,7 @@
 // SoyTigreYa: prototipo con tres vistas (Vecino, Comercio, Municipio) que comparten los mismos datos.
 // Todo se guarda en el navegador (localStorage). "Reiniciar demo" (vista Municipio) vuelve a los datos iniciales.
 
-const KEY = 'soytigreya-v2';
+const KEY = 'soytigreya-v3';
 const ESTADOS = ['recibido', 'preparacion', 'listo', 'retirado'];
 const ESTADO_TXT = { recibido: 'Recibido', preparacion: 'En preparación', listo: 'Listo para retirar', retirado: 'Retirado', rechazado: 'Rechazado' };
 const RECLAMO_TXT = { recibido: 'Recibido', asignado: 'Asignado a una cuadrilla', 'en curso': 'En curso', resuelto: 'Resuelto' };
@@ -113,7 +113,7 @@ function seed() {
   }));
 
   return {
-    v: 2, rol: 'vecino', tab: 'inicio', sesion: false, letra: false,
+    v: 3, rol: 'vecino', perfil: null, tour: null, tab: 'inicio', sesion: true, letra: false,
     usuario: { nombre: 'Lucía Fernández', dni: '30.456.789', nro: 'ST-104-2291', loc: 'Tigre Centro', desde: 2023, partida: '12-345678-9', patente: 'AF123BC' },
     comercios, pedidos, reclamos, turnos: [], notifs: [],
     carrito: null, filtro: { cat: 'todas', loc: 'todas', q: '' }, comprarTab: 'comercios',
@@ -164,7 +164,7 @@ function armarPedido(p) {
 function load() {
   try {
     const s = JSON.parse(localStorage.getItem(KEY));
-    if (s && s.v === 2) { if (!s.puntos) s.puntos = seedPuntos(s.pedidos); return s; }
+    if (s && s.v === 3) { if (!s.puntos) s.puntos = seedPuntos(s.pedidos); return s; }
   } catch (e) { /* sin almacenamiento */ }
   return seed();
 }
@@ -179,33 +179,39 @@ function render() {
   const app = $('#app');
   document.documentElement.style.fontSize = S.letra ? '19px' : '16px';
   document.body.classList.toggle('letra-grande', !!S.letra);
-  app.className = 'shell ' + (S.rol === 'vecino' ? 'phone' : 'wide');
-  if (S.rol === 'vecino' && !S.sesion) {
-    app.className += ' sin-sesion';
-    app.innerHTML = rolesBar() + vIngreso() + sheet();
+  const perf = perfilActual();
+  if (!perf) {
+    if (S.sheet && S.sheet !== 'pagando') S.sheet = null;
+    app.className = 'shell landing';
+    app.innerHTML = vPerfiles() + tourCard() + sheet();
     after(); save(); return;
   }
-  const vista = S.rol === 'vecino' ? vecino() : S.rol === 'comercio' ? panelComercio() : municipio();
-  const fab = S.rol === 'vecino' && !(S.abierto && S.carrito) ? `<button class="fab" data-a="sheet" data-v="tigri" aria-label="Hablar con Tigri"><span>🐯</span><b>Tigri</b></button>` : '';
-  app.innerHTML = topbar() + `<main class="main">${vista}</main>` + (S.rol === 'vecino' ? navVecino() + fab : '') + sheet();
+  S.rol = perf.vista === 'vecino' ? 'vecino' : perf.vista === 'comercio' ? 'comercio' : 'municipio';
+  app.className = 'shell ' + (S.rol === 'vecino' ? 'phone' : 'wide') + (S.tour ? ' en-tour' : '');
+  const vista = perf.vista === 'vecino' ? vecino() : perf.vista === 'comercio' ? panelComercio() : perf.vista === 'atencion' ? vAtencion() : vEconomia();
+  const fab = S.rol === 'vecino' && !S.tour && !(S.abierto && S.carrito) ? `<button class="fab" data-a="sheet" data-v="tigri" aria-label="Hablar con Tigri"><span>🐯</span><b>Tigri</b></button>` : '';
+  app.innerHTML = topbar(perf) + `<main class="main">${vista}</main>` + (S.rol === 'vecino' ? navVecino() + fab : '') + tourCard() + sheet();
   after();
   save();
 }
 
-function rolesBar() {
-  const roles = [['vecino', '🙋 Vecino'], ['comercio', '🏪 Comercio'], ['municipio', '🏛️ Municipio']];
-  return `<nav class="roles" aria-label="Ver la app como">${roles.map(([id, t]) => `<button class="${S.rol === id ? 'on' : ''}" data-a="rol" data-v="${id}">${t}</button>`).join('')}</nav>`;
+function perfilActual() { return PERFILES.find((x) => x.id === S.perfil) || null; }
+
+function avatarHtml(perf, cls = '') {
+  return `<span class="avatar-p ${cls}" style="background:${perf.color}">${perf.avatar}</span>`;
 }
 
-function topbar() {
+function topbar(perf) {
   const sinLeer = S.notifs.filter((n) => !n.leida).length;
+  const sub = perf.vista === 'comercio' ? '<span class="marca-sub">Comercios</span>' : perf.vista === 'vecino' ? '' : '<span class="marca-sub">Panel municipal</span>';
   return `<header class="top">
-    <div class="marca"><span class="logo">🐯</span><b>SoyTigre<span>Ya</span></b></div>
-    <div class="top-der">${S.rol === 'vecino' ? `
+    <div class="marca"><span class="logo">🐯</span><b>SoyTigre<span>Ya</span></b>${sub}</div>
+    <div class="top-der">${perf.vista === 'vecino' ? `
       <button class="sos" data-a="sub" data-v="alerta" aria-label="Botón de alerta">🆘</button>
       <button class="campana" data-a="notifs" aria-label="Notificaciones">🔔${sinLeer ? `<i>${sinLeer}</i>` : ''}</button>` : ''}
+      <button class="quien" data-a="sheet" data-v="perfil" aria-label="Perfil y cambiar de perfil">${avatarHtml(perf)}<span class="quien-txt"><b>${perf.nombre}</b><small>${perf.rol}</small></span></button>
     </div>
-  </header>` + rolesBar();
+  </header>`;
 }
 
 function navVecino() {
@@ -214,20 +220,22 @@ function navVecino() {
   return `<nav class="bottom">${tabs.map(([id, e, t]) => `<button class="${S.tab === id && !S.sub ? 'on' : ''}" data-a="tab" data-v="${id}"><span>${e}${id === 'comprar' && activos ? `<i>${activos}</i>` : ''}</span>${t}</button>`).join('')}</nav>`;
 }
 
-// ---------- ingreso ----------
-function vIngreso() {
-  return `<main class="main ingreso">
+// ---------- elegir perfil ----------
+function vPerfiles() {
+  return `<main class="main perfiles">
     <div class="ing-logo">🐯</div>
-    <h1>${MARCA.app}</h1>
-    <p class="muted">Tu credencial ${MARCA.tarjeta}, los comercios del barrio y los trámites del municipio, en una sola app.</p>
-    <ul class="ing-lista">
-      <li>🎁 <span>Descuentos en más de 500 comercios, en el local o pidiendo para retirar.</span></li>
-      <li>🏛️ <span>Turnos, reclamos con foto y pago de tasas sin hacer filas.</span></li>
-      <li>🐯 <span>Tigri, una asistente que te ayuda con todo.</span></li>
-    </ul>
-    <button class="btn grande mia" data-a="ingresar" data-v="miargentina">Ingresar con Mi Argentina</button>
-    <button class="btn grande claro" data-a="sheet" data-v="dni">Ingresar con DNI</button>
-    <p class="muted chico centro">Prototipo de demostración: no se conecta con Mi Argentina ni con RENAPER.</p>
+    <h1>SoyTigre<span>Ya</span></h1>
+    <p class="lead">Una plataforma, cuatro personas. Elegí con quién querés recorrer la app.</p>
+    <button class="btn grande tour-btn" data-a="tourIniciar">▶ Ver el recorrido guiado <small>2 minutos, paso a paso</small></button>
+    <div class="perfiles-grid">${PERFILES.map((p) => `
+      <button class="perfil-card" data-a="perfil" data-v="${p.id}">
+        ${avatarHtml(p, 'grande')}
+        <b>${p.nombre}</b><span class="perfil-rol">${p.rol}</span>
+        <span class="perfil-hace">${p.hace}</span>
+        <span class="perfil-entra">🔐 ${p.entra}</span>
+      </button>`).join('')}</div>
+    <p class="muted chico centro">Prototipo académico de demostración: no se conecta con Mi Argentina ni con sistemas del municipio.<br>
+      <button class="link" data-a="reiniciar">↺ Reiniciar los datos de la demo</button></p>
   </main>`;
 }
 
@@ -447,7 +455,7 @@ function vPedidos() {
   const pasados = mios.filter((p) => !activos.includes(p)).slice(0, 12);
   return `
   ${activos.length ? activos.map(pedidoActivo).join('') : `<div class="vacio">No tenés pedidos en curso.<br><button class="btn" data-a="cat" data-v="gastro">Pedir para retirar</button></div>`}
-  ${activos.length ? '<p class="tip">💡 Para ver cómo avanza, tocá <b>Comercio</b> arriba y movelo desde el panel del local.</p>' : ''}
+  ${activos.length ? '<p class="tip">💡 Para ver cómo avanza, tocá tu foto arriba y entrá como <b>Rosa</b>, la dueña del local.</p>' : ''}
   <h2>Anteriores</h2>
   <div class="lista">${pasados.map((p) => { const c = comercio(p.cid); return `<div class="fila"><span class="ico">${c.emoji}</span>
     <div><b>${esc(c.nombre)}</b><p class="muted">${fecha(p.creado)} · ${plural(p.items.reduce((a, i) => a + i.qty, 0), 'producto', 'productos')} · ${ESTADO_TXT[p.estado]}</p></div>
@@ -506,7 +514,7 @@ function vCredencial() {
     <label>Localidad<select data-f="uloc">${LOCALIDADES.map((l) => `<option ${u.loc === l ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
     <label>Patente de tu auto<input data-f="patente" value="${esc(u.patente)}" maxlength="7"></label>
     <button class="switch-fila" data-a="letra"><span>🔠 Letra grande y más contraste</span><span class="switch ${S.letra ? 'on' : ''}">${S.letra ? 'Activada' : 'Apagada'}</span></button>
-    <button class="link rojo" data-a="salir">Cerrar sesión</button>
+    <button class="link rojo" data-a="cambiarPerfil">Salir y cambiar de perfil</button>
   </div>`;
 }
 
@@ -756,6 +764,11 @@ function sheet() {
       <label>Número de trámite (está en el frente del DNI)<input id="inTramite" inputmode="numeric" placeholder="00123456789" value="00123456789"></label>
       <label>Sexo<select id="inSexo"><option>F</option><option>M</option><option>X</option></select></label>
       <button class="btn grande" data-a="ingresar" data-v="dni">Validar e ingresar</button></div>`;
+  } else if (s === 'perfil') {
+    const perf = perfilActual();
+    html = `<div class="perfil-hoja">${avatarHtml(perf, 'grande')}<h2>${perf.nombre}</h2><p class="muted">${perf.rol}</p><p>${perf.hace}</p><p class="muted chico">🔐 ${perf.entra}</p>
+      <button class="btn grande" data-a="cambiarPerfil">🔄 Cambiar de perfil</button>
+      <button class="btn grande claro" data-a="tourIniciar">▶ Ver el recorrido guiado</button></div>`;
   } else if (s === 'tigri') {
     return `<div class="velo" data-a="cerrarSheet"></div><div class="sheet chat" role="dialog" aria-label="Chat con Tigri">
       <div class="chat-cab"><span class="tg-avatar">🐯</span><div><b>Tigri</b><span class="muted">Tu asistente de ${MARCA.app}</span></div><button class="cerrar" data-a="cerrarSheet" aria-label="Cerrar">✕</button></div>
@@ -864,14 +877,15 @@ function chatEnviar(txt) {
 
 // ---------- comercio ----------
 function panelComercio() {
-  const c = comercio(S.panelCid);
+  const c = comercio((perfilActual() && perfilActual().cid) || S.panelCid);
+  S.panelCid = c.id;
   const tabs = [['pedidos', '🧾 Pedidos'], ['productos', '📦 Productos'], ['resumen', '📈 Resumen']];
   const cuerpo = S.panelTab === 'productos' ? pcProductos(c) : S.panelTab === 'resumen' ? pcResumen(c) : pcPedidos(c);
   return `
   <div class="panel-cab">
     <div class="avatar" style="background:${c.color}">${c.emoji}</div>
-    <div class="grow"><select class="sel-comercio" data-f="panelCid">${S.comercios.map((x) => `<option value="${x.id}" ${x.id === c.id ? 'selected' : ''}>${esc(x.nombre)}</option>`).join('')}</select>
-      <span class="muted">${esc(c.dir)} · ${c.loc}</span></div>
+    <div class="grow"><b class="panel-nombre">${esc(c.nombre)}</b>
+      <span class="muted">${esc(c.dir)} · ${c.loc} · ${MARCA.tarjeta} -${c.desc}%</span></div>
     <button class="switch ${c.abierto ? 'on' : ''}" data-a="toggleAbierto">${c.abierto ? '🟢 Abierto' : '⚪ Cerrado'}</button>
   </div>
   <div class="seg">${tabs.map(([id, t]) => `<button class="${S.panelTab === id ? 'on' : ''}" data-a="panelTab" data-v="${id}">${t}</button>`).join('')}</div>
@@ -887,7 +901,7 @@ function pcPedidos(c) {
   const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
   const entregadosHoy = ped.filter((p) => p.estado === 'retirado' && p.creado >= hoy.getTime()).length;
   return `<div class="kanban">${col('recibido', '🆕 Nuevos')}${col('preparacion', '👩‍🍳 En preparación')}${col('listo', '✅ Listos para retirar')}</div>
-  <p class="muted">Entregados hoy: ${entregadosHoy}. Los pedidos nuevos llegan cuando un vecino compra desde la vista <b>Vecino</b>.</p>`;
+  <p class="muted">Entregados hoy: ${entregadosHoy}. Los pedidos nuevos llegan cuando un vecino compra desde la app. Sin comisión por venta.</p>`;
 }
 
 function tarjetaPedido(p) {
@@ -944,8 +958,40 @@ function pcResumen(c) {
 
 const kpi = (t, v, cls = '', sub = '') => `<div class="kpi ${cls}"><span>${t}</span><b>${v}</b>${sub ? `<small>${sub}</small>` : ''}</div>`;
 
-// ---------- municipio ----------
-function municipio() {
+// ---------- municipio: Atención al Vecino (Carlos) ----------
+function vAtencion() {
+  const abiertos = S.reclamos.filter((r) => r.estado !== 'resuelto');
+  const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
+  const nuevosHoy = S.reclamos.filter((r) => r.creado >= hoy.getTime()).length;
+  const resueltosSemana = S.reclamos.filter((r) => r.estado === 'resuelto' && r.historial.some((h) => h.estado === 'resuelto' && h.t >= Date.now() - 7 * 864e5)).length;
+  const gestion = abiertos.slice().sort((a, b) => (b.mio - a.mio) || (b.creado - a.creado)).slice(0, 8);
+  const turnosHoy = [...TURNOS_DEMO, ...S.turnos.map((t) => ({ hora: t.hora, nombre: S.usuario.nombre.split(' ')[0] + ' ' + S.usuario.nombre.split(' ')[1][0] + '.', tramite: t.tramite, app: true }))].sort((a, b) => a.hora.localeCompare(b.hora));
+  return `
+  <h1 class="titulo">Atención al Vecino</h1>
+  <p class="muted sub">Reclamos y turnos del distrito, en tiempo real. Datos de demostración.</p>
+  <div class="kpis">
+    ${kpi('Reclamos abiertos', abiertos.length, abiertos.length > 30 ? 'rojo-kpi' : '')}
+    ${kpi('Nuevos hoy', nuevosHoy)}
+    ${kpi('Resueltos esta semana', resueltosSemana, 'verde')}
+    ${kpi('Turnos de hoy', turnosHoy.length)}
+  </div>
+  <div class="dos">
+    <div class="card"><h3>Mapa de reclamos</h3><div class="mapa" data-map="municipio"></div>
+      <p class="muted chico">🔴 recibido · 🟡 asignado o en curso · 🟢 resuelto · los puntos grandes llegaron desde la app</p></div>
+    <div class="card"><h3>Para gestionar</h3>
+      ${gestion.map((r) => { const t = TIPOS_RECLAMO.find((x) => x.id === r.tipo); const sig = ESTADOS_RECLAMO[ESTADOS_RECLAMO.indexOf(r.estado) + 1]; return `<div class="gest ${r.mio ? 'de-app' : ''}">${r.foto ? `<img src="${r.foto}" alt="Foto del reclamo">` : `<span class="ico">${t.emoji}</span>`}<div class="grow"><b>${t.nombre} · ${r.id}</b>${r.mio ? ' <span class="pill recibido">desde la app</span>' : ''}<p class="muted chico">${esc(r.dir || '')} ${r.loc} · ${RECLAMO_TXT[r.estado]}</p>${r.texto ? `<p class="chico">${esc(r.texto)}</p>` : ''}</div><button class="btn mini-btn" data-a="avanzarReclamo" data-v="${r.id}">${sig === 'resuelto' ? 'Resolver' : sig === 'asignado' ? 'Asignar cuadrilla' : 'Iniciar'}</button></div>`; }).join('')}
+    </div>
+    <div class="card"><h3>Turnos de hoy</h3>
+      ${turnosHoy.map((t) => { const tr = TRAMITES.find((x) => x.id === t.tramite); return `<p class="linea"><span><b>${t.hora}</b> · ${esc(t.nombre)}${t.app ? ' <span class="pill recibido">desde la app</span>' : ''}</span><span class="muted">${tr.emoji} ${tr.nombre}</span></p>`; }).join('')}
+    </div>
+    <div class="card"><h3>Reclamos por tipo</h3>
+      ${TIPOS_RECLAMO.map((t) => `<p class="linea"><span>${t.emoji} ${t.nombre}</span><span><b class="rojo">${S.reclamos.filter((r) => r.tipo === t.id && r.estado !== 'resuelto').length} abiertos</b> · <span class="verde">${S.reclamos.filter((r) => r.tipo === t.id && r.estado === 'resuelto').length} resueltos</span></span></p>`).join('')}
+    </div>
+  </div>`;
+}
+
+// ---------- municipio: Desarrollo Económico (Marina) ----------
+function vEconomia() {
   const desde = inicioMes();
   const mes = S.pedidos.filter((p) => p.estado === 'retirado' && p.creado >= desde);
   const ventas = mes.reduce((a, p) => a + p.total, 0);
@@ -954,30 +1000,21 @@ function municipio() {
   const maxLoc = Math.max(...porLoc.map((x) => x.v), 1);
   const porCat = CATS.map((c) => ({ c, v: mes.filter((p) => comercio(p.cid).cat === c.id).reduce((a, p) => a + p.total, 0) })).filter((x) => x.v).sort((a, b) => b.v - a.v);
   const maxCat = Math.max(...porCat.map((x) => x.v), 1);
-  const abiertos = S.reclamos.filter((r) => r.estado !== 'resuelto');
-  const gestion = abiertos.slice().sort((a, b) => (b.mio - a.mio) || (b.creado - a.creado)).slice(0, 8);
   const topCom = S.comercios.map((c) => ({ c, v: mes.filter((p) => p.cid === c.id).reduce((a, p) => a + p.total, 0) })).sort((a, b) => b.v - a.v).slice(0, 5);
   return `
-  <h1 class="titulo">Tablero del ${MARCA.municipio}</h1>
-  <p class="muted sub">${MESES[new Date().getMonth()]} ${new Date().getFullYear()}, hasta hoy. Datos de demostración.</p>
+  <h1 class="titulo">Desarrollo Económico</h1>
+  <p class="muted sub">Impacto de SoyTigreYa en ${MESES[new Date().getMonth()]} ${new Date().getFullYear()}, hasta hoy. Datos de demostración.</p>
   <div class="kpis">
     ${kpi('Ventas en comercios locales', plata(ventas))}
-    ${kpi('Pedidos retirados', mes.length.toLocaleString('es-AR'))}
+    ${kpi('Comisiones que quedaron en Tigre', plata(ventas * MARCA.comisionApps), 'verde', `lo que se habría ido en apps al ${MARCA.comisionApps * 100}%`)}
     ${kpi('Ahorro de los vecinos', plata(ahorroVecinos), 'verde')}
-    ${kpi('Comisiones que quedaron en el distrito', plata(ventas * MARCA.comisionApps), 'verde', `lo que se habría ido en apps al ${MARCA.comisionApps * 100}%`)}
+    ${kpi('Pedidos retirados', mes.length.toLocaleString('es-AR'))}
     ${kpi('Comercios adheridos', S.comercios.length + BENEFICIOS.length)}
-    ${kpi('Reclamos abiertos', abiertos.length, abiertos.length > 30 ? 'rojo-kpi' : '')}
-    ${kpi('Turnos pedidos', S.turnos.length + 312)}
-    ${kpi('Puntos Tigre canjeados', (184200 + S.puntos.canjeados).toLocaleString('es-AR'), '', 'en cupones, tasas, estacionamiento y cultura')}
+    ${kpi('Puntos Tigre canjeados', (184200 + S.puntos.canjeados).toLocaleString('es-AR'), '', 'cupones, tasas, estacionamiento y cultura')}
     ${kpi('Tasas pagadas en término', '71%', 'verde', 'meta del piloto: 80% con Puntos Tigre')}
     ${kpi('Pagos hechos por la app', (1840 + S.pagosApp).toLocaleString('es-AR'), '', 'tasas, multas y estacionamiento')}
   </div>
   <div class="dos">
-    <div class="card"><h3>Mapa de reclamos</h3><div class="mapa" data-map="municipio"></div>
-      <p class="muted chico">🔴 recibido · 🟡 asignado o en curso · 🟢 resuelto</p></div>
-    <div class="card"><h3>Reclamos para gestionar</h3>
-      ${gestion.map((r) => { const t = TIPOS_RECLAMO.find((x) => x.id === r.tipo); const sig = ESTADOS_RECLAMO[ESTADOS_RECLAMO.indexOf(r.estado) + 1]; return `<div class="gest">${r.foto ? `<img src="${r.foto}" alt="">` : `<span class="ico">${t.emoji}</span>`}<div class="grow"><b>${t.nombre} · ${r.id}</b>${r.mio ? ' <span class="pill recibido">desde la app</span>' : ''}<p class="muted chico">${esc(r.dir || '')} ${r.loc} · ${RECLAMO_TXT[r.estado]}</p></div><button class="btn mini-btn" data-a="avanzarReclamo" data-v="${r.id}">${sig === 'resuelto' ? 'Resolver' : sig === 'asignado' ? 'Asignar' : 'Iniciar'}</button></div>`; }).join('')}
-    </div>
     <div class="card"><h3>Consumo por localidad</h3>
       ${porLoc.map((x) => `<div class="hbar"><span class="hbar-t">${x.l}<small>${x.n} comercios</small></span><div class="hbar-b"><i style="width:${(x.v / maxLoc) * 100}%;opacity:${0.35 + 0.65 * (x.v / maxLoc)}"></i></div><b>${plata(x.v)}</b></div>`).join('')}
     </div>
@@ -987,11 +1024,10 @@ function municipio() {
     <div class="card"><h3>Comercios con más ventas</h3>
       ${topCom.map((x, i) => `<p class="linea"><span>${i + 1}. ${x.c.emoji} ${esc(x.c.nombre)} <small class="muted">${x.c.loc}</small></span><b>${plata(x.v)}</b></p>`).join('')}
     </div>
-    <div class="card"><h3>Reclamos por tipo</h3>
-      ${TIPOS_RECLAMO.map((t) => `<p class="linea"><span>${t.emoji} ${t.nombre}</span><span><b class="rojo">${S.reclamos.filter((r) => r.tipo === t.id && r.estado !== 'resuelto').length} abiertos</b> · <span class="verde">${S.reclamos.filter((r) => r.tipo === t.id && r.estado === 'resuelto').length} resueltos</span></span></p>`).join('')}
+    <div class="card"><h3>Último movimiento</h3>
+      ${S.pedidos.slice().sort((a, b) => b.creado - a.creado).slice(0, 5).map((p) => `<p class="linea"><span>${comercio(p.cid).emoji} ${esc(comercio(p.cid).nombre)} <small class="muted">${hora(p.creado)} · ${fecha(p.creado)}</small></span><b>${plata(p.total)}</b></p>`).join('')}
     </div>
-  </div>
-  <button class="link" data-a="reiniciar">↺ Reiniciar los datos de la demo</button>`;
+  </div>`;
 }
 
 // ---------- mapas (Leaflet + OpenStreetMap) ----------
@@ -1119,31 +1155,96 @@ function procesando(txt, fn) {
   setTimeout(() => { fn(); render(); }, 1300);
 }
 
+function crearPedido(t, retiro) {
+  const p = armarPedido({
+    id: 'P' + (Math.max(...S.pedidos.map((x) => Number(x.id.slice(1)))) + 1), cid: t.c.id,
+    items: t.items.map(({ pid, nombre, precio, qty }) => ({ pid, nombre, precio, qty })),
+    desc: t.c.desc, pago: S.pago, creado: Date.now(), estado: 'recibido', mio: true, loc: t.c.loc, retiro: `a las ${retiro}`,
+  });
+  if (t.cupon) { p.cupon = t.cupon; p.total -= t.cupon; S.puntos.cupones.splice(S.puntos.cupones.findIndex((c) => c.tipo === 'cupon'), 1); }
+  S.pedidos.push(p);
+  const pts = sumarPuntos(Math.floor(p.total / PUNTOS.porCompra), `Compra en ${t.c.nombre}`, '🛍️');
+  S.carrito = null; S.sheet = null; S.abierto = null; S.tab = 'comprar'; S.comprarTab = 'pedidos';
+  if (!S.tour) setTimeout(() => toast(`✅ Pedido enviado. Ahorraste ${plata(p.descuento + (p.cupon || 0))} y sumaste ⭐ ${pts} puntos.`), 100);
+  return p;
+}
+
+// ---------- recorrido guiado ----------
+const TOUR = [
+  { perfil: null, titulo: 'Una plataforma, cuatro personas', texto: 'Vas a ver cómo una compra y un reclamo pasan por la vecina, el comercio y el municipio. Tocá "Siguiente" para avanzar.' },
+  { perfil: 'lucia', titulo: 'Lucía arma su pedido', texto: 'Pide sorrentinos en Pastas Doña Rosa. El 30% de descuento Soy Tigre se aplica solo y además suma Puntos Tigre.',
+    prep() { S.tab = 'comprar'; S.comprarTab = 'comercios'; S.abierto = 'c2'; S.carrito = { cid: 'c2', items: { c2p0: 2, c2p3: 1 } }; S.sheet = 'checkout'; S.retiro = 0; },
+    accion() { const t = totalesCarrito(); S.tour.pedido = crearPedido(t, horariosRetiro(t.c.prep)[0].txt.replace(/Lo antes posible \((.*)\)/, '$1')).id; } },
+  { perfil: 'lucia', titulo: 'El pedido sale al local', texto: 'Lucía ve en qué paso está su pedido y el código para retirarlo. No pagó comisión de delivery ni de app.',
+    prep() { S.tab = 'comprar'; S.comprarTab = 'pedidos'; S.sheet = null; } },
+  { perfil: 'rosa', titulo: 'Rosa lo recibe en su panel', texto: 'En "Pastas Doña Rosa" entra el pedido nuevo, ya pagado y con el descuento incluido. Lo prepara y lo marca listo.',
+    prep() { S.panelTab = 'pedidos'; },
+    accion() { const p = S.pedidos.find((x) => x.id === S.tour.pedido); if (p && p.estado === 'recibido') { ACT.avanzar(p.id); ACT.avanzar(p.id); } } },
+  { perfil: 'lucia', titulo: 'Aviso: ¡está listo!', texto: 'A Lucía le llega la notificación. Va al local y muestra su código de retiro.',
+    prep() { S.tab = 'comprar'; S.comprarTab = 'pedidos'; S.sheet = 'notifs'; S.notifs.forEach((n) => { n.leida = true; }); } },
+  { perfil: 'rosa', titulo: 'Rosa entrega con el código', texto: 'Rosa valida el código de Lucía y entrega el pedido. La venta queda registrada sin intermediarios.',
+    prep() { S.panelTab = 'pedidos'; },
+    accion() { const p = S.pedidos.find((x) => x.id === S.tour.pedido); if (p && p.estado !== 'retirado') { p.estado = 'retirado'; notificar(p, 'Retiraste tu pedido. ¡Gracias por comprar en el barrio!', '🎉'); } } },
+  { perfil: 'lucia', titulo: 'Lucía reporta un bache', texto: 'Volviendo a casa ve un pozo. Lo reporta con la dirección y el lugar exacto en el mapa (también puede sumar una foto).',
+    prep() { S.tab = 'servicios'; S.servTab = 'reclamos'; S.sheet = null; S.recForm = { tipo: 'bacheo', loc: 'Tigre Centro', dir: 'Mitre 120', texto: 'Pozo grande en la esquina, ya se cayó una moto.', foto: null, pos: null }; },
+    accion() { ACT.enviarReclamo(); S.tour.reclamo = S.reclamos[S.reclamos.length - 1].id; } },
+  { perfil: 'carlos', titulo: 'Carlos lo ve en el mapa', texto: 'En Atención al Vecino el reclamo aparece en el mapa y en la lista, marcado "desde la app". Lo asigna a una cuadrilla y lo resuelve.',
+    accion() { const r = S.reclamos.find((x) => x.id === S.tour.reclamo); while (r && r.estado !== 'resuelto') ACT.avanzarReclamo(r.id); } },
+  { perfil: 'lucia', titulo: 'Resuelto, y con premio', texto: 'Lucía recibe el aviso de que se resolvió y suma 100 Puntos Tigre, que puede canjear por cupones o un descuento en la tasa.',
+    prep() { S.tab = 'credencial'; S.sub = 'puntos'; S.sheet = null; S.notifs.forEach((n) => { n.leida = true; }); } },
+  { perfil: 'marina', titulo: 'Marina mide el impacto', texto: 'En Desarrollo Económico se ven las ventas en comercios locales, las comisiones que quedaron en Tigre y el ahorro de los vecinos. Fin del recorrido.' },
+];
+
+function tourCard() {
+  if (!S.tour) return '';
+  const i = S.tour.paso, st = TOUR[i], perf = PERFILES.find((x) => x.id === st.perfil);
+  const ultimo = i === TOUR.length - 1;
+  return `<div class="tour" role="dialog" aria-label="Recorrido guiado">
+    <div class="tour-cab">${perf ? avatarHtml(perf) : '<span class="avatar-p" style="background:#D02013">🐯</span>'}<div class="grow"><small>Paso ${i + 1} de ${TOUR.length}${perf ? ` · ${perf.nombre}, ${perf.rol}` : ''}</small><b>${st.titulo}</b></div><button class="cerrar-tour" data-a="tourSalir" aria-label="Salir del recorrido">✕</button></div>
+    <p>${st.texto}</p>
+    <div class="tour-barra"><i style="width:${((i + 1) / TOUR.length) * 100}%"></i></div>
+    <button class="btn" data-a="tourSig">${ultimo ? 'Terminar ✓' : 'Siguiente ▶'}</button>
+  </div>`;
+}
+
+function irPaso(i) {
+  S.tour.paso = i;
+  const st = TOUR[i];
+  S.sub = null; S.abierto = null; S.sheet = null;
+  S.perfil = st.perfil;
+  if (st.prep) st.prep();
+  window.scrollTo(0, 0);
+}
+
+// "Mientras tanto": qué cambió para el perfil al que entrás.
+function mientrasTanto(id) {
+  if (id === 'lucia') { const n = S.notifs.filter((x) => !x.leida); return n.length ? `${n[n.length - 1].emoji} ${n[n.length - 1].txt}` : ''; }
+  if (id === 'rosa') { const n = S.pedidos.filter((p) => p.cid === 'c2' && p.estado === 'recibido').length; return n ? `🆕 Mientras tanto: tenés ${plural(n, 'pedido nuevo', 'pedidos nuevos')} para preparar.` : ''; }
+  if (id === 'carlos') { const n = S.reclamos.filter((r) => r.mio && r.estado === 'recibido').length; return n ? `📣 Mientras tanto: entró ${plural(n, 'reclamo nuevo', 'reclamos nuevos')} desde la app.` : ''; }
+  return '';
+}
+
 // ---------- acciones ----------
 const ACT = {
-  rol(v) {
-    S.rol = v; S.sheet = null;
-    if (v === 'vecino') {
-      const nuevas = S.notifs.filter((n) => !n.leida);
-      if (nuevas.length) setTimeout(() => toast(`${nuevas[nuevas.length - 1].emoji} ${nuevas[nuevas.length - 1].txt}`), 150);
-    }
+  perfil(v) {
+    S.perfil = v; S.sheet = null; S.sub = null; S.abierto = null; S.tab = 'inicio'; S.panelTab = 'pedidos';
+    if (v === 'lucia' && !S.chat.length) S.chat.push({ de: 'tg', html: saludo(), acciones: [] });
+    const msg = mientrasTanto(v) || `👋 Entraste como ${PERFILES.find((x) => x.id === v).nombre}.`;
+    setTimeout(() => toast(msg), 150);
     window.scrollTo(0, 0);
   },
-  ingresar(v) {
-    if (v === 'dni') {
-      const dni = $('#inDni').value.replace(/\D/g, ''), tr = $('#inTramite').value.replace(/\D/g, '');
-      if (dni.length < 7 || tr.length < 8) { toast('Revisá el DNI y el número de trámite.'); return false; }
-    }
-    procesando(v === 'dni' ? 'Validando tu identidad…' : 'Conectando con Mi Argentina…', () => {
-      S.sesion = true; S.sheet = null; S.tab = 'inicio';
-      if (!S.chat.length) S.chat.push({ de: 'tg', html: saludo(), acciones: [] });
-      setTimeout(() => toast(`👋 ¡Bienvenida, ${S.usuario.nombre.split(' ')[0]}!`), 100);
-    });
+  cambiarPerfil() { S.perfil = null; S.tour = null; S.sheet = null; S.sub = null; window.scrollTo(0, 0); },
+  tourIniciar() { S.tour = { paso: 0 }; irPaso(0); },
+  tourSig() {
+    const st = TOUR[S.tour.paso];
+    if (st.accion) st.accion();
+    if (S.tour.paso >= TOUR.length - 1) { S.tour = null; S.perfil = null; setTimeout(() => toast('✅ Recorrido terminado. Ahora podés entrar con cualquier perfil.'), 100); return; }
+    irPaso(S.tour.paso + 1);
   },
-  salir() { if (!confirm('¿Cerrar sesión?')) return false; S.sesion = false; S.tab = 'inicio'; S.sub = null; },
+  tourSalir() { S.tour = null; S.sheet = null; },
   letra() { S.letra = !S.letra; },
   tab(v) { S.tab = v; S.abierto = null; S.sub = null; S.sheet = null; window.scrollTo(0, 0); },
-  sub(v) { S.sub = v; S.sheet = null; S.rol = 'vecino'; window.scrollTo(0, 0); },
+  sub(v) { S.sub = v; S.sheet = null; window.scrollTo(0, 0); },
   cerrarSub() { S.sub = null; },
   cat(v) { S.tab = 'comprar'; S.comprarTab = 'comercios'; S.abierto = null; S.sub = null; S.sheet = null; S.filtro.cat = v; window.scrollTo(0, 0); },
   comprarTab(v) { S.comprarTab = v; },
@@ -1177,18 +1278,7 @@ const ACT = {
   pagar() {
     const t = totalesCarrito();
     const retiro = horariosRetiro(t.c.prep)[S.retiro].txt.replace(/Lo antes posible \((.*)\)/, '$1');
-    procesando(S.pago === 'efectivo' ? 'Enviando tu pedido…' : `Procesando el pago con ${PAGOS.find((p) => p.id === S.pago).nombre}…`, () => {
-      const p = armarPedido({
-        id: 'P' + (Math.max(...S.pedidos.map((x) => Number(x.id.slice(1)))) + 1), cid: t.c.id,
-        items: t.items.map(({ pid, nombre, precio, qty }) => ({ pid, nombre, precio, qty })),
-        desc: t.c.desc, pago: S.pago, creado: Date.now(), estado: 'recibido', mio: true, loc: t.c.loc, retiro: `a las ${retiro}`,
-      });
-      if (t.cupon) { p.cupon = t.cupon; p.total -= t.cupon; S.puntos.cupones.splice(S.puntos.cupones.findIndex((c) => c.tipo === 'cupon'), 1); }
-      S.pedidos.push(p);
-      const pts = sumarPuntos(Math.floor(p.total / PUNTOS.porCompra), `Compra en ${t.c.nombre}`, '🛍️');
-      S.carrito = null; S.sheet = null; S.abierto = null; S.tab = 'comprar'; S.comprarTab = 'pedidos';
-      setTimeout(() => toast(`✅ Pedido enviado. Ahorraste ${plata(p.descuento + (p.cupon || 0))} y sumaste ⭐ ${pts} puntos.`), 100);
-    });
+    procesando(S.pago === 'efectivo' ? 'Enviando tu pedido…' : `Procesando el pago con ${PAGOS.find((p) => p.id === S.pago).nombre}…`, () => crearPedido(t, retiro));
   },
   // cobros municipales
   cobrar(v) {

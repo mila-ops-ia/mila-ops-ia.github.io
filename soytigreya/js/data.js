@@ -217,3 +217,24 @@ const NIVELES = [
   { nombre: 'Tigre de Oro', desde: 3000, emoji: '🏆' },
 ];
 const PUNTOS_VERDES = ['Punto Verde Plaza Mitre (Tigre Centro)', 'Punto Verde Nordelta Centro', 'Punto Verde Don Torcuato Estación', 'Punto Verde El Talar'];
+
+// ---------- Perfiles de la demo ----------
+const PERFILES = [
+  { id: 'lucia', nombre: 'Lucía', rol: 'Vecina de Tigre Centro', avatar: '👩🏻', color: '#D02013', vista: 'vecino',
+    hace: 'Usa la app en el celu: beneficios, pedidos, trámites, puntos y Tigri.', entra: 'Entraría con Mi Argentina' },
+  { id: 'rosa', nombre: 'Rosa', rol: 'Dueña de Pastas Doña Rosa', avatar: '👩🏻‍🍳', color: '#b5541c', vista: 'comercio', cid: 'c2',
+    hace: 'Recibe pedidos, carga productos y ve cuánto ahorró en comisiones.', entra: 'Entraría con el CUIT y la clave del comercio' },
+  { id: 'carlos', nombre: 'Carlos', rol: 'Atención al Vecino · Municipio', avatar: '👨🏽‍💼', color: '#515769', vista: 'atencion',
+    hace: 'Gestiona los reclamos en el mapa y los turnos del día.', entra: 'Entraría con su usuario municipal' },
+  { id: 'marina', nombre: 'Marina', rol: 'Desarrollo Económico · Municipio', avatar: '👩🏽‍💼', color: '#3A3F4D', vista: 'economia',
+    hace: 'Mide el impacto: ventas por localidad, comercios y comisiones que quedan en Tigre.', entra: 'Entraría con su usuario municipal' },
+];
+
+// Turnos del día que ve Atención al Vecino (inventados para la demo).
+const TURNOS_DEMO = [
+  { hora: '08:30', nombre: 'Juan P.', tramite: 'licencia' },
+  { hora: '09:00', nombre: 'Marta G.', tramite: 'zoonosis' },
+  { hora: '09:30', nombre: 'Sergio L.', tramite: 'licencia' },
+  { hora: '10:30', nombre: 'Ana R.', tramite: 'medico' },
+  { hora: '11:00', nombre: 'Pablo D.', tramite: 'tasas' },
+];
