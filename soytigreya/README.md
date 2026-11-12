@@ -47,6 +47,7 @@ El botón **"▶ Ver el recorrido guiado"** muestra, en 10 pasos, cómo un pedid
 
 ## Documentos
 
+- [Presentación: pitch de venta y defensa del TFI (PDF, 22 diapositivas)](documentos/Presentacion%20-%20SoyTigreYa.pdf)
 - [Propuesta comercial de mila·ops para el Municipio de Tigre (PDF)](documentos/Propuesta%20comercial%20-%20SoyTigreYa%20-%20mila-ops.pdf): planes, precios, retorno esperado y plan del piloto
 - [Propuesta comercial (Word)](documentos/Propuesta%20comercial%20-%20SoyTigreYa%20-%20mila-ops.docx)
 - [Trabajo Final Integrador (PDF)](documentos/Trabajo%20Final%20Integrador%20-%20SoyTigreYa.pdf)
