@@ -25,6 +25,8 @@ const SERVICIOS = [
   { emoji: '💊', txt: 'Farmacias de turno', a: 'sub', v: 'farmacias', kw: 'farmacia turno remedio' },
   { emoji: '🆘', txt: 'Botón de alerta', a: 'sub', v: 'alerta', kw: 'alerta emergencia seguridad robo panico' },
   { emoji: '🎪', txt: 'Agenda cultural', a: 'serv', v: 'agenda', kw: 'agenda evento feria musica cultura' },
+  { emoji: '⭐', txt: 'Puntos Tigre: sumar y canjear', a: 'sub', v: 'puntos', kw: 'puntos canje canjear premio nivel' },
+  { emoji: '♻️', txt: 'Reciclar y sumar puntos', a: 'sub', v: 'reciclar', kw: 'reciclar reciclaje punto verde ecopunto' },
 ];
 
 // ---------- utilidades ----------
@@ -124,7 +126,33 @@ function seed() {
     parada: 'estacion', alerta: null, cobro: null, comprobante: null,
     chat: [], benefSel: null, busca: '',
     panelCid: 'c2', panelTab: 'pedidos', pagosApp: 0,
+    puntos: seedPuntos(pedidos),
   };
+}
+
+// Puntos Tigre: historial inicial a partir de las compras propias de los últimos meses.
+function seedPuntos(pedidos) {
+  const hist = pedidos.filter((p) => p.mio).map((p) => ({ t: p.creado, txt: `Compra en ${comercio2(p.cid).nombre}`, pts: Math.floor(p.total / PUNTOS.porCompra), emoji: '🛍️' }));
+  const ahora = Date.now();
+  hist.push({ t: ahora - 40 * 864e5, txt: 'Tasa pagada antes del vencimiento', pts: PUNTOS.tasaATiempo, emoji: '🧾' });
+  hist.push({ t: ahora - 18 * 864e5, txt: 'Reciclaje en Punto Verde Plaza Mitre', pts: PUNTOS.reciclar, emoji: '♻️' });
+  hist.push({ t: ahora - 9 * 864e5, txt: 'Reciclaje en Punto Verde Plaza Mitre', pts: PUNTOS.reciclar, emoji: '♻️' });
+  hist.sort((a, b) => a.t - b.t);
+  const total = hist.reduce((a, h) => a + h.pts, 0);
+  return { saldo: total, acumulado: total, historial: hist, cupones: [], descTasa: 0, canjeados: 0 };
+}
+function comercio2(id) { return SEED_COMERCIOS.find((c) => c.id === id); }
+
+function sumarPuntos(pts, txt, emoji) {
+  if (pts <= 0) return 0;
+  S.puntos.saldo += pts; S.puntos.acumulado += pts;
+  S.puntos.historial.push({ t: Date.now(), txt, pts, emoji });
+  return pts;
+}
+function nivelActual(acum) {
+  const n = NIVELES.filter((x) => acum >= x.desde).pop();
+  const sig = NIVELES[NIVELES.indexOf(n) + 1];
+  return { n, sig, falta: sig ? sig.desde - acum : 0, pct: sig ? ((acum - n.desde) / (sig.desde - n.desde)) * 100 : 100 };
 }
 
 function armarPedido(p) {
@@ -134,7 +162,10 @@ function armarPedido(p) {
 }
 
 function load() {
-  try { const s = JSON.parse(localStorage.getItem(KEY)); if (s && s.v === 2) return s; } catch (e) { /* sin almacenamiento */ }
+  try {
+    const s = JSON.parse(localStorage.getItem(KEY));
+    if (s && s.v === 2) { if (!s.puntos) s.puntos = seedPuntos(s.pedidos); return s; }
+  } catch (e) { /* sin almacenamiento */ }
   return seed();
 }
 function save() {
@@ -228,6 +259,7 @@ function vInicio() {
   <section class="hola"><p class="muted">Hola,</p><h1>${esc(S.usuario.nombre.split(' ')[0])} 👋</h1></section>
   <input class="buscar" type="search" placeholder="🔎 Buscá comercios, beneficios o trámites" value="${esc(S.busca)}" data-f="busca">
   <div id="resBusca">${resultadosBusca()}</div>
+  ${puntosMini()}
   <div class="card ahorro">
     <p>Este mes ahorraste con tu tarjeta ${MARCA.tarjeta}</p>
     <strong>${plata(ahorro)}</strong>
@@ -353,7 +385,49 @@ function totalesCarrito() {
   });
   const subtotal = items.reduce((a, it) => a + it.precio * it.qty, 0);
   const descuento = Math.round(subtotal * c.desc / 100);
-  return { c, items, subtotal, descuento, total: subtotal - descuento, unidades: items.reduce((a, it) => a + it.qty, 0) };
+  const hayCupon = S.puntos.cupones.some((x) => x.tipo === 'cupon');
+  const cupon = hayCupon && !S.noUsarCupon ? Math.min(2000, subtotal - descuento) : 0;
+  return { c, items, subtotal, descuento, hayCupon, cupon, total: subtotal - descuento - cupon, unidades: items.reduce((a, it) => a + it.qty, 0) };
+}
+
+// ---------- Puntos Tigre ----------
+function puntosMini() {
+  const { n } = nivelActual(S.puntos.acumulado);
+  return `<button class="puntos-mini" data-a="sub" data-v="puntos"><span>⭐ <b>${S.puntos.saldo.toLocaleString('es-AR')}</b> Puntos Tigre</span><span class="muted">${n.emoji} Nivel ${n.nombre} ›</span></button>`;
+}
+
+function puntosCard() {
+  const { n, sig, falta, pct } = nivelActual(S.puntos.acumulado);
+  return `<button class="card puntos-card" data-a="sub" data-v="puntos">
+    <div class="pc-top"><span class="pc-num">⭐ ${S.puntos.saldo.toLocaleString('es-AR')}</span><span class="pill listo">${n.emoji} ${n.nombre}</span></div>
+    <div class="barra-nivel"><i style="width:${Math.min(100, pct)}%"></i></div>
+    <span class="muted">${sig ? `Te faltan ${falta.toLocaleString('es-AR')} puntos para ${sig.emoji} ${sig.nombre}` : '¡Llegaste al nivel máximo!'}</span>
+    <span class="link">Canjear puntos ›</span></button>`;
+}
+
+function sPuntos() {
+  const p = S.puntos;
+  const vence = new Date(); vence.setMonth(vence.getMonth() + PUNTOS.vencenMeses);
+  return `${puntosCard().replace('data-a="sub" data-v="puntos"', '')}
+  <p class="muted chico centro">Los puntos vencen a los ${PUNTOS.vencenMeses} meses de sumarlos.</p>
+  <h2>Canjeá tus puntos</h2>
+  <div class="lista">${CANJES.map((c) => { const ok = p.saldo >= c.costo; const pend = c.id === 'tasa' && p.descTasa; return `<div class="fila canje"><span class="ico">${c.emoji}</span><div><b>${c.txt}</b><p class="muted">${c.detalle}</p></div><button class="btn mini-btn" data-a="canjear" data-v="${c.id}" ${ok && !pend ? '' : 'disabled'}>${pend ? 'Pendiente' : `⭐ ${c.costo}`}</button></div>`; }).join('')}</div>
+  ${p.cupones.length ? `<h2>Mis cupones</h2><div class="lista">${p.cupones.map((c) => `<div class="fila"><span class="ico">🎟️</span><div><b>${esc(c.txt)}</b><p class="muted">Código ${c.codigo}</p></div></div>`).join('')}</div>` : ''}
+  <h2>Cómo sumar</h2>
+  <div class="lista">${FORMAS_SUMAR.map((f) => `<div class="fila"><span class="ico">${f.emoji}</span><div><b>${f.txt}</b></div><span class="tag-mini">${f.pts}</span></div>`).join('')}</div>
+  <button class="btn grande" data-a="sub" data-v="reciclar">♻️ Reciclar ahora y sumar</button>
+  <h2>Movimientos</h2>
+  <div class="lista">${p.historial.slice(-12).reverse().map((h) => `<div class="fila"><span class="ico">${h.emoji}</span><div><b>${esc(h.txt)}</b><p class="muted">${fecha(h.t)}</p></div><div class="der"><b class="${h.pts > 0 ? 'verde' : 'rojo'}">${h.pts > 0 ? '+' : ''}${h.pts}</b></div></div>`).join('')}</div>`;
+}
+
+function sReciclar() {
+  if (S.reciclado && Date.now() - S.reciclado.t < 120000) {
+    return `<div class="card alerta-ok"><span class="grande-emoji">♻️</span><h2>¡Gracias por reciclar!</h2><p>Sumaste ⭐ ${PUNTOS.reciclar} puntos en ${esc(S.reciclado.lugar)}.</p>
+      <p class="muted">Tenés ${S.puntos.saldo.toLocaleString('es-AR')} puntos.</p><button class="btn" data-a="sub" data-v="puntos">Ver mis puntos</button></div>`;
+  }
+  return `<p class="muted sub">En cada punto verde hay un código QR. Escanealo al dejar tus residuos separados y sumás ${PUNTOS.reciclar} puntos.</p>
+  <div class="card escaner"><span class="grande-emoji">📷</span><p><b>Escaneá el QR del punto verde</b></p><p class="muted chico">Demostración: elegí el punto verde para simular el escaneo.</p></div>
+  <div class="lista">${PUNTOS_VERDES.map((v) => `<button class="fila" data-a="reciclar" data-v="${v}"><span class="ico">♻️</span><div><b>${v}</b><p class="muted">Plástico, cartón, vidrio y latas</p></div><span class="tag-mini">+${PUNTOS.reciclar}</span></button>`).join('')}</div>`;
 }
 
 function horariosRetiro(prep) {
@@ -417,6 +491,8 @@ function vCredencial() {
     <p class="cred-ok">✔ Identidad validada</p>
   </div>
   <p class="muted centro">Mostrala en la caja de cualquier comercio adherido.</p>
+  <h2>Puntos Tigre</h2>
+  ${puntosCard()}
   <h2>Lo que ahorraste</h2>
   <div class="card"><p class="muted">Últimos 6 meses</p><strong class="grande-num">${plata(total)}</strong>
     <div class="barras">${meses.map((m, i) => `<div class="barra ${i === 5 ? 'hoy' : ''}"><span style="height:${Math.max(4, (m.ahorro / max) * 100)}%"></span><em>${m.txt}</em><small>${m.ahorro ? '$' + Math.round(m.ahorro / 1000) + 'k' : '—'}</small></div>`).join('')}</div></div>
@@ -513,8 +589,8 @@ function vPagos() {
 
 // ---------- subpantallas ----------
 function vSub() {
-  const titulos = { tasas: 'Tasas municipales', multas: 'Multas de tránsito', estacionamiento: 'Estacionamiento medido', rio: 'Altura del río', colectivos: 'Colectivos', farmacias: 'Farmacias de turno', alerta: 'Botón de alerta' };
-  const cuerpo = { tasas: sTasas, multas: sMultas, estacionamiento: sEstac, rio: sRio, colectivos: sColectivos, farmacias: sFarmacias, alerta: sAlerta }[S.sub];
+  const titulos = { puntos: 'Puntos Tigre', reciclar: 'Reciclar y sumar puntos', tasas: 'Tasas municipales', multas: 'Multas de tránsito', estacionamiento: 'Estacionamiento medido', rio: 'Altura del río', colectivos: 'Colectivos', farmacias: 'Farmacias de turno', alerta: 'Botón de alerta' };
+  const cuerpo = { puntos: sPuntos, reciclar: sReciclar, tasas: sTasas, multas: sMultas, estacionamiento: sEstac, rio: sRio, colectivos: sColectivos, farmacias: sFarmacias, alerta: sAlerta }[S.sub];
   return `<button class="volver" data-a="cerrarSub">‹ Volver</button><h1 class="titulo">${titulos[S.sub]}</h1>${cuerpo ? cuerpo() : ''}`;
 }
 
@@ -637,8 +713,9 @@ function sheet() {
       <div class="totales">
         <p class="linea"><span>Subtotal</span><span>${plata(t.subtotal)}</span></p>
         <p class="linea verde"><span>🐯 Beneficio ${MARCA.tarjeta} (-${t.c.desc}%)</span><span>-${plata(t.descuento)}</span></p>
+        ${t.hayCupon ? `<button class="linea cupon-fila" data-a="toggleCupon"><span>🎟️ Usar mi cupón Puntos Tigre</span><span>${t.cupon ? '-' + plata(t.cupon) : 'No usar'} ${t.cupon ? '✔' : '○'}</span></button>` : ''}
         <p class="linea total"><span>Total</span><span>${plata(t.total)}</span></p>
-        <p class="compara">Ahorrás <b>${plata(t.descuento)}</b>. Y como ${esc(t.c.nombre)} no paga comisión por vender acá, el precio no viene inflado.</p>
+        <p class="compara">Ahorrás <b>${plata(t.descuento + t.cupon)}</b> y sumás <b>⭐ ${Math.floor(t.total / PUNTOS.porCompra)} Puntos Tigre</b>. Como ${esc(t.c.nombre)} no paga comisión por vender acá, el precio no viene inflado.</p>
       </div>
       <p class="muted">¿Cuándo lo retirás?</p>
       <div class="chips">${horariosRetiro(t.c.prep).map((h) => `<button class="chip ${S.retiro === h.i ? 'on' : ''}" data-a="retiro" data-v="${h.i}">${h.txt}</button>`).join('')}</div>
@@ -679,7 +756,7 @@ function sheet() {
     return `<div class="velo" data-a="cerrarSheet"></div><div class="sheet chat" role="dialog" aria-label="Chat con Tigri">
       <div class="chat-cab"><span class="tg-avatar">🐯</span><div><b>Tigri</b><span class="muted">Tu asistente de ${MARCA.app}</span></div><button class="cerrar" data-a="cerrarSheet" aria-label="Cerrar">✕</button></div>
       <div class="chat-msgs" id="chatMsgs">${S.chat.map(burbuja).join('')}</div>
-      <div class="chat-sug">${['Farmacia de turno', '¿Cómo está el río?', 'Quiero pizza', 'Hay un bache', '¿Cuánto ahorré?', 'Pagar tasas'].map((x) => `<button class="chip" data-a="chatSug" data-v="${x}">${x}</button>`).join('')}</div>
+      <div class="chat-sug">${['Farmacia de turno', '¿Cómo está el río?', 'Quiero pizza', 'Hay un bache', '¿Cuántos puntos tengo?', '¿Cuánto ahorré?', 'Quiero reciclar', 'Pagar tasas'].map((x) => `<button class="chip" data-a="chatSug" data-v="${x}">${x}</button>`).join('')}</div>
       <form class="chat-in" data-form="chat"><input id="chatIn" placeholder="Escribile a Tigri…" autocomplete="off"><button class="btn" type="submit" aria-label="Enviar">➤</button></form>
     </div>`;
   }
@@ -701,6 +778,14 @@ function tigriResponde(texto) {
 
   if (tiene(q, 'emergencia', 'robo', 'me robaron', 'ayuda urgente', 'auxilio', 'incendio', 'violencia', 'panico')) {
     return R(`Si es una emergencia, <b>llamá ya al 911</b> (o al 107 si es médica, 144 por violencia de género). También podés usar el botón de alerta: le manda tu ubicación al Centro de Operaciones.`, [{ t: '🆘 Botón de alerta', a: 'sub', v: 'alerta' }]);
+  }
+  if (tiene(q, 'recicl', 'punto verde', 'ecopunto')) {
+    return R(`¡Bien ahí! Cada vez que dejás tus residuos separados en un punto verde y escaneás su QR, sumás <b>⭐ ${PUNTOS.reciclar} puntos</b>. Hay en ${PUNTOS_VERDES.length} lugares del distrito ♻️`, [{ t: '♻️ Reciclar y sumar', a: 'sub', v: 'reciclar' }]);
+  }
+  if (tiene(q, 'punto', 'canje', 'canjear', 'premio', 'nivel')) {
+    const { n, sig, falta } = nivelActual(S.puntos.acumulado);
+    const alcanza = CANJES.filter((c) => S.puntos.saldo >= c.costo);
+    return R(`Tenés <b>⭐ ${S.puntos.saldo.toLocaleString('es-AR')} Puntos Tigre</b> y sos nivel <b>${n.emoji} ${n.nombre}</b>${sig ? ` (te faltan ${falta} para ${sig.nombre})` : ''}. ${alcanza.length ? `Ya te alcanza para: ${alcanza.map((c) => `<br>• ${c.emoji} ${c.txt}`).join('')}` : 'Seguí sumando comprando en el barrio, pagando a tiempo o reciclando.'}`, [{ t: '⭐ Canjear puntos', a: 'sub', v: 'puntos' }]);
   }
   if (tiene(q, 'farmacia', 'remedio', 'medicamento')) {
     const dia = Math.floor(Date.now() / 864e5);
@@ -752,11 +837,11 @@ function tigriResponde(texto) {
   if (tiene(q, 'beneficio', 'descuento', 'promo')) return R('Tenés descuentos en supermercados, farmacias, gastronomía, turismo y más 🎁', [{ t: 'Ver beneficios', a: 'tab', v: 'beneficios' }, { t: 'En el mapa', a: 'benefMapa', v: '' }]);
   if (tiene(q, 'hola', 'buenas', 'buen dia', 'que tal', 'ayuda', 'que podes', 'que haces')) return R(saludo(), []);
   if (tiene(q, 'gracias', 'genial', 'buenisimo', 'joya')) return R(`¡De nada, ${esc(nombre)}! Acá estoy cuando me necesites 🐯`);
-  return R(`Mmm, eso todavía no lo sé 🙈. Puedo ayudarte con <b>beneficios</b>, <b>pedidos</b>, <b>turnos</b>, <b>reclamos</b>, <b>tasas</b>, el <b>río</b>, <b>colectivos</b> y <b>farmacias</b>. Si necesitás hablar con una persona, llamá al 147.`);
+  return R(`Mmm, eso todavía no lo sé 🙈. Puedo ayudarte con <b>beneficios</b>, <b>Puntos Tigre</b>, <b>pedidos</b>, <b>turnos</b>, <b>reclamos</b>, <b>tasas</b>, el <b>río</b>, <b>colectivos</b> y <b>farmacias</b>. Si necesitás hablar con una persona, llamá al 147.`);
 }
 
 function saludo() {
-  return `¡Hola, ${esc(S.usuario.nombre.split(' ')[0])}! Soy <b>Tigri</b> 🐯, tu asistente de ${MARCA.app}. Puedo buscarte descuentos, ayudarte a pedir para retirar, sacar turnos, cargar reclamos o decirte cómo está el río. ¿Qué necesitás?`;
+  return `¡Hola, ${esc(S.usuario.nombre.split(' ')[0])}! Soy <b>Tigri</b> 🐯, tu asistente de ${MARCA.app}. Puedo buscarte descuentos, contarte tus Puntos Tigre, ayudarte a pedir para retirar, sacar turnos, cargar reclamos o decirte cómo está el río. ¿Qué necesitás?`;
 }
 
 function chatEnviar(txt) {
@@ -879,6 +964,8 @@ function municipio() {
     ${kpi('Comercios adheridos', S.comercios.length + BENEFICIOS.length)}
     ${kpi('Reclamos abiertos', abiertos.length, abiertos.length > 30 ? 'rojo-kpi' : '')}
     ${kpi('Turnos pedidos', S.turnos.length + 312)}
+    ${kpi('Puntos Tigre canjeados', (184200 + S.puntos.canjeados).toLocaleString('es-AR'), '', 'en cupones, tasas, estacionamiento y cultura')}
+    ${kpi('Tasas pagadas en término', '71%', 'verde', 'meta del piloto: 80% con Puntos Tigre')}
     ${kpi('Pagos hechos por la app', (1840 + S.pagosApp).toLocaleString('es-AR'), '', 'tasas, multas y estacionamiento')}
   </div>
   <div class="dos">
@@ -1092,16 +1179,22 @@ const ACT = {
         items: t.items.map(({ pid, nombre, precio, qty }) => ({ pid, nombre, precio, qty })),
         desc: t.c.desc, pago: S.pago, creado: Date.now(), estado: 'recibido', mio: true, loc: t.c.loc, retiro: `a las ${retiro}`,
       });
+      if (t.cupon) { p.cupon = t.cupon; p.total -= t.cupon; S.puntos.cupones.splice(S.puntos.cupones.findIndex((c) => c.tipo === 'cupon'), 1); }
       S.pedidos.push(p);
+      const pts = sumarPuntos(Math.floor(p.total / PUNTOS.porCompra), `Compra en ${t.c.nombre}`, '🛍️');
       S.carrito = null; S.sheet = null; S.abierto = null; S.tab = 'comprar'; S.comprarTab = 'pedidos';
-      setTimeout(() => toast(`✅ Pedido enviado. Ahorraste ${plata(p.descuento)} con ${MARCA.tarjeta}.`), 100);
+      setTimeout(() => toast(`✅ Pedido enviado. Ahorraste ${plata(p.descuento + (p.cupon || 0))} y sumaste ⭐ ${pts} puntos.`), 100);
     });
   },
   // cobros municipales
   cobrar(v) {
     if (v === 'tasas') {
       const pend = S.tasas.filter((t) => !t.pagada);
-      S.cobro = { tipo: 'tasas', concepto: 'Tasas municipales', detalle: pend.map((t) => [t.periodo, plata(t.monto)]), monto: pend.reduce((a, t) => a + t.monto, 0) };
+      const bruto = pend.reduce((a, t) => a + t.monto, 0);
+      const desc = S.puntos.descTasa ? Math.min(3000, Math.round(pend[0].monto * 0.1)) : 0;
+      const aTiempo = pend.filter((t) => t.vence >= Date.now()).length;
+      const pts = aTiempo * PUNTOS.tasaATiempo + (pend.length - aTiempo) * PUNTOS.tasaVencida;
+      S.cobro = { tipo: 'tasas', pts, usoDesc: !!desc, concepto: 'Tasas municipales', detalle: [...pend.map((t) => [t.periodo, plata(t.monto)]), ...(desc ? [['🎁 Canje Puntos Tigre (10%)', '-' + plata(desc)]] : []), ['⭐ Puntos que sumás', String(pts)]], monto: bruto - desc };
     } else if (v === 'multas') {
       const pend = S.multas.filter((m) => !m.pagada && m.patente === (S.multaBusca || S.usuario.patente).toUpperCase());
       S.cobro = { tipo: 'multas', ids: pend.map((m) => m.id), concepto: 'Multas de tránsito', detalle: pend.map((m) => [`Acta ${m.id} (50% off)`, plata(m.monto / 2)]), monto: pend.reduce((a, m) => a + m.monto / 2, 0) };
@@ -1114,7 +1207,11 @@ const ACT = {
   confirmarCobro() {
     const c = S.cobro;
     procesando(`Procesando el pago con ${PAGOS.find((p) => p.id === S.pago).nombre}…`, () => {
-      if (c.tipo === 'tasas') S.tasas.forEach((t) => { t.pagada = true; });
+      if (c.tipo === 'tasas') {
+        S.tasas.forEach((t) => { t.pagada = true; });
+        if (c.usoDesc) S.puntos.descTasa = 0;
+        sumarPuntos(c.pts, 'Pago de tasas municipales', '🧾');
+      }
       if (c.tipo === 'multas') S.multas.forEach((m) => { if (c.ids.includes(m.id)) m.pagada = true; });
       if (c.tipo === 'saldo') S.estac.saldo += c.monto;
       S.pagosApp++;
@@ -1213,10 +1310,33 @@ const ACT = {
     if (!sig) return false;
     r.estado = sig; r.historial.push({ estado: sig, t: Date.now() });
     const t = TIPOS_RECLAMO.find((x) => x.id === r.tipo);
+    if (sig === 'resuelto' && r.mio) sumarPuntos(PUNTOS.reclamoResuelto, `Reclamo ${r.id} resuelto`, '📣');
     notificar(r, `Tu reclamo de ${t.nombre.toLowerCase()} N.º ${r.id}: ${RECLAMO_TXT[sig].toLowerCase()}`, sig === 'resuelto' ? '✅' : '🛠️');
   },
   // Tigri
   chatSug(v) { chatEnviar(v); return false; },
+  // Puntos Tigre
+  toggleCupon() { S.noUsarCupon = !S.noUsarCupon; },
+  canjear(id) {
+    const c = CANJES.find((x) => x.id === id);
+    if (S.puntos.saldo < c.costo) { toast(`Te faltan ${c.costo - S.puntos.saldo} puntos para este canje.`); return false; }
+    if (id === 'tasa' && S.puntos.descTasa) { toast('Ya tenés un descuento de tasa esperando tu próximo pago.'); return false; }
+    if (!confirm(`¿Canjear ${c.costo} puntos por: ${c.txt}?`)) return false;
+    S.puntos.saldo -= c.costo; S.puntos.canjeados += c.costo;
+    S.puntos.historial.push({ t: Date.now(), txt: `Canje: ${c.txt}`, pts: -c.costo, emoji: c.emoji });
+    if (id === 'estac') { S.estac.saldo += 1500; toast('🚗 Sumamos $1.500 a tu saldo de estacionamiento.'); }
+    else if (id === 'tasa') { S.puntos.descTasa = 1; toast('🧾 Listo: el 10% se descuenta en tu próximo pago de tasas.'); }
+    else {
+      const codigo = 'PT-' + Math.random().toString(36).slice(2, 7).toUpperCase();
+      S.puntos.cupones.push({ tipo: id, txt: c.txt, codigo, t: Date.now() });
+      toast(id === 'cupon' ? '🎟️ Cupón listo: se aplica en tu próximo pedido.' : `🎪 Tu código de entrada es ${codigo}.`);
+    }
+  },
+  reciclar(v) {
+    const pts = sumarPuntos(PUNTOS.reciclar, `Reciclaje en ${v}`, '♻️');
+    S.reciclado = { lugar: v, t: Date.now() };
+    toast(`♻️ ¡Gracias por reciclar! Sumaste ⭐ ${pts} puntos.`);
+  },
   reiniciar() { if (!confirm('¿Volver a los datos iniciales de la demo?')) return false; S = seed(); },
 };
 

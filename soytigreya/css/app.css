@@ -393,3 +393,15 @@ h2 { color: #515769; }
 .pasos li.actual::before { background: #D02013; box-shadow: 0 0 0 5px #F6C9C4; }
 
 .demo-banda { background: #3A3F4D; color: #FFFFFF; font-size: .72rem; font-weight: 600; text-align: center; padding: 5px 10px; letter-spacing: .02em; }
+
+/* Puntos Tigre */
+.puntos-mini { width: 100%; display: flex; justify-content: space-between; align-items: center; background: #fff; border: 1.5px solid #F6C9C4; border-radius: 14px; padding: 10px 14px; margin-bottom: 12px; font-size: .9rem; }
+.puntos-mini b { color: #D02013; font-size: 1.05rem; }
+.puntos-card { width: 100%; text-align: left; display: flex; flex-direction: column; gap: 8px; border-top: 5px solid #D02013; }
+.pc-top { display: flex; justify-content: space-between; align-items: center; }
+.pc-num { font-size: 1.8rem; font-weight: 800; color: #D02013; }
+.barra-nivel { height: 10px; background: #ECEDF1; border-radius: 6px; overflow: hidden; }
+.barra-nivel i { display: block; height: 100%; background: linear-gradient(90deg, #D02013, #E85A4F); border-radius: 6px; }
+.canje .mini-btn { flex: none; align-self: center; }
+.cupon-fila { width: 100%; background: #FBE9E7; border-radius: 10px; padding: 8px 10px; color: #9E180E; font-weight: 700; }
+.escaner { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px; margin-bottom: 12px; border: 2px dashed #BFC1C7; }

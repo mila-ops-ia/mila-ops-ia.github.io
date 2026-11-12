@@ -188,3 +188,32 @@ const ZONAS_ESTAC = [
 ];
 
 const ESTADOS_RECLAMO = ['recibido', 'asignado', 'en curso', 'resuelto'];
+
+// ---------- Puntos Tigre ----------
+const PUNTOS = {
+  porCompra: 1000, // 1 punto cada $1.000 gastados en comercios adheridos
+  tasaATiempo: 200, // por cuota pagada antes del vencimiento
+  tasaVencida: 50,
+  reclamoResuelto: 100,
+  reciclar: 40,
+  vencenMeses: 12,
+};
+const FORMAS_SUMAR = [
+  { emoji: '🛍️', txt: 'Comprar en comercios adheridos', pts: '1 punto cada $1.000' },
+  { emoji: '🧾', txt: 'Pagar la tasa antes del vencimiento', pts: '200 por cuota' },
+  { emoji: '♻️', txt: 'Reciclar en un punto verde (escaneando su QR)', pts: '40 por entrega' },
+  { emoji: '📣', txt: 'Un reclamo tuyo que la cuadrilla resuelve', pts: '100' },
+  { emoji: '📅', txt: 'Ir al turno que pediste', pts: '30' },
+];
+const CANJES = [
+  { id: 'cupon', emoji: '🎟️', txt: 'Cupón de $2.000 en un comercio adherido', costo: 400, detalle: 'Se descuenta solo en tu próximo pedido por la app.' },
+  { id: 'tasa', emoji: '🧾', txt: '10% en tu próxima cuota de tasa', costo: 600, detalle: 'Tope de $3.000 por cuota. Requiere ordenanza municipal.' },
+  { id: 'estac', emoji: '🚗', txt: '$1.500 de saldo de estacionamiento', costo: 300, detalle: 'Se acredita al instante.' },
+  { id: 'evento', emoji: '🎪', txt: 'Entrada para una actividad cultural', costo: 250, detalle: 'Recibís un código para presentar en la entrada.' },
+];
+const NIVELES = [
+  { nombre: 'Cachorro', desde: 0, emoji: '🐾' },
+  { nombre: 'Tigre', desde: 1000, emoji: '🐯' },
+  { nombre: 'Tigre de Oro', desde: 3000, emoji: '🏆' },
+];
+const PUNTOS_VERDES = ['Punto Verde Plaza Mitre (Tigre Centro)', 'Punto Verde Nordelta Centro', 'Punto Verde Don Torcuato Estación', 'Punto Verde El Talar'];
