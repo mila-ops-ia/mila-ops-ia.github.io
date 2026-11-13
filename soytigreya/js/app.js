@@ -382,18 +382,20 @@ function listaBeneficios() {
 
 function vBeneficios() {
   const f = S.benef;
-  const lista = listaBeneficios();
+  const yo = miPos();
+  const lista = listaBeneficios().map((b) => ({ ...b, d: distKm(yo, b.pos) })).sort((a, b) => a.d - b.d);
   const rubrosUsados = RUBROS.filter((r) => BENEFICIOS.some((b) => b.rubro === r.id));
   return `
   <h1 class="titulo">Beneficios ${MARCA.tarjeta}</h1>
   <p class="muted sub">Más de 500 comercios adheridos. Mostrá tu credencial en la caja antes de pagar.</p>
   <div class="seg"><button class="${f.vista === 'lista' ? 'on' : ''}" data-a="benefVista" data-v="lista">📋 Lista</button><button class="${f.vista === 'mapa' ? 'on' : ''}" data-a="benefVista" data-v="mapa">🗺️ Mapa</button></div>
   <div class="chips">${[{ id: 'todas', nombre: 'Todo', emoji: '✨' }, ...rubrosUsados].map((c) => `<button class="chip ${f.rubro === c.id ? 'on' : ''}" data-a="benefRubro" data-v="${c.id}">${c.emoji} ${c.nombre}</button>`).join('')}</div>
+  ${ubicBar()}
   ${f.vista === 'mapa' ? '<div class="mapa" data-map="beneficios"></div><p class="muted chico">Tocá un punto para ver el beneficio. Ubicaciones aproximadas.</p>' : `
   <div class="benef-lista">${lista.map((b) => `<button class="benef-fila" data-a="verBenef" data-v="${b.i}">
       <span class="benef-foto" style="${b.foto ? `background-image:url(${FOTO(b.foto)})` : ''}">${b.foto ? '' : b.emoji}</span>
       <div class="benef-info"><b>${esc(b.nombre)}</b><span class="benef-dir">${esc(b.dir || b.loc)}${b.dir && !b.dir.includes(b.loc) ? ` · ${b.loc}` : ''}</span>
-      <span class="benef-dias">${esc(b.dias)}</span><span class="benef-txt">${esc(b.texto)}</span></div></button>`).join('') || '<p class="vacio">No hay beneficios en este rubro.</p>'}</div>
+      <span class="benef-dias">${esc(b.dias)} <em class="benef-km">· a ${kmTxt(b.d)}</em></span><span class="benef-txt">${esc(b.texto)}</span></div></button>`).join('') || '<p class="vacio">No hay beneficios en este rubro.</p>'}</div>
   <p class="muted chico">Beneficios reales publicados por el Municipio y medios locales (2024-2026). Pueden cambiar: confirmalos en la app Tigre Municipio.</p>`}`;
 }
 
@@ -1245,14 +1247,22 @@ function vEconomia() {
 
 // ---------- Lugares cercanos: un solo componente de mapa + lista por distancia ----------
 // Ubicación del vecino: demo cerca de su localidad. Las ubicaciones de los lugares son aproximadas.
-function miPos() { return cerca(S.usuario.loc, 3); }
+// UBIC: ubicación real (GPS) o punto tocado en el mapa. Vive solo en memoria: no se guarda.
+let UBIC = null;
+function miPos() { return UBIC ? UBIC.pos : cerca(S.usuario.loc, 3); }
+function ubicTxt() { return UBIC ? (UBIC.tipo === 'gps' ? 'Tu ubicación' : 'Punto elegido') : `${S.usuario.loc} (demo)`; }
+function ubicBar() {
+  return `<div class="ubic-bar"><span class="ubic-txt">📍 Desde: <b>${esc(ubicTxt())}</b></span>
+    ${UBIC ? '<button class="ubic-btn claro" data-a="ubicReset">Quitar</button>' : ''}<button class="ubic-btn" data-a="miUbic">${UBIC && UBIC.tipo === 'gps' ? 'Actualizar' : 'Usar mi ubicación'}</button></div>
+    <p class="ubic-tip">También podés tocar el mapa para buscar desde otro punto.</p>`;
+}
 function distKm(a, b) {
   const R = 6371, r = Math.PI / 180;
   const dLa = (b[0] - a[0]) * r, dLo = (b[1] - a[1]) * r;
   const h = Math.sin(dLa / 2) ** 2 + Math.cos(a[0] * r) * Math.cos(b[0] * r) * Math.sin(dLo / 2) ** 2;
   return 2 * R * Math.asin(Math.sqrt(h));
 }
-const kmTxt = (d) => (d < 1 ? `${Math.round(d * 10) * 100} m` : `${d.toFixed(1).replace('.', ',')} km`);
+const kmTxt = (d) => (d < 0.95 ? `${Math.max(100, Math.round(d * 10) * 100)} m` : `${d.toFixed(1).replace('.', ',')} km`);
 function lugares(tipo) {
   if (tipo === 'salud') {
     const hosp = CENTROS_SALUD.filter((c) => c.id !== 'cafys').map((c, i) => ({ nombre: c.nombre, sub: c.guardia ? 'Guardia 24 h' : c.tipo, pos: cerca(c.loc, i + 41), emoji: '🏥', color: c.guardia ? '#D02013' : '#0E7C86' }));
@@ -1271,7 +1281,8 @@ function cercaHtml(tipo, titulo = 'Cerca tuyo', max = 4) {
   const yo = miPos();
   const ls = lugares(tipo).map((l) => ({ ...l, d: distKm(yo, l.pos) })).sort((a, b) => a.d - b.d);
   return `<div class="cerca-box">
-    <div class="h2-fila"><h2>${titulo}</h2><span class="muted chico">📍 ${esc(S.usuario.loc)}</span></div>
+    <div class="h2-fila"><h2>${titulo}</h2></div>
+    ${ubicBar()}
     <div class="mapa-cerca" data-map="lugares" data-tipo="${tipo}"></div>
     <div class="cerca-lista">${ls.slice(0, S.cercaTodos === tipo ? 99 : max).map((l) => `<div class="cerca-fila">
       <span class="cerca-pin" style="background:${l.color}">${l.emoji}</span>
@@ -1289,7 +1300,8 @@ const MAPAS = {
   lugares(m, el) {
     const yo = miPos();
     const ls = lugares(el.dataset.tipo);
-    L.circleMarker(yo, { radius: 8, color: '#fff', weight: 3, fillColor: '#1F6FB2', fillOpacity: 1 }).addTo(m).bindPopup('Estás acá (ubicación de demostración)');
+    L.circleMarker(yo, { radius: 9, color: '#fff', weight: 3, fillColor: '#1F6FB2', fillOpacity: 1 }).addTo(m).bindPopup(UBIC ? (UBIC.tipo === 'gps' ? 'Estás acá' : 'Punto elegido') : 'Ubicación de demostración');
+    m.on('click', (e) => { UBIC = { pos: [e.latlng.lat, e.latlng.lng], tipo: 'mapa' }; render(); });
     ls.forEach((l) => {
       const ir = l.accion ? `<button class="link" data-a="${l.accion.a}" data-v="${l.accion.v}">${l.accion.t}</button>` : `<a href="https://www.google.com/maps/dir/?api=1&destination=${l.pos[0].toFixed(5)},${l.pos[1].toFixed(5)}" target="_blank" rel="noopener">Cómo llegar</a>`;
       L.circleMarker(l.pos, { radius: 9, color: '#fff', weight: 2, fillColor: l.color, fillOpacity: 1 }).addTo(m)
@@ -1305,7 +1317,10 @@ const MAPAS = {
       L.circleMarker(b.pos, { radius: 9, color: '#fff', weight: 2, fillColor: '#D02013', fillOpacity: 1 })
         .addTo(m).bindPopup(`<b>${b.emoji} ${esc(b.nombre)}</b><br>${esc(b.texto)}<br>${btn}`);
     });
-    m.setView(LOC_COORDS[S.usuario.loc] || LOC_COORDS['Tigre Centro'], 12);
+    const yo = miPos();
+    L.circleMarker(yo, { radius: 9, color: '#fff', weight: 3, fillColor: '#1F6FB2', fillOpacity: 1 }).addTo(m).bindPopup(ubicTxt());
+    m.on('click', (e) => { UBIC = { pos: [e.latlng.lat, e.latlng.lng], tipo: 'mapa' }; render(); });
+    m.setView(yo, UBIC ? 14 : 12);
   },
   picker(m) {
     const f = S.recForm;
@@ -1849,6 +1864,19 @@ const ACT = {
   },
   desinscribir(v) { S.inscrip = (S.inscrip || []).filter((x) => x !== v); toast('Cancelaste la inscripción.'); },
   buscando() { S.buscando = !S.buscando; if (!S.buscando) S.busca = ''; setTimeout(() => { const b = document.querySelector('.buscar'); if (b) b.focus(); }, 30); },
+  miUbic() {
+    if (!navigator.geolocation) { toast('Tu navegador no permite usar la ubicación. Tocá el mapa para elegir un punto.'); return false; }
+    toast('Buscando tu ubicación…');
+    navigator.geolocation.getCurrentPosition((p) => {
+      const pos = [p.coords.latitude, p.coords.longitude];
+      const enTigre = pos[0] > -34.56 && pos[0] < -34.2 && pos[1] > -58.82 && pos[1] < -58.45;
+      UBIC = { pos, tipo: 'gps' };
+      toast(enTigre ? 'Listo: te mostramos primero lo más cercano a vos.' : 'Estás fuera de Tigre: ordenamos igual por distancia desde donde estás.');
+      render();
+    }, () => toast('No pudimos obtener tu ubicación. Revisá el permiso del navegador o tocá el mapa.'), { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 });
+    return false;
+  },
+  ubicReset() { UBIC = null; },
   cercaTodos(v) { S.cercaTodos = v; },
   zonaEstac(v) { S.estac.zona = v; toast('Elegiste ' + ZONAS_ESTAC.find((z) => z.id === v).nombre + '. Confirmá la patente y empezá.'); setTimeout(() => { const b = document.querySelector('[data-a=iniEstac]'); if (b) b.scrollIntoView({ block: 'center', behavior: 'smooth' }); }, 60); },
   letra() { S.letra = !S.letra; },

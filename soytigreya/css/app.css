@@ -1017,3 +1017,12 @@ html, body, .shell, .shell.phone, .shell.wide { background: var(--fondo-b); }
 .aviso-demo .link { font-size: inherit; color: #1C5A80; text-decoration: underline; padding: 0; }
 .chip.on { background: #D02013 !important; color: #fff; }
 .benef-det-foto { width: 100%; align-self: stretch; display: block; }
+
+/* ubicación: real (GPS) o punto elegido en el mapa */
+.ubic-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; background: #E8F4FB; border-radius: 14px; padding: 8px 10px 8px 12px; margin: 4px 0 4px; }
+.ubic-txt { flex: 1; min-width: 140px; font-size: .8rem; color: #1C5A80; }
+.ubic-txt svg { width: 15px; height: 15px; }
+.ubic-btn { background: #1F6FB2; color: #fff; font-weight: 700; font-size: .78rem; padding: 8px 13px; border-radius: 18px; white-space: nowrap; }
+.ubic-btn.claro { background: #fff; color: #1F6FB2; }
+.ubic-tip { font-size: .72rem; color: var(--muted); margin: 2px 2px 8px; }
+.benef-km { font-style: normal; font-weight: 600; color: var(--muted); }
