@@ -25,6 +25,9 @@ const SERVICIOS = [
   { emoji: '💊', txt: 'Farmacias de turno', a: 'sub', v: 'farmacias', kw: 'farmacia turno remedio' },
   { emoji: '🆘', txt: 'Botón de alerta', a: 'sub', v: 'alerta', kw: 'alerta emergencia seguridad robo panico' },
   { emoji: '🎪', txt: 'Agenda cultural', a: 'serv', v: 'agenda', kw: 'agenda evento feria musica cultura' },
+  { emoji: '🏥', txt: 'Salud: turnos y centros de salud', a: 'sub', v: 'salud', kw: 'salud turno medico hospital guardia pediatra clinica odontologo dentista oculista cardiologo vacuna cafys hdi' },
+  { emoji: '💼', txt: 'Empleos y cursos gratuitos', a: 'sub', v: 'trabajo', kw: 'trabajo empleo laburo busqueda cv curriculum postular curso capacitacion oficio formacion tif' },
+  { emoji: '🏅', txt: 'Deporte y polideportivos', a: 'sub', v: 'deportes', kw: 'deporte polideportivo natacion pileta futbol voley basquet atletismo remo colonia gimnasia escuela deportiva' },
   { emoji: '⭐', txt: 'Puntos Tigre: sumar y canjear', a: 'sub', v: 'puntos', kw: 'puntos canje canjear premio nivel' },
   { emoji: '♻️', txt: 'Reciclar y sumar puntos', a: 'sub', v: 'reciclar', kw: 'reciclar reciclaje punto verde ecopunto' },
 ];
@@ -185,7 +188,7 @@ function load() {
   try {
     const s = JSON.parse(localStorage.getItem(KEY));
     if (s && s.v === 3) {
-      if (!s.reclamosPed) s.reclamosPed = seedRP(s.pedidos); if (!s.puntos) s.puntos = seedPuntos(s.pedidos); return s; }
+      if (!s.reclamosPed) s.reclamosPed = seedRP(s.pedidos); if (!s.puntos) s.puntos = seedPuntos(s.pedidos); (s.comercios || []).forEach((c) => { const sd = SEED_COMERCIOS.find((x) => x.id === c.id); if (sd && sd.foto) c.foto = sd.foto; }); return s; }
   } catch (e) { /* sin almacenamiento */ }
   return seed();
 }
@@ -210,7 +213,7 @@ function render() {
   S.rol = perf.vista === 'vecino' ? 'vecino' : perf.vista === 'comercio' ? 'comercio' : 'municipio';
   app.className = 'shell ' + (S.rol === 'vecino' ? 'phone' : 'wide') + (S.tour ? ' en-tour' : '');
   const vista = perf.vista === 'vecino' ? vecino() : perf.vista === 'comercio' ? panelComercio() : perf.vista === 'atencion' ? vAtencion() : vEconomia();
-  const fab = S.rol === 'vecino' && !S.tour && !(S.abierto && S.carrito) ? `<button class="fab" data-a="sheet" data-v="tigri" aria-label="Hablar con Tigri"><span>🐯</span><b>Tigri</b></button>` : '';
+  const fab = S.rol === 'vecino' && !S.tour && !(S.abierto && S.carrito) ? `<button class="fab" data-a="sheet" data-v="tigri" aria-label="Hablar con Tigri">${!S.tigriVisto && S.tab === 'inicio' && !S.sub ? '<span class="fab-globo">¡Hola! ¿Te ayudo?</span>' : ''}${tigriSvg()}</button>` : '';
   app.innerHTML = topbar(perf) + `<main class="main">${vista}</main>` + (S.rol === 'vecino' ? navVecino() + fab : '') + tourCard() + sheet();
   after();
   save();
@@ -241,6 +244,24 @@ function navVecino() {
   return `<nav class="bottom">${tabs.map(([id, e, t]) => `<button class="${S.tab === id && !S.sub ? 'on' : ''}" data-a="tab" data-v="${id}"><span>${e}${id === 'comprar' && activos ? `<i>${activos}</i>` : ''}</span>${t}</button>`).join('')}</nav>`;
 }
 
+// ---------- Tigri: cachorro de tigre dibujado en SVG (diseño propio) ----------
+function tigriSvg(cls = '') {
+  return `<svg class="tigri-svg ${cls}" viewBox="0 0 100 100" aria-hidden="true">
+    <circle cx="23" cy="27" r="14" fill="#E2701A"/><circle cx="77" cy="27" r="14" fill="#E2701A"/>
+    <circle cx="23" cy="28" r="7.5" fill="#FFC6B3"/><circle cx="77" cy="28" r="7.5" fill="#FFC6B3"/>
+    <ellipse cx="50" cy="57" rx="41" ry="36" fill="#F28C28"/>
+    <path d="M50 21 l-5 11 h10z M38 24 l-1 10 l-5 -7z M62 24 l1 10 l5 -7z" fill="#3A2414"/>
+    <path d="M9 52 q8 1 13 -2 M9 62 q8 0 12 -3 M91 52 q-8 1 -13 -2 M91 62 q-8 0 -12 -3" stroke="#3A2414" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+    <ellipse cx="50" cy="72" rx="21" ry="15" fill="#FFF4E6"/>
+    <ellipse cx="35" cy="54" rx="6.5" ry="7.5" fill="#2B1A10" class="tg-ojo"/><ellipse cx="65" cy="54" rx="6.5" ry="7.5" fill="#2B1A10" class="tg-ojo"/>
+    <circle cx="37.5" cy="51" r="2.4" fill="#fff"/><circle cx="67.5" cy="51" r="2.4" fill="#fff"/>
+    <ellipse cx="24" cy="67" rx="5.5" ry="3.2" fill="#FF8F9A" opacity=".55"/><ellipse cx="76" cy="67" rx="5.5" ry="3.2" fill="#FF8F9A" opacity=".55"/>
+    <path d="M44.5 64.5 q5.5 -3.5 11 0 q-1.5 5 -5.5 6 q-4 -1 -5.5 -6z" fill="#C2456A"/>
+    <path d="M50 70.5 v3 M50 73.5 q-5 4.5 -9 0.5 M50 73.5 q5 4.5 9 0.5" stroke="#3A2414" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <circle cx="40" cy="75" r="1" fill="#C9A88C"/><circle cx="37" cy="72" r="1" fill="#C9A88C"/><circle cx="60" cy="75" r="1" fill="#C9A88C"/><circle cx="63" cy="72" r="1" fill="#C9A88C"/>
+  </svg>`;
+}
+
 // ---------- elegir perfil ----------
 function vPerfiles() {
   return `<main class="main perfiles">
@@ -257,7 +278,7 @@ function vPerfiles() {
     <div class="qr-entrada"><div class="qr" data-qr="https://mila-ops-ia.github.io/soytigreya"></div><div><b>Abrila en tu celu</b><span class="muted">Escaneá el código o entrá a mila-ops-ia.github.io/soytigreya</span></div></div>
     ${feedbackHtml()}
     <p class="pie-links"><button class="link" data-a="metodo">Cómo lo diseñamos</button><span>·</span><button class="link" data-a="reiniciar">Reiniciar la demo</button></p>
-    <p class="muted chico centro">Prototipo académico: no se conecta con Mi Argentina ni con sistemas del municipio.</p>
+    <p class="muted chico centro">Prototipo académico: no se conecta con Mi Argentina ni con sistemas del municipio.<br>Fotos: Wikimedia Commons (CC BY y CC BY-SA), créditos en el README.</p>
   </main>`;
 }
 
@@ -320,9 +341,23 @@ function vInicio() {
   </div><div class="dcol">
   <div class="h2-fila"><h2>Para vos, hoy</h2><button class="link" data-a="tab" data-v="comprar">Ver todos</button></div>
   <div class="carrusel">${cerca2.map(miniComercio).join('') || '<p class="muted">Todavía no hay comercios con pedidos en tu localidad.</p>'}</div>
+  ${publicidadHtml()}
+  <div class="tiles2">
+    <button class="tile tile-sal" data-a="sub" data-v="salud"><span class="tile-ico">🏥</span><small>Salud</small><b>Turnos y guardias</b></button>
+    <button class="tile tile-dep" data-a="sub" data-v="deportes" style="background-image:url(${FOTO('natacion')});--velo:1"><span class="tile-ico">🏅</span><small>Deporte</small><b>Polideportivos y colonia</b></button>
+    <button class="tile tile-trab" data-a="sub" data-v="trabajo" style="background-image:url(${FOTO('curso')});--velo:1"><span class="tile-ico">💼</span><small>Trabajo</small><b>Empleos y cursos gratis</b></button>
+  </div>
   <h2>Servicios</h2>
   <div class="lista-limpia">${mas.map(([e, t, d, a, v]) => `<button data-a="${a}" data-v="${v}"><span class="ico">${e}</span><div><b>${t}</b><small>${d}</small></div><span class="flecha">›</span></button>`).join('')}</div>
   </div></div>`;
+}
+
+function publicidadHtml(cual) {
+  const lista = cual ? PUBLICIDADES.filter((p) => p.id === cual) : PUBLICIDADES;
+  return `<div class="pub-fila${cual ? ' sola' : ''}">${lista.map((p) => `<button class="pub" data-a="${p.a}" data-v="${p.v}" style="--pc:${p.color};${p.foto ? `background-image:url(${FOTO(p.foto)});--velo:1` : ''}">
+    <span class="pub-tipo">${p.tipo}</span>
+    <span class="pub-ico">${p.emoji}</span>
+    <b>${p.titulo}</b><span class="pub-txt">${p.texto}</span></button>`).join('')}</div>`;
 }
 
 function resultadosBusca() {
@@ -337,7 +372,7 @@ function resultadosBusca() {
 
 function miniComercio(c) {
   return `<button class="mini" data-a="abrir" data-v="${c.id}">
-    <div class="mini-img" style="background:${c.color}">${c.emoji}<em>-${c.desc}%</em></div>
+    <div class="mini-img" style="background:${c.color}${c.foto ? ` url(${FOTO(c.foto)}) center/cover` : ''}">${c.foto ? '' : c.emoji}<em>-${c.desc}%</em></div>
     <div class="mini-txt"><b>${esc(c.nombre)}</b><span class="muted">${c.servicio ? 'Turnos online' : `Retirá en ${c.prep} min`}</span></div></button>`;
 }
 
@@ -381,6 +416,7 @@ function vComprar() {
   <h1 class="titulo">Comprar y reservar en el barrio</h1>
   ${seg}
   <p class="muted sub">Retirás en el local o reservás tu turno, y el descuento ${MARCA.tarjeta} se aplica solo.</p>
+  ${publicidadHtml('p2')}
   <input class="buscar" type="search" placeholder="Buscar comercio o producto" value="${esc(f.q)}" data-f="q">
   <div class="chips">${[{ id: 'todas', nombre: 'Todo', emoji: '✨' }, ...CATS].map((c) => `<button class="chip ${f.cat === c.id ? 'on' : ''}" data-a="cat" data-v="${c.id}">${c.emoji} ${c.nombre}</button>`).join('')}</div>
   <label class="sel">📍 <select data-f="loc"><option value="todas">Todas las localidades</option>${LOCALIDADES.map((l) => `<option ${f.loc === l ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
@@ -406,7 +442,7 @@ function vComercio(c) {
   const tot = car ? totalesCarrito() : null;
   return `
   <button class="volver" data-a="cerrarComercio">‹ Volver</button>
-  <div class="hero" style="background:${c.color}"><span>${c.emoji}</span></div>
+  <div class="hero" style="background:${c.color}${c.foto ? ` url(${FOTO(c.foto)}) center/cover` : ''}">${c.foto ? '' : `<span>${c.emoji}</span>`}</div>
   <h1 class="titulo">${esc(c.nombre)}</h1>
   <p class="muted sub">${esc(c.dir)} · ${c.loc}</p>
   <div class="tags"><span class="tag desc">${MARCA.tarjeta}: -${c.desc}%</span><span class="tag">${c.servicio ? '📅 Turnos online' : `🥡 Retiro en ${c.prep} min`}</span><span class="tag">0% comisión</span></div>
@@ -581,7 +617,7 @@ function vServicios() {
   return `<h1 class="titulo">Trámites y servicios</h1>
   <div class="seg">${tabs.map(([id, txt]) => `<button class="${t === id ? 'on' : ''}" data-a="serv" data-v="${id}">${txt}</button>`).join('')}</div>${cuerpo}
   <h2>Más servicios</h2>
-  <div class="accesos">${[['🌊', 'Río', 'rio'], ['🚌', 'Colectivos', 'colectivos'], ['💊', 'Farmacias', 'farmacias'], ['🆘', 'Alerta', 'alerta']].map(([e, x, v]) => `<button data-a="sub" data-v="${v}"><span>${e}</span>${x}</button>`).join('')}</div>`;
+  <div class="accesos">${[['🏥', 'Salud', 'salud'], ['💼', 'Empleo', 'trabajo'], ['🏅', 'Deportes', 'deportes'], ['🌊', 'Río', 'rio']].map(([e, x, v]) => `<button data-a="sub" data-v="${v}"><span>${e}</span>${x}</button>`).join('')}</div>`;
 }
 
 function diasHabiles() {
@@ -651,8 +687,8 @@ function vPagos() {
 
 // ---------- subpantallas ----------
 function vSub() {
-  const titulos = { puntos: 'Puntos Tigre', reciclar: 'Reciclar y sumar puntos', tasas: 'Tasas municipales', multas: 'Multas de tránsito', estacionamiento: 'Estacionamiento medido', rio: 'Altura del río', colectivos: 'Colectivos', farmacias: 'Farmacias de turno', alerta: 'Botón de alerta' };
-  const cuerpo = { puntos: sPuntos, reciclar: sReciclar, tasas: sTasas, multas: sMultas, estacionamiento: sEstac, rio: sRio, colectivos: sColectivos, farmacias: sFarmacias, alerta: sAlerta }[S.sub];
+  const titulos = { puntos: 'Puntos Tigre', reciclar: 'Reciclar y sumar puntos', tasas: 'Tasas municipales', multas: 'Multas de tránsito', estacionamiento: 'Estacionamiento medido', rio: 'Altura del río', colectivos: 'Colectivos', farmacias: 'Farmacias de turno', alerta: 'Botón de alerta', deportes: 'Deporte en Tigre', trabajo: 'Trabajo y formación', salud: 'Salud' };
+  const cuerpo = { puntos: sPuntos, reciclar: sReciclar, tasas: sTasas, multas: sMultas, estacionamiento: sEstac, rio: sRio, colectivos: sColectivos, farmacias: sFarmacias, alerta: sAlerta, deportes: sDeportes, trabajo: sTrabajo, salud: sSalud }[S.sub];
   return `<button class="volver" data-a="cerrarSub">‹ Volver</button><h1 class="titulo">${titulos[S.sub]}</h1>${cuerpo ? cuerpo() : ''}`;
 }
 
@@ -741,6 +777,105 @@ function sFarmacias() {
   const lista = FARMACIAS.map((f, i) => ({ ...f, turno: (dia + i) % 3 === 0 })).sort((a, b) => (b.turno - a.turno) || (b.loc === S.usuario.loc) - (a.loc === S.usuario.loc));
   return `<p class="muted sub">Hoy, ${new Date().toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' })}</p>
   <div class="lista">${lista.map((f) => `<div class="fila"><span class="ico">💊</span><div><b>${f.nombre}</b><p class="muted">${f.dir} · ${f.loc}</p>${f.turno ? '<span class="pill listo">De turno las 24 h</span>' : ''}</div><a class="link" href="tel:${f.tel.replace(/\D/g, '')}">Llamar</a></div>`).join('')}</div>`;
+}
+
+function sDeportes() {
+  if (!S.inscrip) S.inscrip = [];
+  const tab = S.depTab || 'actividades';
+  const pol = (id) => POLIDEPORTIVOS.find((p) => p.id === id);
+  const mias = ACTIVIDADES.filter((a) => S.inscrip.includes(a.id));
+  const f = S.depDisc || 'todas';
+  const discs = [...new Set(ACTIVIDADES.map((a) => a.disc))];
+  const acts = ACTIVIDADES.filter((a) => f === 'todas' || a.disc === f).sort((a, b) => (pol(b.pid).loc === S.usuario.loc) - (pol(a.pid).loc === S.usuario.loc));
+  const colonia = `<div class="dep-colonia"><span class="dep-colonia-ico">${COLONIA.emoji}</span><div><b>${COLONIA.titulo}</b><p>${COLONIA.texto}</p>
+    ${S.inscrip.includes('colonia') ? '<span class="pill listo">Inscripción enviada ✓</span>' : '<button class="btn" data-a="inscribir" data-v="colonia">Inscribir a mi familia</button>'}</div></div>`;
+  const tarjeta = (a) => { const p = pol(a.pid); const ya = S.inscrip.includes(a.id); return `<div class="dep-act">
+    <span class="dep-ico">${a.emoji}</span>
+    <div class="dep-txt"><b>${a.disc}</b><span>${p.nombre} · ${p.loc}</span><small>${a.dias} · ${a.edad}</small></div>
+    <div class="dep-der">${ya ? `<span class="pill listo">Inscripta</span><button class="link" data-a="desinscribir" data-v="${a.id}">Cancelar</button>` : `<button class="mini-btn" data-a="inscribir" data-v="${a.id}">Anotarme</button><small class="${a.cupos <= 4 ? 'rojo' : 'muted'}">${a.cupos} cupos</small>`}</div></div>`; };
+  return `<div class="foto-banner" style="background-image:url(${FOTO('natacion')})"><span>18 polideportivos · actividades gratis</span></div><p class="muted sub">Tigre tiene <b>18 polideportivos municipales</b>. Las actividades son gratuitas para vecinos con domicilio en el distrito. Anotarte suma 30 Puntos Tigre.</p>
+  <div class="seg">${[['actividades', 'Actividades'], ['polis', 'Polideportivos']].map(([id, t2]) => `<button class="${tab === id ? 'on' : ''}" data-a="depTab" data-v="${id}">${t2}</button>`).join('')}</div>
+  ${tab === 'actividades' ? `
+    ${colonia}
+    ${mias.length ? `<h2>Mis actividades</h2><div class="dep-lista">${mias.map(tarjeta).join('')}</div>` : ''}
+    <h2>Escuelas deportivas</h2>
+    <div class="chips">${['todas', ...discs].map((d) => `<button class="chip ${f === d ? 'on' : ''}" data-a="depDisc" data-v="${d}">${d === 'todas' ? 'Todas' : d}</button>`).join('')}</div>
+    <div class="dep-lista">${acts.filter((a) => !S.inscrip.includes(a.id)).map(tarjeta).join('') || '<p class="muted">Ya estás anotada en todas las de esta disciplina.</p>'}</div>`
+  : `<div class="dep-lista">${POLIDEPORTIVOS.map((p) => `<div class="dep-act">
+      <span class="dep-ico">${p.emoji}</span>
+      <div class="dep-txt"><b>${p.nombre}</b><span>${p.loc} · ${p.nota}</span><div class="dep-tags">${p.disc.map((d) => `<em>${d}</em>`).join('')}</div></div></div>`).join('')}</div>
+    <p class="muted chico">Se muestran 7 de los 18 polideportivos. Horarios y cupos de demostración.</p>`}`;
+}
+
+const POST_ESTADOS = ['CV enviado', 'La empresa lo vio', 'Te llaman a entrevista'];
+function sTrabajo() {
+  if (!S.empleo) S.empleo = { cv: false, post: {}, cursos: {} };
+  const E = S.empleo;
+  const tab = S.trabTab || 'empleos';
+  const seg = `<div class="seg">${[['empleos', 'Empleos'], ['cursos', 'Cursos'], ['cv', 'Mi CV']].map(([id, x]) => `<button class="${tab === id ? 'on' : ''}" data-a="trabTab" data-v="${id}">${x}</button>`).join('')}</div>`;
+  if (tab === 'cv') {
+    return `<p class="muted sub">Tu CV queda guardado para postularte con un toque. Lo ven solo las empresas a las que te postulás.</p>${seg}
+    <div class="cv-card">
+      <div class="cv-cab"><span class="avatar-p" style="background:#D02013">${S.usuario.nombre[0]}</span><div><b>${esc(S.usuario.nombre)}</b><span>${esc(S.usuario.loc)} · DNI validado con tu credencial</span></div></div>
+      <div class="cv-sec"><small>Experiencia</small><p>Atención al público · Kiosco del Puerto (3 años)</p><p>Cajera · Supermercado de la zona (1 año)</p></div>
+      <div class="cv-sec"><small>Educación</small><p>Secundario completo</p>${Object.keys(E.cursos).length ? `<p>En curso: ${Object.keys(E.cursos).map((k) => CURSOS.find((c) => c.id === k).nombre).join(', ')} (TIF)</p>` : ''}</div>
+      <div class="cv-sec"><small>Disponibilidad</small><p>Medio tiempo o tiempo completo · Zona Tigre y alrededores</p></div>
+      ${E.cv ? '<span class="pill listo">CV listo para postularte ✓</span>' : '<button class="btn grande" data-a="cvListo">Confirmar mi CV</button>'}
+    </div>
+    <div class="pe-card"><b>🤝 ${PUNTO_EMPLEO.titulo}</b><p>${PUNTO_EMPLEO.texto}</p></div>`;
+  }
+  if (tab === 'cursos') {
+    const f = S.cursoArea || 'todas';
+    const areas = [...new Set(CURSOS.map((c) => c.area))];
+    return `<div class="foto-banner" style="background-image:url(${FOTO('curso')})"><span>Tigre Instituto Formativo</span></div><p class="muted sub">Más de 870 cursos gratuitos del <b>Tigre Instituto Formativo</b>. Requisitos: vivir en Tigre, ser mayor de 18 y tener DNI. Se ingresa con una entrevista de admisión.</p>${seg}
+    <div class="chips">${['todas', ...areas].map((a) => `<button class="chip ${f === a ? 'on' : ''}" data-a="cursoArea" data-v="${a}">${a === 'todas' ? 'Todos' : a}</button>`).join('')}</div>
+    <div class="dep-lista">${CURSOS.filter((c) => f === 'todas' || c.area === f).map((c) => { const ya = E.cursos[c.id]; return `<div class="dep-act">
+      <span class="dep-ico">${c.emoji}</span>
+      <div class="dep-txt"><b>${c.nombre}</b><span>${c.sede} · ${c.modo}</span><small>${c.dur} · empieza en ${c.inicio}</small>${ya ? `<small class="verde"><b>Entrevista: ${ya}</b></small>` : ''}</div>
+      <div class="dep-der">${ya ? '<span class="pill listo">Turno pedido</span>' : `<button class="mini-btn" data-a="cursoTurno" data-v="${c.id}">Inscribirme</button><small class="${c.cupos <= 5 ? 'rojo' : 'muted'}">${c.cupos} cupos</small>`}</div></div>`; }).join('')}</div>`;
+  }
+  const f = S.empRubro || 'todos';
+  const rubros = [...new Set(EMPLEOS.map((e) => e.rubro))];
+  const mias = EMPLEOS.filter((e) => E.post[e.id] !== undefined);
+  const tarjeta = (e) => { const est = E.post[e.id]; return `<div class="emp">
+    <div class="emp-cab"><span class="dep-ico">${e.emoji}</span><div class="dep-txt"><b>${e.puesto}</b><span>${e.empresa} · ${e.loc}</span></div><small class="muted">hace ${plural(e.dias, 'día', 'días')}</small></div>
+    <div class="dep-tags"><em>${e.jornada}</em>${e.req.map((r) => `<em>${r}</em>`).join('')}</div>
+    ${est !== undefined ? `<div class="emp-estado">${POST_ESTADOS.map((x, i) => `<span class="${i <= est ? 'on' : ''}">${x}</span>`).join('')}</div>` : `<button class="btn" data-a="postular" data-v="${e.id}">Postularme</button>`}
+  </div>`; };
+  return `<p class="muted sub">Búsquedas de comercios y empresas de Tigre, actualizadas cada semana. Postulate con tu CV guardado.</p>${seg}
+  ${!E.cv ? '<button class="aviso-cv" data-a="trabTab" data-v="cv">📝 <span><b>Completá tu CV</b> para postularte con un toque</span> ›</button>' : ''}
+  ${mias.length ? `<h2>Mis postulaciones</h2>${mias.map(tarjeta).join('')}` : ''}
+  <h2>Búsquedas abiertas</h2>
+  <div class="chips">${['todos', ...rubros].map((r) => `<button class="chip ${f === r ? 'on' : ''}" data-a="empRubro" data-v="${r}">${r === 'todos' ? 'Todas' : r}</button>`).join('')}</div>
+  ${EMPLEOS.filter((e) => E.post[e.id] === undefined && (f === 'todos' || e.rubro === f)).map(tarjeta).join('') || '<p class="muted">Ya te postulaste a todas las de este rubro.</p>'}`;
+}
+
+const ESP_ICO = { 'Clínica médica': '🩺', 'Pediatría': '👶', 'Ginecología': '🤰', 'Obstetricia': '🤰', 'Neonatología': '👶', 'Cardiología': '❤️', 'Oftalmología': '👁️', 'Odontología': '🦷', 'Vacunación': '💉', 'Salud mental': '🧠', 'Traumatología': '🦴', 'Laboratorio': '🧪', 'Diagnóstico por imágenes': '🩻' };
+function sSalud() {
+  if (!S.salud) S.salud = { esp: null, centro: null, dia: 0, hora: null, mios: [] };
+  const H = S.salud;
+  const tab = S.saludTab || 'turno';
+  const seg = `<div class="seg">${[['turno', 'Sacar turno'], ['mios', `Mis turnos${H.mios.length ? ` (${H.mios.length})` : ''}`], ['centros', 'Centros']].map(([id, x]) => `<button class="${tab === id ? 'on' : ''}" data-a="saludTab" data-v="${id}">${x}</button>`).join('')}</div>`;
+  const urg = `<div class="sal-urg"><div><b>¿Es una urgencia?</b><span>Guardia 24 h en los 3 HDI y en el Materno Infantil.</span></div><a class="sal-tel" href="tel:${SALUD_INFO.emergencias}">📞 ${SALUD_INFO.emergencias}</a></div>`;
+  if (tab === 'centros') {
+    return `${urg}${seg}<div class="dep-lista">${CENTROS_SALUD.map((c) => `<div class="dep-act"><span class="dep-ico">🏥</span><div class="dep-txt"><b>${c.nombre}</b><span>${c.tipo} · ${c.loc}</span><div class="dep-tags">${c.guardia ? '<em class="guardia">Guardia 24 h</em>' : ''}${c.esp.map((e) => `<em>${e}</em>`).join('')}</div></div></div>`).join('')}</div>
+    <p class="muted chico">Red municipal: 3 Hospitales de Diagnóstico Inmediato, Materno Infantil, hospitales especializados y 23 CAFyS. Turnos también por teléfono al ${SALUD_INFO.turnosTel}.</p>`;
+  }
+  if (tab === 'mios') {
+    return `${urg}${seg}${H.mios.length ? `<div class="dep-lista">${H.mios.map((m, i) => `<div class="dep-act"><span class="dep-ico">${ESP_ICO[m.esp] || '🩺'}</span><div class="dep-txt"><b>${m.esp}</b><span>${m.centro}</span><small><b>${m.cuando}</b> · llevá tu DNI</small></div><div class="dep-der"><span class="pill listo">Confirmado</span><button class="link" data-a="saludCancelar" data-v="${i}">Cancelar</button></div></div>`).join('')}</div>` : '<p class="vacio">No tenés turnos de salud. Sacá uno en un minuto.</p>'}`;
+  }
+  const esps = ['Clínica médica', 'Pediatría', 'Ginecología', 'Cardiología', 'Oftalmología', 'Odontología', 'Vacunación', 'Salud mental', 'Laboratorio'];
+  const centros = H.esp ? CENTROS_SALUD.filter((c) => c.esp.includes(H.esp)) : [];
+  const dias = Array.from({ length: 5 }, (_, i) => { const d = new Date(Date.now() + (i + 1) * 864e5); return d.toLocaleDateString('es-AR', { weekday: 'short', day: 'numeric' }); });
+  const horas = ['8:00', '8:40', '9:20', '10:30', '11:10', '14:00'];
+  return `${urg}${seg}
+  <h2>1. ¿Qué especialidad?</h2>
+  <div class="sal-esp">${esps.map((e) => `<button class="${H.esp === e ? 'on' : ''}" data-a="saludEsp" data-v="${e}"><span>${ESP_ICO[e]}</span>${e}</button>`).join('')}</div>
+  ${H.esp ? `<h2>2. ¿Dónde?</h2><div class="chips">${centros.map((c) => `<button class="chip ${H.centro === c.id ? 'on' : ''}" data-a="saludCentro" data-v="${c.id}">${c.nombre.replace('Hospital Materno Infantil Dr. Florencio Escardó', 'Materno Infantil Escardó')} · ${c.loc}</button>`).join('')}</div>` : ''}
+  ${H.centro ? `<h2>3. ¿Cuándo?</h2><div class="chips">${dias.map((d, i) => `<button class="chip ${H.dia === i ? 'on' : ''}" data-a="saludDia" data-v="${i}">${d}</button>`).join('')}</div>
+    <div class="chips">${horas.map((h) => `<button class="chip ${H.hora === h ? 'on' : ''}" data-a="saludHora" data-v="${h}">${h}</button>`).join('')}</div>
+    <button class="btn grande" data-a="saludConfirmar" ${H.hora ? '' : 'disabled'}>Confirmar turno</button>` : ''}
+  <p class="muted chico">También podés pedir turno por teléfono al <b>${SALUD_INFO.turnosTel}</b>. La atención en la red municipal es gratuita.</p>`;
 }
 
 function sAlerta() {
@@ -840,7 +975,7 @@ function sheet() {
       <button class="btn grande claro" data-a="tourIniciar">▶ Ver el recorrido guiado</button></div>`;
   } else if (s === 'tigri') {
     return `<div class="velo" data-a="cerrarSheet"></div><div class="sheet chat" role="dialog" aria-label="Chat con Tigri">
-      <div class="chat-cab"><span class="tg-avatar">🐯</span><div><b>Tigri</b><span class="muted">Tu asistente de ${MARCA.app}</span></div><button class="cerrar" data-a="cerrarSheet" aria-label="Cerrar">✕</button></div>
+      <div class="chat-cab"><span class="tg-avatar">${tigriSvg()}</span><div><b>Tigri</b><span class="muted">Cachorro de tigre y asistente de ${MARCA.app}</span></div><button class="cerrar" data-a="cerrarSheet" aria-label="Cerrar">✕</button></div>
       <div class="chat-msgs" id="chatMsgs">${S.chat.map(burbuja).join('')}</div>
       <div class="chat-sug">${['Farmacia de turno', '¿Cómo está el río?', 'Quiero pizza', 'Hay un bache', '¿Cuántos puntos tengo?', '¿Cuánto ahorré?', 'Quiero reciclar', 'Pagar tasas'].map((x) => `<button class="chip" data-a="chatSug" data-v="${x}">${x}</button>`).join('')}</div>
       <form class="chat-in" data-form="chat"><input id="chatIn" placeholder="Escribile a Tigri…" autocomplete="off"><button class="btn" type="submit" aria-label="Enviar">➤</button></form>
@@ -852,7 +987,7 @@ function sheet() {
 // ---------- Tigri ----------
 function burbuja(m) {
   if (m.de === 'yo') return `<div class="msg yo">${esc(m.txt)}</div>`;
-  return `<div class="msg tg">${m.html}${m.acciones && m.acciones.length ? `<div class="msg-acc">${m.acciones.map((a) => `<button class="chip" data-a="${a.a}" data-v="${a.v}">${a.t}</button>`).join('')}</div>` : ''}</div>`;
+  return `<div class="msg-fila"><span class="tg-mini">${tigriSvg()}</span><div class="msg tg">${m.html}${m.acciones && m.acciones.length ? `<div class="msg-acc">${m.acciones.map((a) => `<button class="chip" data-a="${a.a}" data-v="${a.v}">${a.t}</button>`).join('')}</div>` : ''}</div></div>`;
 }
 
 const tiene = (q, ...pal) => pal.some((p) => q.includes(p));
@@ -925,6 +1060,9 @@ function tigriResponde(texto) {
   if (benHits.length) return R(`Con tu credencial tenés: ${benHits.slice(0, 3).map((b) => `<br>• <b>${esc(b.nombre)}</b>: ${esc(b.texto)}`).join('')}`, benHits.slice(0, 3).map((b) => ({ t: `${b.emoji} ${b.nombre}`, a: 'verBenef', v: String(b.i) })));
   if (tiene(q, 'beneficio', 'descuento', 'promo')) return R('Tenés descuentos en supermercados, farmacias, gastronomía, turismo y más 🎁', [{ t: 'Ver beneficios', a: 'tab', v: 'beneficios' }, { t: 'En el mapa', a: 'benefMapa', v: '' }]);
   if (tiene(q, 'hola', 'buenas', 'buen dia', 'que tal', 'ayuda', 'que podes', 'que haces')) return R(saludo(), []);
+  if (tiene(q, 'salud', 'medico', 'hospital', 'guardia', 'pediatra', 'dentista', 'odontolog', 'turno medico', 'vacuna')) return R(`Podés sacar turno en los hospitales municipales y en los <b>23 CAFyS</b>. Si es una urgencia, hay <b>guardia 24 h</b> en los 3 HDI y en el Materno Infantil.`, [{ t: 'Sacar turno de salud', a: 'sub', v: 'salud' }]);
+  if (tiene(q, 'trabajo', 'empleo', 'laburo', 'curso', 'capacit', 'cv', 'oficio')) return R(`Hay <b>${EMPLEOS.length} búsquedas abiertas</b> en comercios y empresas de Tigre, y cursos gratis del Tigre Instituto Formativo. Con tu CV guardado te postulás con un toque.`, [{ t: 'Ver empleos y cursos', a: 'sub', v: 'trabajo' }]);
+  if (tiene(q, 'deporte', 'polideportivo', 'natacion', 'pileta', 'futbol', 'colonia', 'remo', 'atletismo', 'voley', 'basquet')) return R('Tigre tiene <b>18 polideportivos</b> con escuelas deportivas gratis: natación, fútbol, vóley, básquet, atletismo, remo y más. Y ya abrió la inscripción a la <b>colonia de verano 2027</b>. ¿Te muestro?', [{ t: 'Ver actividades', a: 'sub', v: 'deportes' }]);
   if (tiene(q, 'gracias', 'genial', 'buenisimo', 'joya')) return R(`¡De nada, ${esc(nombre)}! Acá estoy cuando me necesites 🐯`);
   return R(`Mmm, eso todavía no lo sé 🙈. Puedo ayudarte con <b>beneficios</b>, <b>Puntos Tigre</b>, <b>pedidos</b>, <b>turnos</b>, <b>reclamos</b>, <b>tasas</b>, el <b>río</b>, <b>colectivos</b> y <b>farmacias</b>. Si necesitás hablar con una persona, llamá al 147.`);
 }
@@ -1158,6 +1296,9 @@ function initMaps() {
 let timerId = null;
 // ---------- íconos: los emojis del contenido pasan a íconos de línea (Lucide) ----------
 const EMOJI_ICONO = {
+  '🏥': 'hospital', '❤️': 'heart-pulse', '👁️': 'eye', '🦷': 'smile', '💉': 'syringe', '🧠': 'brain', '🩻': 'scan', '🤰': 'baby', '📞': 'phone', '🧪': 'flask-conical', '🦴': 'bone',
+  '🏭': 'factory', '🛵': 'bike', '💼': 'briefcase', '📝': 'file-text',
+  '⚽': 'goal', '🏐': 'volleyball', '🏀': 'dribbble', '🤸': 'person-standing', '🚣': 'sailboat', '♿': 'accessibility', '☀️': 'sun', '☀': 'sun', '📢': 'megaphone', '🏅': 'medal',
   '🏠': 'house', '🎁': 'gift', '🛍️': 'shopping-bag', '🛍': 'shopping-bag', '🏛️': 'landmark', '🏛': 'landmark', '🪪': 'id-card', '🔔': 'bell', '🆘': 'siren',
   '🔎': 'search', '⭐': 'star', '🌊': 'waves', '🚌': 'bus', '💊': 'pill', '🚗': 'car', '🧾': 'receipt', '📣': 'megaphone', '📅': 'calendar',
   '📍': 'map-pin', '📷': 'camera', '🥡': 'utensils', '🛒': 'shopping-basket', '💳': 'credit-card', '♻️': 'recycle', '♻': 'recycle', '🎟️': 'ticket', '🎟': 'ticket',
@@ -1509,7 +1650,7 @@ function tourCard() {
   const i = S.tour.paso, st = TOUR[i], perf = PERFILES.find((x) => x.id === st.perfil);
   const ultimo = i === TOUR.length - 1;
   return `<div class="tour" role="dialog" aria-label="Recorrido guiado">
-    <div class="tour-cab">${perf ? avatarHtml(perf) : '<span class="avatar-p" style="background:#D02013">🐯</span>'}<div class="grow"><small>Paso ${i + 1} de ${TOUR.length}${perf ? ` · ${perf.nombre}, ${perf.rol}` : ''}</small><b>${st.titulo}</b></div><button class="cerrar-tour" data-a="tourSalir" aria-label="Salir del recorrido">✕</button></div>
+    <div class="tour-cab">${perf ? avatarHtml(perf) : '<span class="tg-avatar chico">${tigriSvg()}</span>'}<div class="grow"><small>Paso ${i + 1} de ${TOUR.length}${perf ? ` · ${perf.nombre}, ${perf.rol}` : ''}</small><b>${st.titulo}</b></div><button class="cerrar-tour" data-a="tourSalir" aria-label="Salir del recorrido">✕</button></div>
     <p>${st.texto}</p>
     <div class="tour-barra"><i style="width:${((i + 1) / TOUR.length) * 100}%"></i></div>
     <button class="btn" data-a="tourSig">${ultimo ? 'Terminar ✓' : 'Siguiente ▶'}</button>
@@ -1619,6 +1760,47 @@ const ACT = {
     irPaso(S.tour.paso + 1);
   },
   tourSalir() { S.tour = null; S.sheet = null; },
+  saludTab(v) { S.saludTab = v; },
+  saludEsp(v) { S.salud.esp = v; S.salud.centro = null; S.salud.hora = null; },
+  saludCentro(v) { S.salud.centro = v; },
+  saludDia(v) { S.salud.dia = +v; },
+  saludHora(v) { S.salud.hora = v; },
+  saludConfirmar() {
+    const H = S.salud; const c = CENTROS_SALUD.find((x) => x.id === H.centro);
+    const d = new Date(Date.now() + (H.dia + 1) * 864e5);
+    H.mios.push({ esp: H.esp, centro: `${c.nombre} · ${c.loc}`, cuando: `${d.toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' })}, ${H.hora}` });
+    notificar({ mio: true }, `Turno confirmado: ${H.esp} en ${c.nombre}.`, '🏥');
+    S.salud = { esp: null, centro: null, dia: 0, hora: null, mios: H.mios }; S.saludTab = 'mios';
+    toast('Turno confirmado. Te recordamos un día antes.');
+  },
+  saludCancelar(v) { S.salud.mios.splice(+v, 1); toast('Cancelaste el turno. Liberaste el lugar para otro vecino.'); },
+  trabTab(v) { S.trabTab = v; window.scrollTo(0, 0); },
+  empRubro(v) { S.empRubro = v; },
+  cursoArea(v) { S.cursoArea = v; },
+  cvListo() { S.empleo.cv = true; S.trabTab = 'empleos'; toast('¡Listo! Tu CV quedó guardado. Ya podés postularte con un toque.'); },
+  postular(v) {
+    if (!S.empleo.cv) { S.trabTab = 'cv'; toast('Primero confirmá tu CV. Es un solo paso.'); return; }
+    S.empleo.post[v] = 0;
+    const e = EMPLEOS.find((x) => x.id === v);
+    toast(`Te postulaste a ${e.puesto} en ${e.empresa}. Te avisamos cuando la vean.`);
+    setTimeout(() => { if (S.empleo.post[v] === 0) { S.empleo.post[v] = 1; notificar({ mio: true }, `${e.empresa} vio tu postulación a ${e.puesto}.`, '💼'); render(); } }, 6000);
+  },
+  cursoTurno(v) {
+    const c = CURSOS.find((x) => x.id === v);
+    const d = new Date(Date.now() + 5 * 864e5);
+    S.empleo.cursos[v] = `${d.toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric' })} 10:30`;
+    toast(`Pediste entrevista de admisión para ${c.nombre}. Llevá tu DNI.`);
+  },
+  depTab(v) { S.depTab = v; },
+  depDisc(v) { S.depDisc = v; },
+  inscribir(v) {
+    if (!S.inscrip) S.inscrip = [];
+    if (S.inscrip.includes(v)) return;
+    S.inscrip.push(v);
+    sumarPuntos(30, v === 'colonia' ? 'Inscripción a la colonia de verano' : 'Inscripción a ' + (ACTIVIDADES.find((a) => a.id === v) || {}).disc);
+    toast(v === 'colonia' ? 'Inscripción enviada. Te avisamos cuando se confirme el cupo. Sumaste 30 puntos.' : '¡Listo! Quedaste anotada. Sumaste 30 Puntos Tigre.');
+  },
+  desinscribir(v) { S.inscrip = (S.inscrip || []).filter((x) => x !== v); toast('Cancelaste la inscripción.'); },
   letra() { S.letra = !S.letra; },
   voltear(v, el) { el.classList.toggle('dada'); return false; },
   tab(v) { S.tab = v; S.abierto = null; S.sub = null; S.sheet = null; window.scrollTo(0, 0); },
@@ -1649,7 +1831,7 @@ const ACT = {
     if (S.carrito.items[pid] <= 0) delete S.carrito.items[pid];
     if (!Object.keys(S.carrito.items).length) { S.carrito = null; if (S.sheet === 'checkout') S.sheet = null; }
   },
-  sheet(v) { S.sheet = v; S.retiro = 0; if (v === 'tigri' && !S.chat.length) S.chat.push({ de: 'tg', html: saludo(), acciones: [] }); },
+  sheet(v) { S.sheet = v; S.retiro = 0; if (v === 'tigri') S.tigriVisto = true; if (v === 'tigri' && !S.chat.length) S.chat.push({ de: 'tg', html: saludo(), acciones: [] }); },
   cerrarSheet() { if (S.sheet !== 'pagando') S.sheet = null; },
   retiro(v) { S.retiro = Number(v); },
   pago(v) { S.pago = v; },

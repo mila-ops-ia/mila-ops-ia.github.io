@@ -97,7 +97,7 @@ const SEED_COMERCIOS = [
     { nombre: 'Buzo con capucha', desc: 'Frisa', precio: 32000, emoji: '🧥' },
     { nombre: 'Medias x 3 pares', desc: '', precio: 6900, emoji: '🧦' },
   ]},
-  { id: 'c13', nombre: 'Gimnasio Activo Talar', cat: 'deporte', loc: 'El Talar', dir: 'Av. Constituyentes 3550', desc: 15, emoji: '🏋️', color: '#2F5D8A', prep: 0, servicio: true, productos: [
+  { id: 'c13', nombre: 'Gimnasio Activo Talar', foto: 'gym', cat: 'deporte', loc: 'El Talar', dir: 'Av. Constituyentes 3550', desc: 15, emoji: '🏋️', color: '#2F5D8A', prep: 0, servicio: true, productos: [
     { nombre: 'Clase de prueba', desc: 'Funcional o musculación, 1 hora', precio: 6000, emoji: '🏋️' },
     { nombre: 'Pase libre mensual', desc: 'Sala de musculación sin límite', precio: 42000, emoji: '🏋️' },
     { nombre: 'Pack 8 clases de funcional', desc: 'Válido por 30 días', precio: 30000, emoji: '🏃' },
@@ -119,7 +119,7 @@ const SEED_COMERCIOS = [
     { nombre: 'Cambio de batería de celular', desc: 'En el día', precio: 35000, emoji: '📱' },
     { nombre: 'Cambio de pantalla', desc: 'Presupuesto según modelo', precio: 90000, emoji: '📱' },
   ]},
-  { id: 'c18', nombre: 'Hostería Isla Verde', cat: 'turismo', loc: 'Delta', dir: 'Río Sarmiento, muelle 412', desc: 20, emoji: '🏝️', color: '#2E6B4F', prep: 0, servicio: true, productos: [
+  { id: 'c18', nombre: 'Hostería Isla Verde', foto: 'puerto', cat: 'turismo', loc: 'Delta', dir: 'Río Sarmiento, muelle 412', desc: 20, emoji: '🏝️', color: '#2E6B4F', prep: 0, servicio: true, productos: [
     { nombre: 'Noche en habitación doble', desc: 'Con desayuno', precio: 98000, emoji: '🏝️' },
     { nombre: 'Paseo en lancha por las islas', desc: '1 hora y media', precio: 25000, emoji: '🚤' },
   ]},
@@ -295,3 +295,82 @@ const TURNOS_DEMO = [
 // Si url o key están vacíos, el feedback queda guardado solo en el navegador.
 // Tabla soytigreya_feedback en el proyecto Supabase de Reparto (solo permite agregar). La clave publicable es pública por diseño.
 const FEEDBACK = { url: 'https://jzefklukeiyeokpomkiv.supabase.co', key: 'sb_publishable__fEK77Puwz9u-h_tEXPrzg_SJ_gxln_', tabla: 'soytigreya_feedback' };
+
+// ---------- Deporte en Tigre ----------
+// El distrito tiene una red de 18 polideportivos municipales (fuente: notas de prensa 2019 y 2026).
+// Nombres reales citados en medios; localidades, horarios y cupos son de demostración.
+const POLIDEPORTIVOS = [
+  { id: 'sarmiento', nombre: 'Polideportivo Sarmiento', loc: 'Tigre Centro', nota: 'Pista de atletismo "Abel Acevedo", homologada', disc: ['Atletismo', 'Natación', 'Gimnasia artística'], emoji: '🏃' },
+  { id: 'errecart', nombre: 'Polideportivo Ñato Errecart', loc: 'Benavídez', nota: 'Barrio La Mascota · pileta climatizada', disc: ['Natación', 'Fútbol', 'Vóley', 'Básquet'], emoji: '🌊' },
+  { id: 'micro', nombre: 'Microestadio Ciudad de Benavídez', loc: 'Benavídez', nota: 'Estadio cubierto para torneos', disc: ['Básquet', 'Vóley', 'Handball'], emoji: '🏆' },
+  { id: 'pacheco', nombre: 'Polideportivo N.º 10 General Pacheco', loc: 'General Pacheco', nota: 'Deporte adaptado y escuelas deportivas', disc: ['Deporte adaptado', 'Fútbol', 'Tenis'], emoji: '♿' },
+  { id: 'moreno', nombre: 'Polideportivo N.º 6 Mariano Moreno', loc: 'El Talar', nota: 'Actividades para adultos mayores', disc: ['Newcom', 'Gimnasia', 'Fútbol'], emoji: '🏋️' },
+  { id: 'zabala', nombre: 'Polideportivo Zabala', loc: 'Don Torcuato', nota: 'Canchas de fútbol y playón', disc: ['Fútbol', 'Hockey', 'Patín'], emoji: '⚽' },
+  { id: 'remo', nombre: 'Escuela de remo · Río Luján', loc: 'Tigre Centro', nota: 'Con clubes del Delta, la capital del remo', disc: ['Remo', 'Kayak'], emoji: '🚣' },
+];
+
+const ACTIVIDADES = [
+  { id: 'a1', disc: 'Natación', pid: 'errecart', edad: 'De 6 a 12 años', dias: 'Lunes y miércoles 17:00', cupos: 6, emoji: '🌊' },
+  { id: 'a2', disc: 'Atletismo', pid: 'sarmiento', edad: 'Desde 14 años', dias: 'Martes y jueves 18:30', cupos: 12, emoji: '🏃' },
+  { id: 'a3', disc: 'Fútbol infantil', pid: 'zabala', edad: 'De 7 a 12 años', dias: 'Sábados 10:00', cupos: 4, emoji: '⚽' },
+  { id: 'a4', disc: 'Vóley', pid: 'micro', edad: 'Desde 13 años', dias: 'Martes y jueves 19:00', cupos: 8, emoji: '🏐' },
+  { id: 'a5', disc: 'Básquet', pid: 'micro', edad: 'De 10 a 16 años', dias: 'Lunes y viernes 18:00', cupos: 9, emoji: '🏀' },
+  { id: 'a6', disc: 'Gimnasia artística', pid: 'sarmiento', edad: 'De 5 a 10 años', dias: 'Viernes 17:30', cupos: 3, emoji: '🤸' },
+  { id: 'a7', disc: 'Remo', pid: 'remo', edad: 'Desde 12 años', dias: 'Sábados y domingos 9:00', cupos: 5, emoji: '🚣' },
+  { id: 'a8', disc: 'Deporte adaptado', pid: 'pacheco', edad: 'Todas las edades', dias: 'Miércoles 16:00', cupos: 10, emoji: '♿' },
+  { id: 'a9', disc: 'Newcom', pid: 'moreno', edad: 'Mayores de 60', dias: 'Lunes y viernes 10:00', cupos: 15, emoji: '🏐' },
+];
+
+const COLONIA = { titulo: 'Colonia de verano 2027', texto: 'Del 5 de enero al 26 de febrero en 12 polideportivos. Pileta, deportes y recreación con docentes, guardavidas y médicos. Gratis para vecinos con domicilio en Tigre.', emoji: '☀️' };
+
+// ---------- Publicidad ----------
+// Espacios para comercios adheridos y campañas del municipio. Siempre rotulados como publicidad.
+const PUBLICIDADES = [
+  { id: 'p1', tipo: 'Campaña municipal', titulo: 'Vacunación antirrábica gratuita', texto: 'Este sábado en el Polideportivo Sarmiento, de 9 a 13 h.', color: '#1F6F5C', emoji: '🐶', a: 'serv', v: 'agenda', foto: 'perro' },
+  { id: 'p2', tipo: 'Publicidad', titulo: 'Hostería Isla Verde', texto: 'Escapada al Delta con 20% Soy Tigre reservando por la app.', color: '#2E5E4E', emoji: '🏝️', a: 'abrir', v: 'c18', foto: 'delta' },
+  { id: 'p3', tipo: 'Publicidad', titulo: 'Gimnasio Activo Talar', texto: 'Primera clase gratis reservando por la app.', color: '#2F3A56', emoji: '🏋️', a: 'abrir', v: 'c13', foto: 'gym' },
+  { id: 'p4', tipo: 'Campaña municipal', titulo: 'Colonia de verano 2027', texto: 'Inscripción abierta hasta el 20 de diciembre.', color: '#C2410C', emoji: '☀️', a: 'sub', v: 'deportes' },
+];
+
+// ---------- Trabajo y formación ----------
+// Inspirado en el Portal de Empleo del municipio (empleos.tigre.gob.ar), Punto Empleo
+// y el Tigre Instituto Formativo (TIF). Búsquedas y cursos de demostración.
+const EMPLEOS = [
+  { id: 'e1', puesto: 'Ayudante de cocina', empresa: 'Pastas Doña Rosa', rubro: 'Gastronomía', loc: 'Tigre Centro', jornada: 'Medio tiempo · tarde', dias: 2, req: ['Experiencia no excluyente', 'Manipulación de alimentos'], emoji: '🍝' },
+  { id: 'e2', puesto: 'Vendedor/a de mostrador', empresa: 'Ferretería El Tornillo', rubro: 'Comercio', loc: 'Don Torcuato', jornada: 'Tiempo completo', dias: 1, req: ['Secundario completo', 'Conocimientos de ferretería'], emoji: '🔧' },
+  { id: 'e3', puesto: 'Operario/a de producción', empresa: 'Empresa del Parque Industrial', rubro: 'Industria', loc: 'General Pacheco', jornada: 'Turno rotativo', dias: 3, req: ['Secundario completo', 'Disponibilidad horaria'], emoji: '🏭' },
+  { id: 'e4', puesto: 'Recepcionista', empresa: 'Hostería Isla Verde', rubro: 'Turismo', loc: 'Delta', jornada: 'Fines de semana', dias: 4, req: ['Inglés básico', 'Atención al público'], emoji: '🏝️' },
+  { id: 'e5', puesto: 'Repartidor/a con moto', empresa: 'Almacén Benavídez', rubro: 'Logística', loc: 'Benavídez', jornada: 'Medio tiempo · mañana', dias: 5, req: ['Moto propia', 'Licencia vigente'], emoji: '🛵' },
+  { id: 'e6', puesto: 'Técnico/a en celulares', empresa: 'TecnoFix Pacheco', rubro: 'Oficios', loc: 'General Pacheco', jornada: 'Tiempo completo', dias: 6, req: ['Curso de reparación', 'Experiencia de 1 año'], emoji: '📱' },
+  { id: 'e7', puesto: 'Instructor/a de musculación', empresa: 'Gimnasio Activo Talar', rubro: 'Deporte', loc: 'El Talar', jornada: 'Medio tiempo · noche', dias: 2, req: ['Profesorado de Educación Física o en curso'], emoji: '🏋️' },
+];
+
+const CURSOS = [
+  { id: 'k1', nombre: 'Electricidad domiciliaria', area: 'Oficios', dur: '4 meses', modo: 'Presencial', sede: 'TIF · Tigre Centro', inicio: 'Marzo 2027', cupos: 8, emoji: '💡' },
+  { id: 'k2', nombre: 'Soldadura', area: 'Oficios', dur: '3 meses', modo: 'Presencial', sede: 'TIF · General Pacheco', inicio: 'Marzo 2027', cupos: 5, emoji: '🔥' },
+  { id: 'k3', nombre: 'Pastelería profesional', area: 'Gastronomía', dur: '3 meses', modo: 'Presencial', sede: 'TIF · El Talar', inicio: 'Febrero 2027', cupos: 6, emoji: '🍰' },
+  { id: 'k4', nombre: 'Excel para el trabajo', area: 'Digital', dur: '6 semanas', modo: 'Virtual', sede: 'Campus virtual TIF', inicio: 'Diciembre 2026', cupos: 30, emoji: '📊' },
+  { id: 'k5', nombre: 'Marketing digital para comercios', area: 'Digital', dur: '2 meses', modo: 'Virtual', sede: 'Campus virtual TIF', inicio: 'Diciembre 2026', cupos: 25, emoji: '📱' },
+  { id: 'k6', nombre: 'Peluquería y barbería', area: 'Belleza', dur: '5 meses', modo: 'Presencial', sede: 'TIF · Benavídez', inicio: 'Marzo 2027', cupos: 4, emoji: '💇' },
+  { id: 'k7', nombre: 'Inglés para atención al turista', area: 'Idiomas', dur: '4 meses', modo: 'Híbrido', sede: 'TIF · Tigre Centro', inicio: 'Marzo 2027', cupos: 12, emoji: '🎓' },
+  { id: 'k8', nombre: 'Reparación de celulares', area: 'Oficios', dur: '2 meses', modo: 'Presencial', sede: 'TIF · Don Torcuato', inicio: 'Febrero 2027', cupos: 7, emoji: '🛠️' },
+];
+
+const PUNTO_EMPLEO = { titulo: 'Punto Empleo', texto: 'Asesoramiento gratis para armar tu CV y prepararte para una entrevista. Próximo operativo: martes 24, de 10 a 15 h, en el Instituto Superior de Tigre.' };
+
+// ---------- Salud ----------
+// Red municipal de salud de Tigre (fuentes: notas de prensa 2019-2026 y Ministerio de Salud PBA).
+// Nombres de hospitales reales; especialidades por centro y horarios de turnos son de demostración.
+const CENTROS_SALUD = [
+  { id: 'nores', nombre: 'HDI Dr. Valentín Nores', tipo: 'Hospital de Diagnóstico Inmediato', loc: 'Tigre Centro', guardia: true, esp: ['Clínica médica', 'Pediatría', 'Traumatología', 'Laboratorio'] },
+  { id: 'mocoroa', nombre: 'HDI Dr. Eduardo Juan Mocoroa', tipo: 'Hospital de Diagnóstico Inmediato', loc: 'Benavídez', guardia: true, esp: ['Clínica médica', 'Pediatría', 'Ginecología', 'Laboratorio'] },
+  { id: 'ferrara', nombre: 'HDI Dr. Floreal Ferrara', tipo: 'Hospital de Diagnóstico Inmediato', loc: 'Don Torcuato', guardia: true, esp: ['Clínica médica', 'Pediatría', 'Diagnóstico por imágenes'] },
+  { id: 'escardo', nombre: 'Hospital Materno Infantil Dr. Florencio Escardó', tipo: 'Hospital · 140 camas', loc: 'Tigre Centro', guardia: true, esp: ['Pediatría', 'Obstetricia', 'Neonatología'] },
+  { id: 'cardio', nombre: 'Hospital Cardiovascular', tipo: 'Hospital especializado', loc: 'Tigre Centro', guardia: false, esp: ['Cardiología'] },
+  { id: 'oftalmo', nombre: 'Hospital Oftalmológico', tipo: 'Hospital especializado', loc: 'Tigre Centro', guardia: false, esp: ['Oftalmología'] },
+  { id: 'odonto', nombre: 'Hospital Odontológico', tipo: 'Hospital especializado', loc: 'Tigre Centro', guardia: false, esp: ['Odontología'] },
+  { id: 'cafys', nombre: 'CAFyS de tu barrio', tipo: 'Centro de Atención Familiar y de Salud · 23 en el distrito', loc: 'Todas las localidades', guardia: false, esp: ['Clínica médica', 'Pediatría', 'Ginecología', 'Vacunación', 'Salud mental'] },
+];
+const SALUD_INFO = { turnosTel: '0800-444-3400', emergencias: '107' };
+
+const FOTO = (k) => `img/fotos/${k}.jpg`;

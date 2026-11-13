@@ -1,6 +1,6 @@
 // Service worker de SoyTigreYa: permite instalar la app en el celu y abrirla aunque no haya señal.
 // Siempre pide lo último a la web; si no hay conexión, usa la última copia guardada.
-const CACHE = "soytigreya-v12";
+const CACHE = "soytigreya-v15";
 self.addEventListener("install", () => self.skipWaiting());
 self.addEventListener("activate", (e) =>
   e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== CACHE).map((k) => caches.delete(k)))).then(() => self.clients.claim()))

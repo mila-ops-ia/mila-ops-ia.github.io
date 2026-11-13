@@ -89,3 +89,21 @@ y abrí http://localhost:8450.
 - Comisiones de apps de delivery: Develop Argentina (marzo de 2026) e iProfesional (julio de 2026)
 - Antecedentes: MuniShop (Rosario), Munimercado (Neuquén), Góndola Sancarlina (Mendoza), Billetera Santa Fe, Boti y BAX (CABA), App Ciudadana (Córdoba)
 - Costos de referencia: tarifas publicadas de Supabase y Mercado Pago (2026) y sueldos IT de Develop Argentina (junio de 2026)
+
+## Créditos de fotos
+
+Fotos de [Wikimedia Commons](https://commons.wikimedia.org), usadas según su licencia:
+
+- Delta de Tigre: "Canales del Delta de Tigre 02", ProtoplasmaKid, CC BY-SA 4.0
+- Puerto de Frutos: "Rio Lujan - Puerto de frutos (Localidad de Tigre)", Jorge Láscar, CC BY 2.0
+- Pileta: "Public Swimming Pool in Melbourne VIC Australia", KeepActive Australia, CC BY-SA 4.0
+- Gimnasio: "Woman in a gym sitting on the floor and doing dumbbell curls", Shixart1985, CC BY 2.0
+- Veterinaria: "Dog portrait with a veterinarian in blue uniform holding a stethoscope", Nenad Stojkovic, CC BY 2.0
+- Taller de soldadura: "Students practicing Welding at Workshop", Navinreddy23, CC BY-SA 3.0
+
+## Fuentes de las secciones nuevas
+
+- Deporte: red de 18 polideportivos municipales, Polideportivo Sarmiento con la pista de atletismo "Abel Acevedo", Ñato Errecart en Benavídez, Microestadio Ciudad de Benavídez y colonia de verano (notas de Parlamentario, Letra P y Canal 26, 2019-2026).
+- Trabajo y formación: Portal de Empleo del municipio (empleos.tigre.gob.ar), operativos Punto Empleo y Tigre Instituto Formativo con más de 870 cursos gratuitos (Parlamentario, 2026).
+- Salud: Hospitales de Diagnóstico Inmediato Valentín Nores, Eduardo Mocoroa y Floreal Ferrara, Hospital Materno Infantil Florencio Escardó, hospitales Cardiovascular, Oftalmológico y Odontológico y 23 CAFyS (Parlamentario 2026, Ministerio de Salud PBA).
+- Horarios, cupos, búsquedas laborales y especialidades por centro son datos de demostración.

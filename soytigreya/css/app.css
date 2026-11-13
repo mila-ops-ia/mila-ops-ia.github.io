@@ -811,3 +811,108 @@ html, body, .shell, .shell.phone, .shell.wide { background: var(--fondo-b); }
 .sos svg { width: 20px; height: 20px; }
 .sos:active { transform: scale(.96); }
 .top-der { gap: 6px; }
+
+/* Tigri, cachorro de tigre */
+.tigri-svg { display: block; width: 100%; height: 100%; }
+.fab { width: 64px; height: 64px; background: #fff !important; border: 3px solid #D02013 !important; padding: 4px !important; overflow: visible; box-shadow: 0 8px 20px -6px rgba(23, 24, 28, .35); }
+.fab .tigri-svg { animation: tg-asoma 4s ease-in-out infinite; transform-origin: 50% 90%; }
+@keyframes tg-asoma { 0%, 70%, 100% { transform: rotate(0); } 78% { transform: rotate(-9deg); } 86% { transform: rotate(7deg); } 94% { transform: rotate(-3deg); } }
+.tigri-svg .tg-ojo { animation: tg-parpadeo 5s infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes tg-parpadeo { 0%, 93%, 100% { transform: scaleY(1); } 96% { transform: scaleY(.1); } }
+.fab-globo { position: absolute; right: 72px; top: 12px; white-space: nowrap; background: #17181C; color: #fff; font-size: .78rem; font-weight: 700; padding: 7px 11px; border-radius: 12px 12px 2px 12px; animation: tg-globo .5s .6s both; }
+@keyframes tg-globo { from { opacity: 0; transform: translateX(8px); } to { opacity: 1; transform: none; } }
+.tg-avatar { width: 48px; height: 48px; background: #FFF1E3 !important; border-radius: 50%; padding: 3px; box-shadow: none !important; }
+.tg-avatar.chico { width: 36px; height: 36px; flex: none; }
+.msg-fila { display: flex; gap: 8px; align-items: flex-end; max-width: 92%; }
+.msg-fila .msg.tg { max-width: none; }
+.tg-mini { width: 28px; height: 28px; flex: none; border-radius: 50%; background: #FFF1E3; padding: 2px; }
+@media (prefers-reduced-motion: reduce) { .fab .tigri-svg, .tigri-svg .tg-ojo, .fab-globo { animation: none; } }
+.fab .fab-globo { display: block; width: auto; height: auto; background: #17181C !important; color: #fff !important; font-size: .78rem; }
+
+/* Publicidad: rotulada siempre, color del anunciante */
+.pub-fila { display: flex; gap: 12px; overflow-x: auto; margin: 22px -20px 4px; padding: 0 20px 4px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.pub-fila::-webkit-scrollbar { display: none; }
+.pub-fila.sola { margin: 12px 0 14px; padding: 0; overflow: visible; }
+.pub { flex: none; width: 270px; min-height: 128px; scroll-snap-align: start; position: relative; text-align: left; border-radius: 18px; padding: 16px 16px 14px; background: var(--pc); color: #fff; display: flex; flex-direction: column; gap: 3px; overflow: hidden; background-size: cover; background-position: center; }
+.pub-fila.sola .pub { width: 100%; }
+.pub::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,.45), rgba(0,0,0,.05)); opacity: var(--velo, 0); }
+.pub > * { position: relative; }
+.pub-tipo { align-self: flex-start; font-size: .62rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; background: rgba(255,255,255,.2); padding: 2px 7px; border-radius: 6px; margin-bottom: 8px; }
+.pub-ico { position: absolute !important; right: 14px; top: 12px; width: 40px; height: 40px; border-radius: 12px; background: rgba(255,255,255,.16); display: grid; place-items: center; }
+.pub-ico svg { width: 22px; height: 22px; }
+.pub b { font-size: 1.02rem; font-weight: 800; letter-spacing: -.01em; padding-right: 46px; }
+.pub-txt { font-size: .8rem; opacity: .92; }
+
+/* Deporte en Tigre */
+.dep-home { width: 100%; margin-top: 18px; display: flex; align-items: center; gap: 12px; text-align: left; background: #17181C; color: #fff; border-radius: 18px; padding: 18px; position: relative; overflow: hidden; background-size: cover; background-position: center; }
+.dep-home div { display: flex; flex-direction: column; gap: 3px; flex: 1; position: relative; }
+.dep-home small { font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #FFB4AC; }
+.dep-home b { font-size: 1.1rem; font-weight: 800; }
+.dep-home span { font-size: .8rem; opacity: .85; }
+.dep-home-ico { width: 46px; height: 46px; flex: none; border-radius: 14px; background: #D02013; display: grid !important; place-items: center; opacity: 1 !important; position: relative; }
+.dep-home-ico svg { width: 24px; height: 24px; }
+.dep-colonia { display: flex; gap: 14px; background: #FFF4E5; border-radius: 18px; padding: 16px; margin: 16px 0 4px; }
+.dep-colonia p { font-size: .84rem; color: #6B4A1F; margin: 4px 0 10px; }
+.dep-colonia .btn { width: auto; padding: 10px 16px; }
+.dep-colonia-ico { width: 44px; height: 44px; flex: none; border-radius: 14px; background: #F59E0B; color: #fff; display: grid; place-items: center; }
+.dep-lista { background: #fff; border-radius: 18px; padding: 2px 16px; margin-top: 10px; }
+.dep-act { display: flex; gap: 12px; align-items: center; padding: 13px 0; border-bottom: 1px solid var(--linea); }
+.dep-act:last-child { border-bottom: 0; }
+.dep-ico { width: 42px; height: 42px; flex: none; border-radius: 12px; background: #FBE9E7; color: #D02013; display: grid; place-items: center; }
+.dep-ico svg { width: 22px; height: 22px; }
+.dep-txt { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.dep-txt b { font-size: .92rem; }
+.dep-txt span, .dep-txt small { font-size: .76rem; color: var(--muted); }
+.dep-der { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; font-size: .7rem; }
+.dep-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.dep-tags em { font-style: normal; font-size: .68rem; font-weight: 600; background: var(--fondo-b); padding: 2px 7px; border-radius: 6px; }
+.dep-der .mini-btn { background: #D02013; color: #fff; font-weight: 700; font-size: .78rem; padding: 7px 12px; border-radius: 18px; white-space: nowrap; }
+.dep-der small { white-space: nowrap; }
+
+/* Inicio: accesos a Salud, Deporte y Trabajo */
+.tiles2 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 18px; }
+.tile { text-align: left; border-radius: 18px; padding: 14px 12px; min-height: 132px; display: flex; flex-direction: column; gap: 3px; color: #fff; position: relative; overflow: hidden; background-size: cover; background-position: center; }
+.tile::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 20%, rgba(0,0,0,.55)); opacity: var(--velo, 0); }
+.tile > * { position: relative; }
+.tile-sal { background-color: #0E7C86; }
+.tile-dep { background-color: #17181C; }
+.tile-trab { background-color: #3A3F4D; }
+.tile-ico { width: 36px; height: 36px; border-radius: 11px; background: rgba(255,255,255,.18); display: grid; place-items: center; margin-bottom: auto; }
+.tile-ico svg { width: 20px; height: 20px; }
+.tile small { font-size: .62rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; opacity: .85; margin-top: 10px; }
+.tile b { font-size: .82rem; font-weight: 700; line-height: 1.25; }
+
+/* Trabajo */
+.emp { background: #fff; border-radius: 18px; padding: 14px 16px; margin-top: 10px; display: flex; flex-direction: column; gap: 10px; }
+.emp-cab { display: flex; gap: 12px; align-items: center; }
+.emp .btn { align-self: flex-start; width: auto; padding: 9px 18px; }
+.emp-estado { display: flex; gap: 6px; flex-wrap: wrap; }
+.emp-estado span { font-size: .7rem; font-weight: 600; padding: 4px 9px; border-radius: 12px; background: var(--fondo-b); color: var(--muted); }
+.emp-estado span.on { background: #E8F5EE; color: #1B7A47; }
+.aviso-cv { width: 100%; display: flex; align-items: center; gap: 10px; text-align: left; background: #FFF4E5; color: #6B4A1F; border-radius: 14px; padding: 12px 14px; margin-top: 14px; font-size: .85rem; }
+.aviso-cv span { flex: 1; }
+.cv-card { background: #fff; border-radius: 18px; padding: 18px; margin-top: 14px; display: flex; flex-direction: column; gap: 14px; }
+.cv-cab { display: flex; gap: 12px; align-items: center; }
+.cv-cab div { display: flex; flex-direction: column; }
+.cv-cab span:not(.avatar-p) { font-size: .78rem; color: var(--muted); }
+.cv-sec small { font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #D02013; }
+.cv-sec p { font-size: .88rem; margin-top: 3px; }
+.pe-card { background: #E8F3FB; color: #12466F; border-radius: 18px; padding: 14px 16px; margin-top: 12px; font-size: .85rem; }
+.pe-card p { margin-top: 4px; }
+
+/* Salud */
+.sal-urg { display: flex; align-items: center; gap: 12px; background: #FDECEA; border-radius: 16px; padding: 12px 14px; margin: 8px 0 14px; }
+.sal-urg div { flex: 1; display: flex; flex-direction: column; font-size: .8rem; color: #7A1A12; }
+.sal-urg b { font-size: .92rem; }
+.sal-tel { background: #D02013; color: #fff; text-decoration: none; font-weight: 800; padding: 9px 14px; border-radius: 20px; white-space: nowrap; display: inline-flex; gap: 6px; align-items: center; }
+.sal-tel svg { width: 16px; height: 16px; }
+.sal-esp { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.sal-esp button { background: #fff; border-radius: 14px; padding: 12px 6px; display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: .74rem; font-weight: 600; text-align: center; border: 2px solid transparent; }
+.sal-esp button span { width: 38px; height: 38px; border-radius: 12px; background: #E3F2F3; color: #0E7C86; display: grid; place-items: center; }
+.sal-esp button span svg { width: 20px; height: 20px; }
+.sal-esp button.on { border-color: #0E7C86; }
+.dep-tags em.guardia { background: #FDECEA; color: #9E180E; }
+.foto-banner { height: 130px; border-radius: 18px; background-size: cover; background-position: center; position: relative; overflow: hidden; margin: 6px 0 12px; display: flex; align-items: flex-end; }
+.foto-banner::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,.6)); }
+.foto-banner span { position: relative; color: #fff; font-weight: 800; padding: 12px 14px; font-size: .95rem; }
+.pub b, .pub-txt, .pub-tipo { text-shadow: 0 1px 6px rgba(0,0,0,.35); }
