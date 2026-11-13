@@ -155,8 +155,8 @@ viñetas([
     ('Servicios propios de Tigre: ', 'altura del río con niveles de alerta, colectivos, farmacias de turno y un botón de alerta visible en todas las pantallas.'),
     ('Tigri: ', 'un cachorro de tigre que funciona como asistente conversacional: responde en lenguaje cotidiano ("quiero pizza", "hay un bache", "necesito un pediatra") y lleva al vecino directamente a la acción que necesita.'),
     ('Puntos Tigre: ', 'recompensas por comprar en el barrio, pagar la tasa en término, reciclar, inscribirse en actividades o tener un reclamo resuelto, canjeables por cupones, descuentos en tasas, estacionamiento o cultura, con niveles para sostener el uso.'),
-    ('Panel del comercio: ', 'pedidos en tres columnas (nuevos, en preparación, listos), reclamos de clientes, productos, ofertas flash y un resumen con la comisión que se ahorró.'),
-    ('Paneles del municipio: ', 'Atención al Vecino gestiona los reclamos en un mapa (con foto y etapas) y los turnos del día; Desarrollo Económico ve las ventas por localidad y rubro, el ahorro de los vecinos y las comisiones que quedaron en el distrito.'),
+    ('Panel del comercio: ', 'una franja con lo de hoy (ventas, pedidos en curso, próximo retiro y horario), pedidos en tres columnas, reclamos de clientes, productos y ofertas, Mi local para subir fotos reales, descripción y horarios, cobros por medio de pago y el Plan Destacado opcional.'),
+    ('Paneles del municipio: ', 'Atención al Vecino ordena los reclamos por urgencia según el plazo de cada tipo, los asigna a la cuadrilla con menos trabajo, cierra con foto y ve un mapa de calor; Desarrollo Económico filtra por período y localidad, sigue la adhesión de comercios, descarga informes y ve la proyección financiera con un simulador.'),
 ])
 p('Como parte del trabajo desarrollé un prototipo funcional navegable que implementa estos módulos con datos de demostración, de modo que la propuesta se puede recorrer y probar, no solo describir. Está publicado en mila-ops-ia.github.io/soytigreya, se puede instalar en el celular e incluye un recorrido guiado de diez pasos que muestra cómo un pedido y un reclamo pasan por los cuatro perfiles; en el Anexo B se incluyen capturas.')
 doc.add_heading('Qué valor aporta', 2)
@@ -200,7 +200,7 @@ viñetas([
     ('Tecnología: ', 'aplicación web progresiva, base de datos en la nube, pasarela de pagos, validación de identidad (Mi Argentina o RENAPER) y servicios de mapas.'),
     ('Comunicación: ', 'campaña para vecinos y comercios aprovechando los canales municipales existentes.'),
 ])
-p('Presupuesto estimado de la Etapa 1: equipo de 4 personas durante 3 meses, entre $30 y $54 millones según sueldos de referencia de $2,5 a $4,5 millones brutos por mes; base de datos en la nube desde USD 25 por mes; hosting y mapas sin costo, y pasarela de pagos de 0,6% a 0,8% por operación con QR (detalle en el Lean Canvas, Anexo A).')
+p('Inversión del Municipio: en el año 1, $152 M (piloto $55 M, escalamiento $55 M y seis meses de licencia y soporte a $6,9 M por mes); desde el año 2, $55 M por año (licencia de $4,5 M por mes con un equipo de mantenimiento más chico, más infraestructura). Los precios de mila·ops surgen del costo del equipo más un 30% de margen; la pasarela de pago cobra de 0,6% a 0,8% por operación con QR.')
 doc.add_heading('Posibles aliados', 2)
 p('Secretaría de Desarrollo Económico del Municipio, cámaras de comercio locales, Mercado Pago y Banco Provincia (Cuenta DNI) como medios de pago, cooperativas de mensajería para el delivery, la Universidad Nacional del Delta para investigación y prácticas, y el área de Modernización para la integración con los sistemas existentes.')
 doc.add_heading('Principales desafíos o riesgos', 2)
@@ -224,7 +224,7 @@ viñetas([
     ('Impacto en la comunidad: ', 'el consumo queda dentro del partido y fortalece el empleo local. La propuesta tiene triple impacto: económico, porque protege el bolsillo del vecino y el margen del comerciante; social, porque conecta a la comunidad; y de gestión, porque posiciona al municipio como referente de innovación.'),
     ('Crecimiento futuro: ', 'Tigri con inteligencia artificial, integración con transporte y turismo del Delta, y un modelo replicable en otros municipios.'),
 ])
-p('Viabilidad económica: el modelo es mixto. El vecino no paga y el comercio vende con 0% de comisión; los ingresos vienen de servicios opcionales y de socios. Con supuestos del año 2, el Plan Destacado para comercios (75 comercios a $25.000 por mes) aporta $22,5 M; cuatro espacios de publicidad local, $14,4 M; un banco o billetera que cofinancia los descuentos, $30 M, y el ahorro de 20.000 trámites que dejan de ser presenciales, $30 M. En total, unos $97 M por año frente a un costo de $84 M (licencia, soporte e infraestructura): desde el segundo año la plataforma se paga sola. Para mila·ops, el ingreso es una licencia por municipio según su población, replicable en otros distritos (Lean Canvas, Anexo A).')
+p('Viabilidad económica. Se separan tres preguntas. Inversión del Municipio: $152 M el año 1 y $55 M por año después. Lo que vuelve a su caja (Plan Destacado, publicidad local, un banco que cofinancia descuentos y el ahorro de trámites presenciales): $40,6 M, $124,4 M y $152,6 M en los años 1 a 3, con un resultado de −$111,4 M, +$69,2 M y +$97,4 M; recupera la inversión en 2 años y 5 meses (sin bajar la licencia ni sumar el aporte bancario, tardaría 4 años y 3 meses). Lo que gana la comunidad, que no es caja municipal: comisiones que quedan en los comercios por $67,5 M, $360 M y $540 M; por cada $1 invertido en tres años quedan $3,7 en los comercios de Tigre. Detalle en el Anexo A.')
 p('Indicadores de éxito: vecinos activos y retención a 90 días, pedidos y comercios activos, ahorro de los vecinos, comisiones evitadas, tiempo de resolución de reclamos, tasas pagadas en término y NPS.')
 
 # ---------- 8 ----------
@@ -259,11 +259,25 @@ tabla([
     ['Propuesta de valor única', 'Que el ahorro y la venta se queden en Tigre: el vecino paga menos y el comercio cobra el 100%.'],
     ['Solución', 'App con descuento automático, compra con retiro, trámites, pagos, puntos y paneles de gestión.'],
     ['Canales', 'App municipal, comercios adheridos, cámaras de comercio y canales del municipio.'],
-    ['Fuentes de ingreso', 'Gratis para el vecino y 0% de comisión. Plan Destacado opcional ($25.000 por mes), publicidad local, cofinanciamiento de descuentos con un banco o billetera y ahorro en atención presencial. Para mila·ops: licencia por municipio.'],
-    ['Estructura de costos', 'Licencia y soporte ($6,9 M por mes); base de datos y hosting (unos $1,2 M por año); pasarela de pago 0,6% a 0,8% por operación.'],
+    ['Fuentes de ingreso', 'Gratis para el vecino y 0% de comisión. En el año 2: Plan Destacado ($30 M), publicidad local ($14,4 M), banco que cofinancia descuentos ($50 M) y ahorro en atención ($30 M): $124,4 M. Para mila·ops: licencia por municipio.'],
+    ['Estructura de costos', 'Año 1: $152 M (piloto, escalamiento y seis meses de licencia). Desde el año 2: $55,2 M por año (licencia $4,5 M por mes e infraestructura $1,2 M). Pasarela 0,6% a 0,8%.'],
     ['Métricas clave', 'Vecinos activos, retención, NPS, comercios activos, comercios con Plan Destacado y comisiones evitadas.'],
     ['Ventaja injusta', 'Más de 500 comercios y la tarjeta Soy Tigre ya instalada, con el aval del municipio.'],
 ], [4.0, 12.0])
+doc.add_heading('Proyección financiera a tres años (escenario propuesto)', 2)
+tabla([
+    ['Concepto', 'Año 1', 'Año 2', 'Año 3'],
+    ['Costo para el Municipio', '$152,0 M', '$55,2 M', '$55,2 M'],
+    ['Plan Destacado (30 / 100 / 120 comercios)', '$4,5 M', '$30,0 M', '$36,0 M'],
+    ['Publicidad local (2 / 4 / 6 espacios)', '$3,6 M', '$14,4 M', '$21,6 M'],
+    ['Banco o billetera que cofinancia descuentos', '$25,0 M', '$50,0 M', '$50,0 M'],
+    ['Ahorro en atención presencial', '$7,5 M', '$30,0 M', '$45,0 M'],
+    ['Vuelve a la caja del Municipio', '$40,6 M', '$124,4 M', '$152,6 M'],
+    ['Resultado del año', '−$111,4 M', '+$69,2 M', '+$97,4 M'],
+    ['Acumulado', '−$111,4 M', '−$42,2 M', '+$55,2 M'],
+    ['Comisiones que quedan en los comercios (no es caja municipal)', '$67,5 M', '$360,0 M', '$540,0 M'],
+], [7.0, 3.0, 3.0, 3.0])
+p('Recupero de la inversión: 2 años y 5 meses. Sin las palancas (licencia de $6,9 M por mes desde el año 2 y aporte bancario de $30 M), 4 años y 3 meses. El año 1 incluye solo seis meses de ingresos, porque la plataforma está en piloto. Supuestos a validar en el piloto; el panel de Desarrollo Económico permite simular las palancas.')
 doc.add_heading('Product Vision Board', 2)
 tabla([
     ['Visión', 'Grupo objetivo', 'Necesidades', 'Producto', 'Objetivos'],

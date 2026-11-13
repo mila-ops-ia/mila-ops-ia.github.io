@@ -1072,3 +1072,45 @@ html, body, .shell, .shell.phone, .shell.wide { background: var(--fondo-b); }
 .tour .tour-ant { flex: 0 0 auto !important; background: rgba(255,255,255,.12) !important; color: #fff !important; border: 0 !important; padding: 11px 14px; }
 .tour-acc .btn { width: auto !important; min-width: 0; }
 .tour-acc .btn:last-child { flex: 1 1 auto; }
+
+/* =====================================================================
+   v23 · Paneles de comercio y municipio
+   ===================================================================== */
+/* Marina: números */
+.fin { margin: 16px 0; }
+.fin-dos { display: grid; grid-template-columns: 1fr; gap: 18px; margin-top: 10px; }
+@media (min-width: 900px) { .fin-dos { grid-template-columns: 1fr 1fr; } }
+.fin-tit { font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #D02013; margin-bottom: 6px; }
+.fin-t { width: 100%; border-collapse: collapse; font-size: .86rem; margin-bottom: 6px; }
+.fin-t th { text-align: right; font-size: .72rem; color: var(--muted); font-weight: 700; padding: 4px 0 6px; }
+.fin-t td { padding: 7px 0; border-bottom: 1px solid var(--linea); }
+.fin-t td:not(:first-child) { text-align: right; white-space: nowrap; padding-left: 10px; font-weight: 600; }
+.fin-t tr.tot td { border-bottom: 2px solid #17181C; }
+.fin-grande { font-size: 1rem; margin: 8px 0 4px; } .fin-grande b { color: #1B7A47; font-size: 1.3rem; }
+.sim { display: flex; flex-direction: column; gap: 2px; font-size: .8rem; color: var(--muted); margin: 6px 0; }
+.sim b { color: #17181C; } .sim input { accent-color: #D02013; width: 100%; }
+.m-filtros, .c-filtros { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 6px 0 12px; }
+.m-filtros .seg { margin: 0; }
+.m-exp { width: auto !important; padding: 8px 14px; margin-left: auto; }
+.c-filtros .chips { flex: 1; margin: 0; }
+.mini-seg { margin: 0 !important; } .mini-seg button { padding: 4px 10px; font-size: .75rem; }
+/* Carlos: plazos */
+.plazo { display: inline-block; font-size: .68rem; font-weight: 700; padding: 1px 7px; border-radius: 6px; background: #E8F5EE; color: #1B7A47; margin-top: 3px; }
+.plazo.venc { background: #FDECEA; color: #9E180E; }
+/* Rosa: hoy, local, cobros */
+.hoy-com { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px 0 12px; }
+.hoy-com div { background: #fff; border-radius: 14px; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; }
+.hoy-com small { font-size: .7rem; color: var(--muted); font-weight: 600; }
+.hoy-com b { font-size: .95rem; }
+@media (max-width: 700px) { .hoy-com { grid-template-columns: 1fr 1fr; } }
+.foto-local { height: 150px; }
+.foto-local img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
+.fila-horario { display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end; }
+.fila-horario label { flex: 1; min-width: 90px; }
+.fila-horario .check { flex-direction: row !important; align-items: center; gap: 6px; font-weight: 600; }
+.vista-tit { margin: 0 0 8px; }
+.cobro-tot { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 10px; }
+.cobro-tot div { background: var(--fondo-b); border-radius: 12px; padding: 8px 10px; display: flex; flex-direction: column; }
+.cobro-tot small { font-size: .7rem; color: var(--muted); } .cobro-tot b { font-size: 1rem; }
+.local-info { font-size: .82rem; color: var(--muted); margin: 8px 0 0; display: flex; flex-direction: column; gap: 2px; }
+.local-info span { color: #17181C; }

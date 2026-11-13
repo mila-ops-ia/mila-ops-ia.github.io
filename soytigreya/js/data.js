@@ -391,12 +391,19 @@ const SALUD_INFO = { turnosTel: '0800-444-3400', emergencias: '107' };
 
 const FOTO = (k) => `img/fotos/${k}.jpg`;
 
-// ---------- Modelo de negocio (supuestos del piloto, año 2) ----------
-// Gratis para el vecino, 0% de comisión para el comercio. Ingresos por servicios opcionales y socios.
+// ---------- Modelo financiero (un solo modelo para la app, el TFI y la presentación) ----------
+// Tres preguntas separadas: cuánto invierte el Municipio, cuánto vuelve a su caja y cuánto gana la comunidad.
+// Precios de mila·ops = costo del equipo + 30% de margen. Supuestos a validar en el piloto.
 const MODELO = {
-  planPrecio: 25000, planMeta: 75,            // Plan Destacado: 15% de 500 comercios
-  pubEspacios: 4, pubPrecio: 300000,          // espacios de publicidad en el inicio, por mes
-  banco: 30000000,                            // cofinanciamiento anual de descuentos (banco o billetera)
-  tramites: 20000, ahorroTramite: 1500,       // trámites que pasan de presencial a la app, por año
-  licenciaMes: 6900000, infraAnual: 1200000,  // costos
+  piloto: 55e6, escalamiento: 55e6,           // meses 1-3 y 4-6
+  licenciaA1: 6.9e6,                          // licencia y soporte, meses 7-12 del año 1
+  licencia: 4.5e6,                            // licencia y soporte desde el año 2 (equipo de mantenimiento más chico)
+  infra: 1.2e6,                               // base de datos y hosting, por año
+  planPrecio: 25000, planComercios: [30, 100, 120],   // Plan Destacado: comercios por año (año 1: 6 meses)
+  pubPrecio: 300000, pubEspacios: [2, 4, 6],          // publicidad local por mes (año 1: 6 meses)
+  banco: 50e6,                                        // banco o billetera que cofinancia descuentos, por año (año 1: medio año)
+  tramites: [5000, 20000, 30000], ahorroTramite: 1500, // trámites que dejan de ser presenciales
+  comercios: [50, 100, 150], pedidosMes: [30, 60, 60], ticket: 20000, comisionApps: 0.25, mesesA1: 9, // impacto en la comunidad
 };
+const MODELO_BASE = { licencia: 6.9e6, banco: 30e6, planComercios: [30, 75, 120] }; // sin las palancas
+

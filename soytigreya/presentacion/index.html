@@ -77,6 +77,7 @@ svg.lucide { width: 1em; height: 1em; stroke-width: 2; vertical-align: -0.12em; 
 .pov .u { background: #E8F3FB; } .pov .n { background: var(--rosa); } .pov .i { background: #FFF3D6; }
 
 /* 4 calculadora */
+.caja-muni { margin-top: 18px; padding-top: 16px; border-top: 2px solid rgba(255,255,255,.18); display: flex; flex-direction: column; gap: 6px; }
 .calc { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; flex: 1; align-items: center; }
 .slider { display: flex; flex-direction: column; gap: 10px; }
 .slider label { display: flex; justify-content: space-between; font-size: 26px; font-weight: 600; }
@@ -251,8 +252,8 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
 </section>
 
 <!-- 4 · CALCULADORA -->
-<section class="slide oscura" data-notas="Lo que cuesta no hacer nada. Esta calculadora es en vivo: moverla con los valores que quiera el jurado. Con 100 comercios, 60 pedidos por mes, ticket de 20.000 pesos y 25% de comisión, quedan 360 millones por año en Tigre, 2,4 veces la inversión del primer año. Es un escenario para dimensionar, no una proyección de ventas. Contenido aplicado: ROI y KPIs del módulo 3.">
-  <div class="cab"><p class="ceja">El costo de no hacer nada <span class="mod">M3 · ROI y KPIs</span></p><h2>¿Cuánto queda en Tigre por año?</h2></div>
+<section class="slide oscura" data-notas="Los números, separados en dos preguntas. Primero, la calculadora en vivo: cuánta plata queda en los comercios de Tigre en lugar de irse en comisiones. Con 100 comercios, 60 pedidos por mes, ticket de 20.000 pesos y 25% de comisión son 360 millones por año, unas 6,5 veces lo que cuesta mantener la plataforma. Eso no es caja del Municipio. Segundo, la caja del Municipio: invierte 152 millones el primer año y recupera la inversión en 2 años y 5 meses con Plan Destacado, publicidad, un banco que cofinancia descuentos y el ahorro en atención. Contenido aplicado: ROI y KPIs del módulo 3.">
+  <div class="cab"><p class="ceja">Los números, claros <span class="mod">M3 · ROI y KPIs</span></p><h2>Dos preguntas, dos respuestas</h2></div>
   <div class="calc">
     <div class="col" style="gap:30px;">
       <div class="slider"><label>Comercios activos <b id="o-com">100</b></label><input type="range" id="s-com" min="20" max="500" step="10" value="100"></div>
@@ -262,13 +263,16 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
       <p class="toque"><i data-lucide="sliders-horizontal"></i> Mové los valores</p>
     </div>
     <div class="col" style="gap:16px;">
-      <p class="muted" style="font-size:28px;">Comisiones que quedan en el distrito, por año</p>
+      <p class="muted" style="font-size:26px;">1 · Para los comercios: comisiones que se quedan en Tigre, por año</p>
       <p class="res-num" id="r-anio">$360 M</p>
-      <p style="font-size:34px;"><b id="r-x" style="color:#FF8F84;">2,4 veces</b> la inversión del primer año ($151 M)</p>
-      <p class="muted" id="r-ped" style="font-size:24px;">6.000 pedidos por mes · $120 M en ventas</p>
+      <p style="font-size:28px;"><b id="r-x" style="color:#FF8F84;">6,5 veces</b> lo que cuesta mantener la plataforma ($55 M por año)</p>
+      <p class="muted" id="r-ped" style="font-size:22px;">6.000 pedidos por mes · $120 M en ventas</p>
+      <div class="caja-muni"><p class="muted" style="font-size:26px;">2 · Para la caja del Municipio</p>
+        <p style="font-size:30px;">Invierte <b>$152 M</b> el año 1 y la <b style="color:#FF8F84;">recupera en 2 años y 5 meses</b></p>
+        <p class="muted" style="font-size:22px;">Resultado: −$111 M · +$69 M · +$97 M (años 1 a 3)</p></div>
     </div>
   </div>
-  <div class="pie"><span>ROI = (beneficio − inversión) / inversión × 100 · Escenario de referencia, no proyección</span><span>4</span></div>
+  <div class="pie"><span>Lo que queda en los comercios no es caja del Municipio · Supuestos a validar en el piloto</span><span>4</span></div>
 </section>
 
 <!-- 5 · LA SOLUCIÓN -->
@@ -314,10 +318,10 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
     <div class="blq c-vent"><h4>Ventaja injusta</h4><p>+500 comercios y la tarjeta Soy Tigre ya instalada; aval municipal.</p></div>
     <div class="blq c-can"><h4>Canales</h4><p>App municipal, comercios, cámaras y canales del municipio.</p></div>
     <div class="blq c-seg"><h4>Segmentos</h4><p>Vecinos con tarjeta Soy Tigre.</p><p>Comercios de barrio.</p><p>Early adopters: gastronomía de Tigre Centro.</p></div>
-    <div class="blq c-cost"><h4>Estructura de costos</h4><p>Licencia y soporte $6,9 M/mes · infraestructura ≈ $1,2 M/año · pasarela 0,6–0,8%.</p><p><b>≈ $84 M por año</b></p></div>
-    <div class="blq c-ing"><h4>Fuentes de ingreso</h4><p>Vecino gratis · comercio 0% de comisión. Plan Destacado $22,5 M · publicidad local $14,4 M · banco que cofinancia descuentos $30 M · ahorro en atención $30 M.</p><p><b>≈ $97 M por año: se paga sola desde el año 2</b></p></div>
+    <div class="blq c-cost"><h4>Estructura de costos</h4><p>Año 1: piloto $55 M + escalamiento $55 M + 6 meses de licencia = <b>$152 M</b>.</p><p>Desde el año 2: licencia $4,5 M/mes + infraestructura = <b>$55 M por año</b>.</p></div>
+    <div class="blq c-ing"><h4>Fuentes de ingreso (año 2)</h4><p>Vecino gratis · comercio 0% de comisión. Plan Destacado $30 M · publicidad $14,4 M · banco que cofinancia descuentos $50 M · ahorro en atención $30 M = $124 M.</p><p><b>Recupera la inversión en 2 años y 5 meses</b></p></div>
   </div>
-  <div class="pie"><span>Modelo mixto con supuestos del año 2, a validar en el piloto · mila·ops: licencia por municipio, replicable en otros distritos</span><span>7</span></div>
+  <div class="pie"><span>Supuestos a validar en el piloto · Sin bajar la licencia ni el aporte bancario, el recupero sería de 4 años y 3 meses · mila·ops: licencia por municipio</span><span>7</span></div>
 </section>
 
 <!-- 8 · MVP Y AGILIDAD -->
@@ -459,7 +463,7 @@ function calc() {
   document.getElementById('o-tic').textContent = '$' + fmt(tic); document.getElementById('o-por').textContent = por + '%';
   const ventasMes = com * ped * tic, anio = ventasMes * por / 100 * 12;
   document.getElementById('r-anio').textContent = '$' + fmt(Math.round(anio / 1e6)) + ' M';
-  const x = anio / 151e6;
+  const x = anio / 55.2e6;
   document.getElementById('r-x').textContent = (x >= 10 ? Math.round(x) : x.toFixed(1).replace('.', ',')) + ' veces';
   document.getElementById('r-ped').textContent = `${fmt(com * ped)} pedidos por mes · $${fmt(Math.round(ventasMes / 1e6))} M en ventas`;
 }

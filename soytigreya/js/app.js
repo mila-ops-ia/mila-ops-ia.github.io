@@ -359,9 +359,10 @@ function resultadosBusca() {
   return `<div class="lista resultados">${res.slice(0, 8).join('') || `<p class="muted">No encontré nada con "${esc(S.busca)}". Probá preguntarle a Tigri.</p>`}</div>`;
 }
 
+function fotoDe(c) { return c.fotoLocal || (c.foto ? FOTO(c.foto) : ''); }
 function miniComercio(c) {
   return `<button class="mini" data-a="abrir" data-v="${c.id}">
-    <div class="mini-img" style="background:${c.color}${c.foto ? ` url(${FOTO(c.foto)}) center/cover` : ''}">${c.foto ? '' : c.emoji}<em>-${c.desc}%</em></div>
+    <div class="mini-img" style="background:${c.color}${fotoDe(c) ? ` url(${fotoDe(c)}) center/cover` : ''}">${fotoDe(c) ? '' : c.emoji}<em>-${c.desc}%</em></div>
     <div class="mini-txt">${c.destacado ? '<span class="dest-tag">Destacado</span>' : ''}<b>${esc(c.nombre)}</b><span class="muted">${c.servicio ? 'Turnos online' : `Retirá en ${c.prep} min`}</span></div></button>`;
 }
 
@@ -436,7 +437,7 @@ function vComercio(c) {
   const tot = car ? totalesCarrito() : null;
   return `
   <button class="volver" data-a="cerrarComercio">‹ Volver</button>
-  <div class="hero" style="background:${c.color}${c.foto ? ` url(${FOTO(c.foto)}) center/cover` : ''}">${c.foto ? '' : `<span>${c.emoji}</span>`}</div>
+  <div class="hero" style="background:${c.color}${fotoDe(c) ? ` url(${fotoDe(c)}) center/cover` : ''}">${fotoDe(c) ? '' : `<span>${c.emoji}</span>`}</div>${c.descLocal || c.horario ? `<p class="local-info">${c.horario ? `🕒 ${horarioTxt(c)}` : ''}${c.descLocal ? `<span>${esc(c.descLocal)}</span>` : ''}</p>` : ''}
   <h1 class="titulo">${esc(c.nombre)}</h1>
   <p class="muted sub">${esc(c.dir)} · ${c.loc}</p>
   <div class="tags"><span class="tag desc">${MARCA.tarjeta}: -${c.desc}%</span><span class="tag">${c.servicio ? '📅 Turnos online' : `🥡 Retiro en ${c.prep} min`}</span><span class="tag">0% comisión</span></div>
@@ -1089,8 +1090,8 @@ function panelComercio() {
   const c = comercio((perfilActual() && perfilActual().cid) || S.panelCid);
   S.panelCid = c.id;
   const nRP = (S.reclamosPed || []).filter((r) => r.cid === c.id && estadoRP(r) === 'abierto').length;
-  const tabs = [['pedidos', '🧾 Pedidos'], ['reclamos', `⚠️ Reclamos${nRP ? ` (${nRP})` : ''}`], ['productos', '📦 Productos'], ['resumen', '📈 Resumen']];
-  const cuerpo = S.panelTab === 'productos' ? pcProductos(c) : S.panelTab === 'resumen' ? pcResumen(c) : S.panelTab === 'reclamos' ? pcReclamos(c) : pcPedidos(c);
+  const tabs = [['pedidos', '🧾 Pedidos'], ['reclamos', `⚠️ Reclamos${nRP ? ` (${nRP})` : ''}`], ['productos', '📦 Productos'], ['local', '🏪 Mi local'], ['resumen', '📈 Resumen']];
+  const cuerpo = S.panelTab === 'productos' ? pcProductos(c) : S.panelTab === 'resumen' ? pcResumen(c) : S.panelTab === 'reclamos' ? pcReclamos(c) : S.panelTab === 'local' ? pcLocal(c) : pcPedidos(c);
   return `
   <div class="panel-cab">
     <div class="avatar" style="background:${c.color}">${c.emoji}</div>
@@ -1098,6 +1099,7 @@ function panelComercio() {
       <span class="muted">${esc(c.dir)} · ${c.loc} · ${MARCA.tarjeta} -${c.desc}%</span></div>
     <button class="switch ${c.abierto ? 'on' : ''}" data-a="toggleAbierto">${c.abierto ? '🟢 Abierto' : '⚪ Cerrado'}</button>
   </div>
+  ${hoyComercio(c)}
   <div class="seg">${tabs.map(([id, t]) => `<button class="${S.panelTab === id ? 'on' : ''}" data-a="panelTab" data-v="${id}">${t}</button>`).join('')}</div>
   ${cuerpo}`;
 }
@@ -1151,6 +1153,51 @@ function pcProductos(c) {
   </div>`;
 }
 
+// ---------- Rosa: franja "Hoy", Mi local y cobros ----------
+function horarioTxt(c) { const h = c.horario || { abre: '11:00', cierra: '23:00', domingo: true }; return `${h.domingo ? 'Todos los días' : 'Lunes a sábado'} de ${h.abre} a ${h.cierra}`; }
+function hoyComercio(c) {
+  const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
+  const deHoy = S.pedidos.filter((p) => p.cid === c.id && p.creado >= hoy.getTime() && p.estado !== 'rechazado');
+  const curso = S.pedidos.filter((p) => p.cid === c.id && ['recibido', 'preparacion', 'listo'].includes(p.estado));
+  const prox = curso.slice().sort((a, b) => a.creado - b.creado)[0];
+  return `<div class="hoy-com">
+    <div><small>Ventas de hoy</small><b>${plata(deHoy.reduce((a, p) => a + p.total, 0))}</b></div>
+    <div><small>Pedidos en curso</small><b>${curso.length}</b></div>
+    <div><small>Próximo retiro</small><b>${prox ? `${esc(prox.retiro)} · ${prox.codigo}` : '—'}</b></div>
+    <div><small>Horario</small><b>${horarioTxt(c)}</b></div>
+  </div>`;
+}
+function pcLocal(c) {
+  const h = c.horario || { abre: '11:00', cierra: '23:00', domingo: true };
+  return `<div class="dos">
+    <div class="card form">
+      <h3>Así te ven los vecinos</h3>
+      <label class="foto-btn foto-local">${fotoDe(c) ? `<img src="${fotoDe(c)}" alt="Foto del local">` : '<span>📷 Subí una foto real de tu local</span>'}<input type="file" accept="image/*" data-f="fotoLocal"></label>
+      <p class="muted chico">Una foto de la fachada o de tus productos. Es la que aparece en Comprar y en "Para vos, hoy".</p>
+      <label>Contales quiénes son<textarea data-f="descLocal" rows="3" placeholder="Pastas caseras desde 1998, hechas en el día.">${esc(c.descLocal || '')}</textarea></label>
+      <div class="fila-horario"><label>Abre<input type="time" value="${h.abre}" data-f="hAbre"></label><label>Cierra<input type="time" value="${h.cierra}" data-f="hCierra"></label>
+        <label class="check"><input type="checkbox" ${h.domingo ? 'checked' : ''} data-f="hDomingo"> Abre los domingos</label></div>
+      <button class="btn" data-a="guardarLocal">Guardar cambios</button>
+    </div>
+    <div><h3 class="vista-tit">Vista previa</h3><div class="carrusel">${miniComercio(c)}</div>
+      <div class="card" style="margin-top:12px"><h3>Datos del local</h3>
+        <p class="linea"><span>Dirección</span><b>${esc(c.dir)}</b></p><p class="linea"><span>Localidad</span><b>${c.loc}</b></p>
+        <p class="linea"><span>Descuento Soy Tigre</span><b>${c.desc}%</b></p><p class="linea"><span>Horario</span><b>${horarioTxt(c)}</b></p></div></div>
+  </div>`;
+}
+const ACREDITA = { mp: ['Al instante', 0], dni: ['En el día', 0], tarjeta: ['Débito 48 h · crédito 10 días', 3], efectivo: ['En la caja', 0] };
+function cobrosHtml(c) {
+  const desde = inicioMes();
+  const mes = S.pedidos.filter((p) => p.cid === c.id && p.estado === 'retirado' && p.creado >= desde);
+  const pendiente = mes.filter((p) => p.pago === 'tarjeta' && Date.now() - p.creado < ACREDITA.tarjeta[1] * 864e5).reduce((a, p) => a + p.total, 0);
+  const porMedio = PAGOS.map((m) => ({ m, v: mes.filter((p) => p.pago === m.id).reduce((a, p) => a + p.total, 0) })).filter((x) => x.v);
+  const total = porMedio.reduce((a, x) => a + x.v, 0);
+  return `<h2>Cobros del mes</h2><div class="card">
+    <div class="cobro-tot"><div><small>Cobrado</small><b>${plata(total - pendiente)}</b></div><div><small>Por acreditar</small><b>${plata(pendiente)}</b></div><div><small>Comisión de la plataforma</small><b class="verde">$0</b></div></div>
+    ${porMedio.map((x) => `<p class="linea"><span>${x.m.emoji} ${x.m.nombre}<small class="muted"> · ${ACREDITA[x.m.id][0]}</small></span><b>${plata(x.v)}</b></p>`).join('') || '<p class="muted">Todavía sin cobros este mes.</p>'}
+    <p class="muted chico">La pasarela de pago cobra su costo (0,6% a 0,8% con QR). La plataforma no cobra comisión.</p></div>`;
+}
+
 function pcResumen(c) {
   const desde = inicioMes();
   const mes = S.pedidos.filter((p) => p.cid === c.id && p.estado === 'retirado' && p.creado >= desde);
@@ -1163,6 +1210,7 @@ function pcResumen(c) {
     ${kpi('Ventas del mes', plata(ventas))}${kpi('Pedidos retirados', mes.length)}
     ${kpi('Ticket promedio', plata(mes.length ? ventas / mes.length : 0))}${kpi('Comisión que no pagaste', plata(comision), 'verde', `vs. ${MARCA.comisionApps * 100}% en apps privadas`)}
   </div>
+  ${cobrosHtml(c)}
   <h2>Plan Destacado</h2>
   <div class="card plan ${c.destacado ? 'activo' : ''}">
     <div class="plan-cab"><div><b>Vender sigue siendo gratis: 0% de comisión.</b><span class="muted">El plan es opcional, para crecer más rápido.</span></div><strong>${plata(MODELO.planPrecio)}<small>/mes</small></strong></div>
@@ -1178,28 +1226,50 @@ function pcResumen(c) {
 const kpi = (t, v, cls = '', sub = '') => `<div class="kpi ${cls}"><span>${t}</span><b>${v}</b>${sub ? `<small>${sub}</small>` : ''}</div>`;
 
 // ---------- municipio: Atención al Vecino (Carlos) ----------
+// ---------- Carlos: urgencia por plazo, cuadrillas y mapa de calor ----------
+const PLAZO_DIAS = { alumbrado: 10, bacheo: 20, poda: 20, residuos: 7 };
+const CUADRILLAS = [{ id: 'N', nombre: 'Cuadrilla Norte' }, { id: 'S', nombre: 'Cuadrilla Sur' }, { id: 'D', nombre: 'Cuadrilla Delta' }, { id: 'O', nombre: 'Cuadrilla Oeste' }];
+function plazo(r) { const p = PLAZO_DIAS[r.tipo] || 5; const dias = (Date.now() - r.creado) / 864e5; return { resta: p - dias, vencido: dias > p }; }
+function cargaCuadrilla(id) { return S.reclamos.filter((r) => r.cuadrilla === id && r.estado !== 'resuelto').length; }
+function reclamosFiltrados() { const F = S.cFiltro || (S.cFiltro = { tipo: 'todos', loc: 'todas' }); return S.reclamos.filter((r) => (F.tipo === 'todos' || r.tipo === F.tipo) && (F.loc === 'todas' || r.loc === F.loc)); }
+function plazoTag(r) { const p = plazo(r); return p.vencido ? `<span class="plazo venc">Vencido hace ${plural(Math.max(1, Math.floor(-p.resta)), 'día', 'días')}</span>` : `<span class="plazo">Quedan ${p.resta < 1 ? 'horas' : plural(Math.floor(p.resta), 'día', 'días')}</span>`; }
+function cuadrillasHtml() {
+  const max = Math.max(...CUADRILLAS.map((c) => cargaCuadrilla(c.id)), 1);
+  return `<div class="card"><h3>Cuadrillas</h3><p class="muted chico">Al asignar, el reclamo va a la cuadrilla con menos trabajo.</p>
+    ${CUADRILLAS.map((c) => { const n = cargaCuadrilla(c.id); return `<div class="hbar"><span class="hbar-t">${c.nombre}</span><div class="hbar-b"><i style="width:${(n / max) * 100}%"></i></div><b>${plural(n, 'reclamo', 'reclamos')}</b></div>`; }).join('')}</div>`;
+}
+
 function vAtencion() {
   const abiertos = S.reclamos.filter((r) => r.estado !== 'resuelto');
   const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
   const nuevosHoy = S.reclamos.filter((r) => r.creado >= hoy.getTime()).length;
   const resueltosSemana = S.reclamos.filter((r) => r.estado === 'resuelto' && r.historial.some((h) => h.estado === 'resuelto' && h.t >= Date.now() - 7 * 864e5)).length;
-  const gestion = abiertos.slice().sort((a, b) => (b.mio - a.mio) || (b.creado - a.creado)).slice(0, 8);
+  S.reclamos.forEach((r, i) => { if (['asignado', 'en curso'].includes(r.estado) && !r.cuadrilla) r.cuadrilla = CUADRILLAS[i % CUADRILLAS.length].id; });
+  const F = S.cFiltro || (S.cFiltro = { tipo: 'todos', loc: 'todas' });
+  const vencidos = abiertos.filter((r) => plazo(r).vencido).length;
+  const gestion = reclamosFiltrados().filter((r) => r.estado !== 'resuelto').sort((a, b) => plazo(a).resta - plazo(b).resta).slice(0, 8);
   const turnosHoy = [...TURNOS_DEMO, ...S.turnos.map((t) => ({ hora: t.hora, nombre: S.usuario.nombre.split(' ')[0] + ' ' + S.usuario.nombre.split(' ')[1][0] + '.', tramite: t.tramite, app: true }))].sort((a, b) => a.hora.localeCompare(b.hora));
   return `
   <h1 class="titulo">Atención al Vecino</h1>
   <p class="muted sub">Reclamos y turnos del distrito, en tiempo real. Datos de demostración.</p>
   <div class="kpis">
     ${kpi('Reclamos abiertos', abiertos.length, abiertos.length > 30 ? 'rojo-kpi' : '')}
+    ${kpi('Fuera de plazo', vencidos, vencidos ? 'rojo-kpi' : '')}
     ${kpi('Nuevos hoy', nuevosHoy)}
     ${kpi('Resueltos esta semana', resueltosSemana, 'verde')}
     ${kpi('Turnos de hoy', turnosHoy.length)}
   </div>
+  <div class="c-filtros">
+    <div class="chips">${[{ id: 'todos', nombre: 'Todos', emoji: '✨' }, ...TIPOS_RECLAMO].map((x) => `<button class="chip ${F.tipo === x.id ? 'on' : ''}" data-a="cTipo" data-v="${x.id}">${x.emoji} ${x.nombre}</button>`).join('')}</div>
+    <label class="sel">📍 <select data-f="cLoc"><option value="todas">Todo el distrito</option>${LOCALIDADES.map((l) => `<option ${F.loc === l ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
+  </div>
   <div class="dos">
-    <div class="card"><h3>Mapa de reclamos</h3><div class="mapa" data-map="municipio"></div>
-      <p class="muted chico">🔴 recibido · 🟡 asignado o en curso · 🟢 resuelto · los puntos grandes llegaron desde la app</p></div>
-    <div class="card"><h3>Para gestionar</h3>
-      ${gestion.map((r) => { const t = TIPOS_RECLAMO.find((x) => x.id === r.tipo); const sig = ESTADOS_RECLAMO[ESTADOS_RECLAMO.indexOf(r.estado) + 1]; return `<div class="gest ${r.mio ? 'de-app' : ''}">${r.foto ? `<img src="${r.foto}" alt="Foto del reclamo">` : `<span class="ico">${t.emoji}</span>`}<div class="grow"><b>${t.nombre} · ${r.id}</b>${r.mio ? ' <span class="pill recibido">desde la app</span>' : ''}<p class="muted chico">${esc(r.dir || '')} ${r.loc} · ${RECLAMO_TXT[r.estado]}</p>${r.texto ? `<p class="chico">${esc(r.texto)}</p>` : ''}</div><button class="btn mini-btn" data-a="avanzarReclamo" data-v="${r.id}">${sig === 'resuelto' ? 'Resolver' : sig === 'asignado' ? 'Asignar cuadrilla' : 'Iniciar'}</button></div>`; }).join('')}
+    <div class="card"><div class="h2-fila"><h3>Mapa de reclamos</h3><div class="seg mini-seg"><button class="${!S.cCalor ? 'on' : ''}" data-a="cCalor" data-v="0">Puntos</button><button class="${S.cCalor ? 'on' : ''}" data-a="cCalor" data-v="1">Calor</button></div></div><div class="mapa" data-map="municipio"></div>
+      <p class="muted chico">${S.cCalor ? 'Cuanto más grande y rojo el círculo, más reclamos abiertos en la zona.' : '🔴 recibido · 🟡 asignado o en curso · 🟢 resuelto · los puntos grandes llegaron desde la app'}</p></div>
+    <div class="card"><h3>Para gestionar <small class="muted">· primero los más urgentes</small></h3>
+      ${gestion.map((r) => { const t = TIPOS_RECLAMO.find((x) => x.id === r.tipo); const sig = ESTADOS_RECLAMO[ESTADOS_RECLAMO.indexOf(r.estado) + 1]; return `<div class="gest ${r.mio ? 'de-app' : ''}">${r.foto ? `<img src="${r.foto}" alt="Foto del reclamo">` : `<span class="ico">${t.emoji}</span>`}<div class="grow"><b>${t.nombre} · ${r.id}</b>${r.mio ? ' <span class="pill recibido">desde la app</span>' : ''}<p class="muted chico">${esc(r.dir || '')} ${r.loc} · ${RECLAMO_TXT[r.estado]}${r.cuadrilla ? ` · ${CUADRILLAS.find((c) => c.id === r.cuadrilla).nombre}` : ''}</p>${plazoTag(r)}${r.texto ? `<p class="chico">${esc(r.texto)}</p>` : ''}</div><button class="btn mini-btn" data-a="avanzarReclamo" data-v="${r.id}">${sig === 'resuelto' ? 'Resolver' : sig === 'asignado' ? 'Asignar cuadrilla' : 'Iniciar'}</button></div>`; }).join('')}
     </div>
+    ${cuadrillasHtml()}
     <div class="card"><h3>Mediación de compras · Defensa del Consumidor</h3><p class="muted chico">Casos que el comercio no respondió en 24 horas o que el vecino no aceptó.</p>${mediacionesHtml()}</div>
     <div class="card"><h3>Turnos de hoy</h3>
       ${turnosHoy.map((t) => { const tr = TRAMITES.find((x) => x.id === t.tramite); return `<p class="linea"><span><b>${t.hora}</b> · ${esc(t.nombre)}${t.app ? ' <span class="pill recibido">desde la app</span>' : ''}</span><span class="muted">${tr.emoji} ${tr.nombre}</span></p>`; }).join('')}
@@ -1211,30 +1281,92 @@ function vAtencion() {
 }
 
 // ---------- municipio: Desarrollo Económico (Marina) ----------
-function sostenibilidadHtml() {
-  const M = MODELO;
-  const dest = S.comercios.filter((c) => c.destacado).length;
-  const filas = [
-    ['Plan Destacado', `${M.planMeta} comercios × ${plata(M.planPrecio)} × 12`, M.planMeta * M.planPrecio * 12],
-    ['Publicidad local', `${M.pubEspacios} espacios × ${plata(M.pubPrecio)} × 12`, M.pubEspacios * M.pubPrecio * 12],
-    ['Banco o billetera que cofinancia descuentos', 'acuerdo anual', M.banco],
-    ['Ahorro en atención presencial', `${M.tramites.toLocaleString('es-AR')} trámites × ${plata(M.ahorroTramite)}`, M.tramites * M.ahorroTramite],
-  ];
-  const ingreso = filas.reduce((a, f) => a + f[2], 0);
-  const costo = M.licenciaMes * 12 + M.infraAnual;
-  const res = ingreso - costo;
-  const mill = (n) => `$${(n / 1e6).toFixed(1).replace('.', ',')} M`;
-  return `<div class="card sost"><div class="sost-cab"><div><h3>Sostenibilidad del programa · año 2</h3><p class="muted chico">Gratis para el vecino y 0% de comisión para el comercio. Supuestos a validar en el piloto.</p></div>
-    <span class="sost-res ${res >= 0 ? 'ok' : ''}">${res >= 0 ? 'Se paga sola' : 'Requiere aporte'} · ${res >= 0 ? '+' : ''}${mill(res)}</span></div>
-    <table class="sost-t">${filas.map((f) => `<tr><td>${f[0]}<small>${f[1]}</small></td><td>${mill(f[2])}</td></tr>`).join('')}
-      <tr class="tot"><td>Ingresos y ahorros</td><td>${mill(ingreso)}</td></tr>
-      <tr><td>Costo: licencia y soporte + infraestructura<small>${plata(M.licenciaMes)} × 12 + ${mill(M.infraAnual)}</small></td><td>−${mill(costo)}</td></tr></table>
-    <p class="muted chico">Hoy en la demo: ${plural(dest, 'comercio', 'comercios')} con Plan Destacado. Además, pagar la tasa en término con Puntos Tigre (meta: de 71% a 80%) adelanta recaudación.</p></div>`;
+
+// ---------- Modelo financiero: proyección, recupero e impacto ----------
+function proyeccion(cambios = {}) {
+  const M = { ...MODELO, ...cambios };
+  const anios = [];
+  for (let k = 0; k < 5; k++) {
+    const a = Math.min(k, 2), primero = k === 0;
+    const costo = primero ? M.piloto + M.escalamiento + M.licenciaA1 * 6 + M.infra / 2 : M.licencia * 12 + M.infra;
+    const ing = {
+      plan: M.planComercios[a] * M.planPrecio * (primero ? 6 : 12),
+      pub: M.pubEspacios[a] * M.pubPrecio * (primero ? 6 : 12),
+      banco: primero ? M.banco / 2 : M.banco,
+      ahorro: M.tramites[a] * M.ahorroTramite,
+    };
+    const vuelve = ing.plan + ing.pub + ing.banco + ing.ahorro;
+    const comunidad = M.comercios[a] * M.pedidosMes[a] * M.ticket * M.comisionApps * (primero ? M.mesesA1 : 12);
+    anios.push({ costo, ing, vuelve, neto: vuelve - costo, comunidad });
+  }
+  let acum = 0, recupero = null;
+  anios.forEach((y, k) => { const antes = acum; acum += y.neto; y.acum = acum; if (recupero === null && antes < 0 && acum >= 0) recupero = k + (-antes / y.neto); });
+  const tres = anios.slice(0, 3);
+  const porPeso = tres.reduce((s, y) => s + y.comunidad, 0) / tres.reduce((s, y) => s + y.costo, 0);
+  return { anios, recupero, porPeso, M };
+}
+const millones = (n) => `${n < 0 ? '−' : ''}$${Math.abs(n / 1e6).toFixed(1).replace('.', ',').replace(',0', '')} M`;
+function recuperoTxt(r) {
+  if (r === null) return 'más de 5 años';
+  const a = Math.floor(r), m = Math.round((r - a) * 12);
+  return `${plural(a, 'año', 'años')}${m ? ` y ${plural(m, 'mes', 'meses')}` : ''}`;
+}
+function finanzasHtml() {
+  const s = S.sim || (S.sim = { lic: MODELO.licencia, banco: MODELO.banco, plan: MODELO.planComercios[1] });
+  const P = proyeccion({ licencia: s.lic, banco: s.banco, planComercios: [30, s.plan, Math.round(s.plan * 1.2)] });
+  const base = proyeccion(MODELO_BASE);
+  const y = P.anios;
+  const fila = (t, f, cls = '') => `<tr class="${cls}"><td>${t}</td>${[0, 1, 2].map((k) => `<td>${f(y[k])}</td>`).join('')}</tr>`;
+  const y2 = y[1].ing;
+  return `<div class="card fin">
+    <div class="sost-cab"><div><h3>Los números del programa</h3><p class="muted chico">Tres preguntas separadas: cuánto invierte el Municipio, cuánto vuelve a su caja y cuánto gana la comunidad.</p></div>
+      <span class="sost-res ${P.recupero !== null && P.recupero <= 3 ? 'ok' : ''}">Recupera la inversión en ${recuperoTxt(P.recupero)}</span></div>
+    <div class="fin-dos">
+      <div>
+        <p class="fin-tit">1 y 2 · Lo que invierte el Municipio y lo que vuelve a su caja</p>
+        <table class="fin-t"><tr><th></th><th>Año 1</th><th>Año 2</th><th>Año 3</th></tr>
+          ${fila('Costo', (a) => millones(a.costo))}
+          ${fila('Vuelve a la caja', (a) => millones(a.vuelve))}
+          ${fila('Resultado del año', (a) => `<b class="${a.neto >= 0 ? 'verde' : 'rojo'}">${a.neto >= 0 ? '+' : ''}${millones(a.neto)}</b>`)}
+          ${fila('Acumulado', (a) => `<b class="${a.acum >= 0 ? 'verde' : 'rojo'}">${a.acum >= 0 ? '+' : ''}${millones(a.acum)}</b>`, 'tot')}</table>
+        <p class="muted chico">Año 1: piloto ${millones(MODELO.piloto)}, escalamiento ${millones(MODELO.escalamiento)} y 6 meses de licencia. Lo que vuelve en el año 2: Plan Destacado ${millones(y2.plan)}, publicidad ${millones(y2.pub)}, banco ${millones(y2.banco)} y ahorro en atención ${millones(y2.ahorro)}.</p>
+      </div>
+      <div>
+        <p class="fin-tit">3 · Lo que gana la comunidad (no es caja del Municipio)</p>
+        <table class="fin-t"><tr><th></th><th>Año 1</th><th>Año 2</th><th>Año 3</th></tr>
+          ${fila('Comisiones que quedan en los comercios', (a) => millones(a.comunidad))}</table>
+        <p class="fin-grande">Por cada $1 que invierte el Municipio en 3 años, quedan <b>$${P.porPeso.toFixed(1).replace('.', ',')}</b> en los comercios de Tigre.</p>
+        <p class="fin-tit" style="margin-top:14px">Simulá las palancas</p>
+        <label class="sim">Licencia desde el año 2 <b>${millones(s.lic)} por mes</b><input type="range" min="3000000" max="7000000" step="100000" value="${s.lic}" data-f="simLic"></label>
+        <label class="sim">Aporte del banco o billetera <b>${millones(s.banco)} por año</b><input type="range" min="0" max="80000000" step="5000000" value="${s.banco}" data-f="simBanco"></label>
+        <label class="sim">Comercios con Plan Destacado en el año 2 <b>${s.plan}</b><input type="range" min="25" max="200" step="5" value="${s.plan}" data-f="simPlan"></label>
+        <p class="muted chico">Sin palancas (licencia de $6,9 M y $30 M del banco) recupera en ${recuperoTxt(base.recupero)}. <button class="link" data-a="simReset">Volver al escenario propuesto</button></p>
+      </div>
+    </div>
+    <p class="muted chico">Supuestos a validar en el piloto. Precios de mila·ops: costo del equipo más 30% de margen.</p>
+  </div>`;
+}
+
+function altasHtml() {
+  const cuenta = RUBROS.map((r) => ({ r, n: BENEFICIOS.filter((b) => b.rubro === r.id).length + S.comercios.filter((c) => c.cat === r.id).length })).sort((a, b) => a.n - b.n);
+  const flojos = cuenta.slice(0, 4);
+  const altas = 12, meta = 40;
+  return `<div class="card"><h3>Adhesión de comercios</h3>
+    <p class="linea"><span>Altas este mes</span><b>${altas} de ${meta}</b></p>
+    <div class="hbar-b" style="margin:4px 0 12px"><i style="width:${(altas / meta) * 100}%"></i></div>
+    <p class="muted chico">Rubros con pocos adheridos: candidatos para salir a sumar comercios.</p>
+    ${flojos.map((x) => `<p class="linea"><span>${x.r.emoji} ${x.r.nombre}</span><b class="${x.n <= 1 ? 'rojo' : ''}">${plural(x.n, 'comercio', 'comercios')}</b></p>`).join('')}
+  </div>`;
 }
 
 function vEconomia() {
-  const desde = inicioMes();
-  const mes = S.pedidos.filter((p) => p.estado === 'retirado' && p.creado >= desde);
+  const F = S.mFiltro || (S.mFiltro = { periodo: 'mes', loc: 'todas' });
+  const ini = inicioMes(), iniAnt = inicioMes(new Date(new Date().getFullYear(), new Date().getMonth() - 1, 1));
+  const [desde, hasta] = F.periodo === 'anterior' ? [iniAnt, ini] : [ini, Infinity];
+  const enLoc = (p) => F.loc === 'todas' || p.loc === F.loc;
+  const mes = S.pedidos.filter((p) => p.estado === 'retirado' && p.creado >= desde && p.creado < hasta && enLoc(p));
+  const [dA, hA] = F.periodo === 'anterior' ? [inicioMes(new Date(new Date().getFullYear(), new Date().getMonth() - 2, 1)), iniAnt] : [iniAnt, ini];
+  const ventasAnt = S.pedidos.filter((p) => p.estado === 'retirado' && p.creado >= dA && p.creado < hA && enLoc(p)).reduce((a, p) => a + p.total, 0);
   const ventas = mes.reduce((a, p) => a + p.total, 0);
   const ahorroVecinos = mes.reduce((a, p) => a + p.descuento, 0);
   const porLoc = LOCALIDADES.map((l) => ({ l, v: mes.filter((p) => p.loc === l).reduce((a, p) => a + p.total, 0), n: S.comercios.filter((c) => c.loc === l).length + BENEFICIOS.filter((b) => b.loc === l).length }));
@@ -1244,9 +1376,14 @@ function vEconomia() {
   const topCom = S.comercios.map((c) => ({ c, v: mes.filter((p) => p.cid === c.id).reduce((a, p) => a + p.total, 0) })).sort((a, b) => b.v - a.v).slice(0, 5);
   return `
   <h1 class="titulo">Desarrollo Económico</h1>
-  <p class="muted sub">Impacto de SoyTigreYa en ${MESES[new Date().getMonth()]} ${new Date().getFullYear()}, hasta hoy. Datos de demostración.</p>
+  <p class="muted sub">Impacto de SoyTigreYa. Datos de demostración.</p>
+  <div class="m-filtros">
+    <div class="seg">${[['mes', 'Este mes'], ['anterior', 'Mes anterior']].map(([id, x]) => `<button class="${F.periodo === id ? 'on' : ''}" data-a="mPeriodo" data-v="${id}">${x}</button>`).join('')}</div>
+    <label class="sel">📍 <select data-f="mLoc"><option value="todas">Todo el distrito</option>${LOCALIDADES.map((l) => `<option ${F.loc === l ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
+    <button class="btn claro m-exp" data-a="exportar">⬇ Descargar informe (CSV)</button>
+  </div>
   <div class="kpis">
-    ${kpi('Ventas en comercios locales', plata(ventas))}
+    ${kpi('Ventas en comercios locales', plata(ventas), '', ventasAnt ? `${ventas >= ventasAnt ? '▲' : '▼'} ${Math.abs(Math.round((ventas / ventasAnt - 1) * 100))}% vs. el mes anterior` : '')}
     ${kpi('Comisiones que quedaron en Tigre', plata(ventas * MARCA.comisionApps), 'verde', `lo que se habría ido en apps al ${MARCA.comisionApps * 100}%`)}
     ${kpi('Ahorro de los vecinos', plata(ahorroVecinos), 'verde')}
     ${kpi('Comercios adheridos', S.comercios.length + BENEFICIOS.length)}
@@ -1258,8 +1395,9 @@ function vEconomia() {
     <div><span>Reclamos de compras <small>${indicadoresRP().sinMed}% sin mediación</small></span><b>${indicadoresRP().tasa} c/100</b></div>
     <div><span>Pagos hechos por la app</span><b>${(1840 + S.pagosApp).toLocaleString('es-AR')}</b></div>
   </div>
-  ${sostenibilidadHtml()}
+  ${finanzasHtml()}
   <div class="dos">
+    ${altasHtml()}
     <div class="card"><h3>Embudo del producto (AARRR)</h3>${embudo()}</div>
     <div class="card"><h3>Objetivos SMART del piloto</h3>${objetivosSmart()}</div>
     <div class="card"><h3>Consumo por localidad</h3>
@@ -1365,7 +1503,13 @@ const MAPAS = {
   },
   municipio(m) {
     const col = { recibido: '#c0392b', asignado: '#E39A1B', 'en curso': '#E39A1B', resuelto: '#1b8a4b' };
-    S.reclamos.forEach((r) => {
+    if (S.cCalor) {
+      const abiertos = reclamosFiltrados().filter((r) => r.estado !== 'resuelto');
+      LOCALIDADES.forEach((l) => { const n = abiertos.filter((r) => r.loc === l).length; if (!n) return;
+        L.circle(LOC_COORDS[l], { radius: 500 + n * 160, stroke: false, fillColor: n > 6 ? '#B71C1C' : n > 3 ? '#E64A19' : '#F9A825', fillOpacity: 0.45 }).addTo(m).bindTooltip(`${l}: ${plural(n, 'reclamo abierto', 'reclamos abiertos')}`); });
+      m.setView([-34.44, -58.62], 11); return;
+    }
+    reclamosFiltrados().forEach((r) => {
       const t = TIPOS_RECLAMO.find((x) => x.id === r.tipo);
       L.circleMarker(r.pos, { radius: r.mio ? 9 : 6, color: '#fff', weight: 1.5, fillColor: col[r.estado], fillOpacity: 0.9 }).addTo(m)
         .bindPopup(`<b>${t.emoji} ${t.nombre} · ${r.id}</b><br>${r.loc} · ${RECLAMO_TXT[r.estado]}${r.foto ? `<br><img src="${r.foto}" style="width:140px;border-radius:6px;margin-top:4px">` : ''}`);
@@ -1964,6 +2108,27 @@ const ACT = {
   cercaTodos(v) { S.cercaTodos = v; },
   zonaEstac(v) { S.estac.zona = v; toast('Elegiste ' + ZONAS_ESTAC.find((z) => z.id === v).nombre + '. Confirmá la patente y empezá.'); setTimeout(() => { const b = document.querySelector('[data-a=iniEstac]'); if (b) b.scrollIntoView({ block: 'center', behavior: 'smooth' }); }, 60); },
   planToggle() { const c = comercio(perfilActual().cid); c.destacado = !c.destacado; toast(c.destacado ? 'Plan Destacado activo: tu local aparece primero para los vecinos.' : 'Cancelaste el Plan Destacado. Seguís vendiendo con 0% de comisión.'); },
+  mPeriodo(v) { S.mFiltro.periodo = v; },
+  cTipo(v) { S.cFiltro.tipo = v; },
+  cCalor(v) { S.cCalor = v === '1'; },
+  simReset() { S.sim = null; },
+  exportar() {
+    const P = proyeccion({ licencia: S.sim ? S.sim.lic : MODELO.licencia, banco: S.sim ? S.sim.banco : MODELO.banco });
+    const fil = [['Concepto', 'Año 1', 'Año 2', 'Año 3']];
+    fil.push(['Costo', ...P.anios.slice(0, 3).map((a) => Math.round(a.costo))]);
+    fil.push(['Vuelve a la caja', ...P.anios.slice(0, 3).map((a) => Math.round(a.vuelve))]);
+    fil.push(['Resultado', ...P.anios.slice(0, 3).map((a) => Math.round(a.neto))]);
+    fil.push(['Comisiones que quedan en los comercios', ...P.anios.slice(0, 3).map((a) => Math.round(a.comunidad))]);
+    fil.push([]); fil.push(['Localidad', 'Ventas del mes']);
+    LOCALIDADES.forEach((l) => fil.push([l, S.pedidos.filter((p) => p.estado === 'retirado' && p.loc === l && p.creado >= inicioMes()).reduce((a, p) => a + p.total, 0)]));
+    const csv = fil.map((f) => f.map((x) => `"${String(x).replace(/"/g, '""')}"`).join(';')).join('\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob(['\ufeff' + csv], { type: 'text/csv' }));
+    a.download = 'informe-soytigreya.csv'; a.click();
+    toast('Informe descargado.');
+    return false;
+  },
+  guardarLocal() { toast('Listo: los vecinos ya ven tu local actualizado.'); },
   letra() { S.letra = !S.letra; },
   voltear(v, el) { el.classList.toggle('dada'); return false; },
   tab(v) { S.tab = v; S.abierto = null; S.sub = null; S.sheet = null; window.scrollTo(0, 0); },
@@ -2128,6 +2293,8 @@ const ACT = {
     const sig = ESTADOS_RECLAMO[ESTADOS_RECLAMO.indexOf(r.estado) + 1];
     if (!sig) return false;
     r.estado = sig; r.historial.push({ estado: sig, t: Date.now() });
+    if ((sig === 'asignado' || sig === 'en curso') && !r.cuadrilla) { r.cuadrilla = CUADRILLAS.slice().sort((a, b) => cargaCuadrilla(a.id) - cargaCuadrilla(b.id))[0].id; toast(`Asignado a ${CUADRILLAS.find((c) => c.id === r.cuadrilla).nombre}.`); }
+    if (sig === 'resuelto') { r.fotoCierre = true; toast('Resuelto, con foto de cierre. El vecino recibe el aviso.'); }
     const t = TIPOS_RECLAMO.find((x) => x.id === r.tipo);
     if (sig === 'resuelto' && r.mio) sumarPuntos(PUNTOS.reclamoResuelto, `Reclamo ${r.id} resuelto`, '📣');
     notificar(r, `Tu reclamo de ${t.nombre.toLowerCase()} N.º ${r.id}: ${RECLAMO_TXT[sig].toLowerCase()}`, sig === 'resuelto' ? '✅' : '🛠️');
@@ -2184,6 +2351,7 @@ document.addEventListener('input', (e) => {
   if (f === 'nombre') { S.usuario.nombre = e.target.value; save(); }
   if (f === 'recDir') { S.recForm.dir = e.target.value; save(); }
   if (f === 'recTxt') { S.recForm.texto = e.target.value; save(); }
+  if (f === 'descLocal') { comercio(S.panelCid).descLocal = e.target.value; save(); }
   if (f === 'rpTxt' && S.rpForm) { S.rpForm.texto = e.target.value; save(); }
   if (f === 'fbTxt' || f === 'fbNombre') { S.fb = S.fb || { nota: 0, texto: '', nombre: '' }; S.fb[f === 'fbTxt' ? 'texto' : 'nombre'] = e.target.value; save(); }
   if (f === 'patente') { S.usuario.patente = e.target.value.toUpperCase().replace(/\s/g, ''); save(); }
@@ -2199,6 +2367,11 @@ document.addEventListener('change', (e) => {
   else if (f === 'prepComercio') comercio(S.panelCid).prep = Number(el.value);
   else if (f === 'recLoc') { S.recForm.loc = el.value; S.recForm.pos = null; }
   else if (f === 'zona') S.estac.zona = el.value;
+  else if (f === 'fotoLocal') { if (el.files && el.files[0]) achicarFoto(el.files[0], (url) => { comercio(S.panelCid).fotoLocal = url; render(); toast('Foto cargada. Ya la ven los vecinos.'); }); return; }
+  else if (f === 'hAbre' || f === 'hCierra' || f === 'hDomingo') { const c = comercio(S.panelCid); c.horario = c.horario || { abre: '11:00', cierra: '23:00', domingo: true }; if (f === 'hDomingo') c.horario.domingo = el.checked; else c.horario[f === 'hAbre' ? 'abre' : 'cierra'] = el.value; }
+  else if (f === 'mLoc') S.mFiltro.loc = el.value;
+  else if (f === 'cLoc') S.cFiltro.loc = el.value;
+  else if (f === 'simLic' || f === 'simBanco' || f === 'simPlan') { S.sim[{ simLic: 'lic', simBanco: 'banco', simPlan: 'plan' }[f]] = Number(el.value); }
   else if (f === 'parada') S.parada = el.value;
   else if (f === 'rpFoto') { if (el.files && el.files[0]) achicarFoto(el.files[0], (url) => { S.rpForm.foto = url; render(); }); return; }
   else if (f === 'recFoto') { if (el.files && el.files[0]) achicarFoto(el.files[0], (url) => { S.recForm.foto = url; render(); }); return; }
