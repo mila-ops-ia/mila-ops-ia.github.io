@@ -1055,3 +1055,20 @@ html, body, .shell, .shell.phone, .shell.wide { background: var(--fondo-b); }
 .sost-t td:last-child { text-align: right; font-weight: 700; white-space: nowrap; padding-left: 12px; }
 .sost-t small { display: block; font-size: .72rem; color: var(--muted); }
 .sost-t tr.tot td { font-weight: 800; border-bottom: 2px solid #17181C; }
+
+/* recorridos guiados: elegir uno, anterior / siguiente */
+.tours { width: 100%; background: #fff; border-radius: 18px; padding: 6px 12px; }
+.tours-tit { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #D02013; margin: 8px 4px 2px; text-align: left; }
+.tour-op { width: 100%; display: flex; align-items: center; gap: 12px; text-align: left; padding: 12px 4px; border-bottom: 1px solid var(--linea); }
+.tour-op:last-child { border-bottom: 0; }
+.tour-num { width: 34px; height: 34px; flex: none; border-radius: 50%; background: #FBE9E7; color: #D02013; font-weight: 800; display: grid; place-items: center; }
+.tour-op.prin .tour-num { background: #D02013; color: #fff; }
+.tour-txt { flex: 1; display: flex; flex-direction: column; }
+.tour-txt b { font-size: .95rem; }
+.tour-txt small { font-size: .76rem; color: var(--muted); }
+.tour-ok { color: #D02013; font-size: .9rem; }
+.tour-acc { display: flex; gap: 8px; }
+.tour-acc .btn { flex: 1; }
+.tour .tour-ant { flex: 0 0 auto !important; background: rgba(255,255,255,.12) !important; color: #fff !important; border: 0 !important; padding: 11px 14px; }
+.tour-acc .btn { width: auto !important; min-width: 0; }
+.tour-acc .btn:last-child { flex: 1 1 auto; }

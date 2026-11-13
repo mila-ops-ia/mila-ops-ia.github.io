@@ -274,7 +274,7 @@ function vPerfiles() {
         <span class="perfil-txt"><b>${p.nombre}</b><span class="perfil-rol">${p.rol}</span></span>
         <span class="flecha">›</span>
       </button>`).join('')}</div>
-    <button class="btn grande tour-btn" data-a="tourIniciar">▶ Ver el recorrido guiado <small>2 minutos</small></button>
+    <div class="tours"><p class="tours-tit">Recorridos guiados</p>${Object.entries(RECORRIDOS).map(([id, r], k) => `<button class="tour-op ${k === 0 ? 'prin' : ''}" data-a="tourIniciar" data-v="${id}"><span class="tour-num">${k + 1}</span><span class="tour-txt"><b>${r.titulo}</b><small>${r.desc} · ${r.pasos.length} pasos · ${r.min}</small></span><span class="tour-ok">${S.tourHecho && S.tourHecho[id] ? '✅' : '▶'}</span></button>`).join('')}</div>
     <div class="qr-entrada"><div class="qr" data-qr="https://mila-ops-ia.github.io/soytigreya"></div><div><b>Abrila en tu celu</b><span class="muted">Escaneá el código o entrá a mila-ops-ia.github.io/soytigreya</span></div></div>
     ${feedbackHtml()}
     <p class="pie-links"><button class="link" data-a="metodo">Cómo lo diseñamos</button><span>·</span><button class="link" data-a="reiniciar">Reiniciar la demo</button></p>
@@ -1436,6 +1436,7 @@ function iconizar(raiz) {
 
 function after() {
   iconizar(document.getElementById('app'));
+  if (S.tour && S.tour.scroll) { const sel = S.tour.scroll; S.tour.scroll = null; setTimeout(() => { const el = document.querySelector(sel); if (el) { const y = el.getBoundingClientRect().top + window.scrollY - (window.innerWidth < 1024 ? 210 : 90); window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' }); } }, 120); }
   document.querySelectorAll('[data-qr]').forEach((el) => {
     const txt = el.dataset.qr === 'token' ? tokenCredencial() : el.dataset.qr;
     el.innerHTML = qrSvg(txt);
@@ -1714,7 +1715,7 @@ function vMetodo() {
 }
 
 // ---------- recorrido guiado ----------
-const TOUR = [
+const TOUR_COMPRA = [
   { perfil: null, titulo: 'Una plataforma, cuatro personas', texto: 'Vas a ver cómo una compra y un reclamo pasan por la vecina, el comercio y el municipio. Tocá "Siguiente" para avanzar.' },
   { perfil: 'lucia', titulo: 'Lucía arma su pedido', texto: 'Pide sorrentinos en Pastas Doña Rosa. El 30% de descuento Soy Tigre se aplica solo y además suma Puntos Tigre.',
     prep() { S.tab = 'comprar'; S.comprarTab = 'comercios'; S.abierto = 'c2'; S.carrito = { cid: 'c2', items: { c2p0: 2, c2p3: 1 } }; S.sheet = 'checkout'; S.retiro = 0; },
@@ -1736,24 +1737,73 @@ const TOUR = [
     accion() { const r = S.reclamos.find((x) => x.id === S.tour.reclamo); while (r && r.estado !== 'resuelto') ACT.avanzarReclamo(r.id); } },
   { perfil: 'lucia', titulo: 'Resuelto, y con premio', texto: 'Lucía recibe el aviso de que se resolvió y suma 100 Puntos Tigre, que puede canjear por cupones o un descuento en la tasa.',
     prep() { S.tab = 'credencial'; S.sub = 'puntos'; S.sheet = null; S.notifs.forEach((n) => { n.leida = true; }); } },
-  { perfil: 'marina', titulo: 'Marina mide el impacto', texto: 'En Desarrollo Económico se ven las ventas en comercios locales, las comisiones que quedaron en Tigre y el ahorro de los vecinos. Fin del recorrido.' },
+  { perfil: 'marina', titulo: 'Marina mide el impacto', texto: 'En Desarrollo Económico se ven las ventas en comercios locales, las comisiones que quedaron en Tigre y el ahorro de los vecinos.' },
 ];
+
+const TOUR_VIDA = [
+  { perfil: 'lucia', titulo: 'Todo empieza en el Inicio', texto: 'Arriba está la tarjeta Soy Tigre con lo que Lucía ahorró este mes. Abajo, doce accesos para hacer todo con un toque, sin buscar.',
+    prep() { S.tab = 'inicio'; } },
+  { perfil: 'lucia', titulo: 'Su tarjeta es un QR', texto: 'Al tocar la tarjeta se da vuelta y muestra el QR para la caja. Cambia cada 30 segundos, así nadie puede usar una captura.',
+    prep() { S.tab = 'credencial'; } },
+  { perfil: 'lucia', titulo: 'Beneficios reales, cerca suyo', texto: 'Son los descuentos que publicó el Municipio, ordenados por cercanía. Con "Usar mi ubicación" o tocando el mapa, ve primero los más cercanos.',
+    prep() { S.tab = 'beneficios'; S.benef = { rubro: 'todas', vista: 'lista' }; }, scroll: '.ubic-bar' },
+  { perfil: 'lucia', titulo: 'Un turno con el pediatra', texto: 'En Salud elige la especialidad, el centro y el horario. La red municipal tiene 3 Hospitales de Diagnóstico Inmediato, el Materno Infantil y 23 CAFyS.',
+    prep() { S.sub = 'salud'; S.saludTab = 'turno'; if (!S.salud) S.salud = { mios: [] }; S.salud = { esp: 'Pediatría', centro: 'escardo', dia: 0, hora: '9:20', mios: S.salud.mios || [] }; }, scroll: '.sal-esp',
+    accion() { ACT.saludConfirmar(); } },
+  { perfil: 'lucia', titulo: 'Cómo llegar', texto: 'El turno quedó confirmado. En Centros ve en el mapa cuál le queda más cerca y abre el recorrido con "Cómo llegar".',
+    prep() { S.sub = 'salud'; S.saludTab = 'centros'; }, scroll: '.cerca-box' },
+  { perfil: 'lucia', titulo: 'Natación en el polideportivo', texto: 'Tigre tiene 18 polideportivos con escuelas gratuitas. Anota a su hijo en natación y suma 30 Puntos Tigre.',
+    prep() { S.sub = 'deportes'; S.depTab = 'actividades'; S.depDisc = 'Natación'; }, scroll: '.dep-lista',
+    accion() { ACT.inscribir('a1'); } },
+  { perfil: 'lucia', titulo: 'Empleo con un toque', texto: 'Con su CV guardado se postula a búsquedas de comercios de Tigre y sigue el estado. También puede anotarse en cursos gratuitos del Tigre Instituto Formativo.',
+    prep() { S.sub = 'trabajo'; S.trabTab = 'empleos'; if (!S.empleo) S.empleo = { cv: false, post: {}, cursos: {} }; S.empleo.cv = true; },
+    accion() { if (S.empleo.post.e1 === undefined) ACT.postular('e1'); } },
+  { perfil: 'lucia', titulo: 'Tigri, para preguntar como se habla', texto: 'Si no sabe dónde está algo, le escribe a Tigri: "necesito un pediatra", "quiero trabajo" o "¿cómo está el río?". Tigri la lleva directo.',
+    prep() { S.sheet = 'tigri'; } },
+  { perfil: 'lucia', titulo: 'Alerta, siempre a mano', texto: 'El botón Alerta está arriba en todas las pantallas: envía su ubicación al Centro de Operaciones y muestra los teléfonos de emergencia.',
+    prep() { S.sub = 'alerta'; } },
+];
+
+const TOUR_NEGOCIO = [
+  { perfil: null, titulo: 'Cómo se sostiene', texto: 'Gratis para el vecino y 0% de comisión para el comercio. Los ingresos vienen de servicios opcionales y de socios. Veámoslo en la app.' },
+  { perfil: 'rosa', titulo: 'Vender es gratis', texto: 'Rosa ve cuánto vendió y la comisión que no pagó: lo que se habría llevado una app de delivery queda en su caja.',
+    prep() { S.panelTab = 'resumen'; } },
+  { perfil: 'rosa', titulo: 'Plan Destacado, opcional', texto: 'Si quiere crecer más rápido, activa el Plan Destacado: aparece primero, tiene ofertas ilimitadas y un informe de sus clientes.',
+    prep() { S.panelTab = 'resumen'; }, scroll: '.plan',
+    accion() { const c = comercio('c2'); if (!c.destacado) ACT.planToggle(); } },
+  { perfil: 'lucia', titulo: 'Rosa aparece primero', texto: 'Lucía ve a Pastas Doña Rosa arriba en Comprar, con la etiqueta Destacado bien visible: se sabe que es un lugar pago.',
+    prep() { S.tab = 'comprar'; S.comprarTab = 'comercios'; S.filtro = { q: '', cat: 'todas', loc: 'todas' }; }, scroll: '#lista' },
+  { perfil: 'lucia', titulo: 'Publicidad rotulada', texto: 'En el inicio hay espacios de publicidad local y campañas del municipio, siempre identificados. Es otra fuente de ingresos.',
+    prep() { S.tab = 'inicio'; }, scroll: '.pub-fila' },
+  { perfil: 'marina', titulo: 'Las cuentas cierran', texto: 'Plan Destacado, publicidad, un banco que cofinancia los descuentos y el ahorro en atención suman más que el costo: desde el año 2 se paga sola.',
+    scroll: '.sost' },
+  { perfil: 'marina', titulo: 'Y se puede replicar', texto: 'La plataforma se configura con otra marca y otras localidades. mila·ops la ofrece como licencia a otros municipios.' },
+];
+
+const RECORRIDOS = {
+  compra: { titulo: 'Una compra y un reclamo', desc: 'Cómo pasan por los cuatro perfiles', min: '2 min', pasos: TOUR_COMPRA },
+  vida: { titulo: 'La vida en Tigre', desc: 'Tarjeta, beneficios, salud, deporte y empleo', min: '2 min', pasos: TOUR_VIDA },
+  negocio: { titulo: 'Cómo se sostiene', desc: 'Comisión cero, Plan Destacado y las cuentas', min: '1 min', pasos: TOUR_NEGOCIO },
+};
+const tourPasos = () => RECORRIDOS[(S.tour && S.tour.r) || 'compra'].pasos;
 
 function tourCard() {
   if (!S.tour) return '';
-  const i = S.tour.paso, st = TOUR[i], perf = PERFILES.find((x) => x.id === st.perfil);
-  const ultimo = i === TOUR.length - 1;
+  const pasos = tourPasos();
+  const i = S.tour.paso, st = pasos[i], perf = PERFILES.find((x) => x.id === st.perfil);
+  const ultimo = i === pasos.length - 1;
   return `<div class="tour" role="dialog" aria-label="Recorrido guiado">
-    <div class="tour-cab">${perf ? avatarHtml(perf) : '<span class="tg-avatar chico">${tigriSvg()}</span>'}<div class="grow"><small>Paso ${i + 1} de ${TOUR.length}${perf ? ` · ${perf.nombre}, ${perf.rol}` : ''}</small><b>${st.titulo}</b></div><button class="cerrar-tour" data-a="tourSalir" aria-label="Salir del recorrido">✕</button></div>
+    <div class="tour-cab">${perf ? avatarHtml(perf) : `<span class="tg-avatar chico">${tigriSvg()}</span>`}<div class="grow"><small>${RECORRIDOS[S.tour.r].titulo} · paso ${i + 1} de ${pasos.length}${perf ? ` · ${perf.nombre}` : ''}</small><b>${st.titulo}</b></div><button class="cerrar-tour" data-a="tourSalir" aria-label="Salir del recorrido">✕</button></div>
     <p>${st.texto}</p>
-    <div class="tour-barra"><i style="width:${((i + 1) / TOUR.length) * 100}%"></i></div>
-    <button class="btn" data-a="tourSig">${ultimo ? 'Terminar ✓' : 'Siguiente ▶'}</button>
+    <div class="tour-barra"><i style="width:${((i + 1) / pasos.length) * 100}%"></i></div>
+    <div class="tour-acc">${i > 0 ? '<button class="btn claro tour-ant" data-a="tourAnt" aria-label="Paso anterior">‹ Anterior</button>' : ''}<button class="btn" data-a="tourSig">${ultimo ? 'Terminar ✓' : 'Siguiente ▶'}</button></div>
   </div>`;
 }
 
 function irPaso(i) {
   S.tour.paso = i;
-  const st = TOUR[i];
+  const st = tourPasos()[i];
+  S.tour.scroll = st.scroll || null;
   S.sub = null; S.abierto = null; S.sheet = null;
   S.perfil = st.perfil;
   if (st.prep) st.prep();
@@ -1846,13 +1896,15 @@ const ACT = {
     return false;
   },
   cambiarPerfil() { S.perfil = null; S.tour = null; S.sheet = null; S.sub = null; window.scrollTo(0, 0); },
-  tourIniciar() { S.tour = { paso: 0 }; irPaso(0); },
+  tourIniciar(v) { S.tour = { r: RECORRIDOS[v] ? v : 'compra', paso: 0 }; irPaso(0); },
   tourSig() {
-    const st = TOUR[S.tour.paso];
+    const pasos = tourPasos();
+    const st = pasos[S.tour.paso];
     if (st.accion) st.accion();
-    if (S.tour.paso >= TOUR.length - 1) { S.tour = null; S.perfil = null; setTimeout(() => toast('✅ Recorrido terminado. Ahora podés entrar con cualquier perfil.'), 100); return; }
+    if (S.tour.paso >= pasos.length - 1) { const r = S.tour.r; S.tour = null; S.perfil = null; S.sub = null; S.sheet = null; S.tourHecho = { ...(S.tourHecho || {}), [r]: true }; setTimeout(() => toast('✅ Recorrido terminado. Probá otro o entrá con cualquier perfil.'), 100); return; }
     irPaso(S.tour.paso + 1);
   },
+  tourAnt() { if (S.tour.paso > 0) irPaso(S.tour.paso - 1); },
   tourSalir() { S.tour = null; S.sheet = null; },
   saludTab(v) { S.saludTab = v; },
   saludEsp(v) { S.salud.esp = v; S.salud.centro = null; S.salud.hora = null; },
@@ -2163,7 +2215,7 @@ render();
   const q = new URLSearchParams(location.search);
   const perf = q.get('perfil');
   if (perf && PERFILES.some((x) => x.id === perf)) { S.perfil = perf; S.onboard = true; S.sheet = null; render(); }
-  if (q.get('tour') === '1') { ACT.tourIniciar(); render(); }
+  if (q.get('tour')) { ACT.tourIniciar(q.get('tour') === '1' ? 'compra' : q.get('tour')); render(); }
 })();
 
 // Instalable en el celu (solo en https, por ejemplo en GitHub Pages).
