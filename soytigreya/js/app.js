@@ -188,7 +188,7 @@ function load() {
   try {
     const s = JSON.parse(localStorage.getItem(KEY));
     if (s && s.v === 3) {
-      if (!s.reclamosPed) s.reclamosPed = seedRP(s.pedidos); if (!s.puntos) s.puntos = seedPuntos(s.pedidos); (s.comercios || []).forEach((c) => { const sd = SEED_COMERCIOS.find((x) => x.id === c.id); if (sd && sd.foto) c.foto = sd.foto; }); return s; }
+      if (!s.reclamosPed) s.reclamosPed = seedRP(s.pedidos); if (!s.puntos) s.puntos = seedPuntos(s.pedidos); (s.comercios || []).forEach((c) => { const sd = SEED_COMERCIOS.find((x) => x.id === c.id); if (sd && sd.foto) c.foto = sd.foto; if (sd && c.destacado === undefined) c.destacado = !!sd.destacado; }); return s; }
   } catch (e) { /* sin almacenamiento */ }
   return seed();
 }
@@ -301,7 +301,7 @@ function vInicio() {
   const mes = misDelMes();
   const ahorro = mes.reduce((a, p) => a + p.descuento, 0);
   const activo = S.pedidos.filter((p) => p.mio && ['recibido', 'preparacion', 'listo'].includes(p.estado)).sort((a, b) => b.creado - a.creado)[0];
-  const cerca2 = S.comercios.filter((c) => c.loc === S.usuario.loc && c.abierto);
+  const cerca2 = S.comercios.filter((c) => (c.loc === S.usuario.loc || c.destacado) && c.abierto).sort((a, b) => !!b.destacado - !!a.destacado);
   const r = rioAhora();
   const alto = r.altura.toFixed(2).replace('.', ',');
   const accesos = [
@@ -362,7 +362,7 @@ function resultadosBusca() {
 function miniComercio(c) {
   return `<button class="mini" data-a="abrir" data-v="${c.id}">
     <div class="mini-img" style="background:${c.color}${c.foto ? ` url(${FOTO(c.foto)}) center/cover` : ''}">${c.foto ? '' : c.emoji}<em>-${c.desc}%</em></div>
-    <div class="mini-txt"><b>${esc(c.nombre)}</b><span class="muted">${c.servicio ? 'Turnos online' : `Retirá en ${c.prep} min`}</span></div></button>`;
+    <div class="mini-txt">${c.destacado ? '<span class="dest-tag">Destacado</span>' : ''}<b>${esc(c.nombre)}</b><span class="muted">${c.servicio ? 'Turnos online' : `Retirá en ${c.prep} min`}</span></div></button>`;
 }
 
 function cardActivo(p) {
@@ -422,9 +422,10 @@ function listaComercios() {
   const res = S.comercios.filter((c) => (f.cat === 'todas' || c.cat === f.cat) && (f.loc === 'todas' || c.loc === f.loc) &&
     (!q || norm(c.nombre).includes(q) || c.productos.some((p) => norm(p.nombre).includes(q))));
   if (!res.length) return '<p class="vacio">No encontramos comercios con ese filtro.</p>';
+  res.sort((a, b) => !!b.destacado - !!a.destacado);
   return res.map((c) => `<button class="comercio ${c.abierto ? '' : 'cerrado'}" data-a="abrir" data-v="${c.id}">
     <div class="avatar" style="background:${c.color}">${c.emoji}</div>
-    <div class="info"><b>${esc(c.nombre)}</b><span class="muted">${cat(c.cat).nombre} · ${c.loc}</span>
+    <div class="info"><b>${esc(c.nombre)}</b>${c.destacado ? '<span class="dest-tag">Destacado</span>' : ''}<span class="muted">${cat(c.cat).nombre} · ${c.loc}</span>
     <span class="muted">${!c.abierto ? 'Cerrado ahora' : c.servicio ? '📅 Reservá tu turno online' : `🥡 Retiro en ${c.prep} min`}</span></div>
     <span class="desc">-${c.desc}%</span></button>`).join('');
 }
@@ -1162,6 +1163,14 @@ function pcResumen(c) {
     ${kpi('Ventas del mes', plata(ventas))}${kpi('Pedidos retirados', mes.length)}
     ${kpi('Ticket promedio', plata(mes.length ? ventas / mes.length : 0))}${kpi('Comisión que no pagaste', plata(comision), 'verde', `vs. ${MARCA.comisionApps * 100}% en apps privadas`)}
   </div>
+  <h2>Plan Destacado</h2>
+  <div class="card plan ${c.destacado ? 'activo' : ''}">
+    <div class="plan-cab"><div><b>Vender sigue siendo gratis: 0% de comisión.</b><span class="muted">El plan es opcional, para crecer más rápido.</span></div><strong>${plata(MODELO.planPrecio)}<small>/mes</small></strong></div>
+    <ul class="plan-lista"><li>Aparecés primero en "Para vos, hoy", en Comprar y en el mapa, con la etiqueta Destacado.</li><li>Ofertas flash ilimitadas con aviso a vecinos cercanos (sin el plan: 1 por mes).</li><li>Un espacio en la publicidad del inicio por mes.</li><li>Informe de tus clientes: horarios, barrios y lo más pedido.</li></ul>
+    ${c.destacado ? `<div class="plan-inf"><p><b>Tu informe de clientes</b></p><p class="linea"><span>Horario pico</span><b>viernes de 20 a 21 h</b></p><p class="linea"><span>Barrio que más te compra</span><b>${esc(c.loc)}</b></p><p class="linea"><span>Clientes que repiten</span><b>38%</b></p></div>
+      <div class="plan-pie"><span class="pill listo">Plan activo</span><button class="link" data-a="planToggle">Cancelar el plan</button></div>`
+    : '<div class="plan-pie"><button class="btn" data-a="planToggle">Activar Plan Destacado</button><span class="muted chico">Se cancela cuando quieras.</span></div>'}
+  </div>
   <h2>Lo más pedido este mes</h2>
   <div class="card">${ranking.map(([n, q]) => `<p class="linea"><span>${esc(n)}</span><b>${q}</b></p>`).join('') || '<p class="muted">Todavía sin ventas este mes.</p>'}</div>`;
 }
@@ -1202,6 +1211,27 @@ function vAtencion() {
 }
 
 // ---------- municipio: Desarrollo Económico (Marina) ----------
+function sostenibilidadHtml() {
+  const M = MODELO;
+  const dest = S.comercios.filter((c) => c.destacado).length;
+  const filas = [
+    ['Plan Destacado', `${M.planMeta} comercios × ${plata(M.planPrecio)} × 12`, M.planMeta * M.planPrecio * 12],
+    ['Publicidad local', `${M.pubEspacios} espacios × ${plata(M.pubPrecio)} × 12`, M.pubEspacios * M.pubPrecio * 12],
+    ['Banco o billetera que cofinancia descuentos', 'acuerdo anual', M.banco],
+    ['Ahorro en atención presencial', `${M.tramites.toLocaleString('es-AR')} trámites × ${plata(M.ahorroTramite)}`, M.tramites * M.ahorroTramite],
+  ];
+  const ingreso = filas.reduce((a, f) => a + f[2], 0);
+  const costo = M.licenciaMes * 12 + M.infraAnual;
+  const res = ingreso - costo;
+  const mill = (n) => `$${(n / 1e6).toFixed(1).replace('.', ',')} M`;
+  return `<div class="card sost"><div class="sost-cab"><div><h3>Sostenibilidad del programa · año 2</h3><p class="muted chico">Gratis para el vecino y 0% de comisión para el comercio. Supuestos a validar en el piloto.</p></div>
+    <span class="sost-res ${res >= 0 ? 'ok' : ''}">${res >= 0 ? 'Se paga sola' : 'Requiere aporte'} · ${res >= 0 ? '+' : ''}${mill(res)}</span></div>
+    <table class="sost-t">${filas.map((f) => `<tr><td>${f[0]}<small>${f[1]}</small></td><td>${mill(f[2])}</td></tr>`).join('')}
+      <tr class="tot"><td>Ingresos y ahorros</td><td>${mill(ingreso)}</td></tr>
+      <tr><td>Costo: licencia y soporte + infraestructura<small>${plata(M.licenciaMes)} × 12 + ${mill(M.infraAnual)}</small></td><td>−${mill(costo)}</td></tr></table>
+    <p class="muted chico">Hoy en la demo: ${plural(dest, 'comercio', 'comercios')} con Plan Destacado. Además, pagar la tasa en término con Puntos Tigre (meta: de 71% a 80%) adelanta recaudación.</p></div>`;
+}
+
 function vEconomia() {
   const desde = inicioMes();
   const mes = S.pedidos.filter((p) => p.estado === 'retirado' && p.creado >= desde);
@@ -1228,6 +1258,7 @@ function vEconomia() {
     <div><span>Reclamos de compras <small>${indicadoresRP().sinMed}% sin mediación</small></span><b>${indicadoresRP().tasa} c/100</b></div>
     <div><span>Pagos hechos por la app</span><b>${(1840 + S.pagosApp).toLocaleString('es-AR')}</b></div>
   </div>
+  ${sostenibilidadHtml()}
   <div class="dos">
     <div class="card"><h3>Embudo del producto (AARRR)</h3>${embudo()}</div>
     <div class="card"><h3>Objetivos SMART del piloto</h3>${objetivosSmart()}</div>
@@ -1880,6 +1911,7 @@ const ACT = {
   ubicReset() { UBIC = null; },
   cercaTodos(v) { S.cercaTodos = v; },
   zonaEstac(v) { S.estac.zona = v; toast('Elegiste ' + ZONAS_ESTAC.find((z) => z.id === v).nombre + '. Confirmá la patente y empezá.'); setTimeout(() => { const b = document.querySelector('[data-a=iniEstac]'); if (b) b.scrollIntoView({ block: 'center', behavior: 'smooth' }); }, 60); },
+  planToggle() { const c = comercio(perfilActual().cid); c.destacado = !c.destacado; toast(c.destacado ? 'Plan Destacado activo: tu local aparece primero para los vecinos.' : 'Cancelaste el Plan Destacado. Seguís vendiendo con 0% de comisión.'); },
   letra() { S.letra = !S.letra; },
   voltear(v, el) { el.classList.toggle('dada'); return false; },
   tab(v) { S.tab = v; S.abierto = null; S.sub = null; S.sheet = null; window.scrollTo(0, 0); },

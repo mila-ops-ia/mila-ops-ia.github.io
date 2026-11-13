@@ -208,7 +208,7 @@ tabla([
     ['Riesgo', 'Mitigación'],
     ['Baja adopción de los comercios', 'Panel muy simple, capacitación presencial y acompañamiento en el alta.'],
     ['Logística del delivery', 'Empezar solo con retiro en el local; sumar delivery con cooperativas en la etapa 2.'],
-    ['Financiamiento del descuento', 'Esquema compartido municipio–comercio con topes, como en Billetera Santa Fe.'],
+    ['Financiamiento del descuento', 'Cofinanciamiento con un banco o billetera (como Cuenta DNI o Billetera Santa Fe) y topes por compra.'],
     ['Competencia de plataformas privadas', 'Competir por precio final y cercanía, no por publicidad.'],
     ['Protección de datos personales', 'Cumplir la Ley 25.326, usar datos agregados y consentimiento explícito.'],
     ['Problemas con una compra', 'El comercio responde en 24 horas con reintegro o reposición; si no hay acuerdo, media la oficina municipal de defensa del consumidor (Ley 13.133).'],
@@ -224,7 +224,7 @@ viñetas([
     ('Impacto en la comunidad: ', 'el consumo queda dentro del partido y fortalece el empleo local. La propuesta tiene triple impacto: económico, porque protege el bolsillo del vecino y el margen del comerciante; social, porque conecta a la comunidad; y de gestión, porque posiciona al municipio como referente de innovación.'),
     ('Crecimiento futuro: ', 'Tigri con inteligencia artificial, integración con transporte y turismo del Delta, y un modelo replicable en otros municipios.'),
 ])
-p('Viabilidad económica: mila·ops ofrece un piloto de 3 meses ($55 millones + IVA), el escalamiento ($55 millones) y una licencia con soporte ($6,9 millones por mes). En un escenario conservador, las comisiones que quedan en el distrito rondan los $360 millones por año, 2,4 veces la inversión del primer año (ver el Lean Canvas en el Anexo A).')
+p('Viabilidad económica: el modelo es mixto. El vecino no paga y el comercio vende con 0% de comisión; los ingresos vienen de servicios opcionales y de socios. Con supuestos del año 2, el Plan Destacado para comercios (75 comercios a $25.000 por mes) aporta $22,5 M; cuatro espacios de publicidad local, $14,4 M; un banco o billetera que cofinancia los descuentos, $30 M, y el ahorro de 20.000 trámites que dejan de ser presenciales, $30 M. En total, unos $97 M por año frente a un costo de $84 M (licencia, soporte e infraestructura): desde el segundo año la plataforma se paga sola. Para mila·ops, el ingreso es una licencia por municipio según su población, replicable en otros distritos (Lean Canvas, Anexo A).')
 p('Indicadores de éxito: vecinos activos y retención a 90 días, pedidos y comercios activos, ahorro de los vecinos, comisiones evitadas, tiempo de resolución de reclamos, tasas pagadas en término y NPS.')
 
 # ---------- 8 ----------
@@ -259,9 +259,9 @@ tabla([
     ['Propuesta de valor única', 'Que el ahorro y la venta se queden en Tigre: el vecino paga menos y el comercio cobra el 100%.'],
     ['Solución', 'App con descuento automático, compra con retiro, trámites, pagos, puntos y paneles de gestión.'],
     ['Canales', 'App municipal, comercios adheridos, cámaras de comercio y canales del municipio.'],
-    ['Fuentes de ingreso', 'Piloto ($55 M), escalamiento ($55 M) y licencia ($6,9 M por mes), más IVA.'],
-    ['Estructura de costos', 'Equipo de 4 personas; base de datos USD 25 por mes más uso; hosting y mapas sin costo; pasarela 0,6% a 0,8%.'],
-    ['Métricas clave', 'Vecinos activos, retención, NPS, comercios activos y comisiones evitadas.'],
+    ['Fuentes de ingreso', 'Gratis para el vecino y 0% de comisión. Plan Destacado opcional ($25.000 por mes), publicidad local, cofinanciamiento de descuentos con un banco o billetera y ahorro en atención presencial. Para mila·ops: licencia por municipio.'],
+    ['Estructura de costos', 'Licencia y soporte ($6,9 M por mes); base de datos y hosting (unos $1,2 M por año); pasarela de pago 0,6% a 0,8% por operación.'],
+    ['Métricas clave', 'Vecinos activos, retención, NPS, comercios activos, comercios con Plan Destacado y comisiones evitadas.'],
     ['Ventaja injusta', 'Más de 500 comercios y la tarjeta Soy Tigre ya instalada, con el aval del municipio.'],
 ], [4.0, 12.0])
 doc.add_heading('Product Vision Board', 2)

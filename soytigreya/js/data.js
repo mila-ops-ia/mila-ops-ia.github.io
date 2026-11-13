@@ -29,7 +29,7 @@ const CATS = [
 ];
 
 const SEED_COMERCIOS = [
-  { id: 'c1', nombre: 'Parrilla del Paseo', cat: 'gastro', loc: 'Tigre Centro', dir: 'Paseo Victorica 310', desc: 20, emoji: '🥩', color: '#9a3b1b', prep: 30, productos: [
+  { id: 'c1', destacado: true, nombre: 'Parrilla del Paseo', cat: 'gastro', loc: 'Tigre Centro', dir: 'Paseo Victorica 310', desc: 20, emoji: '🥩', color: '#9a3b1b', prep: 30, productos: [
     { nombre: 'Bife de chorizo con papas', desc: '400 g, papas rústicas', precio: 21500, emoji: '🥩' },
     { nombre: 'Choripán completo', desc: 'Con chimichurri y criolla', precio: 7800, emoji: '🌭' },
     { nombre: 'Provoleta', desc: 'Con orégano y aceite de oliva', precio: 8900, emoji: '🧀' },
@@ -97,7 +97,7 @@ const SEED_COMERCIOS = [
     { nombre: 'Buzo con capucha', desc: 'Frisa', precio: 32000, emoji: '🧥' },
     { nombre: 'Medias x 3 pares', desc: '', precio: 6900, emoji: '🧦' },
   ]},
-  { id: 'c13', nombre: 'Gimnasio Activo Talar', foto: 'gym', cat: 'deporte', loc: 'El Talar', dir: 'Av. Constituyentes 3550', desc: 15, emoji: '🏋️', color: '#2F5D8A', prep: 0, servicio: true, productos: [
+  { id: 'c13', destacado: true, nombre: 'Gimnasio Activo Talar', foto: 'gym', cat: 'deporte', loc: 'El Talar', dir: 'Av. Constituyentes 3550', desc: 15, emoji: '🏋️', color: '#2F5D8A', prep: 0, servicio: true, productos: [
     { nombre: 'Clase de prueba', desc: 'Funcional o musculación, 1 hora', precio: 6000, emoji: '🏋️' },
     { nombre: 'Pase libre mensual', desc: 'Sala de musculación sin límite', precio: 42000, emoji: '🏋️' },
     { nombre: 'Pack 8 clases de funcional', desc: 'Válido por 30 días', precio: 30000, emoji: '🏃' },
@@ -390,3 +390,13 @@ const CENTROS_SALUD = [
 const SALUD_INFO = { turnosTel: '0800-444-3400', emergencias: '107' };
 
 const FOTO = (k) => `img/fotos/${k}.jpg`;
+
+// ---------- Modelo de negocio (supuestos del piloto, año 2) ----------
+// Gratis para el vecino, 0% de comisión para el comercio. Ingresos por servicios opcionales y socios.
+const MODELO = {
+  planPrecio: 25000, planMeta: 75,            // Plan Destacado: 15% de 500 comercios
+  pubEspacios: 4, pubPrecio: 300000,          // espacios de publicidad en el inicio, por mes
+  banco: 30000000,                            // cofinanciamiento anual de descuentos (banco o billetera)
+  tramites: 20000, ahorroTramite: 1500,       // trámites que pasan de presencial a la app, por año
+  licenciaMes: 6900000, infraAnual: 1200000,  // costos
+};
