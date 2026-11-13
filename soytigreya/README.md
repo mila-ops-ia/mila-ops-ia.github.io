@@ -51,6 +51,7 @@ El botón **"▶ Ver el recorrido guiado"** muestra, en 10 pasos, cómo un pedid
 - [Presentación en PDF](documentos/Presentacion%20-%20SoyTigreYa.pdf)
 - [Trabajo Final Integrador (PDF)](documentos/Trabajo%20Final%20Integrador%20-%20SoyTigreYa.pdf)
 - [Trabajo Final Integrador (Word)](documentos/Trabajo%20Final%20Integrador%20-%20SoyTigreYa.docx)
+- [Instructivos de uso para cada perfil (PDF)](documentos/Instructivos%20de%20uso%20-%20SoyTigreYa.pdf)
 - [Capturas del prototipo](capturas/)
 
 ## La Diplomatura dentro de la app
@@ -71,7 +72,7 @@ js/data.js      datos de demo: comercios, beneficios, perfiles, puntos
 js/app.js       lógica, pantallas, Tigri y recorrido guiado
 manifest.json   instalación en el celu
 sw.js           funcionamiento sin conexión
-documentos/     trabajo escrito (PDF, Word y el script que lo genera)
+documentos/     trabajo escrito (PDF, Word y el script que lo genera), presentación e instructivos en PDF
 capturas/       capturas de pantalla
 ```
 
