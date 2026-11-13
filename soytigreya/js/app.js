@@ -1,7 +1,7 @@
 // SoyTigreYa: prototipo con tres vistas (Vecino, Comercio, Municipio) que comparten los mismos datos.
 // Todo se guarda en el navegador (localStorage). "Reiniciar demo" (vista Municipio) vuelve a los datos iniciales.
 
-const KEY = 'soytigreya-v4';
+const KEY = 'soytigreya-v5';
 const ESTADOS = ['recibido', 'preparacion', 'listo', 'retirado'];
 const ESTADO_TXT = { recibido: 'Recibido', preparacion: 'En preparación', listo: 'Listo para retirar', retirado: 'Retirado', rechazado: 'Rechazado' };
 const RECLAMO_TXT = { recibido: 'Recibido', asignado: 'Asignado a una cuadrilla', 'en curso': 'En curso', resuelto: 'Resuelto' };
@@ -330,7 +330,7 @@ function resultadosBusca() {
 function miniComercio(c) {
   return `<button class="mini" data-a="abrir" data-v="${c.id}">
     <div class="mini-img" style="background:${c.color}">${c.emoji}<em>-${c.desc}%</em></div>
-    <b>${esc(c.nombre)}</b><span class="muted">${cat(c.cat).nombre} · ${c.prep} min</span></button>`;
+    <b>${esc(c.nombre)}</b><span class="muted">${cat(c.cat).nombre} · ${c.servicio ? 'turnos online' : `${c.prep} min`}</span></button>`;
 }
 
 function cardActivo(p) {
@@ -344,7 +344,7 @@ function cardActivo(p) {
 function listaBeneficios() {
   const f = S.benef;
   const fis = BENEFICIOS.map((b, i) => ({ ...b, i, pos: cerca(b.loc, i * 3 + 20), tipo: 'local' })).filter((b) => f.rubro === 'todas' || b.rubro === f.rubro);
-  const app = S.comercios.filter((c) => f.rubro === 'todas' || c.cat === f.rubro).map((c) => ({ nombre: c.nombre, rubro: c.cat, loc: c.loc, emoji: c.emoji, texto: `${c.desc}% pidiendo por la app`, pos: c.pos, tipo: 'app', id: c.id }));
+  const app = S.comercios.filter((c) => f.rubro === 'todas' || c.cat === f.rubro).map((c) => ({ nombre: c.nombre, rubro: c.cat, loc: c.loc, emoji: c.emoji, texto: c.servicio ? `${c.desc}% reservando por la app` : `${c.desc}% pidiendo por la app`, pos: c.pos, tipo: 'app', id: c.id }));
   return [...fis, ...app];
 }
 
@@ -368,11 +368,11 @@ function vComprar() {
   const f = S.filtro;
   const activos = S.pedidos.filter((p) => p.mio && ['recibido', 'preparacion', 'listo'].includes(p.estado)).length;
   const seg = `<div class="seg"><button class="${S.comprarTab === 'comercios' ? 'on' : ''}" data-a="comprarTab" data-v="comercios">🛍️ Comercios</button><button class="${S.comprarTab === 'pedidos' ? 'on' : ''}" data-a="comprarTab" data-v="pedidos">🧾 Mis pedidos${activos ? ` (${activos})` : ''}</button></div>`;
-  if (S.comprarTab === 'pedidos') return `<h1 class="titulo">Comprar en el barrio</h1>${seg}${vPedidos()}`;
+  if (S.comprarTab === 'pedidos') return `<h1 class="titulo">Comprar y reservar en el barrio</h1>${seg}${vPedidos()}`;
   return `
-  <h1 class="titulo">Comprar en el barrio</h1>
+  <h1 class="titulo">Comprar y reservar en el barrio</h1>
   ${seg}
-  <p class="muted sub">Retirás en el local y el descuento ${MARCA.tarjeta} se aplica solo.</p>
+  <p class="muted sub">Retirás en el local o reservás tu turno, y el descuento ${MARCA.tarjeta} se aplica solo.</p>
   <input class="buscar" type="search" placeholder="Buscar comercio o producto" value="${esc(f.q)}" data-f="q">
   <div class="chips">${[{ id: 'todas', nombre: 'Todo', emoji: '✨' }, ...CATS].map((c) => `<button class="chip ${f.cat === c.id ? 'on' : ''}" data-a="cat" data-v="${c.id}">${c.emoji} ${c.nombre}</button>`).join('')}</div>
   <label class="sel">📍 <select data-f="loc"><option value="todas">Todas las localidades</option>${LOCALIDADES.map((l) => `<option ${f.loc === l ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
@@ -388,7 +388,7 @@ function listaComercios() {
   return res.map((c) => `<button class="comercio ${c.abierto ? '' : 'cerrado'}" data-a="abrir" data-v="${c.id}">
     <div class="avatar" style="background:${c.color}">${c.emoji}</div>
     <div class="info"><b>${esc(c.nombre)}</b><span class="muted">${cat(c.cat).nombre} · ${c.loc}</span>
-    <span class="muted">${c.abierto ? `🥡 Retiro en ${c.prep} min` : 'Cerrado ahora'}</span></div>
+    <span class="muted">${!c.abierto ? 'Cerrado ahora' : c.servicio ? '📅 Reservá tu turno online' : `🥡 Retiro en ${c.prep} min`}</span></div>
     <span class="desc">-${c.desc}%</span></button>`).join('');
 }
 
@@ -401,7 +401,7 @@ function vComercio(c) {
   <div class="hero" style="background:${c.color}"><span>${c.emoji}</span></div>
   <h1 class="titulo">${esc(c.nombre)}</h1>
   <p class="muted sub">${esc(c.dir)} · ${c.loc}</p>
-  <div class="tags"><span class="tag desc">${MARCA.tarjeta}: -${c.desc}%</span><span class="tag">🥡 Retiro en ${c.prep} min</span><span class="tag">0% comisión</span></div>
+  <div class="tags"><span class="tag desc">${MARCA.tarjeta}: -${c.desc}%</span><span class="tag">${c.servicio ? '📅 Turnos online' : `🥡 Retiro en ${c.prep} min`}</span><span class="tag">0% comisión</span></div>
   ${c.abierto ? '' : '<p class="aviso">Este comercio está cerrado ahora. Podés mirar, pero no pedir.</p>'}
   <div class="productos">${c.productos.map((p) => `
     <div class="prod ${p.disponible ? '' : 'agotado'}">
@@ -470,6 +470,19 @@ function sReciclar() {
   <div class="lista">${PUNTOS_VERDES.map((v) => `<button class="fila" data-a="reciclar" data-v="${v}"><span class="ico">♻️</span><div><b>${v}</b><p class="muted">Plástico, cartón, vidrio y latas</p></div><span class="tag-mini">+${PUNTOS.reciclar}</span></button>`).join('')}</div>`;
 }
 
+function horarios(c) {
+  if (!c.servicio) return horariosRetiro(c.prep);
+  const out = []; const d = new Date(); d.setHours(0, 0, 0, 0);
+  const dias = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+  let k = 0;
+  while (out.length < 6) {
+    d.setDate(d.getDate() + 1); k++;
+    if (d.getDay() === 0) continue;
+    const nombre = k === 1 ? 'Mañana' : dias[d.getDay()][0].toUpperCase() + dias[d.getDay()].slice(1) + ' ' + d.getDate();
+    ['10:00', '17:30'].forEach((h) => { if (out.length < 6) out.push({ i: out.length, txt: `${nombre} ${h}` }); });
+  }
+  return out;
+}
 function horariosRetiro(prep) {
   const base = new Date(Date.now() + prep * 60000);
   base.setSeconds(0, 0);
@@ -483,7 +496,7 @@ function vPedidos() {
   const pasados = mios.filter((p) => !activos.includes(p)).slice(0, 12);
   return `
   ${activos.length ? activos.map(pedidoActivo).join('') : `<div class="vacio">No tenés pedidos en curso.<br><button class="btn" data-a="cat" data-v="gastro">Pedir para retirar</button></div>`}
-  ${activos.length ? '<p class="tip">💡 Para ver cómo avanza, tocá tu foto arriba y entrá como <b>Rosa</b>, la dueña del local.</p>' : ''}
+  ${activos.some((p) => p.cid === 'c2') ? '<p class="tip">💡 Para ver cómo avanza, tocá tu foto arriba y entrá como <b>Rosa</b>, la dueña del local.</p>' : ''}
   <h2>Anteriores</h2>
   <div class="lista">${pasados.map((p) => { const c = comercio(p.cid); return `<div class="fila"><span class="ico">${c.emoji}</span>
     <div><b>${esc(c.nombre)}</b><p class="muted">${fecha(p.creado)} · ${plural(p.items.reduce((a, i) => a + i.qty, 0), 'producto', 'productos')} · ${ESTADO_TXT[p.estado]}</p>${bloqueRP(p)}</div>
@@ -495,9 +508,9 @@ function pedidoActivo(p) {
   const idx = ESTADOS.indexOf(p.estado);
   return `<div class="card pedido">
     <div class="ped-cab"><span class="avatar chico" style="background:${c.color}">${c.emoji}</span><div><b>${esc(c.nombre)}</b><span class="muted">${esc(c.dir)}</span></div></div>
-    <ol class="pasos">${ESTADOS.slice(0, 3).map((e, i) => `<li class="${i < idx ? 'hecho' : i === idx ? 'actual' : ''}">${ESTADO_TXT[e]}</li>`).join('')}</ol>
+    <ol class="pasos">${ESTADOS.slice(0, 3).map((e, i) => `<li class="${i < idx ? 'hecho' : i === idx ? 'actual' : ''}">${p.servicio ? ['Turno pedido', 'Confirmado', 'Te esperan'][i] : ESTADO_TXT[e]}</li>`).join('')}</ol>
     <div class="retiro">
-      <div><span class="muted">Retirás</span><b>${p.retiro}</b><span class="muted">Código de retiro</span><b class="codigo">${p.codigo}</b></div>
+      <div><span class="muted">${p.servicio ? 'Tu turno' : 'Retirás'}</span><b>${p.retiro}</b><span class="muted">${p.servicio ? 'Código de reserva' : 'Código de retiro'}</span><b class="codigo">${p.codigo}</b></div>
       <div class="qr chico" data-qr="RETIRO|${p.id}|${p.codigo}"></div>
     </div>
     <details><summary>Detalle · ${plata(p.total)}</summary>
@@ -758,11 +771,11 @@ function sheet() {
         <p class="linea total"><span>Total</span><span>${plata(t.total)}</span></p>
         <p class="compara">Ahorrás <b>${plata(t.descuento + t.cupon)}</b> y sumás <b>⭐ ${Math.floor(t.total / PUNTOS.porCompra)} Puntos Tigre</b>. Como ${esc(t.c.nombre)} no paga comisión por vender acá, el precio no viene inflado.</p>
       </div>
-      <p class="muted">¿Cuándo lo retirás?</p>
-      <div class="chips">${horariosRetiro(t.c.prep).map((h) => `<button class="chip ${S.retiro === h.i ? 'on' : ''}" data-a="retiro" data-v="${h.i}">${h.txt}</button>`).join('')}</div>
+      <p class="muted">${t.c.servicio ? '¿Cuándo es tu turno?' : '¿Cuándo lo retirás?'}</p>
+      <div class="chips">${horarios(t.c).map((h) => `<button class="chip ${S.retiro === h.i ? 'on' : ''}" data-a="retiro" data-v="${h.i}">${h.txt}</button>`).join('')}</div>
       <p class="muted">¿Cómo pagás?</p>
       <div class="pagos">${PAGOS.map((p) => `<button class="${S.pago === p.id ? 'on' : ''}" data-a="pago" data-v="${p.id}">${p.emoji} ${p.nombre}</button>`).join('')}</div>
-      <button class="btn grande" data-a="pagar">${S.pago === 'efectivo' ? 'Confirmar pedido' : 'Pagar'} ${plata(t.total)}</button>`;
+      <button class="btn grande" data-a="pagar">${t.c.servicio ? (S.pago === 'efectivo' ? 'Reservar turno' : 'Reservar y pagar') : S.pago === 'efectivo' ? 'Confirmar pedido' : 'Pagar'} ${plata(t.total)}</button>`;
   } else if (s === 'cobro' && S.cobro) {
     const c = S.cobro;
     if (S.pago === 'efectivo') S.pago = 'mp';
@@ -1150,7 +1163,7 @@ const EMOJI_ICONO = {
   '🧥': 'shirt', '🧦': 'footprints', '🍽️': 'utensils', '🍽': 'utensils', '🚨': 'triangle-alert', '🍦': 'ice-cream-cone', '🍺': 'beer', '🥐': 'croissant',
   '👓': 'glasses', '🏝️': 'palmtree', '🏝': 'palmtree', '👟': 'footprints', '🎉': 'party-popper', '⚠️': 'triangle-alert', '⚠': 'triangle-alert',
   '👩‍💼': 'user', '👨‍💼': 'user', '🛠️': 'wrench', '🛠': 'wrench', '📋': 'list', '🗺️': 'map', '🗺': 'map', '✨': 'layout-grid', '📱': 'smartphone',
-  '👋': '', '🙈': '', '🐶': 'dog', '🎮': 'gamepad-2', '⏱': 'timer', '🔠': 'type', '🏪': 'store', '📊': 'chart-column', '🤝': 'handshake',
+  '👋': '', '🙈': '', '🐶': 'dog', '🎮': 'gamepad-2', '⏱': 'timer', '🔠': 'type', '🏪': 'store', '💇': 'scissors', '💅': 'paintbrush', '🎬': 'clapperboard', '📊': 'chart-column', '🤝': 'handshake',
 };
 const RE_EMOJI = /(?:\p{Extended_Pictographic}|\p{Regional_Indicator})(?:️|\p{Emoji_Modifier})?(?:‍(?:\p{Extended_Pictographic})(?:️|\p{Emoji_Modifier})?)*/gu;
 const sinEmoji = (t) => String(t).replace(RE_EMOJI, '').replace(/️/g, '').replace(/^\s+/, '');
@@ -1260,13 +1273,13 @@ function crearPedido(t, retiro) {
   const p = armarPedido({
     id: 'P' + (Math.max(...S.pedidos.map((x) => Number(x.id.slice(1)))) + 1), cid: t.c.id,
     items: t.items.map(({ pid, nombre, precio, qty }) => ({ pid, nombre, precio, qty })),
-    desc: t.c.desc + (t.extra || 0), pago: S.pago, creado: Date.now(), estado: 'recibido', mio: true, loc: t.c.loc, retiro: `a las ${retiro}`,
+    desc: t.c.desc + (t.extra || 0), pago: S.pago, creado: Date.now(), estado: 'recibido', mio: true, loc: t.c.loc, servicio: !!t.c.servicio, retiro: t.c.servicio ? retiro.toLowerCase() : `a las ${retiro}`,
   });
   if (t.cupon) { p.cupon = t.cupon; p.total -= t.cupon; S.puntos.cupones.splice(S.puntos.cupones.findIndex((c) => c.tipo === 'cupon'), 1); }
   S.pedidos.push(p);
   const pts = sumarPuntos(Math.floor(p.total / PUNTOS.porCompra), `Compra en ${t.c.nombre}`, '🛍️');
   S.carrito = null; S.sheet = null; S.abierto = null; S.tab = 'comprar'; S.comprarTab = 'pedidos';
-  if (!S.tour) setTimeout(() => toast(`✅ Pedido enviado. Ahorraste ${plata(p.descuento + (p.cupon || 0))} y sumaste ⭐ ${pts} puntos.`), 100);
+  if (!S.tour) setTimeout(() => toast(`✅ ${t.c.servicio ? 'Turno reservado' : 'Pedido enviado'}. Ahorraste ${plata(p.descuento + (p.cupon || 0))} y sumaste ⭐ ${pts} puntos.`), 100);
   return p;
 }
 
@@ -1631,7 +1644,7 @@ const ACT = {
   pago(v) { S.pago = v; },
   pagar() {
     const t = totalesCarrito();
-    const retiro = horariosRetiro(t.c.prep)[S.retiro].txt.replace(/Lo antes posible \((.*)\)/, '$1');
+    const retiro = horarios(t.c)[S.retiro].txt.replace(/Lo antes posible \((.*)\)/, '$1');
     procesando(S.pago === 'efectivo' ? 'Enviando tu pedido…' : `Procesando el pago con ${PAGOS.find((p) => p.id === S.pago).nombre}…`, () => crearPedido(t, retiro));
   },
   // cobros municipales

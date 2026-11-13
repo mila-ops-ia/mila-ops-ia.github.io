@@ -8,14 +8,24 @@ const MARCA = {
 
 const LOCALIDADES = ['Tigre Centro', 'Nordelta', 'Don Torcuato', 'El Talar', 'Benavídez', 'General Pacheco', 'Delta'];
 
+// Rubros del paraguas Soy Tigre: comercios que venden con retiro y comercios de servicios que se reservan por turno.
 const CATS = [
   { id: 'gastro', nombre: 'Gastronomía', emoji: '🍔' },
-  { id: 'almacen', nombre: 'Almacén', emoji: '🛒' },
+  { id: 'almacen', nombre: 'Súper y almacén', emoji: '🛒' },
   { id: 'verdu', nombre: 'Verdulería', emoji: '🥬' },
-  { id: 'pet', nombre: 'Pet shop', emoji: '🐾' },
-  { id: 'libreria', nombre: 'Librería', emoji: '📚' },
-  { id: 'farmacia', nombre: 'Farmacia', emoji: '💊' },
+  { id: 'farmacia', nombre: 'Farmacia y perfumería', emoji: '💊' },
+  { id: 'salud', nombre: 'Salud y óptica', emoji: '🩺' },
+  { id: 'belleza', nombre: 'Peluquería y belleza', emoji: '💇' },
+  { id: 'deporte', nombre: 'Gimnasios y deporte', emoji: '🏋️' },
   { id: 'ropa', nombre: 'Indumentaria', emoji: '👕' },
+  { id: 'hogar', nombre: 'Hogar y ferretería', emoji: '🔧' },
+  { id: 'tecno', nombre: 'Tecnología', emoji: '📱' },
+  { id: 'auto', nombre: 'Automotor', emoji: '🚗' },
+  { id: 'educacion', nombre: 'Educación', emoji: '🎓' },
+  { id: 'turismo', nombre: 'Turismo y hotelería', emoji: '🚤' },
+  { id: 'entretenimiento', nombre: 'Entretenimiento', emoji: '🎬' },
+  { id: 'pet', nombre: 'Mascotas', emoji: '🐾' },
+  { id: 'libreria', nombre: 'Librería', emoji: '📚' },
 ];
 
 const SEED_COMERCIOS = [
@@ -87,6 +97,45 @@ const SEED_COMERCIOS = [
     { nombre: 'Buzo con capucha', desc: 'Frisa', precio: 32000, emoji: '🧥' },
     { nombre: 'Medias x 3 pares', desc: '', precio: 6900, emoji: '🧦' },
   ]},
+  { id: 'c13', nombre: 'Gimnasio Activo Talar', cat: 'deporte', loc: 'El Talar', dir: 'Av. Constituyentes 3550', desc: 15, emoji: '🏋️', color: '#2F5D8A', prep: 0, servicio: true, productos: [
+    { nombre: 'Clase de prueba', desc: 'Funcional o musculación, 1 hora', precio: 6000, emoji: '🏋️' },
+    { nombre: 'Pase libre mensual', desc: 'Sala de musculación sin límite', precio: 42000, emoji: '🏋️' },
+    { nombre: 'Pack 8 clases de funcional', desc: 'Válido por 30 días', precio: 30000, emoji: '🏃' },
+  ]},
+  { id: 'c14', nombre: 'Estilo Nordelta Peluquería', cat: 'belleza', loc: 'Nordelta', dir: 'Av. de los Lagos 7200, local 4', desc: 20, emoji: '💇', color: '#8A3F6B', prep: 0, servicio: true, productos: [
+    { nombre: 'Corte y peinado', desc: 'Lavado incluido', precio: 18000, emoji: '💇' },
+    { nombre: 'Color completo', desc: 'Con tratamiento', precio: 45000, emoji: '💇' },
+    { nombre: 'Manicuría semipermanente', desc: '', precio: 16000, emoji: '💅' },
+  ]},
+  { id: 'c15', nombre: 'Óptica Visión Delta', cat: 'salud', loc: 'Benavídez', dir: 'Av. Benavídez 1320', desc: 25, emoji: '👓', color: '#1F6B6B', prep: 0, servicio: true, productos: [
+    { nombre: 'Control visual', desc: 'Con optómetra, 30 minutos', precio: 12000, emoji: '👓' },
+    { nombre: 'Anteojos recetados', desc: 'Armazón + cristales monofocales', precio: 95000, emoji: '👓' },
+  ]},
+  { id: 'c16', nombre: 'Taller Mecánico Torcuato', cat: 'auto', loc: 'Don Torcuato', dir: 'Av. Marquez 1800', desc: 10, emoji: '🔧', color: '#4A4F5C', prep: 0, servicio: true, productos: [
+    { nombre: 'Service básico', desc: 'Aceite, filtros y revisión general', precio: 85000, emoji: '🔧' },
+    { nombre: 'Alineación y balanceo', desc: '4 ruedas', precio: 38000, emoji: '🚗' },
+  ]},
+  { id: 'c17', nombre: 'TecnoFix Pacheco', cat: 'tecno', loc: 'General Pacheco', dir: 'Av. Hipólito Yrigoyen 1450', desc: 15, emoji: '📱', color: '#3B4E7A', prep: 0, servicio: true, productos: [
+    { nombre: 'Cambio de batería de celular', desc: 'En el día', precio: 35000, emoji: '📱' },
+    { nombre: 'Cambio de pantalla', desc: 'Presupuesto según modelo', precio: 90000, emoji: '📱' },
+  ]},
+  { id: 'c18', nombre: 'Hostería Isla Verde', cat: 'turismo', loc: 'Delta', dir: 'Río Sarmiento, muelle 412', desc: 20, emoji: '🏝️', color: '#2E6B4F', prep: 0, servicio: true, productos: [
+    { nombre: 'Noche en habitación doble', desc: 'Con desayuno', precio: 98000, emoji: '🏝️' },
+    { nombre: 'Paseo en lancha por las islas', desc: '1 hora y media', precio: 25000, emoji: '🚤' },
+  ]},
+  { id: 'c19', nombre: 'Cine del Paseo', cat: 'entretenimiento', loc: 'Tigre Centro', dir: 'Paseo Victorica 520', desc: 30, emoji: '🎬', color: '#5A2E6B', prep: 0, servicio: true, productos: [
+    { nombre: 'Entrada 2D', desc: 'Cualquier función', precio: 9000, emoji: '🎬' },
+    { nombre: 'Combo pochoclo y gaseosa', desc: '', precio: 8500, emoji: '🥤' },
+  ]},
+  { id: 'c20', nombre: 'Instituto de Inglés Delta', cat: 'educacion', loc: 'Benavídez', dir: 'Av. Benavídez 980', desc: 20, emoji: '🎓', color: '#2C5F8A', prep: 0, servicio: true, productos: [
+    { nombre: 'Clase de nivelación', desc: 'Gratis con tu credencial', precio: 0, emoji: '🎓' },
+    { nombre: 'Cuota mensual', desc: '2 clases por semana', precio: 48000, emoji: '🎓' },
+  ]},
+  { id: 'c21', nombre: 'Ferretería El Tornillo', cat: 'hogar', loc: 'Don Torcuato', dir: 'Av. Marquez 760', desc: 10, emoji: '🔧', color: '#7A5A2E', prep: 15, productos: [
+    { nombre: 'Juego de destornilladores', desc: '6 piezas', precio: 14500, emoji: '🔧' },
+    { nombre: 'Lámpara LED 12 W', desc: 'Pack x 3', precio: 7800, emoji: '💡' },
+    { nombre: 'Cinta métrica 5 m', desc: '', precio: 6200, emoji: '🔧' },
+  ]},
 ];
 
 const TRAMITES = [
@@ -145,17 +194,20 @@ const BENEFICIOS = [
   { nombre: 'Instituto de Inglés Delta', rubro: 'educacion', loc: 'Benavídez', emoji: '🎓', texto: '20% en la cuota mensual', dias: '', tope: '' },
   { nombre: 'Zapatería Paso a Paso', rubro: 'ropa', loc: 'General Pacheco', emoji: '👟', texto: '15% de descuento', dias: 'Todos los días', tope: '' },
   { nombre: 'Veterinaria Huellitas', rubro: 'pet', loc: 'Nordelta', emoji: '🐾', texto: '15% en consultas', dias: 'Lunes a sábado', tope: '' },
+  { nombre: 'Barbería Puerto', rubro: 'belleza', loc: 'Tigre Centro', emoji: '💇', texto: '20% en cortes', dias: 'Lunes a jueves', tope: '' },
+  { nombre: 'Spa del Río', rubro: 'belleza', loc: 'Nordelta', emoji: '💅', texto: '15% en tratamientos', dias: 'Todos los días', tope: '' },
+  { nombre: 'Teatro del Delta', rubro: 'entretenimiento', loc: 'Tigre Centro', emoji: '🎬', texto: '2x1 en entradas', dias: 'Jueves y domingos', tope: '' },
+  { nombre: 'Parque acuático Tigre (demo)', rubro: 'entretenimiento', loc: 'Tigre Centro', emoji: '🎬', texto: '50% en el pase del titular', dias: 'No incluye feriados', tope: '' },
+  { nombre: 'Lavadero Pacheco', rubro: 'auto', loc: 'General Pacheco', emoji: '🚗', texto: '15% en lavado completo', dias: 'Lunes a viernes', tope: '' },
+  { nombre: 'Kinesiología Benavídez', rubro: 'salud', loc: 'Benavídez', emoji: '🩺', texto: '20% en sesiones', dias: '', tope: '' },
+  { nombre: 'Club Náutico Delta', rubro: 'deporte', loc: 'Delta', emoji: '🚤', texto: '25% en clases de remo', dias: 'Fines de semana', tope: '' },
+  { nombre: 'Hotel Boutique Victorica', rubro: 'turismo', loc: 'Tigre Centro', emoji: '🏝️', texto: '20% en estadías', dias: 'Domingo a jueves', tope: '' },
+  { nombre: 'Celulares Talar', rubro: 'tecno', loc: 'El Talar', emoji: '📱', texto: '10% en accesorios', dias: 'Todos los días', tope: '' },
   { nombre: 'Ferretería El Tornillo', rubro: 'hogar', loc: 'Don Torcuato', emoji: '🔧', texto: '10% de descuento', dias: 'Todos los días', tope: '' },
 ];
 
 // Rubros extra que solo aparecen en Beneficios.
-const RUBROS_EXTRA = [
-  { id: 'salud', nombre: 'Salud', emoji: '🩺' },
-  { id: 'turismo', nombre: 'Turismo', emoji: '🚤' },
-  { id: 'deporte', nombre: 'Deporte', emoji: '🏋️' },
-  { id: 'educacion', nombre: 'Educación', emoji: '🎓' },
-  { id: 'hogar', nombre: 'Hogar', emoji: '🔧' },
-];
+const RUBROS_EXTRA = []; // todos los rubros ya están en CATS
 
 const FARMACIAS = [
   { nombre: 'Farmacia del Puerto', loc: 'Tigre Centro', dir: 'Av. Cazón 980', tel: '4749-0000' },
