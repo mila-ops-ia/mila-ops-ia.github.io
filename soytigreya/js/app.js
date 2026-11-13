@@ -213,7 +213,7 @@ function render() {
   S.rol = perf.vista === 'vecino' ? 'vecino' : perf.vista === 'comercio' ? 'comercio' : 'municipio';
   app.className = 'shell ' + (S.rol === 'vecino' ? 'phone' : 'wide') + (S.tour ? ' en-tour' : '');
   const vista = perf.vista === 'vecino' ? vecino() : perf.vista === 'comercio' ? panelComercio() : perf.vista === 'atencion' ? vAtencion() : vEconomia();
-  const fab = S.rol === 'vecino' && !S.tour && !(S.abierto && S.carrito) ? `<button class="fab" data-a="sheet" data-v="tigri" aria-label="Hablar con Tigri">${!S.tigriVisto && S.tab === 'inicio' && !S.sub ? '<span class="fab-globo">¡Hola! ¿Te ayudo?</span>' : ''}${tigriSvg()}</button>` : '';
+  const fab = S.rol === 'vecino' && !S.tour && !(S.abierto && S.carrito) && !(S.tab === 'inicio' && !S.sub) ? `<button class="fab" data-a="sheet" data-v="tigri" aria-label="Hablar con Tigri">${!S.tigriVisto && S.tab === 'inicio' && !S.sub ? '<span class="fab-globo">¡Hola! ¿Te ayudo?</span>' : ''}${tigriSvg()}</button>` : '';
   app.innerHTML = topbar(perf) + `<main class="main">${vista}</main>` + (S.rol === 'vecino' ? navVecino() + fab : '') + tourCard() + sheet();
   after();
   save();
@@ -239,9 +239,9 @@ function topbar(perf) {
 }
 
 function navVecino() {
-  const tabs = [['inicio', '🏠', 'Inicio'], ['beneficios', '🎁', 'Beneficios'], ['comprar', '🛍️', 'Comprar'], ['servicios', '🏛️', 'Trámites'], ['credencial', '🪪', 'Credencial']];
+  const tabs = [['beneficios', '🎁', 'Beneficios'], ['comprar', '🛍️', 'Comprar'], ['inicio', '🏠', 'Inicio'], ['servicios', '🏛️', 'Trámites'], ['credencial', '🪪', 'Credencial']];
   const activos = S.pedidos.filter((p) => p.mio && ['recibido', 'preparacion', 'listo'].includes(p.estado)).length;
-  return `<nav class="bottom">${tabs.map(([id, e, t]) => `<button class="${S.tab === id && !S.sub ? 'on' : ''}" data-a="tab" data-v="${id}"><span>${e}${id === 'comprar' && activos ? `<i>${activos}</i>` : ''}</span>${t}</button>`).join('')}</nav>`;
+  return `<nav class="bottom">${tabs.map(([id, e, t]) => `<button class="${id === 'inicio' ? 'centro ' : ''}${S.tab === id && !S.sub ? 'on' : ''}" data-a="tab" data-v="${id}" aria-label="${t}"><span>${e}${id === 'comprar' && activos ? `<i>${activos}</i>` : ''}</span>${t}</button>`).join('')}</nav>`;
 }
 
 // ---------- Tigri: cachorro de tigre dibujado en SVG (diseño propio) ----------
@@ -304,17 +304,15 @@ function vInicio() {
   const cerca2 = S.comercios.filter((c) => c.loc === S.usuario.loc && c.abierto);
   const r = rioAhora();
   const alto = r.altura.toFixed(2).replace('.', ',');
-  const accesos = [['🛍️', 'Comprar', 'tab', 'comprar'], ['🎁', 'Beneficios', 'tab', 'beneficios'], ['💳', 'Pagar', 'serv', 'pagos'], ['📣', 'Reclamar', 'serv', 'reclamos']];
-  const mas = [
-    ['📅', 'Turnos municipales', 'Licencia, castración, tasas', 'serv', 'turnos'],
-    ['🚗', 'Estacionamiento medido', 'Activá y pagá desde el celu', 'sub', 'estacionamiento'],
-    ['🚌', 'Colectivos', 'Cuánto falta en tu parada', 'sub', 'colectivos'],
-    ['💊', 'Farmacias de turno', 'Abiertas ahora cerca tuyo', 'sub', 'farmacias'],
-    ['🌊', 'Altura del río', `Río Luján: ${alto} m · ${r.nivel.txt}`, 'sub', 'rio'],
+  const accesos = [
+    ['🛍️', 'Comprar', 'tab', 'comprar', 'r'], ['🎁', 'Beneficios', 'tab', 'beneficios', 'r'], ['💳', 'Pagar', 'serv', 'pagos', 'p'], ['📣', 'Reclamar', 'serv', 'reclamos', 'p'],
+    ['🏥', 'Salud', 'sub', 'salud', 's'], ['🏅', 'Deporte', 'sub', 'deportes', 'n'], ['💼', 'Empleo', 'sub', 'trabajo', 'a'], ['📅', 'Turnos', 'serv', 'turnos', 'p'],
+    ['🚗', 'Estacionar', 'sub', 'estacionamiento', 'p'], ['🚌', 'Colectivos', 'sub', 'colectivos', 'a'], ['💊', 'Farmacias', 'sub', 'farmacias', 's'], ['🌊', `Río ${alto} m`, 'sub', 'rio', 'a'],
   ];
   const aviso = r.nivel.clase !== 'normal' ? `<button class="aviso-rio ${r.nivel.clase}" data-a="sub" data-v="rio"><span>🌊</span><div><b>Río Luján en ${r.nivel.txt.toLowerCase()}: ${alto} m</b><small>${r.sube ? 'Subiendo' : 'Bajando'} · tocá para ver el pronóstico</small></div></button>` : '';
   return `
-  <section class="hola"><h1>Hola, ${esc(S.usuario.nombre.split(' ')[0])}</h1></section>
+  <section class="hola hola-fila"><h1>Hola, ${esc(S.usuario.nombre.split(' ')[0])}</h1><div class="hola-acc"><button class="tigri-hola" data-a="sheet" data-v="tigri" aria-label="Hablar con Tigri">${tigriSvg()}<b>Tigri</b></button><button class="lupa ${S.buscando ? 'on' : ''}" data-a="buscando" aria-label="Buscar">🔎</button></div></section>
+  ${S.buscando || S.busca ? `<input class="buscar" type="search" placeholder="Buscá comercios, beneficios o trámites" value="${esc(S.busca)}" data-f="busca"><div id="resBusca">${resultadosBusca()}</div>` : ''}
   <div class="dash"><div class="dcol">
   <div class="wallet">
     <div class="wcard" data-a="voltear" role="button" tabindex="0" aria-label="Tu tarjeta Soy Tigre. Tocá para ver el código QR">
@@ -331,24 +329,15 @@ function vInicio() {
     </div>
     <button class="wcard2" data-a="sub" data-v="puntos"><span>⭐ ${S.puntos.saldo.toLocaleString('es-AR')} Puntos Tigre</span><span>Canjear ›</span></button>
   </div>
-  <div class="accesos4">${accesos.map(([e, t, a, v]) => `<button data-a="${a}" data-v="${v}"><span>${e}</span>${t}</button>`).join('')}</div>
-  <input class="buscar" type="search" placeholder="Buscá comercios, beneficios o trámites" value="${esc(S.busca)}" data-f="busca">
-  <div id="resBusca">${resultadosBusca()}</div>
   ${encuestaNps()}
   ${activo ? cardActivo(activo) : ''}
   ${aviso}
-  ${bannerFlash()}
+  <div class="hub">${accesos.map(([e, x, a, v, c]) => `<button class="hub-${c}" data-a="${a}" data-v="${v}"><span>${e}</span>${x}</button>`).join('')}</div>
   </div><div class="dcol">
+  ${bannerFlash()}
+  ${publicidadHtml()}
   <div class="h2-fila"><h2>Para vos, hoy</h2><button class="link" data-a="tab" data-v="comprar">Ver todos</button></div>
   <div class="carrusel">${cerca2.map(miniComercio).join('') || '<p class="muted">Todavía no hay comercios con pedidos en tu localidad.</p>'}</div>
-  ${publicidadHtml()}
-  <div class="tiles2">
-    <button class="tile tile-sal" data-a="sub" data-v="salud"><span class="tile-ico">🏥</span><small>Salud</small><b>Turnos y guardias</b></button>
-    <button class="tile tile-dep" data-a="sub" data-v="deportes" style="background-image:url(${FOTO('natacion')});--velo:1"><span class="tile-ico">🏅</span><small>Deporte</small><b>Polideportivos y colonia</b></button>
-    <button class="tile tile-trab" data-a="sub" data-v="trabajo" style="background-image:url(${FOTO('curso')});--velo:1"><span class="tile-ico">💼</span><small>Trabajo</small><b>Empleos y cursos gratis</b></button>
-  </div>
-  <h2>Servicios</h2>
-  <div class="lista-limpia">${mas.map(([e, t, d, a, v]) => `<button data-a="${a}" data-v="${v}"><span class="ico">${e}</span><div><b>${t}</b><small>${d}</small></div><span class="flecha">›</span></button>`).join('')}</div>
   </div></div>`;
 }
 
@@ -1801,6 +1790,7 @@ const ACT = {
     toast(v === 'colonia' ? 'Inscripción enviada. Te avisamos cuando se confirme el cupo. Sumaste 30 puntos.' : '¡Listo! Quedaste anotada. Sumaste 30 Puntos Tigre.');
   },
   desinscribir(v) { S.inscrip = (S.inscrip || []).filter((x) => x !== v); toast('Cancelaste la inscripción.'); },
+  buscando() { S.buscando = !S.buscando; if (!S.buscando) S.busca = ''; setTimeout(() => { const b = document.querySelector('.buscar'); if (b) b.focus(); }, 30); },
   letra() { S.letra = !S.letra; },
   voltear(v, el) { el.classList.toggle('dada'); return false; },
   tab(v) { S.tab = v; S.abierto = null; S.sub = null; S.sheet = null; window.scrollTo(0, 0); },
