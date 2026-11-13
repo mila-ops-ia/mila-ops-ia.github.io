@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>SoyTigreYa · Video</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root { --rojo: #D02013; --tinta: #17181C; --muted: #5F6370; --fondo: #F2F2F4; }
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { font-family: 'Montserrat', Arial, sans-serif; background: var(--fondo); color: var(--tinta); }
+.cab { background: var(--rojo); color: #fff; padding: 22px 24px 26px; }
+.cab a { color: #fff; text-decoration: none; font-weight: 700; font-size: 14px; opacity: .9; }
+.cab h1 { margin: 14px 0 4px; font-size: 32px; font-weight: 800; letter-spacing: -.01em; }
+.cab p { margin: 0; opacity: .92; }
+main { max-width: 1000px; margin: 0 auto; padding: 22px 16px 40px; }
+video { width: 100%; border-radius: 18px; background: #000; display: block; box-shadow: 0 20px 50px -20px rgba(0,0,0,.35); }
+.acc { display: flex; gap: 10px; flex-wrap: wrap; margin: 16px 0; }
+.btn { background: var(--rojo); color: #fff; text-decoration: none; font-weight: 700; padding: 11px 18px; border-radius: 22px; }
+.btn.claro { background: #fff; color: var(--rojo); }
+.nota { font-size: 13px; color: var(--muted); line-height: 1.5; }
+</style>
+</head>
+<body>
+<header class="cab">
+  <a href="enlaces.html">‹ Todos los enlaces</a>
+  <h1>SoyTigreYa en 50 segundos</h1>
+  <p>Video publicitario de la app.</p>
+</header>
+<main>
+  <video controls playsinline preload="metadata" poster="video/portada.jpg">
+    <source src="video/SoyTigreYa-video.mp4" type="video/mp4">
+    Tu navegador no puede reproducir el video. <a href="video/SoyTigreYa-video.mp4">Descargalo acá</a>.
+  </video>
+  <div class="acc">
+    <a class="btn" href="./">Probar la app</a>
+    <a class="btn claro" href="presentacion/">Presentación interactiva</a>
+    <a class="btn claro" href="video/SoyTigreYa-video.mp4" download>Descargar el video (MP4)</a>
+  </div>
+  <p class="nota">Locución con voz sintética del sistema (no es la voz de ninguna persona real). Pantallas del prototipo. Prototipo académico: no es una app oficial del Municipio de Tigre.</p>
+</main>
+</body>
+</html>

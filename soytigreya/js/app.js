@@ -975,10 +975,10 @@ function sheet() {
   } else if (s === 'tigri') {
     if (!S.chat.length) S.chat.push({ de: 'tg', html: saludo(), acciones: [] });
     return `<div class="velo" data-a="cerrarSheet"></div><div class="sheet chat" role="dialog" aria-label="Chat con Tigri">
-      <div class="chat-cab"><span class="tg-avatar">${tigriSvg()}</span><div><b>Tigri</b><span class="muted">Cachorro de tigre y asistente de ${MARCA.app}</span></div><button class="cerrar" data-a="cerrarSheet" aria-label="Cerrar">✕</button></div>
+      <div class="chat-cab"><span class="tg-avatar">${tigriSvg()}</span><div><b>Tigri</b><span class="muted">Cachorro de tigre y asistente de ${MARCA.app}</span></div><button class="voz-btn ${S.tigriMudo ? '' : 'on'}" data-a="tigriVoz" aria-label="${S.tigriMudo ? 'Activar la voz de Tigri' : 'Silenciar a Tigri'}">${S.tigriMudo ? '🔇' : '🔊'}</button><button class="cerrar" data-a="cerrarSheet" aria-label="Cerrar">✕</button></div>
       <div class="chat-msgs" id="chatMsgs">${S.chat.map(burbuja).join('')}</div>
       <div class="chat-sug">${['Farmacia de turno', '¿Cómo está el río?', 'Quiero pizza', 'Hay un bache', '¿Cuántos puntos tengo?', '¿Cuánto ahorré?', 'Quiero reciclar', 'Pagar tasas'].map((x) => `<button class="chip" data-a="chatSug" data-v="${x}">${x}</button>`).join('')}</div>
-      <form class="chat-in" data-form="chat"><input id="chatIn" placeholder="Escribile a Tigri…" autocomplete="off"><button class="btn" type="submit" aria-label="Enviar">➤</button></form>
+      <form class="chat-in" data-form="chat"><button type="button" class="mic" data-a="tigriMic" aria-label="Hablarle a Tigri">🎙️</button><input id="chatIn" placeholder="Escribile o tocá el micrófono…" autocomplete="off"><button class="btn" type="submit" aria-label="Enviar">➤</button></form>
     </div>`;
   }
   return `<div class="velo" data-a="cerrarSheet"></div><div class="sheet" role="dialog"><button class="cerrar" data-a="cerrarSheet" aria-label="Cerrar">✕</button>${html}</div>`;
@@ -1071,6 +1071,44 @@ function saludo() {
   return `¡Hola, ${esc(S.usuario.nombre.split(' ')[0])}! Soy <b>Tigri</b> 🐯, tu asistente de ${MARCA.app}. Puedo buscarte descuentos, contarte tus Puntos Tigre, ayudarte a pedir para retirar, sacar turnos, cargar reclamos o decirte cómo está el río. ¿Qué necesitás?`;
 }
 
+// ---------- Tigri con voz: habla sus respuestas y escucha por el micrófono ----------
+// Usa las voces del propio celular o navegador (sin servicios externos). Prioriza español rioplatense y latino.
+let VOZ = null;
+function elegirVoz() {
+  if (!('speechSynthesis' in window)) return null;
+  const vs = speechSynthesis.getVoices().filter((v) => /^es/i.test(v.lang));
+  if (!vs.length) return null;
+  const puntaje = (v) => (/es-AR/i.test(v.lang) ? 50 : /es-(419|US|MX|CO|CL|UY)/i.test(v.lang) ? 30 : 10)
+    + (/natural|neural|premium|enhanced|online/i.test(v.name) ? 25 : 0) + (/google/i.test(v.name) ? 15 : 0)
+    + (/paulina|sabina|elena|helena|camila|valentina|lucia|mónica|monica/i.test(v.name) ? 8 : 0) - (/eddy|flo|grandma|grandpa|reed|rocko|sandy|shelley/i.test(v.name) ? 40 : 0);
+  return vs.sort((a, b) => puntaje(b) - puntaje(a))[0];
+}
+if ('speechSynthesis' in window) { VOZ = elegirVoz(); speechSynthesis.onvoiceschanged = () => { VOZ = elegirVoz(); }; }
+function textoParaVoz(html) {
+  const d = document.createElement('div'); d.innerHTML = html;
+  return d.textContent.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu, '').replace(/\$\s?([\d.]+)/g, '$1 pesos').replace(/\s+/g, ' ').trim();
+}
+function tigriHabla(html) {
+  if (!('speechSynthesis' in window) || S.tigriMudo) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(textoParaVoz(html));
+  if (VOZ) { u.voice = VOZ; u.lang = VOZ.lang; } else u.lang = 'es-AR';
+  u.rate = 1.02; u.pitch = 1.15;
+  u.onstart = () => document.querySelector('.tg-avatar')?.classList.add('hablando');
+  u.onend = u.onerror = () => document.querySelector('.tg-avatar')?.classList.remove('hablando');
+  speechSynthesis.speak(u);
+}
+function tigriEscucha() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) { toast('Tu navegador no permite hablarle a Tigri. Probá en Chrome o escribile.'); return; }
+  const r = new SR(); r.lang = 'es-AR'; r.interimResults = false; r.maxAlternatives = 1;
+  const btn = document.querySelector('.mic'); if (btn) btn.classList.add('on');
+  r.onresult = (e) => { const txt = e.results[0][0].transcript; chatEnviar(txt); };
+  r.onerror = () => toast('No te escuché bien. Probá de nuevo o escribile a Tigri.');
+  r.onend = () => { const b = document.querySelector('.mic'); if (b) b.classList.remove('on'); };
+  r.start();
+}
+
 function chatEnviar(txt) {
   txt = txt.trim();
   if (!txt) return;
@@ -1079,7 +1117,9 @@ function chatEnviar(txt) {
   render();
   setTimeout(() => {
     S.chat = S.chat.filter((m) => !m.tmp);
-    S.chat.push({ de: 'tg', ...tigriResponde(txt) });
+    const resp = tigriResponde(txt);
+    S.chat.push({ de: 'tg', ...resp });
+    tigriHabla(resp.html);
     if (S.chat.length > 40) S.chat = S.chat.slice(-40);
     if (S.sheet === 'tigri') render(); else save();
   }, 650);
@@ -1536,6 +1576,7 @@ function initMaps() {
 let timerId = null;
 // ---------- íconos: los emojis del contenido pasan a íconos de línea (Lucide) ----------
 const EMOJI_ICONO = {
+  '🔊': 'volume-2', '🔇': 'volume-x', '🎙️': 'mic', '🎙': 'mic',
   '🎢': 'ferris-wheel', '🚲': 'bike',
   '🏥': 'hospital', '❤️': 'heart-pulse', '👁️': 'eye', '🦷': 'smile', '💉': 'syringe', '🧠': 'brain', '🩻': 'scan', '🤰': 'baby', '📞': 'phone', '🧪': 'flask-conical', '🦴': 'bone',
   '🏭': 'factory', '🛵': 'bike', '💼': 'briefcase', '📝': 'file-text',
@@ -2132,6 +2173,8 @@ const ACT = {
     return false;
   },
   guardarLocal() { toast('Listo: los vecinos ya ven tu local actualizado.'); },
+  tigriVoz() { S.tigriMudo = !S.tigriMudo; if (S.tigriMudo && 'speechSynthesis' in window) speechSynthesis.cancel(); else { const u = [...S.chat].reverse().find((m) => m.de === 'tg' && !m.tmp); if (u) setTimeout(() => tigriHabla(u.html), 50); } },
+  tigriMic() { tigriEscucha(); return false; },
   letra() { S.letra = !S.letra; },
   voltear(v, el) { el.classList.toggle('dada'); return false; },
   tab(v) { S.tab = v; S.abierto = null; S.sub = null; S.sheet = null; window.scrollTo(0, 0); },
@@ -2163,8 +2206,8 @@ const ACT = {
     if (S.carrito.items[pid] <= 0) delete S.carrito.items[pid];
     if (!Object.keys(S.carrito.items).length) { S.carrito = null; if (S.sheet === 'checkout') S.sheet = null; }
   },
-  sheet(v) { S.sheet = v; S.retiro = 0; if (v === 'tigri') S.tigriVisto = true; if (v === 'tigri' && !S.chat.length) S.chat.push({ de: 'tg', html: saludo(), acciones: [] }); },
-  cerrarSheet() { if (S.sheet !== 'pagando') S.sheet = null; },
+  sheet(v) { S.sheet = v; S.retiro = 0; if (v === 'tigri') { S.tigriVisto = true; if (!S.chat.length) setTimeout(() => tigriHabla(saludo()), 300); } if (v === 'tigri' && !S.chat.length) S.chat.push({ de: 'tg', html: saludo(), acciones: [] }); },
+  cerrarSheet() { if ('speechSynthesis' in window) speechSynthesis.cancel(); if (S.sheet !== 'pagando') S.sheet = null; },
   retiro(v) { S.retiro = Number(v); },
   pago(v) { S.pago = v; },
   pagar() {

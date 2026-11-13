@@ -51,6 +51,7 @@ El botón **"▶ Ver el recorrido guiado"** muestra, en 10 pasos, cómo un pedid
 - [Todos los enlaces en una página](https://mila-ops-ia.github.io/soytigreya/enlaces.html) ([PDF](documentos/Enlaces%20-%20SoyTigreYa.pdf))
 - [Presentación en PDF](documentos/Presentacion%20-%20SoyTigreYa.pdf)
 - [Folleto de una hoja para inversores (PDF)](documentos/Folleto%20-%20SoyTigreYa.pdf)
+- [Video publicitario de 50 segundos](https://mila-ops-ia.github.io/soytigreya/video.html)
 - [Trabajo Final Integrador (PDF)](documentos/Trabajo%20Final%20Integrador%20-%20SoyTigreYa.pdf)
 - [Trabajo Final Integrador (Word)](documentos/Trabajo%20Final%20Integrador%20-%20SoyTigreYa.docx)
 - [Instructivos de uso para cada perfil (PDF)](documentos/Instructivos%20de%20uso%20-%20SoyTigreYa.pdf)

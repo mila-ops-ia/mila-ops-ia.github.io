@@ -1122,3 +1122,15 @@ html, body, .shell, .shell.phone, .shell.wide { background: var(--fondo-b); }
 .comp-b { height: 10px; background: var(--fondo-b); border-radius: 6px; overflow: hidden; } .comp-b i { display: block; height: 100%; background: #9AA0AC; border-radius: 6px; }
 .comp-f.yo .comp-b i { background: #D02013; } .comp-f.yo .comp-t b, .comp-f.yo .comp-m { color: #D02013; }
 .comp-m { font-size: .86rem; white-space: nowrap; }
+
+/* Tigri con voz */
+.voz-btn { margin-left: auto; width: 36px; height: 36px; border-radius: 50%; background: var(--fondo-b); color: #6B6F7B; display: grid; place-items: center; }
+.voz-btn.on { background: #FBE9E7; color: #D02013; }
+.voz-btn svg { width: 18px; height: 18px; }
+.chat-cab .cerrar { position: static !important; }
+.chat-in .mic { width: 44px; height: 44px; flex: none; border-radius: 50%; background: #FBE9E7; color: #D02013; display: grid; place-items: center; }
+.chat-in .mic svg { width: 20px; height: 20px; }
+.chat-in .mic.on { background: #D02013; color: #fff; animation: tg-pulso 1s infinite; }
+@keyframes tg-pulso { 0%, 100% { box-shadow: 0 0 0 0 rgba(208,32,19,.45); } 50% { box-shadow: 0 0 0 8px rgba(208,32,19,0); } }
+.tg-avatar.hablando { animation: tg-habla .45s ease-in-out infinite alternate; }
+@keyframes tg-habla { from { transform: scale(1); } to { transform: scale(1.08) rotate(-3deg); } }
