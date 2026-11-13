@@ -806,3 +806,8 @@ html, body, .shell, .shell.phone, .shell.wide { background: var(--fondo-b); }
 .perfiles-grid { background: #fff; border-radius: 18px; border-top: 0; padding: 0 12px; }
 .perfil-card:last-child { border-bottom: 0 !important; }
 .qr-entrada { background: #fff; }
+/* botón de alerta visible en todas las pantallas del vecino */
+.sos { display: inline-flex; align-items: center; gap: 6px; height: 38px; padding: 0 14px 0 11px !important; border-radius: 19px !important; background: #D02013 !important; color: #fff !important; border: 0 !important; font-weight: 800; font-size: .85rem; letter-spacing: .02em; box-shadow: 0 6px 14px -6px rgba(208, 32, 19, .7); }
+.sos svg { width: 20px; height: 20px; }
+.sos:active { transform: scale(.96); }
+.top-der { gap: 6px; }

@@ -228,7 +228,7 @@ function topbar(perf) {
   return `<header class="top">
     <div class="marca"><span class="logo">🐯</span><b>SoyTigre<span>Ya</span></b>${sub}</div>
     <div class="top-der">${perf.vista === 'vecino' ? `
-      <button class="sos" data-a="sub" data-v="alerta" aria-label="Botón de alerta">🆘</button>
+      <button class="sos" data-a="sub" data-v="alerta" aria-label="Botón de alerta">🆘<b>Alerta</b></button>
       <button class="campana" data-a="notifs" aria-label="Notificaciones">🔔${sinLeer ? `<i>${sinLeer}</i>` : ''}</button>` : ''}
       <button class="quien" data-a="sheet" data-v="perfil" aria-label="Perfil y cambiar de perfil">${avatarHtml(perf)}<span class="quien-txt"><b>${perf.nombre}</b><small>${perf.rol}</small></span></button>
     </div>
