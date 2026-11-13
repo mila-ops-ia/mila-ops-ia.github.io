@@ -294,22 +294,31 @@ function vInicio() {
   const aviso = r.nivel.clase !== 'normal' ? `<button class="aviso-rio ${r.nivel.clase}" data-a="sub" data-v="rio"><span>🌊</span><div><b>Río Luján en ${r.nivel.txt.toLowerCase()}: ${alto} m</b><small>${r.sube ? 'Subiendo' : 'Bajando'} · tocá para ver el pronóstico</small></div></button>` : '';
   return `
   <section class="hola"><h1>Hola, ${esc(S.usuario.nombre.split(' ')[0])}</h1></section>
-  <input class="buscar" type="search" placeholder="Buscá comercios, beneficios o trámites" value="${esc(S.busca)}" data-f="busca">
-  <div id="resBusca">${resultadosBusca()}</div>
   <div class="dash"><div class="dcol">
-  <div class="resumen">
-    <span class="res-et">Ahorraste este mes con ${MARCA.tarjeta}</span>
-    <strong>${plata(ahorro)}</strong>
-    <span class="res-sub">en ${plural(mes.length, 'compra', 'compras')} en comercios del distrito</span>
-    <button class="res-puntos" data-a="sub" data-v="puntos"><span>⭐ ${S.puntos.saldo.toLocaleString('es-AR')} Puntos Tigre</span><span>Canjear</span></button>
+  <div class="wallet">
+    <div class="wcard" data-a="voltear" role="button" tabindex="0" aria-label="Tu tarjeta Soy Tigre. Tocá para ver el código QR">
+      <div class="wcara wfrente">
+        <div class="wfila"><span class="wmarca">SOY TIGRE</span><span class="wmuni">Municipio de Tigre</span></div>
+        <div class="wmonto">${plata(ahorro)}</div>
+        <div class="wet">ahorrados este mes · ${plural(mes.length, 'compra', 'compras')}</div>
+        <div class="wfila wpie"><span>${esc(S.usuario.nombre)}</span><span class="wqr"><i data-lucide="qr-code"></i></span></div>
+      </div>
+      <div class="wcara wdorso">
+        <div class="qr" data-qr="token"></div>
+        <div class="wdorso-txt"><b>Mostralo en la caja</b><span>Código válido por 30 segundos</span><span class="wvolver">Tocá para dar vuelta</span></div>
+      </div>
+    </div>
+    <button class="wcard2" data-a="sub" data-v="puntos"><span>⭐ ${S.puntos.saldo.toLocaleString('es-AR')} Puntos Tigre</span><span>Canjear ›</span></button>
   </div>
   <div class="accesos4">${accesos.map(([e, t, a, v]) => `<button data-a="${a}" data-v="${v}"><span>${e}</span>${t}</button>`).join('')}</div>
+  <input class="buscar" type="search" placeholder="Buscá comercios, beneficios o trámites" value="${esc(S.busca)}" data-f="busca">
+  <div id="resBusca">${resultadosBusca()}</div>
   ${encuestaNps()}
   ${activo ? cardActivo(activo) : ''}
   ${aviso}
   ${bannerFlash()}
   </div><div class="dcol">
-  <div class="h2-fila"><h2>Cerca tuyo</h2><button class="link" data-a="tab" data-v="comprar">Ver todos</button></div>
+  <div class="h2-fila"><h2>Para vos, hoy</h2><button class="link" data-a="tab" data-v="comprar">Ver todos</button></div>
   <div class="carrusel">${cerca2.map(miniComercio).join('') || '<p class="muted">Todavía no hay comercios con pedidos en tu localidad.</p>'}</div>
   <h2>Servicios</h2>
   <div class="lista-limpia">${mas.map(([e, t, d, a, v]) => `<button data-a="${a}" data-v="${v}"><span class="ico">${e}</span><div><b>${t}</b><small>${d}</small></div><span class="flecha">›</span></button>`).join('')}</div>
@@ -329,7 +338,7 @@ function resultadosBusca() {
 function miniComercio(c) {
   return `<button class="mini" data-a="abrir" data-v="${c.id}">
     <div class="mini-img" style="background:${c.color}">${c.emoji}<em>-${c.desc}%</em></div>
-    <b>${esc(c.nombre)}</b><span class="muted">${cat(c.cat).nombre} · ${c.servicio ? 'turnos online' : `${c.prep} min`}</span></button>`;
+    <div class="mini-txt"><b>${esc(c.nombre)}</b><span class="muted">${c.servicio ? 'Turnos online' : `Retirá en ${c.prep} min`}</span></div></button>`;
 }
 
 function cardActivo(p) {
@@ -1611,6 +1620,7 @@ const ACT = {
   },
   tourSalir() { S.tour = null; S.sheet = null; },
   letra() { S.letra = !S.letra; },
+  voltear(v, el) { el.classList.toggle('dada'); return false; },
   tab(v) { S.tab = v; S.abierto = null; S.sub = null; S.sheet = null; window.scrollTo(0, 0); },
   sub(v) { S.sub = v; S.sheet = null; window.scrollTo(0, 0); },
   cerrarSub() { S.sub = null; },

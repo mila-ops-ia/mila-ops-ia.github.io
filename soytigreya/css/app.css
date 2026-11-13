@@ -732,3 +732,77 @@ h2 { font-size: .95rem; font-weight: 700; margin: 28px 0 8px; }
 .kpi-mas small { display: block; font-size: .72rem; }
 .kpi-mas b { font-size: 1rem; white-space: nowrap; }
 .shell.wide .card { border: 1px solid var(--linea) !important; }
+
+/* =====================================================================
+   Rediseño v14 · Billetera. La tarjeta Soy Tigre es la protagonista;
+   fondo gris claro, tarjetas blancas sin bordes, esquinas generosas.
+   ===================================================================== */
+:root { --fondo-b: #F2F2F4; --texto: #17181C; }
+html, body, .shell, .shell.phone, .shell.wide { background: var(--fondo-b); }
+.top { background: var(--fondo-b); border-bottom: 0; }
+.demo-banda { background: #E6E6EA; }
+.hola { margin: 10px 0 14px; }
+.hola h1 { font-size: 1.15rem; font-weight: 700; color: var(--muted); letter-spacing: 0; }
+.buscar { background: #fff !important; border-radius: 14px !important; }
+
+/* la tarjeta */
+.wallet { margin: 16px 0 6px; perspective: 1200px; }
+.wcard { position: relative; height: 200px; cursor: pointer; transform-style: preserve-3d; transition: transform .6s cubic-bezier(.3,.7,.2,1); z-index: 2; }
+.wcard.dada { transform: rotateY(180deg); }
+.wcara { position: absolute; inset: 0; border-radius: 20px; padding: 18px 20px; backface-visibility: hidden; -webkit-backface-visibility: hidden; display: flex; flex-direction: column; overflow: hidden; }
+.wfrente { background: #D02013; color: #fff; box-shadow: 0 14px 30px -12px rgba(208, 32, 19, .55); }
+.wfrente::after { content: ''; position: absolute; right: -60px; top: -70px; width: 220px; height: 220px; border-radius: 50%; border: 34px solid rgba(255,255,255,.07); }
+.wfila { display: flex; justify-content: space-between; align-items: center; }
+.wmarca { font-weight: 800; font-size: .78rem; letter-spacing: .14em; }
+.wmuni { font-size: .7rem; opacity: .8; }
+.wmonto { font-size: 2.6rem; font-weight: 900; letter-spacing: -.04em; margin-top: auto; line-height: 1; }
+.wet { font-size: .8rem; opacity: .88; margin-top: 4px; }
+.wpie { margin-top: 14px; font-size: .78rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; opacity: .95; }
+.wqr { width: 38px; height: 38px; border-radius: 10px; background: #fff; color: #17181C; display: grid; place-items: center; }
+.wqr svg { width: 24px; height: 24px; }
+.wdorso { background: #fff; color: #17181C; transform: rotateY(180deg); flex-direction: row; align-items: center; gap: 16px; box-shadow: 0 14px 30px -14px rgba(23, 24, 28, .3); }
+.wdorso .qr { width: 150px; flex: none; }
+.wdorso-txt { display: flex; flex-direction: column; gap: 4px; font-size: .8rem; color: var(--muted); }
+.wdorso-txt b { color: #17181C; font-size: 1rem; }
+.wvolver { margin-top: 10px; font-weight: 600; color: #D02013; }
+.wcard2 { display: flex; justify-content: space-between; width: calc(100% - 28px); margin: -14px auto 0; padding: 24px 16px 12px; border-radius: 0 0 18px 18px; background: #3A3F4D; color: #fff; font-size: .85rem; font-weight: 600; position: relative; z-index: 1; }
+.wcard2 span:last-child { color: #FFB4AC; }
+.wcard2 svg { color: #FFD166; }
+
+/* accesos: círculos blancos sobre gris */
+.accesos4 { margin: 22px 0 4px; }
+.accesos4 span { background: #fff; width: 56px; height: 56px; }
+
+/* tarjetas blancas sin bordes */
+.card, .fila, .comercio, .prod, .tped, .trow, .kpi, .panel-cab, .perfil-card, .tigri-card, .qr-entrada, .seg { border: 0 !important; }
+.card { background: #fff; border-radius: 18px; }
+.card.activo { border-radius: 18px; }
+.lista-limpia { background: #fff; border-radius: 18px; padding: 4px 16px; }
+.shell.phone .lista { background: #fff; border-radius: 18px; padding: 2px 16px; }
+.seg { background: #E6E6EA; border-radius: 12px; }
+.seg button.on { border-radius: 10px; }
+.chip { background: #fff; }
+.chip.on { background: #17181C; color: #fff; }
+
+/* "Para vos, hoy": tarjetas grandes deslizables */
+.carrusel { gap: 12px; padding-bottom: 4px; }
+.mini { flex: none; width: 168px; background: #fff !important; border-radius: 18px; padding: 8px !important; display: flex; flex-direction: column; gap: 8px; text-align: left; }
+.mini-img { height: 96px; border-radius: 12px; position: relative; display: grid; place-items: center; }
+.mini-img em { position: absolute; top: 8px; left: 8px; background: #fff; color: #D02013; font-style: normal; font-weight: 800; font-size: .72rem; padding: 2px 7px; border-radius: 8px; }
+.mini-txt { display: flex; flex-direction: column; padding: 0 4px 4px; }
+.mini-txt b { font-size: .88rem; }
+.mini-txt .muted { font-size: .75rem; }
+
+/* barra inferior flotante */
+.bottom { background: rgba(255,255,255,.96); backdrop-filter: blur(10px); border-top: 0; box-shadow: 0 -1px 0 rgba(0,0,0,.04); }
+.fab { bottom: 84px; }
+
+/* credencial con el mismo lenguaje */
+.credencial { border-radius: 20px; box-shadow: 0 14px 30px -12px rgba(208, 32, 19, .55); }
+
+/* paneles anchos */
+.kpi { background: #fff !important; border-radius: 16px; }
+.shell.wide .card { border: 0 !important; }
+.perfiles-grid { background: #fff; border-radius: 18px; border-top: 0; padding: 0 12px; }
+.perfil-card:last-child { border-bottom: 0 !important; }
+.qr-entrada { background: #fff; }
