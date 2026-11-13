@@ -611,3 +611,18 @@ h2 { font-size: 1rem; letter-spacing: -0.01em; margin: 24px 0 10px; }
 .mini-btn.claro { background: #fff; color: #D02013; border: 1.5px solid #D02013; }
 .rp-foto { width: 120px; height: 90px; object-fit: cover; border-radius: 8px; }
 .rp-motivos { flex-wrap: wrap; }
+
+/* feedback de visitantes */
+.fb { max-width: 520px; width: 100%; display: flex; flex-direction: column; gap: 8px; text-align: left; margin-top: 6px; }
+.fb > b { font-size: 1.05rem; color: #515769; }
+.fb-tigres { display: flex; gap: 8px; margin-top: 4px; }
+.fb-tigre { width: 48px; height: 48px; border-radius: 12px; border: 1.5px solid var(--linea); background: #fff; color: #BFC1C7; display: grid; place-items: center; font-size: 1.4rem; transition: transform .15s, color .15s, background .15s; }
+.fb-tigre svg { width: 24px; height: 24px; }
+.fb-tigre:hover { transform: translateY(-2px); color: #D02013; }
+.fb-tigre.on { background: #FBE9E7; border-color: #F2C4BF; color: #D02013; }
+.fb-tigre.on svg { fill: #D02013; }
+.fb-etq { font-size: .85rem; font-weight: 600; color: #9E180E; min-height: 1.2em; }
+.fb-campo { display: flex; flex-direction: column; gap: 5px; font-size: .8rem; font-weight: 600; color: #6B6F7B; }
+.fb-campo input, .fb-campo textarea { padding: 10px 12px; border: 1px solid var(--linea); border-radius: 10px; font-size: .95rem; font-weight: 500; background: #fff; }
+.fb .btn { align-self: flex-start; width: auto; padding: 11px 22px; }
+.fb-ok { border-color: #CFE9DA !important; background: #F3FAF6; }

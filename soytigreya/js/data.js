@@ -238,3 +238,8 @@ const TURNOS_DEMO = [
   { hora: '10:30', nombre: 'Ana R.', tramite: 'medico' },
   { hora: '11:00', nombre: 'Pablo D.', tramite: 'tasas' },
 ];
+
+// ---------- Feedback de quienes ven el prototipo (se guarda en Supabase) ----------
+// Si url o key están vacíos, el feedback queda guardado solo en el navegador.
+// Tabla soytigreya_feedback en el proyecto Supabase de Reparto (solo permite agregar). La clave publicable es pública por diseño.
+const FEEDBACK = { url: 'https://jzefklukeiyeokpomkiv.supabase.co', key: 'sb_publishable__fEK77Puwz9u-h_tEXPrzg_SJ_gxln_', tabla: 'soytigreya_feedback' };

@@ -257,6 +257,7 @@ function vPerfiles() {
       </button>`).join('')}</div>
     <div class="qr-entrada"><div class="qr" data-qr="https://mila-ops-ia.github.io/soytigreya"></div><div><b>📱 Abrila en tu celu</b><span class="muted">Escaneá el código o entrá a mila-ops-ia.github.io/soytigreya</span></div></div>
     <button class="btn claro metodo-btn" data-a="metodo">📋 Cómo lo diseñamos: la Diplomatura dentro de la app</button>
+    ${feedbackHtml()}
     <p class="muted chico centro">Prototipo académico de demostración: no se conecta con Mi Argentina ni con sistemas del municipio.<br>
       <button class="link" data-a="reiniciar">↺ Reiniciar los datos de la demo</button></p>
   </main>`;
@@ -1322,6 +1323,36 @@ function indicadoresRP() {
   return { tasa: tasa.toFixed(1).replace('.', ','), sinMed: Math.round((sinMed / totalCerr) * 100) };
 }
 
+// ---------- feedback de visitantes: 1 a 5 tigres, comentario y nombre ----------
+function fbEstado() { try { return JSON.parse(localStorage.getItem('soytigreya-feedback') || 'null'); } catch (e) { return null; } }
+function feedbackHtml() {
+  const hecho = fbEstado();
+  if (hecho && !S.fbOtra) {
+    return `<div class="card fb fb-ok"><b>¡Gracias, ${esc(hecho.nombre)}!</b><span class="muted">Tu opinión (${hecho.nota} de 5 tigres) ya llegó. Me ayuda a mejorar el prototipo.</span><button class="link" data-a="fbOtra">Dejar otra opinión</button></div>`;
+  }
+  const f = S.fb || { nota: 0, texto: '', nombre: '' };
+  const etiquetas = ['', 'No me convenció', 'Puede mejorar', 'Está bien', 'Me gustó', '¡Me encantó!'];
+  return `<div class="card fb">
+    <b>¿Qué te pareció el prototipo?</b>
+    <span class="muted">Tu opinión me ayuda a mejorarlo. Toma 30 segundos.</span>
+    <div class="fb-tigres" role="radiogroup" aria-label="Puntaje de 1 a 5 tigres">${[1, 2, 3, 4, 5].map((n) => `<button class="fb-tigre ${n <= f.nota ? 'on' : ''}" data-a="fbNota" data-v="${n}" role="radio" aria-checked="${n === f.nota}" aria-label="${n} de 5">🐾</button>`).join('')}</div>
+    <span class="fb-etq">${f.nota ? etiquetas[f.nota] : 'Elegí de 1 a 5 tigres'}</span>
+    <label class="fb-campo">Comentario (opcional)<textarea data-f="fbTxt" rows="3" maxlength="500" placeholder="¿Qué te gustó? ¿Qué cambiarías?">${esc(f.texto)}</textarea></label>
+    <label class="fb-campo">Tu nombre<input data-f="fbNombre" maxlength="60" placeholder="Nombre y apellido" value="${esc(f.nombre)}"></label>
+    <button class="btn" data-a="fbEnviar" ${S.fbEnviando ? 'disabled' : ''}>${S.fbEnviando ? 'Enviando…' : 'Enviar opinión'}</button>
+  </div>`;
+}
+async function fbMandar(dato) {
+  if (!FEEDBACK.url || !FEEDBACK.key) return 'local';
+  const r = await fetch(`${FEEDBACK.url}/rest/v1/${FEEDBACK.tabla}`, {
+    method: 'POST',
+    headers: { apikey: FEEDBACK.key, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+    body: JSON.stringify(dato),
+  });
+  if (!r.ok) throw new Error('No se pudo enviar');
+  return 'ok';
+}
+
 // ---------- contenidos de la Diplomatura en la app ----------
 function flashActiva(c) { return !!(c && c.flash && c.flash.hasta > Date.now()); }
 function restaFlash(c) { const m = Math.max(0, Math.round((c.flash.hasta - Date.now()) / 60000)); return `${Math.floor(m / 60)} h ${m % 60} min`; }
@@ -1488,6 +1519,20 @@ const ACT = {
     const msg = mientrasTanto(v) || `👋 Entraste como ${PERFILES.find((x) => x.id === v).nombre}.`;
     setTimeout(() => toast(msg), 150);
     window.scrollTo(0, 0);
+  },
+  fbNota(v) { S.fb = S.fb || { nota: 0, texto: '', nombre: '' }; S.fb.nota = Number(v); },
+  fbOtra() { S.fbOtra = true; S.fb = { nota: 0, texto: '', nombre: (fbEstado() || {}).nombre || '' }; },
+  fbEnviar() {
+    const f = S.fb || { nota: 0, texto: '', nombre: '' };
+    if (!f.nota) { toast('Elegí de 1 a 5 tigres.'); return false; }
+    if (!f.nombre.trim()) { toast('Escribí tu nombre para enviar la opinión.'); return false; }
+    const dato = { nota: f.nota, comentario: f.texto.trim().slice(0, 500) || null, nombre: f.nombre.trim().slice(0, 60), pagina: location.pathname };
+    S.fbEnviando = true; render();
+    fbMandar(dato).then(() => {
+      try { localStorage.setItem('soytigreya-feedback', JSON.stringify({ ...dato, t: Date.now() })); } catch (e) { /* sin almacenamiento */ }
+      S.fb = null; S.fbOtra = false; S.fbEnviando = false; render(); toast('¡Gracias! Tu opinión llegó.');
+    }).catch(() => { S.fbEnviando = false; render(); toast('No se pudo enviar. Revisá tu conexión y probá de nuevo.'); });
+    return false;
   },
   rpAbrir(pid) { S.rpForm = { pid, motivo: 'falta', texto: '', foto: null }; S.sheet = 'rp'; },
   rpMotivo(v) { S.rpForm.motivo = v; },
@@ -1770,6 +1815,7 @@ document.addEventListener('input', (e) => {
   if (f === 'recDir') { S.recForm.dir = e.target.value; save(); }
   if (f === 'recTxt') { S.recForm.texto = e.target.value; save(); }
   if (f === 'rpTxt' && S.rpForm) { S.rpForm.texto = e.target.value; save(); }
+  if (f === 'fbTxt' || f === 'fbNombre') { S.fb = S.fb || { nota: 0, texto: '', nombre: '' }; S.fb[f === 'fbTxt' ? 'texto' : 'nombre'] = e.target.value; save(); }
   if (f === 'patente') { S.usuario.patente = e.target.value.toUpperCase().replace(/\s/g, ''); save(); }
 });
 
