@@ -1026,3 +1026,8 @@ html, body, .shell, .shell.phone, .shell.wide { background: var(--fondo-b); }
 .ubic-btn.claro { background: #fff; color: #1F6FB2; }
 .ubic-tip { font-size: .72rem; color: var(--muted); margin: 2px 2px 8px; }
 .benef-km { font-style: normal; font-weight: 600; color: var(--muted); }
+
+/* un solo estilo de íconos en toda la app: línea roja sobre blanco */
+.accesos span, .sal-esp button span, .dep-ico { background: #fff !important; color: #D02013 !important; border: 1.5px solid #F4CDC9; }
+.sal-esp button.on { border-color: #D02013; }
+.ing-logo { background: #fff !important; border-radius: 50% !important; padding: 6px; box-shadow: 0 6px 18px -8px rgba(208,32,19,.5) !important; width: 76px !important; height: 76px !important; }

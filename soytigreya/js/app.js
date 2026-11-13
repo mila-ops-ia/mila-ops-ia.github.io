@@ -265,7 +265,7 @@ function tigriSvg(cls = '') {
 // ---------- elegir perfil ----------
 function vPerfiles() {
   return `<main class="main perfiles">
-    <div class="ing-logo">🐯</div>
+    <div class="ing-logo">${tigriSvg()}</div>
     <h1>SoyTigre<span>Ya</span></h1>
     <p class="lead">Beneficios, compras en el barrio y trámites de Tigre en un solo lugar. Elegí con quién recorrerla.</p>
     <div class="perfiles-grid">${PERFILES.map((p) => `
@@ -971,6 +971,7 @@ function sheet() {
       <button class="btn grande" data-a="cambiarPerfil">🔄 Cambiar de perfil</button>
       <button class="btn grande claro" data-a="tourIniciar">▶ Ver el recorrido guiado</button></div>`;
   } else if (s === 'tigri') {
+    if (!S.chat.length) S.chat.push({ de: 'tg', html: saludo(), acciones: [] });
     return `<div class="velo" data-a="cerrarSheet"></div><div class="sheet chat" role="dialog" aria-label="Chat con Tigri">
       <div class="chat-cab"><span class="tg-avatar">${tigriSvg()}</span><div><b>Tigri</b><span class="muted">Cachorro de tigre y asistente de ${MARCA.app}</span></div><button class="cerrar" data-a="cerrarSheet" aria-label="Cerrar">✕</button></div>
       <div class="chat-msgs" id="chatMsgs">${S.chat.map(burbuja).join('')}</div>
@@ -1894,6 +1895,7 @@ const ACT = {
   benefRubro(v) { S.tab = 'beneficios'; S.sub = null; S.sheet = null; S.benef.rubro = v; },
   benefMapa() { S.tab = 'beneficios'; S.sub = null; S.sheet = null; S.benef.vista = 'mapa'; },
   verBenef(v) { S.benefSel = Number(v); S.sheet = 'benef'; },
+  verBenefNom(v) { const i = BENEFICIOS.findIndex((b) => b.nombre === v); if (i >= 0) { S.benefSel = i; S.sheet = 'benef'; } },
   mas(pid) {
     const c = S.comercios.find((x) => x.productos.some((p) => p.id === pid));
     if (S.carrito && S.carrito.cid !== c.id) {

@@ -343,8 +343,8 @@ const COLONIA = { titulo: 'Colonia de verano 2027', texto: 'Del 5 de enero al 26
 // Espacios para comercios adheridos y campañas del municipio. Siempre rotulados como publicidad.
 const PUBLICIDADES = [
   { id: 'p1', tipo: 'Campaña municipal', titulo: 'Vacunación antirrábica gratuita', texto: 'Este sábado en el Polideportivo Sarmiento, de 9 a 13 h.', color: '#1F6F5C', emoji: '🐶', a: 'serv', v: 'agenda', foto: 'perro' },
-  { id: 'p2', tipo: 'Publicidad', titulo: 'Hostería Isla Verde', texto: 'Escapada al Delta con 20% Soy Tigre reservando por la app.', color: '#2E5E4E', emoji: '🏝️', a: 'abrir', v: 'c18', foto: 'delta' },
-  { id: 'p3', tipo: 'Publicidad', titulo: 'Gimnasio Activo Talar', texto: 'Primera clase gratis reservando por la app.', color: '#2F3A56', emoji: '🏋️', a: 'abrir', v: 'c13', foto: 'gym' },
+  { id: 'p2', tipo: 'Beneficio Soy Tigre', titulo: 'Parque de la Costa', texto: 'Hasta 50% en entradas con tu credencial.', color: '#1F5F99', emoji: '🎢', a: 'verBenefNom', v: 'Parque de la Costa', foto: 'r-parque' },
+  { id: 'p3', tipo: 'Beneficio Soy Tigre', titulo: 'Jumbo Nordelta y Novo Pacheco', texto: 'Lunes y jueves, 10% de descuento.', color: '#2F3A56', emoji: '🛒', a: 'verBenefNom', v: 'Jumbo Nordelta', foto: 'r-super' },
   { id: 'p4', tipo: 'Campaña municipal', titulo: 'Colonia de verano 2027', texto: 'Inscripción abierta hasta el 20 de diciembre.', color: '#C2410C', emoji: '☀️', a: 'sub', v: 'deportes' },
 ];
 
