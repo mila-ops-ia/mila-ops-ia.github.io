@@ -213,7 +213,7 @@ function render() {
   S.rol = perf.vista === 'vecino' ? 'vecino' : perf.vista === 'comercio' ? 'comercio' : 'municipio';
   app.className = 'shell ' + (S.rol === 'vecino' ? 'phone' : 'wide') + (S.tour ? ' en-tour' : '');
   const vista = perf.vista === 'vecino' ? vecino() : perf.vista === 'comercio' ? panelComercio() : perf.vista === 'atencion' ? vAtencion() : vEconomia();
-  const fab = S.rol === 'vecino' && !S.tour && !(S.abierto && S.carrito) && !(S.tab === 'inicio' && !S.sub) ? `<button class="fab" data-a="sheet" data-v="tigri" aria-label="Hablar con Tigri">${!S.tigriVisto && S.tab === 'inicio' && !S.sub ? '<span class="fab-globo">¡Hola! ¿Te ayudo?</span>' : ''}${tigriSvg()}</button>` : '';
+  const fab = S.rol === 'vecino' && !S.tour && !(S.abierto && S.carrito) && !(S.tab === 'inicio' && !S.sub) && !S.sub ? `<button class="fab" data-a="sheet" data-v="tigri" aria-label="Hablar con Tigri">${!S.tigriVisto && S.tab === 'inicio' && !S.sub ? '<span class="fab-globo">¡Hola! ¿Te ayudo?</span>' : ''}${tigriSvg()}</button>` : '';
   app.innerHTML = topbar(perf) + `<main class="main">${vista}</main>` + (S.rol === 'vecino' ? navVecino() + fab : '') + tourCard() + sheet();
   after();
   save();
@@ -499,6 +499,7 @@ function sReciclar() {
       <p class="muted">Tenés ${S.puntos.saldo.toLocaleString('es-AR')} puntos.</p><button class="btn" data-a="sub" data-v="puntos">Ver mis puntos</button></div>`;
   }
   return `<p class="muted sub">En cada punto verde hay un código QR. Escanealo al dejar tus residuos separados y sumás ${PUNTOS.reciclar} puntos.</p>
+  ${cercaHtml('reciclar', 'Puntos verdes cerca tuyo', 2)}
   <div class="card escaner"><span class="grande-emoji">📷</span><p><b>Escaneá el QR del punto verde</b></p><p class="muted chico">Demostración: elegí el punto verde para simular el escaneo.</p></div>
   <div class="lista">${PUNTOS_VERDES.map((v) => `<button class="fila" data-a="reciclar" data-v="${v}"><span class="ico">♻️</span><div><b>${v}</b><p class="muted">Plástico, cartón, vidrio y latas</p></div><span class="tag-mini">+${PUNTOS.reciclar}</span></button>`).join('')}</div>`;
 }
@@ -631,7 +632,8 @@ function vTurnos() {
     <p class="muted">Horario</p>
     <div class="chips">${horas.map((h, i) => { const tomado = i % 4 === ocupadas; return `<button class="chip ${f.hora === h ? 'on' : ''}" ${tomado ? 'disabled' : ''} data-a="horaTurno" data-v="${h}">${h}</button>`; }).join('')}</div>
     <button class="btn" data-a="pedirTurno" ${f.hora ? '' : 'disabled'}>Confirmar turno</button>
-  </div>`;
+  </div>
+  ${cercaHtml('tramites', 'Dónde atendemos', 3)}`;
 }
 
 function vReclamos() {
@@ -708,7 +710,7 @@ function sEstac() {
       <p class="muted">Estacionado en</p><b>${z.nombre}</b><p class="muted">Patente ${esc(e.activo.patente)} · desde las ${hora(e.activo.inicio)}</p>
       <div class="estac-num"><span id="estacT">00:00</span><span id="estacC">${plata(0)}</span></div>
       <button class="btn grande rojo-btn" data-a="finEstac">Terminar estacionamiento</button></div>`
-    : `<div class="card form">
+    : `${cercaHtml('estacionamiento', 'Zonas de estacionamiento medido', 3)}<div class="card form">
       <label>Zona<select data-f="zona">${ZONAS_ESTAC.map((x) => `<option value="${x.id}" ${e.zona === x.id ? 'selected' : ''}>${x.nombre} · ${plata(x.tarifa)}/h</option>`).join('')}</select></label>
       <label>Patente<input data-f="patente" value="${esc(S.usuario.patente)}" maxlength="7"></label>
       <button class="btn grande" data-a="iniEstac">Empezar a estacionar</button>
@@ -764,7 +766,7 @@ function sColectivos() {
 function sFarmacias() {
   const dia = Math.floor(Date.now() / 864e5);
   const lista = FARMACIAS.map((f, i) => ({ ...f, turno: (dia + i) % 3 === 0 })).sort((a, b) => (b.turno - a.turno) || (b.loc === S.usuario.loc) - (a.loc === S.usuario.loc));
-  return `<p class="muted sub">Hoy, ${new Date().toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' })}</p>
+  return `<p class="muted sub">Hoy, ${new Date().toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' })}. En rojo, las de turno.</p>${cercaHtml('farmacias', 'Farmacias cerca tuyo', 3)}<h2>Todas</h2>
   <div class="lista">${lista.map((f) => `<div class="fila"><span class="ico">💊</span><div><b>${f.nombre}</b><p class="muted">${f.dir} · ${f.loc}</p>${f.turno ? '<span class="pill listo">De turno las 24 h</span>' : ''}</div><a class="link" href="tel:${f.tel.replace(/\D/g, '')}">Llamar</a></div>`).join('')}</div>`;
 }
 
@@ -790,7 +792,7 @@ function sDeportes() {
     <h2>Escuelas deportivas</h2>
     <div class="chips">${['todas', ...discs].map((d) => `<button class="chip ${f === d ? 'on' : ''}" data-a="depDisc" data-v="${d}">${d === 'todas' ? 'Todas' : d}</button>`).join('')}</div>
     <div class="dep-lista">${acts.filter((a) => !S.inscrip.includes(a.id)).map(tarjeta).join('') || '<p class="muted">Ya estás anotada en todas las de esta disciplina.</p>'}</div>`
-  : `<div class="dep-lista">${POLIDEPORTIVOS.map((p) => `<div class="dep-act">
+  : `${cercaHtml('deportes', 'Polideportivos cerca tuyo')}<h2>Qué hay en cada uno</h2><div class="dep-lista">${POLIDEPORTIVOS.map((p) => `<div class="dep-act">
       <span class="dep-ico">${p.emoji}</span>
       <div class="dep-txt"><b>${p.nombre}</b><span>${p.loc} · ${p.nota}</span><div class="dep-tags">${p.disc.map((d) => `<em>${d}</em>`).join('')}</div></div></div>`).join('')}</div>
     <p class="muted chico">Se muestran 7 de los 18 polideportivos. Horarios y cupos de demostración.</p>`}`;
@@ -847,7 +849,7 @@ function sSalud() {
   const seg = `<div class="seg">${[['turno', 'Sacar turno'], ['mios', `Mis turnos${H.mios.length ? ` (${H.mios.length})` : ''}`], ['centros', 'Centros']].map(([id, x]) => `<button class="${tab === id ? 'on' : ''}" data-a="saludTab" data-v="${id}">${x}</button>`).join('')}</div>`;
   const urg = `<div class="sal-urg"><div><b>¿Es una urgencia?</b><span>Guardia 24 h en los 3 HDI y en el Materno Infantil.</span></div><a class="sal-tel" href="tel:${SALUD_INFO.emergencias}">📞 ${SALUD_INFO.emergencias}</a></div>`;
   if (tab === 'centros') {
-    return `${urg}${seg}<div class="dep-lista">${CENTROS_SALUD.map((c) => `<div class="dep-act"><span class="dep-ico">🏥</span><div class="dep-txt"><b>${c.nombre}</b><span>${c.tipo} · ${c.loc}</span><div class="dep-tags">${c.guardia ? '<em class="guardia">Guardia 24 h</em>' : ''}${c.esp.map((e) => `<em>${e}</em>`).join('')}</div></div></div>`).join('')}</div>
+    return `${urg}${seg}${cercaHtml('salud', 'Centros cerca tuyo')}<h2>Toda la red</h2><div class="dep-lista">${CENTROS_SALUD.map((c) => `<div class="dep-act"><span class="dep-ico">🏥</span><div class="dep-txt"><b>${c.nombre}</b><span>${c.tipo} · ${c.loc}</span><div class="dep-tags">${c.guardia ? '<em class="guardia">Guardia 24 h</em>' : ''}${c.esp.map((e) => `<em>${e}</em>`).join('')}</div></div></div>`).join('')}</div>
     <p class="muted chico">Red municipal: 3 Hospitales de Diagnóstico Inmediato, Materno Infantil, hospitales especializados y 23 CAFyS. Turnos también por teléfono al ${SALUD_INFO.turnosTel}.</p>`;
   }
   if (tab === 'mios') {
@@ -1237,10 +1239,61 @@ function vEconomia() {
   </div>`;
 }
 
+// ---------- Lugares cercanos: un solo componente de mapa + lista por distancia ----------
+// Ubicación del vecino: demo cerca de su localidad. Las ubicaciones de los lugares son aproximadas.
+function miPos() { return cerca(S.usuario.loc, 3); }
+function distKm(a, b) {
+  const R = 6371, r = Math.PI / 180;
+  const dLa = (b[0] - a[0]) * r, dLo = (b[1] - a[1]) * r;
+  const h = Math.sin(dLa / 2) ** 2 + Math.cos(a[0] * r) * Math.cos(b[0] * r) * Math.sin(dLo / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(h));
+}
+const kmTxt = (d) => (d < 1 ? `${Math.round(d * 10) * 100} m` : `${d.toFixed(1).replace('.', ',')} km`);
+function lugares(tipo) {
+  if (tipo === 'salud') {
+    const hosp = CENTROS_SALUD.filter((c) => c.id !== 'cafys').map((c, i) => ({ nombre: c.nombre, sub: c.guardia ? 'Guardia 24 h' : c.tipo, pos: cerca(c.loc, i + 41), emoji: '🏥', color: c.guardia ? '#D02013' : '#0E7C86' }));
+    const cafys = LOCALIDADES.map((l, i) => ({ nombre: `CAFyS ${l}`, sub: 'Centro de Atención Familiar y de Salud', pos: cerca(l, i + 61), emoji: '🩺', color: '#0E7C86' }));
+    return [...hosp, ...cafys];
+  }
+  if (tipo === 'deportes') return POLIDEPORTIVOS.map((p, i) => ({ nombre: p.nombre, sub: p.disc.join(' · '), pos: cerca(p.loc, i + 81), emoji: p.emoji, color: '#C2410C' }));
+  if (tipo === 'tramites') return [{ nombre: 'Municipalidad de Tigre', sub: 'Av. Cazón 1514 · Atención de 8 a 14 h', pos: cerca('Tigre Centro', 101), emoji: '🏛️', color: '#3A3F4D' },
+    ...LOCALIDADES.filter((l) => l !== 'Tigre Centro').map((l, i) => ({ nombre: `Delegación municipal ${l}`, sub: 'Trámites, tasas y licencias', pos: cerca(l, i + 103), emoji: '🏛️', color: '#3A3F4D' }))];
+  if (tipo === 'estacionamiento') return ZONAS_ESTAC.map((z, i) => ({ nombre: z.nombre, sub: `${plata(z.tarifa)} por hora · lunes a sábado de 8 a 20`, pos: z.id === 'C' ? cerca('General Pacheco', 121) : cerca('Tigre Centro', 121 + i * 2), emoji: '🚗', color: '#1F5F99', accion: { a: 'zonaEstac', v: z.id, t: 'Estacionar acá' } }));
+  if (tipo === 'farmacias') { const dia = Math.floor(Date.now() / 864e5); return FARMACIAS.map((f, i) => { const turno = (dia + i) % 3 === 0; return { nombre: f.nombre, sub: `${f.dir}${turno ? ' · De turno 24 h' : ''}`, pos: cerca(f.loc, i + 141), emoji: '💊', color: turno ? '#D02013' : '#0E7C86', tel: f.tel }; }); }
+  if (tipo === 'reciclar') return PUNTOS_VERDES.map((n, i) => { const loc = LOCALIDADES.find((l) => n.includes(l)) || 'Tigre Centro'; return { nombre: n.replace(/ \(.*\)/, ''), sub: 'Plásticos, papel, vidrio y latas', pos: cerca(loc, i + 161), emoji: '♻️', color: '#1B7A47' }; });
+  return [];
+}
+function cercaHtml(tipo, titulo = 'Cerca tuyo', max = 4) {
+  const yo = miPos();
+  const ls = lugares(tipo).map((l) => ({ ...l, d: distKm(yo, l.pos) })).sort((a, b) => a.d - b.d);
+  return `<div class="cerca-box">
+    <div class="h2-fila"><h2>${titulo}</h2><span class="muted chico">📍 ${esc(S.usuario.loc)}</span></div>
+    <div class="mapa-cerca" data-map="lugares" data-tipo="${tipo}"></div>
+    <div class="cerca-lista">${ls.slice(0, S.cercaTodos === tipo ? 99 : max).map((l) => `<div class="cerca-fila">
+      <span class="cerca-pin" style="background:${l.color}">${l.emoji}</span>
+      <div class="dep-txt"><b>${esc(l.nombre)}</b><span>${esc(l.sub)}</span></div>
+      <div class="cerca-der"><b>${kmTxt(l.d)}</b>${l.accion ? `<button class="mini-btn" data-a="${l.accion.a}" data-v="${l.accion.v}">${l.accion.t}</button>` : `<a class="ir" href="https://www.google.com/maps/dir/?api=1&destination=${l.pos[0].toFixed(5)},${l.pos[1].toFixed(5)}" target="_blank" rel="noopener">Cómo llegar</a>`}</div>
+    </div>`).join('')}</div>
+    ${ls.length > max && S.cercaTodos !== tipo ? `<button class="link ver-mas" data-a="cercaTodos" data-v="${tipo}">Ver los ${ls.length}</button>` : ''}
+  </div>`;
+}
+
 // ---------- mapas (Leaflet + OpenStreetMap) ----------
 let mapas = [];
 const pin = (emoji) => L.divIcon({ html: `<span>${emoji}</span>`, className: 'pin', iconSize: [30, 30], iconAnchor: [15, 28] });
 const MAPAS = {
+  lugares(m, el) {
+    const yo = miPos();
+    const ls = lugares(el.dataset.tipo);
+    L.circleMarker(yo, { radius: 8, color: '#fff', weight: 3, fillColor: '#1F6FB2', fillOpacity: 1 }).addTo(m).bindPopup('Estás acá (ubicación de demostración)');
+    ls.forEach((l) => {
+      const ir = l.accion ? `<button class="link" data-a="${l.accion.a}" data-v="${l.accion.v}">${l.accion.t}</button>` : `<a href="https://www.google.com/maps/dir/?api=1&destination=${l.pos[0].toFixed(5)},${l.pos[1].toFixed(5)}" target="_blank" rel="noopener">Cómo llegar</a>`;
+      L.circleMarker(l.pos, { radius: 9, color: '#fff', weight: 2, fillColor: l.color, fillOpacity: 1 }).addTo(m)
+        .bindPopup(`<b>${esc(l.nombre)}</b><br>${esc(l.sub)}<br>${kmTxt(distKm(yo, l.pos))} · ${ir}`);
+    });
+    const cercanos = ls.map((l) => l.pos).sort((a, b) => distKm(yo, a) - distKm(yo, b)).slice(0, 3);
+    m.fitBounds(L.latLngBounds([yo, ...cercanos]).pad(0.35), { maxZoom: 15 });
+  },
   beneficios(m) {
     const lista = listaBeneficios();
     lista.forEach((b) => {
@@ -1277,7 +1330,7 @@ function initMaps() {
     const m = L.map(el, { scrollWheelZoom: false, attributionControl: true });
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap' }).addTo(m);
     mapas.push(m);
-    MAPAS[el.dataset.map](m);
+    MAPAS[el.dataset.map](m, el);
   });
 }
 
@@ -1791,6 +1844,8 @@ const ACT = {
   },
   desinscribir(v) { S.inscrip = (S.inscrip || []).filter((x) => x !== v); toast('Cancelaste la inscripción.'); },
   buscando() { S.buscando = !S.buscando; if (!S.buscando) S.busca = ''; setTimeout(() => { const b = document.querySelector('.buscar'); if (b) b.focus(); }, 30); },
+  cercaTodos(v) { S.cercaTodos = v; },
+  zonaEstac(v) { S.estac.zona = v; toast('Elegiste ' + ZONAS_ESTAC.find((z) => z.id === v).nombre + '. Confirmá la patente y empezá.'); setTimeout(() => { const b = document.querySelector('[data-a=iniEstac]'); if (b) b.scrollIntoView({ block: 'center', behavior: 'smooth' }); }, 60); },
   letra() { S.letra = !S.letra; },
   voltear(v, el) { el.classList.toggle('dada'); return false; },
   tab(v) { S.tab = v; S.abierto = null; S.sub = null; S.sheet = null; window.scrollTo(0, 0); },

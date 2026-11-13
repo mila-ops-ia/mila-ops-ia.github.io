@@ -951,3 +951,27 @@ html, body, .shell, .shell.phone, .shell.wide { background: var(--fondo-b); }
 .hola-acc { display: flex; gap: 8px; align-items: center; }
 .tigri-hola { display: flex; align-items: center; gap: 6px; height: 42px; padding: 0 14px 0 4px; border-radius: 21px; background: #fff; font-weight: 700; font-size: .85rem; }
 .tigri-hola .tigri-svg { width: 34px; height: 34px; }
+
+/* =====================================================================
+   v17 · Lugares cercanos: mapa + lista por distancia, mismo diseño en todas las secciones
+   ===================================================================== */
+.cerca-box { background: #fff; border-radius: 20px; padding: 4px 14px 12px; margin: 14px 0 6px; }
+.cerca-box .h2-fila { margin-top: 8px; }
+.cerca-box h2 { margin: 10px 0 8px; }
+.mapa-cerca { height: 200px; border-radius: 14px; overflow: hidden; background: #E9EEE6; z-index: 0; }
+.cerca-lista { margin-top: 6px; }
+.cerca-fila { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--linea); }
+.cerca-fila:last-child { border-bottom: 0; }
+.cerca-pin { width: 38px; height: 38px; flex: none; border-radius: 12px; color: #fff; display: grid; place-items: center; }
+.cerca-pin svg { width: 19px; height: 19px; }
+.cerca-der { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; font-size: .78rem; }
+.cerca-der b { font-size: .85rem; }
+.ir { background: #17181C; color: #fff; text-decoration: none; font-weight: 700; font-size: .74rem; padding: 6px 11px; border-radius: 16px; white-space: nowrap; }
+.cerca-der .mini-btn { background: #1F5F99; color: #fff; font-weight: 700; font-size: .74rem; padding: 6px 11px; border-radius: 16px; white-space: nowrap; }
+.ver-mas { display: block; margin: 6px auto 0; font-weight: 700; color: #D02013; }
+.leaflet-popup-content a { color: #D02013; font-weight: 700; }
+
+/* encabezado de secciones: volver grande y claro, para todo el mundo */
+.volver { display: inline-flex; align-items: center; gap: 4px; background: #fff; color: #17181C !important; border-radius: 20px; padding: 8px 14px 8px 10px !important; margin: 8px 0 4px; font-size: .9rem; }
+.titulo { font-size: 1.5rem; margin-top: 8px; }
+.sub { font-size: .88rem; line-height: 1.45; }
