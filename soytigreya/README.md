@@ -48,6 +48,7 @@ El botón **"▶ Ver el recorrido guiado"** muestra, en 10 pasos, cómo un pedid
 ## Documentos
 
 - **[Presentación interactiva (10 diapositivas)](https://mila-ops-ia.github.io/soytigreya/presentacion/)**: con calculadora de impacto, doble diamante, Lean Canvas y la app embebida. Flechas para avanzar, N para notas y F para pantalla completa.
+- [Todos los enlaces en una página](https://mila-ops-ia.github.io/soytigreya/enlaces.html) ([PDF](documentos/Enlaces%20-%20SoyTigreYa.pdf))
 - [Presentación en PDF](documentos/Presentacion%20-%20SoyTigreYa.pdf)
 - [Trabajo Final Integrador (PDF)](documentos/Trabajo%20Final%20Integrador%20-%20SoyTigreYa.pdf)
 - [Trabajo Final Integrador (Word)](documentos/Trabajo%20Final%20Integrador%20-%20SoyTigreYa.docx)

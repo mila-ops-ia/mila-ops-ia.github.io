@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>SoyTigreYa · Todos los enlaces</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root { --rojo: #D02013; --rojo-o: #9E180E; --tinta: #17181C; --muted: #5F6370; --fondo: #F2F2F4; --linea: #E3E5EA; --celeste: #3BA3D9; }
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { font-family: 'Montserrat', Arial, sans-serif; background: var(--fondo); color: var(--tinta); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+a { color: inherit; text-decoration: none; }
+.hoja { max-width: 1180px; margin: 0 auto; padding: 0 0 28px; }
+.cab { background: var(--rojo); color: #fff; border-radius: 0 0 28px 28px; padding: 30px 40px 34px; position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr auto; gap: 30px; align-items: center; }
+.cab::after { content: ''; position: absolute; right: -60px; bottom: -70px; width: 420px; height: 200px; background: linear-gradient(115deg, transparent 40%, rgba(59,163,217,.45) 40%, rgba(59,163,217,.45) 58%, transparent 58%, transparent 66%, rgba(255,255,255,.16) 66%, rgba(255,255,255,.16) 80%, transparent 80%); }
+.cab > * { position: relative; z-index: 1; }
+.marca { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 18px; letter-spacing: .02em; }
+.marca span { font-weight: 500; opacity: .85; }
+.logo { width: 46px; height: 46px; border-radius: 50%; background: #fff; padding: 3px; flex: none; }
+.ceja { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; opacity: .85; margin: 22px 0 6px; }
+h1 { font-size: 46px; line-height: 1.02; margin: 0; font-weight: 800; letter-spacing: -.02em; }
+.sub { font-size: 17px; margin: 10px 0 0; max-width: 620px; opacity: .95; }
+.qr { background: #fff; border-radius: 18px; padding: 12px; text-align: center; color: var(--tinta); width: 190px; }
+.qr img { width: 100%; display: block; }
+.qr b { display: block; font-size: 13px; margin-top: 6px; }
+.grilla { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding: 22px 24px 0; }
+.bloque { background: #fff; border-radius: 20px; padding: 18px 18px 14px; display: flex; flex-direction: column; }
+.bloque.ancho { grid-column: span 2; }
+.bloque h2 { font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--rojo); margin: 0 0 10px; display: flex; align-items: center; gap: 8px; }
+.bloque h2 .n { width: 22px; height: 22px; border-radius: 50%; background: var(--rojo); color: #fff; display: grid; place-items: center; font-size: 11px; letter-spacing: 0; }
+.enl { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--linea); }
+.enl:last-child { border-bottom: 0; }
+.enl:hover b { color: var(--rojo); }
+.ico { width: 38px; height: 38px; flex: none; border-radius: 12px; display: grid; place-items: center; font-weight: 800; font-size: 13px; color: #fff; }
+.txt { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.txt b { font-size: 15px; }
+.txt small { font-size: 12px; color: var(--muted); overflow-wrap: anywhere; }
+.flecha { color: var(--rojo); font-weight: 800; }
+.destacado { background: var(--tinta); color: #fff; }
+.destacado h2 { color: #FF8F84; }
+.destacado .enl { border-color: rgba(255,255,255,.12); }
+.destacado .txt small { color: rgba(255,255,255,.7); }
+.app-grande { display: flex; flex-direction: column; gap: 6px; padding: 6px 0 12px; }
+.app-grande b { font-size: 26px; font-weight: 800; letter-spacing: -.01em; }
+.app-grande small { font-size: 13px; color: rgba(255,255,255,.75); }
+.btn { align-self: flex-start; background: var(--rojo); color: #fff; font-weight: 700; font-size: 14px; padding: 10px 18px; border-radius: 22px; margin-top: 8px; }
+.pie { padding: 18px 28px 0; font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.pie b { color: var(--rojo); }
+.c-l { background: #D02013; } .c-r { background: #B5541C; } .c-c { background: #515769; } .c-m { background: #3A3F4D; }
+.c-t { background: #1F6FB2; } .c-d { background: #17181C; } .c-g { background: #2E7D4F; }
+@media (max-width: 900px) {
+  .cab { grid-template-columns: 1fr; padding: 24px 22px 28px; }
+  .qr { width: 160px; }
+  h1 { font-size: 34px; }
+  .grilla { grid-template-columns: 1fr; padding: 16px; }
+  .bloque.ancho { grid-column: auto; }
+}
+@page { size: A4 landscape; margin: 0; }
+@media print {
+  body { background: var(--fondo); }
+  .hoja { max-width: none; width: 100%; padding: 0; }
+  .cab { grid-template-columns: 1fr auto; padding: 16px 28px 20px; border-radius: 0 0 20px 20px; }
+  .ceja { margin: 10px 0 4px; font-size: 10px; } h1 { font-size: 30px; } .sub { font-size: 12.5px; margin-top: 6px; }
+  .qr { width: 128px; padding: 8px; } .qr b { font-size: 11px; }
+  .grilla { grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 12px 16px 0; }
+  .bloque { padding: 11px 14px 6px; border-radius: 14px; } .bloque.ancho { grid-column: span 2; }
+  .bloque h2 { font-size: 10px; margin-bottom: 4px; }
+  .enl { padding: 5px 0; gap: 9px; } .ico { width: 28px; height: 28px; font-size: 10px; border-radius: 9px; }
+  .txt b { font-size: 12px; } .txt small { font-size: 9.5px; }
+  .app-grande { padding: 2px 0 6px; } .app-grande b { font-size: 20px; } .app-grande small { font-size: 10px; } .btn { font-size: 11px; padding: 6px 12px; margin-top: 4px; }
+  .pie { padding: 8px 20px 0; font-size: 9.5px; }
+  .bloque p { font-size: 9.5px !important; }
+}
+</style>
+</head>
+<body>
+<div class="hoja">
+  <header class="cab">
+    <div>
+      <div class="marca"><svg class="logo" viewBox="0 0 100 100" aria-hidden="true"><circle cx="23" cy="27" r="14" fill="#E2701A"/><circle cx="77" cy="27" r="14" fill="#E2701A"/><circle cx="23" cy="28" r="7.5" fill="#FFC6B3"/><circle cx="77" cy="28" r="7.5" fill="#FFC6B3"/><ellipse cx="50" cy="57" rx="41" ry="36" fill="#F28C28"/><path d="M50 21 l-5 11 h10z M38 24 l-1 10 l-5 -7z M62 24 l1 10 l5 -7z" fill="#3A2414"/><ellipse cx="50" cy="72" rx="21" ry="15" fill="#FFF4E6"/><ellipse cx="35" cy="54" rx="6.5" ry="7.5" fill="#2B1A10"/><ellipse cx="65" cy="54" rx="6.5" ry="7.5" fill="#2B1A10"/><circle cx="37.5" cy="51" r="2.4" fill="#fff"/><circle cx="67.5" cy="51" r="2.4" fill="#fff"/><path d="M44.5 64.5 q5.5 -3.5 11 0 q-1.5 5 -5.5 6 q-4 -1 -5.5 -6z" fill="#C2456A"/><path d="M50 70.5 v3 M50 73.5 q-5 4.5 -9 0.5 M50 73.5 q5 4.5 9 0.5" stroke="#3A2414" stroke-width="2" fill="none" stroke-linecap="round"/></svg><b>SOYTIGRE<span>YA</span></b></div>
+      <p class="ceja">Trabajo Final Integrador · Diplomatura en Negocios Digitales e Innovación</p>
+      <h1>Todo el proyecto,<br>en un solo lugar</h1>
+      <p class="sub">La app funcionando, los cuatro perfiles, los recorridos guiados, la presentación y los documentos. Tocá cualquier tarjeta para abrirla.</p>
+    </div>
+    <a class="qr" href="https://mila-ops-ia.github.io/soytigreya/"><img src="img/qr-soytigreya.png" alt="QR para abrir la app"><b>Escaneá y probala</b></a>
+  </header>
+
+  <main class="grilla">
+    <section class="bloque destacado">
+      <h2><span class="n">1</span>La app</h2>
+      <a class="app-grande" href="https://mila-ops-ia.github.io/soytigreya/"><b>SoyTigreYa</b><small>mila-ops-ia.github.io/soytigreya</small><span class="btn">Abrir la app ›</span></a>
+      <a class="enl" href="https://mila-ops-ia.github.io/soytigreya/presentacion/"><span class="ico c-l">▶</span><span class="txt"><b>Presentación interactiva</b><small>10 diapositivas · flechas para avanzar, N notas, F pantalla completa</small></span><span class="flecha">›</span></a>
+    </section>
+
+    <section class="bloque">
+      <h2><span class="n">2</span>Entrar con un perfil</h2>
+      <a class="enl" href="https://mila-ops-ia.github.io/soytigreya/?perfil=lucia"><span class="ico c-l">L</span><span class="txt"><b>Lucía · Vecina</b><small>Tarjeta, beneficios, compras, trámites, salud, deporte y empleo</small></span><span class="flecha">›</span></a>
+      <a class="enl" href="https://mila-ops-ia.github.io/soytigreya/?perfil=rosa"><span class="ico c-r">R</span><span class="txt"><b>Rosa · Comercio</b><small>Pedidos, Mi local, cobros y Plan Destacado</small></span><span class="flecha">›</span></a>
+      <a class="enl" href="https://mila-ops-ia.github.io/soytigreya/?perfil=carlos"><span class="ico c-c">C</span><span class="txt"><b>Carlos · Atención al Vecino</b><small>Reclamos por urgencia, cuadrillas y mapa de calor</small></span><span class="flecha">›</span></a>
+      <a class="enl" href="https://mila-ops-ia.github.io/soytigreya/?perfil=marina"><span class="ico c-m">M</span><span class="txt"><b>Marina · Desarrollo Económico</b><small>Indicadores, números del programa y simulador</small></span><span class="flecha">›</span></a>
+    </section>
+
+    <section class="bloque">
+      <h2><span class="n">3</span>Recorridos guiados</h2>
+      <a class="enl" href="https://mila-ops-ia.github.io/soytigreya/?tour=compra"><span class="ico c-t">1</span><span class="txt"><b>Una compra y un reclamo</b><small>10 pasos · por los cuatro perfiles</small></span><span class="flecha">›</span></a>
+      <a class="enl" href="https://mila-ops-ia.github.io/soytigreya/?tour=vida"><span class="ico c-t">2</span><span class="txt"><b>La vida en Tigre</b><small>9 pasos · beneficios, salud, deporte y empleo</small></span><span class="flecha">›</span></a>
+      <a class="enl" href="https://mila-ops-ia.github.io/soytigreya/?tour=negocio"><span class="ico c-t">3</span><span class="txt"><b>Cómo se sostiene</b><small>7 pasos · comisión cero, Plan Destacado y los números</small></span><span class="flecha">›</span></a>
+    </section>
+
+    <section class="bloque ancho">
+      <h2><span class="n">4</span>Documentos</h2>
+      <a class="enl" href="https://mila-ops-ia.github.io/soytigreya/documentos/Trabajo%20Final%20Integrador%20-%20SoyTigreYa.pdf"><span class="ico c-d">PDF</span><span class="txt"><b>Trabajo Final Integrador</b><small>Propuesta completa, plan, números y anexos con herramientas y capturas</small></span><span class="flecha">›</span></a>
+      <a class="enl" href="https://mila-ops-ia.github.io/soytigreya/documentos/Trabajo%20Final%20Integrador%20-%20SoyTigreYa.docx"><span class="ico c-t">DOC</span><span class="txt"><b>Trabajo Final Integrador (Word)</b><small>La misma versión, editable</small></span><span class="flecha">›</span></a>
+      <a class="enl" href="https://mila-ops-ia.github.io/soytigreya/documentos/Presentacion%20-%20SoyTigreYa.pdf"><span class="ico c-l">PDF</span><span class="txt"><b>Presentación en PDF</b><small>Las 10 diapositivas para imprimir o enviar</small></span><span class="flecha">›</span></a>
+      <a class="enl" href="https://mila-ops-ia.github.io/soytigreya/documentos/Instructivos%20de%20uso%20-%20SoyTigreYa.pdf"><span class="ico c-g">PDF</span><span class="txt"><b>Instructivos de uso</b><small>Guía paso a paso para cada perfil · 14 páginas</small></span><span class="flecha">›</span></a>
+    </section>
+
+    <section class="bloque">
+      <h2><span class="n">5</span>Código y fuentes</h2>
+      <a class="enl" href="https://github.com/mila-ops-ia/mila-ops-ia.github.io/tree/main/soytigreya"><span class="ico c-d">&lt;/&gt;</span><span class="txt"><b>Repositorio en GitHub</b><small>Código, README, fuentes oficiales y créditos de las fotos</small></span><span class="flecha">›</span></a>
+      <p style="font-size:12px;color:var(--muted);margin:10px 0 0;line-height:1.5">Los beneficios Soy Tigre, hospitales, polideportivos y programas de empleo son datos reales publicados por el Municipio y medios locales. Pedidos, montos y proyecciones son de demostración.</p>
+    </section>
+  </main>
+
+  <footer class="pie"><span><b>SoyTigreYa</b> · Milagros Belén Sanabria · mila·ops · UNDelta · 2026</span><span>Prototipo académico · No es una app oficial del Municipio de Tigre</span></footer>
+</div>
+</body>
+</html>
