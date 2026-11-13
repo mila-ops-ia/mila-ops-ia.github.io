@@ -975,3 +975,45 @@ html, body, .shell, .shell.phone, .shell.wide { background: var(--fondo-b); }
 .volver { display: inline-flex; align-items: center; gap: 4px; background: #fff; color: #17181C !important; border-radius: 20px; padding: 8px 14px 8px 10px !important; margin: 8px 0 4px; font-size: .9rem; }
 .titulo { font-size: 1.5rem; margin-top: 8px; }
 .sub { font-size: .88rem; line-height: 1.45; }
+
+/* =====================================================================
+   v18 · Más cerca de la app oficial (Tigre Municipio / Soy Tigre):
+   barra roja con marca en blanco, íconos de línea rojos, acento celeste.
+   ===================================================================== */
+:root { --celeste: #3BA3D9; }
+.top { background: #D02013 !important; border-bottom: 0; color: #fff; }
+.top .marca, .top .marca b, .top .marca b span { color: #fff !important; }
+.top .marca-sub { background: rgba(255,255,255,.18) !important; color: #fff !important; }
+.top .logo { background: #fff; padding: 2px; border-radius: 50%; width: 34px; height: 34px; }
+.top .campana { color: #fff; }
+.top .sos { background: #fff !important; color: #D02013 !important; box-shadow: none; }
+.top .quien .avatar-p { box-shadow: 0 0 0 2px #fff; }
+.top .quien-txt b, .top .quien-txt small { color: #fff; }
+.demo-banda { background: #9E180E; color: #fff; }
+.hola h1 { color: #17181C; }
+
+/* tarjeta con las franjas de la marca */
+.wfrente::before { content: ''; position: absolute; left: -40px; bottom: -60px; width: 200px; height: 120px; background: linear-gradient(115deg, transparent 40%, rgba(59,163,217,.45) 40%, rgba(59,163,217,.45) 58%, transparent 58%, transparent 66%, rgba(255,255,255,.18) 66%, rgba(255,255,255,.18) 80%, transparent 80%); }
+
+/* hub: íconos de línea rojos, como la app oficial */
+.hub span, .hub-r span, .hub-p span, .hub-s span, .hub-n span, .hub-a span { background: #fff !important; color: #D02013 !important; border: 1.5px solid #F4CDC9; }
+.hub span svg { stroke-width: 1.7; width: 25px; height: 25px; }
+.hub button { color: #17181C; }
+.bottom button.on span { color: #D02013; }
+
+/* beneficios en lista, estilo directorio oficial */
+.benef-lista { background: #fff; border-radius: 18px; padding: 2px 14px; margin-top: 12px; }
+.benef-fila { width: 100%; display: flex; gap: 12px; text-align: left; padding: 13px 0; border-bottom: 1px solid var(--linea); align-items: flex-start; }
+.benef-fila:last-child { border-bottom: 0; }
+.benef-foto { width: 64px; height: 64px; flex: none; border-radius: 12px; background: #FBE9E7 center/cover; color: #D02013; display: grid; place-items: center; }
+.benef-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.benef-info b { font-size: .9rem; text-transform: uppercase; letter-spacing: .01em; }
+.benef-dir { font-size: .74rem; color: var(--muted); }
+.benef-dias { font-size: .76rem; font-weight: 700; color: var(--celeste); margin-top: 3px; }
+.benef-txt { font-size: .8rem; color: #17181C; }
+.benef-det-foto { height: 150px; border-radius: 16px; background: center/cover; margin-bottom: 12px; }
+.benef-det .ir { display: inline-block; margin: 8px 0; }
+.aviso-demo { font-size: .76rem; background: #E8F4FB; color: #1C5A80; border-radius: 12px; padding: 9px 12px; margin: 8px 0 4px; }
+.aviso-demo .link { font-size: inherit; color: #1C5A80; text-decoration: underline; padding: 0; }
+.chip.on { background: #D02013 !important; color: #fff; }
+.benef-det-foto { width: 100%; align-self: stretch; display: block; }

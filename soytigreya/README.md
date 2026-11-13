@@ -101,9 +101,22 @@ Fotos de [Wikimedia Commons](https://commons.wikimedia.org), usadas según su li
 - Veterinaria: "Dog portrait with a veterinarian in blue uniform holding a stethoscope", Nenad Stojkovic, CC BY 2.0
 - Taller de soldadura: "Students practicing Welding at Workshop", Navinreddy23, CC BY-SA 3.0
 
+Fotos de rubros en Beneficios (ilustrativas del rubro, no del local):
+
+- Hamburguesa: "Homemade hamburger with french fries in Argentina", Horacio Cambeiro, CC BY-SA 3.0
+- Café con medialunas: "Café y medialunas en Buenos Aires", Ivanmartinez, CC BY-SA 3.0
+- Pet shop: "Pet goods shop - Arlington, MA", Daderot, CC0
+- Bicicletería: "U Wash bicycle shop 02A", Joe Mabel, CC BY-SA 3.0
+- Parque de la Costa: "Montaña rusa en el Parque de la Costa", Dario Alpern, CC BY-SA 3.0
+- Restaurante junto al río: "J34 862 Restaurante Parrilla Fondeadero", Falk2, CC BY-SA 4.0
+- Supermercado: "Shelves of Progresso products at the Giant supermarket in Kingstowne", Ser Amantio di Nicolao, CC BY-SA 4.0
+- Cervecería: "Beer growler and personalized pub pint glasses (18496099018)", Personal Creations, CC BY 2.0
+
 ## Fuentes de las secciones nuevas
 
 - Deporte: red de 18 polideportivos municipales, Polideportivo Sarmiento con la pista de atletismo "Abel Acevedo", Ñato Errecart en Benavídez, Microestadio Ciudad de Benavídez y colonia de verano (notas de Parlamentario, Letra P y Canal 26, 2019-2026).
 - Trabajo y formación: Portal de Empleo del municipio (empleos.tigre.gob.ar), operativos Punto Empleo y Tigre Instituto Formativo con más de 870 cursos gratuitos (Parlamentario, 2026).
 - Salud: Hospitales de Diagnóstico Inmediato Valentín Nores, Eduardo Mocoroa y Floreal Ferrara, Hospital Materno Infantil Florencio Escardó, hospitales Cardiovascular, Oftalmológico y Odontológico y 23 CAFyS (Parlamentario 2026, Ministerio de Salud PBA).
 - Horarios, cupos, búsquedas laborales y especialidades por centro son datos de demostración.
+- Beneficios Soy Tigre: comercios, direcciones, días y descuentos reales tomados de tigre.gob.ar/novedades (supermercados 13/09/2024, mascotas 30/04/2024, gastronomía 28/07/2025), Parlamentario (27/03/2026), Zona Norte Hoy (farmacias, 18/10/2026) y capturas de la app Tigre Municipio. Pueden haber cambiado.
+- Comprar y reservar: los comercios de esa sección son de ejemplo, porque pedir por la app es una propuesta nueva del prototipo.

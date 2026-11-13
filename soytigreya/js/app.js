@@ -229,7 +229,7 @@ function topbar(perf) {
   const sinLeer = S.notifs.filter((n) => !n.leida).length;
   const sub = perf.vista === 'comercio' ? '<span class="marca-sub">Comercios</span>' : perf.vista === 'vecino' ? '' : '<span class="marca-sub">Panel municipal</span>';
   return `<header class="top">
-    <div class="marca"><span class="logo">🐯</span><b>SoyTigre<span>Ya</span></b>${sub}</div>
+    <div class="marca"><span class="logo">${tigriSvg()}</span><b>SoyTigre<span>Ya</span></b>${sub}</div>
     <div class="top-der">${perf.vista === 'vecino' ? `
       <button class="sos" data-a="sub" data-v="alerta" aria-label="Botón de alerta">🆘<b>Alerta</b></button>
       <button class="campana" data-a="notifs" aria-label="Notificaciones">🔔${sinLeer ? `<i>${sinLeer}</i>` : ''}</button>` : ''}
@@ -377,22 +377,24 @@ function listaBeneficios() {
   const f = S.benef;
   const fis = BENEFICIOS.map((b, i) => ({ ...b, i, pos: cerca(b.loc, i * 3 + 20), tipo: 'local' })).filter((b) => f.rubro === 'todas' || b.rubro === f.rubro);
   const app = S.comercios.filter((c) => f.rubro === 'todas' || c.cat === f.rubro).map((c) => ({ nombre: c.nombre, rubro: c.cat, loc: c.loc, emoji: c.emoji, texto: c.servicio ? `${c.desc}% reservando por la app` : `${c.desc}% pidiendo por la app`, pos: c.pos, tipo: 'app', id: c.id }));
-  return [...fis, ...app];
+  return fis;
 }
 
 function vBeneficios() {
   const f = S.benef;
   const lista = listaBeneficios();
-  const rubrosUsados = RUBROS.filter((r) => BENEFICIOS.some((b) => b.rubro === r.id) || S.comercios.some((c) => c.cat === r.id));
+  const rubrosUsados = RUBROS.filter((r) => BENEFICIOS.some((b) => b.rubro === r.id));
   return `
   <h1 class="titulo">Beneficios ${MARCA.tarjeta}</h1>
-  <p class="muted sub">Mostrá tu credencial en el local o pedí por la app: el descuento es el mismo.</p>
+  <p class="muted sub">Más de 500 comercios adheridos. Mostrá tu credencial en la caja antes de pagar.</p>
   <div class="seg"><button class="${f.vista === 'lista' ? 'on' : ''}" data-a="benefVista" data-v="lista">📋 Lista</button><button class="${f.vista === 'mapa' ? 'on' : ''}" data-a="benefVista" data-v="mapa">🗺️ Mapa</button></div>
   <div class="chips">${[{ id: 'todas', nombre: 'Todo', emoji: '✨' }, ...rubrosUsados].map((c) => `<button class="chip ${f.rubro === c.id ? 'on' : ''}" data-a="benefRubro" data-v="${c.id}">${c.emoji} ${c.nombre}</button>`).join('')}</div>
-  ${f.vista === 'mapa' ? '<div class="mapa" data-map="beneficios"></div><p class="muted chico">⚫ se usa en el local · 🔴 también pedís por la app</p>' : `
-  <div class="lista">${lista.map((b) => b.tipo === 'local'
-    ? `<button class="fila" data-a="verBenef" data-v="${b.i}"><span class="ico">${b.emoji}</span><div><b>${esc(b.nombre)}</b><p class="muted">${rubro(b.rubro).nombre} · ${b.loc}</p><p class="benef-txt">${esc(b.texto)}${b.dias ? ` · ${b.dias}` : ''}</p></div><span class="tag-mini">En el local</span></button>`
-    : `<button class="fila" data-a="abrir" data-v="${b.id}"><span class="ico">${b.emoji}</span><div><b>${esc(b.nombre)}</b><p class="muted">${rubro(b.rubro).nombre} · ${b.loc}</p><p class="benef-txt">${esc(b.texto)}</p></div><span class="tag-mini app">Por la app</span></button>`).join('')}</div>`}`;
+  ${f.vista === 'mapa' ? '<div class="mapa" data-map="beneficios"></div><p class="muted chico">Tocá un punto para ver el beneficio. Ubicaciones aproximadas.</p>' : `
+  <div class="benef-lista">${lista.map((b) => `<button class="benef-fila" data-a="verBenef" data-v="${b.i}">
+      <span class="benef-foto" style="${b.foto ? `background-image:url(${FOTO(b.foto)})` : ''}">${b.foto ? '' : b.emoji}</span>
+      <div class="benef-info"><b>${esc(b.nombre)}</b><span class="benef-dir">${esc(b.dir || b.loc)}${b.dir && !b.dir.includes(b.loc) ? ` · ${b.loc}` : ''}</span>
+      <span class="benef-dias">${esc(b.dias)}</span><span class="benef-txt">${esc(b.texto)}</span></div></button>`).join('') || '<p class="vacio">No hay beneficios en este rubro.</p>'}</div>
+  <p class="muted chico">Beneficios reales publicados por el Municipio y medios locales (2024-2026). Pueden cambiar: confirmalos en la app Tigre Municipio.</p>`}`;
 }
 
 // ---------- comprar ----------
@@ -404,7 +406,7 @@ function vComprar() {
   return `
   <h1 class="titulo">Comprar y reservar en el barrio</h1>
   ${seg}
-  <p class="muted sub">Retirás en el local o reservás tu turno, y el descuento ${MARCA.tarjeta} se aplica solo.</p>
+  <p class="muted sub">Retirás en el local o reservás tu turno, y el descuento ${MARCA.tarjeta} se aplica solo.</p><p class="aviso-demo">Propuesta nueva del prototipo: estos comercios son de ejemplo para mostrar cómo funcionaría pedir y reservar por la app. Los beneficios reales están en <button class="link" data-a="tab" data-v="beneficios">Beneficios</button>.</p>
   ${publicidadHtml('p2')}
   <input class="buscar" type="search" placeholder="Buscar comercio o producto" value="${esc(f.q)}" data-f="q">
   <div class="chips">${[{ id: 'todas', nombre: 'Todo', emoji: '✨' }, ...CATS].map((c) => `<button class="chip ${f.cat === c.id ? 'on' : ''}" data-a="cat" data-v="${c.id}">${c.emoji} ${c.nombre}</button>`).join('')}</div>
@@ -767,7 +769,7 @@ function sFarmacias() {
   const dia = Math.floor(Date.now() / 864e5);
   const lista = FARMACIAS.map((f, i) => ({ ...f, turno: (dia + i) % 3 === 0 })).sort((a, b) => (b.turno - a.turno) || (b.loc === S.usuario.loc) - (a.loc === S.usuario.loc));
   return `<p class="muted sub">Hoy, ${new Date().toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' })}. En rojo, las de turno.</p>${cercaHtml('farmacias', 'Farmacias cerca tuyo', 3)}<h2>Todas</h2>
-  <div class="lista">${lista.map((f) => `<div class="fila"><span class="ico">💊</span><div><b>${f.nombre}</b><p class="muted">${f.dir} · ${f.loc}</p>${f.turno ? '<span class="pill listo">De turno las 24 h</span>' : ''}</div><a class="link" href="tel:${f.tel.replace(/\D/g, '')}">Llamar</a></div>`).join('')}</div>`;
+  <div class="lista">${lista.map((f) => `<div class="fila"><span class="ico">💊</span><div><b>${f.nombre}</b><p class="muted">${f.dir} · ${f.loc}</p>${f.turno ? '<span class="pill listo">De turno las 24 h</span>' : ''}</div><a class="ir" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(f.nombre + ' ' + f.dir + ' ' + f.loc + ' Tigre')}" target="_blank" rel="noopener">Cómo llegar</a></div>`).join('')}</div>`;
 }
 
 function sDeportes() {
@@ -930,8 +932,10 @@ function sheet() {
     html = `<h2>Notificaciones</h2>${ns.length ? `<div class="lista">${ns.map((n) => `<div class="fila"><span class="ico">${n.emoji}</span><div><b>${esc(n.txt)}</b><p class="muted">${fecha(n.t)} ${hora(n.t)}</p></div></div>`).join('')}</div>` : '<p class="muted">No tenés notificaciones.</p>'}`;
   } else if (s === 'benef' && S.benefSel != null) {
     const b = BENEFICIOS[S.benefSel];
-    html = `<div class="benef-det"><span class="grande-emoji">${b.emoji}</span><h2>${esc(b.nombre)}</h2><p class="muted">${rubro(b.rubro).nombre} · ${b.loc}</p>
-      <p class="benef-grande">${esc(b.texto)}</p>${b.dias ? `<p>📅 ${b.dias}</p>` : ''}${b.tope ? `<p class="muted">${b.tope}</p>` : ''}
+    html = `<div class="benef-det">${b.foto ? `<div class="benef-det-foto" style="background-image:url(${FOTO(b.foto)})"></div>` : `<span class="grande-emoji">${b.emoji}</span>`}<h2>${esc(b.nombre)}</h2><p class="muted">${rubro(b.rubro).nombre} · ${esc(b.dir || '')} · ${b.loc}</p>
+      <p class="benef-grande">${esc(b.texto)}</p>${b.dias ? `<p class="benef-dias">📅 ${b.dias}</p>` : ''}${b.pago ? `<p class="muted">💳 ${esc(b.pago)}</p>` : ''}
+      <a class="ir" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(b.nombre + ' ' + (b.dir || '') + ' Tigre')}" target="_blank" rel="noopener">Cómo llegar</a>
+      ${b.fuente ? `<p class="muted chico">Fuente: ${esc(b.fuente)}</p>` : ''}
       <p class="muted">Mostrá tu credencial ${MARCA.tarjeta} en la caja antes de pagar.</p>
       <button class="btn grande" data-a="tab" data-v="credencial">🪪 Mostrar mi credencial</button></div>`;
   } else if (s === 'dni') {
@@ -1298,7 +1302,7 @@ const MAPAS = {
     const lista = listaBeneficios();
     lista.forEach((b) => {
       const btn = b.tipo === 'local' ? `<button class="link" data-a="verBenef" data-v="${b.i}">Ver beneficio</button>` : `<button class="link" data-a="abrir" data-v="${b.id}">Pedir por la app</button>`;
-      L.circleMarker(b.pos, { radius: 9, color: '#fff', weight: 2, fillColor: b.tipo === 'local' ? '#515769' : '#D02013', fillOpacity: 1 })
+      L.circleMarker(b.pos, { radius: 9, color: '#fff', weight: 2, fillColor: '#D02013', fillOpacity: 1 })
         .addTo(m).bindPopup(`<b>${b.emoji} ${esc(b.nombre)}</b><br>${esc(b.texto)}<br>${btn}`);
     });
     m.setView(LOC_COORDS[S.usuario.loc] || LOC_COORDS['Tigre Centro'], 12);
@@ -1338,6 +1342,7 @@ function initMaps() {
 let timerId = null;
 // ---------- íconos: los emojis del contenido pasan a íconos de línea (Lucide) ----------
 const EMOJI_ICONO = {
+  '🎢': 'ferris-wheel', '🚲': 'bike',
   '🏥': 'hospital', '❤️': 'heart-pulse', '👁️': 'eye', '🦷': 'smile', '💉': 'syringe', '🧠': 'brain', '🩻': 'scan', '🤰': 'baby', '📞': 'phone', '🧪': 'flask-conical', '🦴': 'bone',
   '🏭': 'factory', '🛵': 'bike', '💼': 'briefcase', '📝': 'file-text',
   '⚽': 'goal', '🏐': 'volleyball', '🏀': 'dribbble', '🤸': 'person-standing', '🚣': 'sailboat', '♿': 'accessibility', '☀️': 'sun', '☀': 'sun', '📢': 'megaphone', '🏅': 'medal',

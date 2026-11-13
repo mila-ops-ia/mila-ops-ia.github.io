@@ -178,45 +178,61 @@ const LOC_COORDS = {
 };
 
 // Comercios donde el beneficio se usa en el local, mostrando la credencial. Nombres inventados.
+// Beneficios REALES de la tarjeta Soy Tigre, tomados de publicaciones del Municipio y medios locales.
+// Fuentes: tigre.gob.ar/novedades (13/09/2024, 30/04/2024, 28/07/2025), Parlamentario (27/03/2026),
+// Zona Norte Hoy (18/10/2026) y capturas de la app Tigre Municipio. Pueden cambiar: verificá en la app oficial.
 const BENEFICIOS = [
-  { nombre: 'Supermercado La Ribera', rubro: 'almacen', loc: 'Tigre Centro', emoji: '🛒', texto: '10% de descuento', dias: 'Martes y miércoles', tope: 'Tope $8.000 por semana' },
-  { nombre: 'Súper Pacheco', rubro: 'almacen', loc: 'General Pacheco', emoji: '🛒', texto: '10% de descuento', dias: 'Todos los días', tope: 'Tope $6.000 por semana' },
-  { nombre: 'Autoservicio El Talar', rubro: 'almacen', loc: 'El Talar', emoji: '🛒', texto: '8% de descuento', dias: 'Lunes a jueves', tope: '' },
-  { nombre: 'Farmacia del Puerto', rubro: 'farmacia', loc: 'Tigre Centro', emoji: '💊', texto: 'Hasta 40% en perfumería', dias: 'Todos los días', tope: '' },
-  { nombre: 'Farmacia Torcuato', rubro: 'farmacia', loc: 'Don Torcuato', emoji: '💊', texto: '20% en medicamentos de venta libre', dias: 'Todos los días', tope: '' },
-  { nombre: 'Óptica Visión Delta', rubro: 'salud', loc: 'Benavídez', emoji: '👓', texto: '25% en anteojos recetados', dias: 'Todos los días', tope: '' },
-  { nombre: 'Heladería Río Tigre', rubro: 'gastro', loc: 'Tigre Centro', emoji: '🍦', texto: '15% de descuento', dias: 'Lunes a viernes', tope: '' },
-  { nombre: 'Cervecería Nordelta', rubro: 'gastro', loc: 'Nordelta', emoji: '🍺', texto: '2x1 en pintas', dias: 'Jueves', tope: '' },
-  { nombre: 'Panadería La Espiga', rubro: 'gastro', loc: 'Don Torcuato', emoji: '🥐', texto: '10% de descuento', dias: 'Todos los días', tope: '' },
-  { nombre: 'Lancha Delta Paseos', rubro: 'turismo', loc: 'Delta', emoji: '🚤', texto: '30% en paseos por las islas', dias: 'Lunes a viernes', tope: '' },
-  { nombre: 'Hostería Isla Verde', rubro: 'turismo', loc: 'Delta', emoji: '🏝️', texto: '20% en estadías', dias: 'Domingo a jueves', tope: '' },
-  { nombre: 'Gimnasio Activo Talar', rubro: 'deporte', loc: 'El Talar', emoji: '🏋️', texto: 'Matrícula gratis y 15% en la cuota', dias: '', tope: '' },
-  { nombre: 'Instituto de Inglés Delta', rubro: 'educacion', loc: 'Benavídez', emoji: '🎓', texto: '20% en la cuota mensual', dias: '', tope: '' },
-  { nombre: 'Zapatería Paso a Paso', rubro: 'ropa', loc: 'General Pacheco', emoji: '👟', texto: '15% de descuento', dias: 'Todos los días', tope: '' },
-  { nombre: 'Veterinaria Huellitas', rubro: 'pet', loc: 'Nordelta', emoji: '🐾', texto: '15% en consultas', dias: 'Lunes a sábado', tope: '' },
-  { nombre: 'Barbería Puerto', rubro: 'belleza', loc: 'Tigre Centro', emoji: '💇', texto: '20% en cortes', dias: 'Lunes a jueves', tope: '' },
-  { nombre: 'Spa del Río', rubro: 'belleza', loc: 'Nordelta', emoji: '💅', texto: '15% en tratamientos', dias: 'Todos los días', tope: '' },
-  { nombre: 'Teatro del Delta', rubro: 'entretenimiento', loc: 'Tigre Centro', emoji: '🎬', texto: '2x1 en entradas', dias: 'Jueves y domingos', tope: '' },
-  { nombre: 'Parque acuático Tigre (demo)', rubro: 'entretenimiento', loc: 'Tigre Centro', emoji: '🎬', texto: '50% en el pase del titular', dias: 'No incluye feriados', tope: '' },
-  { nombre: 'Lavadero Pacheco', rubro: 'auto', loc: 'General Pacheco', emoji: '🚗', texto: '15% en lavado completo', dias: 'Lunes a viernes', tope: '' },
-  { nombre: 'Kinesiología Benavídez', rubro: 'salud', loc: 'Benavídez', emoji: '🩺', texto: '20% en sesiones', dias: '', tope: '' },
-  { nombre: 'Club Náutico Delta', rubro: 'deporte', loc: 'Delta', emoji: '🚤', texto: '25% en clases de remo', dias: 'Fines de semana', tope: '' },
-  { nombre: 'Hotel Boutique Victorica', rubro: 'turismo', loc: 'Tigre Centro', emoji: '🏝️', texto: '20% en estadías', dias: 'Domingo a jueves', tope: '' },
-  { nombre: 'Celulares Talar', rubro: 'tecno', loc: 'El Talar', emoji: '📱', texto: '10% en accesorios', dias: 'Todos los días', tope: '' },
-  { nombre: 'Ferretería El Tornillo', rubro: 'hogar', loc: 'Don Torcuato', emoji: '🔧', texto: '10% de descuento', dias: 'Todos los días', tope: '' },
+  // Gastronomía
+  { nombre: "McDonald's Tigre Centro", rubro: 'gastro', loc: 'Tigre Centro', dir: 'Montevideo 1398', emoji: '🍔', foto: 'r-burger', texto: '30% en combo Big Mac mediano · 20% en McNífica y Cajita Feliz · 2x1 en sundae', dias: 'Todos los días', pago: 'Todos los medios de pago', fuente: 'Parlamentario, mar. 2026' },
+  { nombre: "McDonald's Don Torcuato", rubro: 'gastro', loc: 'Don Torcuato', dir: 'Don Torcuato', emoji: '🍔', foto: 'r-burger', texto: 'Mismos beneficios que Tigre Centro · 2x1 en sundae', dias: 'Todos los días', pago: 'Todos los medios de pago', fuente: 'Parlamentario, mar. 2026' },
+  { nombre: 'Burger King Rincón de Milberg', rubro: 'gastro', loc: 'Tigre Centro', dir: 'Av. Santa María de las Conchas 4711, Rincón de Milberg', emoji: '🍔', foto: 'r-burger', texto: '30% en café + brownie y combo Whopper · 35% llevando dos King Pollo · 2x1 en super sundae', dias: 'Lunes y martes', pago: 'Todos los medios de pago', fuente: 'Municipio de Tigre, jul. 2025' },
+  { nombre: 'Burger King Tigre Centro', rubro: 'gastro', loc: 'Tigre Centro', dir: 'General Mitre 432', emoji: '🍔', foto: 'r-burger', texto: '30% en café + brownie y combo Whopper · 2x1 en super sundae', dias: 'Lunes y martes', pago: 'Todos los medios de pago', fuente: 'Municipio de Tigre, jul. 2025' },
+  { nombre: 'Antares Nordelta', rubro: 'gastro', loc: 'Nordelta', dir: 'Av. del Puerto 925', emoji: '🍺', foto: 'r-cerveza', texto: '10% de descuento', dias: 'Todos los días', pago: 'Efectivo y Mercado Pago', fuente: 'Municipio de Tigre, jul. 2025' },
+  { nombre: 'Burger 54', rubro: 'gastro', loc: 'Tigre Centro', dir: 'Av. Agustín García 7454, Rincón de Milberg', emoji: '🍔', foto: 'r-burger', texto: '5% de descuento (mostrador o drive thru)', dias: 'Martes', pago: 'Todos los medios de pago', fuente: 'Municipio de Tigre, jul. 2025' },
+  { nombre: 'Morgan Garden Bar', rubro: 'gastro', loc: 'General Pacheco', dir: 'Santiago del Estero 380', emoji: '🍺', foto: 'r-cerveza', texto: '15% de descuento', dias: 'Lunes', pago: 'Efectivo', fuente: 'Municipio de Tigre, jul. 2025' },
+  { nombre: 'El Galpón de Tacuara', rubro: 'gastro', loc: 'Don Torcuato', dir: 'Av. Ángel T. de Alvear 2470, Torcuato Mall', emoji: '🥩', foto: 'r-resto', texto: 'De 10% a 20% según el día y el horario', dias: 'Lunes a domingo', pago: 'Consultá en el local', fuente: 'Municipio de Tigre, jul. 2025' },
+  { nombre: 'La Proveeduría Resto & Grill', rubro: 'gastro', loc: 'Tigre Centro', dir: 'Tigre Centro', emoji: '🥩', foto: 'r-resto', texto: '15% de descuento', dias: 'Miércoles a domingo', pago: 'Efectivo', fuente: 'Parlamentario, mar. 2026' },
+  { nombre: 'Puma Break', rubro: 'gastro', loc: 'Don Torcuato', dir: 'Don Torcuato', emoji: '☕', foto: 'r-cafe', texto: '10% en restaurante y cafetería', dias: 'Fines de semana', pago: 'Consultá en el local', fuente: 'Parlamentario, mar. 2026' },
+  // Supermercados
+  { nombre: 'Carrefour Tigre Centro (Market)', rubro: 'almacen', loc: 'Tigre Centro', dir: 'Alte. Brown 371', emoji: '🛒', foto: 'r-super', texto: '10% de descuento · tope de reintegro $1.500', dias: 'Miércoles', pago: 'Todos los medios de pago', fuente: 'Municipio de Tigre, sep. 2024' },
+  { nombre: 'Carrefour General Pacheco', rubro: 'almacen', loc: 'General Pacheco', dir: 'Boulogne Sur Mer 301', emoji: '🛒', foto: 'r-super', texto: '10% de descuento · tope de reintegro $1.500', dias: 'Miércoles', pago: 'Todos los medios de pago', fuente: 'Municipio de Tigre, sep. 2024' },
+  { nombre: 'Carrefour Don Torcuato', rubro: 'almacen', loc: 'Don Torcuato', dir: 'Av. Marcelo T. de Alvear 1960', emoji: '🛒', foto: 'r-super', texto: '10% de descuento · tope de reintegro $1.500', dias: 'Miércoles', pago: 'Todos los medios de pago', fuente: 'Municipio de Tigre, sep. 2024' },
+  { nombre: 'Maxiconsumo Tigre Centro', rubro: 'almacen', loc: 'Tigre Centro', dir: 'Benito Lynch 230', emoji: '🛒', foto: 'r-super', texto: '5% de descuento', dias: 'Lunes, sábados y domingos', pago: 'Todos los medios de pago', fuente: 'Municipio de Tigre, sep. 2024' },
+  { nombre: 'Maxiconsumo El Talar', rubro: 'almacen', loc: 'El Talar', dir: 'Av. Hipólito Yrigoyen 2815', emoji: '🛒', foto: 'r-super', texto: '5% de descuento', dias: 'Lunes, sábados y domingos', pago: 'Todos los medios de pago', fuente: 'Municipio de Tigre, sep. 2024' },
+  { nombre: 'Jumbo Nordelta', rubro: 'almacen', loc: 'Nordelta', dir: 'Av. de los Lagos 7010, Centro Comercial', emoji: '🛒', foto: 'r-super', texto: '10% (no incluye yerbas, fideos, aceites, leches y yogures)', dias: 'Lunes y jueves', pago: 'Efectivo, débito y crédito', fuente: 'Municipio de Tigre, sep. 2024' },
+  { nombre: 'Jumbo Novo Pacheco', rubro: 'almacen', loc: 'General Pacheco', dir: 'Av. Boulogne Sur Mer 1275', emoji: '🛒', foto: 'r-super', texto: '10% (no incluye yerbas, fideos, aceites, leches y yogures)', dias: 'Lunes y jueves', pago: 'Efectivo, débito y crédito', fuente: 'Municipio de Tigre, sep. 2024' },
+  // Farmacias
+  { nombre: 'Farmacia Del Pueblo', rubro: 'farmacia', loc: 'Tigre Centro', dir: 'Av. Cazón 1550', emoji: '💊', texto: '20% en medicamentos bajo receta sin cobertura · 2x1 en perfumería seleccionada', dias: 'Lunes a sábado', pago: 'Consultá en el local', fuente: 'Zona Norte Hoy, oct. 2026' },
+  { nombre: 'Misana', rubro: 'farmacia', loc: 'Tigre Centro', dir: 'Luis García 1370, Complejo Brickell', emoji: '💊', texto: '20% en maquillaje y cuidado de la piel', dias: 'Martes y jueves', pago: 'Efectivo, débito y transferencia', fuente: 'Zona Norte Hoy, oct. 2026' },
+  { nombre: 'La Farma', rubro: 'farmacia', loc: 'Don Torcuato', dir: 'Av. Ángel T. de Alvear 1472', emoji: '💊', texto: '20% en medicamentos y leches maternizadas · 25% en rehabilitación', dias: 'Lunes a sábado', pago: 'Todos los medios de pago', fuente: 'Zona Norte Hoy, oct. 2026' },
+  { nombre: 'JKS', rubro: 'farmacia', loc: 'Don Torcuato', dir: 'Av. Ángel T. de Alvear 602', emoji: '💊', texto: '23% en medicamentos (particulares)', dias: 'Todos los días', pago: 'Efectivo', fuente: 'Zona Norte Hoy, oct. 2026' },
+  { nombre: 'Castelli', rubro: 'farmacia', loc: 'Don Torcuato', dir: 'Av. Ángel T. de Alvear 2767', emoji: '💊', texto: '15% en medicamentos · 10% en perfumería', dias: 'Lunes a sábado', pago: 'Efectivo', fuente: 'Zona Norte Hoy, oct. 2026' },
+  { nombre: 'Central Benavídez', rubro: 'farmacia', loc: 'Benavídez', dir: 'Av. Alvear 2309', emoji: '💊', texto: '10% en medicamentos bajo receta sin cobertura', dias: 'Lunes a sábado', pago: 'Efectivo', fuente: 'Zona Norte Hoy, oct. 2026' },
+  { nombre: 'Molina', rubro: 'farmacia', loc: 'Benavídez', dir: 'Av. Gral. Juan D. Perón 7476', emoji: '💊', texto: '10% en medicamentos bajo receta sin cobertura', dias: 'Todos los días', pago: 'Efectivo', fuente: 'Zona Norte Hoy, oct. 2026' },
+  { nombre: 'Pacheco Express', rubro: 'farmacia', loc: 'General Pacheco', dir: 'Av. Hipólito Yrigoyen 999', emoji: '💊', texto: '20% en medicamentos bajo receta (particulares)', dias: 'Miércoles', pago: 'Efectivo', fuente: 'Zona Norte Hoy, oct. 2026' },
+  { nombre: 'Pacheco Norte', rubro: 'farmacia', loc: 'General Pacheco', dir: 'Boulogne Sur Mer 410', emoji: '💊', texto: '20% en medicamentos bajo receta (particulares)', dias: 'Miércoles', pago: 'Efectivo', fuente: 'Zona Norte Hoy, oct. 2026' },
+  // Mascotas
+  { nombre: 'Acuario del Puerto', rubro: 'pet', loc: 'Tigre Centro', dir: 'Puerto de Frutos', emoji: '🐾', foto: 'r-mascotas', texto: '10% en accesorios para mascotas', dias: 'Todos los días', pago: 'Efectivo', fuente: 'Municipio de Tigre, abr. 2024' },
+  { nombre: 'Drovenort', rubro: 'pet', loc: 'Tigre Centro', dir: 'Tigre Centro', emoji: '🐾', foto: 'r-mascotas', texto: '20% en accesorios para mascotas', dias: 'Viernes', pago: 'Efectivo, débito y transferencia', fuente: 'Municipio de Tigre, abr. 2024' },
+  { nombre: 'Viviana Pet Shop', rubro: 'pet', loc: 'General Pacheco', dir: 'General Pacheco y Don Torcuato', emoji: '🐾', foto: 'r-mascotas', texto: '10% en accesorios para mascotas', dias: 'Todos los días', pago: 'Efectivo, débito y transferencia', fuente: 'Municipio de Tigre, abr. 2024' },
+  // Deporte y entretenimiento
+  { nombre: 'Bike Shop', rubro: 'deporte', loc: 'General Pacheco', dir: 'Av. de los Constituyentes 691', emoji: '🚲', foto: 'r-bici', texto: '10% de descuento', dias: 'Lunes a sábado', pago: 'Efectivo y débito', fuente: 'App Tigre Municipio' },
+  { nombre: 'Parque de la Costa', rubro: 'entretenimiento', loc: 'Tigre Centro', dir: 'Vivanco 1509', emoji: '🎢', foto: 'r-parque', texto: 'Hasta 50% en entradas (según temporada)', dias: 'Consultá fechas', pago: 'Consultá condiciones', fuente: 'Parlamentario, 2024' },
 ];
 
 // Rubros extra que solo aparecen en Beneficios.
 const RUBROS_EXTRA = []; // todos los rubros ya están en CATS
 
+// Farmacias reales del distrito (adheridas a Soy Tigre). El turno rota por día: dato de demostración.
 const FARMACIAS = [
-  { nombre: 'Farmacia del Puerto', loc: 'Tigre Centro', dir: 'Av. Cazón 980', tel: '4749-0000' },
-  { nombre: 'Farmacia Central Tigre', loc: 'Tigre Centro', dir: 'Av. Liniers 640', tel: '4731-0000' },
-  { nombre: 'Farmacia Pacheco', loc: 'General Pacheco', dir: 'Av. Boulogne Sur Mer 2200', tel: '4740-0000' },
-  { nombre: 'Farmacia Torcuato', loc: 'Don Torcuato', dir: 'Av. Marquez 1100', tel: '4748-0000' },
-  { nombre: 'Farmacia Los Lagos', loc: 'Nordelta', dir: 'Av. de los Lagos 6800', tel: '4871-0000' },
-  { nombre: 'Farmacia San Benito', loc: 'Benavídez', dir: 'Av. Benavídez 700', tel: '4871-1000' },
-  { nombre: 'Farmacia El Talar', loc: 'El Talar', dir: 'Av. Constituyentes 3100', tel: '4736-0000' },
+  { nombre: 'Farmacia Del Pueblo', loc: 'Tigre Centro', dir: 'Av. Cazón 1550' },
+  { nombre: 'Misana', loc: 'Tigre Centro', dir: 'Luis García 1370' },
+  { nombre: 'La Farma', loc: 'Don Torcuato', dir: 'Av. Ángel T. de Alvear 1472' },
+  { nombre: 'Castelli', loc: 'Don Torcuato', dir: 'Av. Ángel T. de Alvear 2767' },
+  { nombre: 'Central Benavídez', loc: 'Benavídez', dir: 'Av. Alvear 2309' },
+  { nombre: 'Molina', loc: 'Benavídez', dir: 'Av. Gral. Juan D. Perón 7476' },
+  { nombre: 'Pacheco Express', loc: 'General Pacheco', dir: 'Av. Hipólito Yrigoyen 999' },
+  { nombre: 'Pacheco Norte', loc: 'General Pacheco', dir: 'Boulogne Sur Mer 410' },
 ];
 
 // Colectivos: líneas y paradas de ejemplo, con arribos simulados.
