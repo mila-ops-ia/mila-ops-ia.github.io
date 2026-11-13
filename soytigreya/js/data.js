@@ -407,3 +407,10 @@ const MODELO = {
 };
 const MODELO_BASE = { licencia: 6.9e6, banco: 30e6, planComercios: [30, 75, 120] }; // sin las palancas
 
+
+// Comparación con contrataciones públicas reales (respaldo del costo del año 1).
+const COMPARACION = [
+  { quien: 'Ciudad de Santa Fe', que: 'App municipal: desarrollo, implementación y mantenimiento (presupuesto oficial)', monto: 316e6, anio: 2025 },
+  { quien: 'Ciudad de Buenos Aires', que: 'Plataforma de trámites digitales (adjudicado)', monto: 483.6e6, anio: null },
+  { quien: 'San Cayetano (PBA)', que: 'Municipio chico: gestión con mapa y app con turnos (adjudicado)', monto: 85.7e6, anio: 2026 },
+];

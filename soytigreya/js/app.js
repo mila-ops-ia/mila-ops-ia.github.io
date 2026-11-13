@@ -1343,6 +1343,9 @@ function finanzasHtml() {
         <p class="muted chico">Sin palancas (licencia de $6,9 M y $30 M del banco) recupera en ${recuperoTxt(base.recupero)}. <button class="link" data-a="simReset">Volver al escenario propuesto</button></p>
       </div>
     </div>
+    <div class="comp"><p class="fin-tit">¿Es mucho? Lo que pagaron otros</p>
+      ${(() => { const filas = [{ quien: 'SoyTigreYa', que: 'Año 1: piloto, escalamiento y 6 meses de soporte', monto: y[0].costo, yo: true }, ...COMPARACION]; const max = Math.max(...filas.map((f) => f.monto)); return filas.map((f) => `<div class="comp-f ${f.yo ? 'yo' : ''}"><span class="comp-t"><b>${f.quien}</b><small>${f.que}${f.anio ? ` · ${f.anio}` : ''}</small></span><div class="comp-b"><i style="width:${(f.monto / max) * 100}%"></i></div><b class="comp-m">${millones(f.monto)}</b></div>`).join(''); })()}
+      <p class="muted chico">Santa Fe presupuestó $316 M para una app municipal comparable: SoyTigreYa cuesta menos de la mitad el primer año. Fuentes: portales de compras y prensa local.</p></div>
     <p class="muted chico">Supuestos a validar en el piloto. Precios de mila·ops: costo del equipo más 30% de margen.</p>
   </div>`;
 }

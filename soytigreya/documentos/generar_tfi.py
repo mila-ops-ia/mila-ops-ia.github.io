@@ -224,7 +224,7 @@ viñetas([
     ('Impacto en la comunidad: ', 'el consumo queda dentro del partido y fortalece el empleo local. La propuesta tiene triple impacto: económico, porque protege el bolsillo del vecino y el margen del comerciante; social, porque conecta a la comunidad; y de gestión, porque posiciona al municipio como referente de innovación.'),
     ('Crecimiento futuro: ', 'Tigri con inteligencia artificial, integración con transporte y turismo del Delta, y un modelo replicable en otros municipios.'),
 ])
-p('Viabilidad económica. Se separan tres preguntas. Inversión del Municipio: $152 M el año 1 y $55 M por año después. Lo que vuelve a su caja (Plan Destacado, publicidad local, un banco que cofinancia descuentos y el ahorro de trámites presenciales): $40,6 M, $124,4 M y $152,6 M en los años 1 a 3, con un resultado de −$111,4 M, +$69,2 M y +$97,4 M; recupera la inversión en 2 años y 5 meses (sin bajar la licencia ni sumar el aporte bancario, tardaría 4 años y 3 meses). Lo que gana la comunidad, que no es caja municipal: comisiones que quedan en los comercios por $67,5 M, $360 M y $540 M; por cada $1 invertido en tres años quedan $3,7 en los comercios de Tigre. Detalle en el Anexo A.')
+p('Viabilidad económica. Se separan tres preguntas. Inversión del Municipio: $152 M el año 1 y $55 M por año después. Lo que vuelve a su caja (Plan Destacado, publicidad local, un banco que cofinancia descuentos y el ahorro de trámites presenciales): $40,6 M, $124,4 M y $152,6 M en los años 1 a 3, con un resultado de −$111,4 M, +$69,2 M y +$97,4 M; recupera la inversión en 2 años y 5 meses. Lo que gana la comunidad, que no es caja municipal: comisiones que quedan en los comercios por $67,5 M, $360 M y $540 M; por cada $1 invertido en tres años quedan $3,7 en los comercios de Tigre. Como referencia, Santa Fe presupuestó $316 M (2025) para una app municipal comparable. Detalle en el Anexo A.')
 p('Indicadores de éxito: vecinos activos y retención a 90 días, pedidos y comercios activos, ahorro de los vecinos, comisiones evitadas, tiempo de resolución de reclamos, tasas pagadas en término y NPS.')
 
 # ---------- 8 ----------
@@ -278,6 +278,16 @@ tabla([
     ['Comisiones que quedan en los comercios (no es caja municipal)', '$67,5 M', '$360,0 M', '$540,0 M'],
 ], [7.0, 3.0, 3.0, 3.0])
 p('Recupero de la inversión: 2 años y 5 meses. Sin las palancas (licencia de $6,9 M por mes desde el año 2 y aporte bancario de $30 M), 4 años y 3 meses. El año 1 incluye solo seis meses de ingresos, porque la plataforma está en piloto. Supuestos a validar en el piloto; el panel de Desarrollo Económico permite simular las palancas.')
+doc.add_heading('Comparación con otras contrataciones', 2)
+tabla([
+    ['Caso', 'Qué incluye', 'Monto'],
+    ['SoyTigreYa (propuesta)', 'Año 1: piloto, escalamiento y seis meses de soporte; después, $55 M por año', '$152 M'],
+    ['Ciudad de Santa Fe (2025)', 'App municipal: desarrollo, implementación y mantenimiento. Presupuesto oficial; ofertas de $274,9 M y $284,4 M', '$316 M'],
+    ['Ciudad de Buenos Aires', 'Plataforma de diseño y trámites digitales (adjudicado)', '$483,6 M'],
+    ['San Cayetano, PBA (2026)', 'Municipio chico: gestión georreferenciada y app con turnos de salud (adjudicado)', '$85,7 M'],
+    ['Agencias privadas (2026)', 'App enfocada, sin integraciones municipales ni soporte anual', 'USD 12.000 a 40.000'],
+], [4.2, 9.0, 2.8])
+p('Billetera Santa Fe, por su parte, financia hoy los reintegros mitad el comercio y mitad el banco, sin fondos del Estado: el mismo esquema que propone SoyTigreYa con el aporte bancario.')
 doc.add_heading('Product Vision Board', 2)
 tabla([
     ['Visión', 'Grupo objetivo', 'Necesidades', 'Producto', 'Objetivos'],
@@ -332,6 +342,9 @@ for f in [
     'Municipio de Tigre, tigre.gob.ar/novedades: beneficios Soy Tigre en supermercados (2024), mascotas (2024) y gastronomía (2025).',
     'Parlamentario.com, notas sobre Soy Tigre (2024 y 2026), polideportivos y pista de atletismo (2026), Portal de Empleo y Tigre Instituto Formativo (2026) y hospitales municipales (2026).',
     'Zona Norte Hoy, farmacias adheridas a Soy Tigre (octubre de 2026).',
+    'Municipalidad de Santa Fe, Licitación Pública 1/2025 (app municipal); FM Vintage, ofertas recibidas (2025).',
+    'Caynet, app de San Cayetano (2026); Voces de la Comuna 15, plataforma de trámites de la Ciudad de Buenos Aires.',
+    'Pausa y Mirador Provincial, relanzamiento de Billetera Santa Fe (noviembre de 2025).',
     'Fotos ilustrativas: Wikimedia Commons (CC BY y CC BY-SA), con créditos en el repositorio del proyecto.',
     'La Capital (Rosario), "Unos 150 comercios ya son parte de la plataforma de compras del Banco Municipal" (2023).',
     'Govlaunch, Munimercado de la ciudad de Neuquén.',

@@ -1114,3 +1114,11 @@ html, body, .shell, .shell.phone, .shell.wide { background: var(--fondo-b); }
 .cobro-tot small { font-size: .7rem; color: var(--muted); } .cobro-tot b { font-size: 1rem; }
 .local-info { font-size: .82rem; color: var(--muted); margin: 8px 0 0; display: flex; flex-direction: column; gap: 2px; }
 .local-info span { color: #17181C; }
+
+/* comparación con otras contrataciones */
+.comp { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--linea); }
+.comp-f { display: grid; grid-template-columns: minmax(0, 1.3fr) 1fr auto; gap: 10px; align-items: center; padding: 6px 0; }
+.comp-t { display: flex; flex-direction: column; } .comp-t b { font-size: .86rem; } .comp-t small { font-size: .72rem; color: var(--muted); }
+.comp-b { height: 10px; background: var(--fondo-b); border-radius: 6px; overflow: hidden; } .comp-b i { display: block; height: 100%; background: #9AA0AC; border-radius: 6px; }
+.comp-f.yo .comp-b i { background: #D02013; } .comp-f.yo .comp-t b, .comp-f.yo .comp-m { color: #D02013; }
+.comp-m { font-size: .86rem; white-space: nowrap; }
