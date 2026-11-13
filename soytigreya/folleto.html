@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>SoyTigreYa · Folleto</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root { --rojo: #D02013; --tinta: #17181C; --muted: #5F6370; --fondo: #F2F2F4; --linea: #E3E5EA; --celeste: #3BA3D9; --verde: #1B7A47; }
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { font-family: 'Montserrat', Arial, sans-serif; color: var(--tinta); background: #9A9CA3; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.hoja { width: 210mm; height: 297mm; margin: 0 auto; background: var(--fondo); position: relative; overflow: hidden; display: flex; flex-direction: column; }
+@media screen { .hoja { margin: 20px auto; box-shadow: 0 10px 40px rgba(0,0,0,.25); } }
+p { margin: 0; }
+/* cabecera */
+.cab { background: var(--rojo); color: #fff; padding: 11mm 13mm 10mm; position: relative; overflow: hidden; }
+.cab::after { content: ''; position: absolute; right: -30mm; bottom: -16mm; width: 120mm; height: 46mm; background: linear-gradient(115deg, transparent 40%, rgba(59,163,217,.45) 40%, rgba(59,163,217,.45) 58%, transparent 58%, transparent 66%, rgba(255,255,255,.16) 66%, rgba(255,255,255,.16) 80%, transparent 80%); }
+.cab > * { position: relative; z-index: 1; }
+.marca { display: flex; align-items: center; gap: 3mm; font-weight: 800; font-size: 13pt; }
+.marca b span { font-weight: 500; opacity: .85; }
+.logo { width: 11mm; height: 11mm; border-radius: 50%; background: #fff; padding: .8mm; }
+.cab .fila { display: flex; justify-content: space-between; align-items: flex-end; gap: 8mm; margin-top: 6mm; }
+.cab h1 { font-size: 25pt; line-height: 1.05; font-weight: 900; letter-spacing: -.02em; margin: 0; }
+.cab .sub { font-size: 10.5pt; margin-top: 3mm; max-width: 120mm; opacity: .95; line-height: 1.4; }
+.qr { background: #fff; border-radius: 4mm; padding: 2.5mm; width: 33mm; text-align: center; color: var(--tinta); flex: none; }
+.qr img { width: 100%; display: block; }
+.qr b { font-size: 7.5pt; display: block; margin-top: 1mm; }
+/* cuerpo */
+.cuerpo { padding: 6mm 13mm 0; display: flex; flex-direction: column; gap: 4.5mm; flex: 1; }
+.ceja { font-size: 7.5pt; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; color: var(--rojo); margin-bottom: 2mm; }
+.tarjeta { background: #fff; border-radius: 4mm; padding: 4.5mm 5mm; }
+.dos { display: grid; grid-template-columns: 1fr 1fr; gap: 4.5mm; }
+.problema p { font-size: 9.3pt; line-height: 1.45; }
+.problema b.big { font-size: 22pt; font-weight: 900; color: var(--rojo); display: block; line-height: 1; margin-bottom: 1.5mm; }
+.lista { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 1.6mm; font-size: 9pt; line-height: 1.35; }
+.lista li { display: flex; gap: 2mm; } .lista li::before { content: ''; width: 1.6mm; height: 1.6mm; border-radius: 50%; background: var(--rojo); flex: none; margin-top: 1.4mm; }
+.perfiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; }
+.perfil { background: #fff; border-radius: 4mm; padding: 3.5mm; display: flex; flex-direction: column; gap: 1mm; }
+.av { width: 8mm; height: 8mm; border-radius: 50%; color: #fff; font-weight: 800; display: grid; place-items: center; font-size: 9pt; margin-bottom: 1mm; }
+.perfil b { font-size: 9pt; } .perfil small { font-size: 7.4pt; color: var(--muted); line-height: 1.35; }
+/* números */
+.numeros { background: var(--tinta); color: #fff; border-radius: 4mm; padding: 5mm; }
+.numeros .ceja { color: #FF8F84; }
+.kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; margin-bottom: 3.5mm; }
+.kpi b { display: block; font-size: 19pt; font-weight: 900; line-height: 1.05; }
+.kpi small { font-size: 7.6pt; opacity: .8; line-height: 1.35; display: block; margin-top: 1mm; }
+.kpi.verde b { color: #6FD39B; } .kpi.rojo b { color: #FF8F84; }
+.tabla { width: 100%; border-collapse: collapse; font-size: 8pt; }
+.tabla th { text-align: right; font-weight: 700; opacity: .7; padding: 0 0 1.2mm; font-size: 7.4pt; }
+.tabla th:first-child, .tabla td:first-child { text-align: left; }
+.tabla td { padding: 1.3mm 0; border-top: 1px solid rgba(255,255,255,.12); text-align: right; white-space: nowrap; }
+.tabla td:first-child { white-space: normal; opacity: .9; }
+.pos { color: #6FD39B; font-weight: 700; } .neg { color: #FF8F84; font-weight: 700; }
+.nota { font-size: 7pt; opacity: .65; margin-top: 2mm; }
+.modelo .fila3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3mm; }
+.chip { background: var(--fondo); border-radius: 3mm; padding: 2.8mm; }
+.chip b { font-size: 9pt; display: block; } .chip small { font-size: 7.4pt; color: var(--muted); line-height: 1.35; display: block; margin-top: .6mm; }
+/* pedido */
+.pedido { background: var(--rojo); color: #fff; border-radius: 4mm; padding: 4.5mm 5mm; display: grid; grid-template-columns: 1fr auto; gap: 5mm; align-items: center; }
+.pedido .ceja { color: #fff; opacity: .85; }
+.pedido h2 { font-size: 14pt; margin: 0; font-weight: 900; line-height: 1.15; }
+.pasos { display: flex; gap: 2.5mm; margin-top: 2.5mm; flex-wrap: wrap; }
+.pasos span { background: rgba(255,255,255,.16); border-radius: 10mm; padding: 1.2mm 3mm; font-size: 7.8pt; font-weight: 600; }
+.cta { background: #fff; color: var(--rojo); border-radius: 3mm; padding: 3mm 4mm; text-align: center; font-weight: 800; font-size: 9pt; line-height: 1.3; }
+.cta small { display: block; color: var(--tinta); font-weight: 600; font-size: 7.4pt; margin-top: .8mm; }
+.pie { padding: 3.5mm 13mm 6mm; font-size: 7pt; color: var(--muted); display: flex; justify-content: space-between; gap: 6mm; }
+.pie b { color: var(--rojo); }
+
+.cab, .pie { flex-shrink: 0; }
+.cab { padding: 9mm 12mm 8mm; } .cab .fila { margin-top: 4mm; } .cab h1 { font-size: 22pt; } .cab .sub { font-size: 9.6pt; margin-top: 2.5mm; }
+.qr { width: 30mm; }
+.cuerpo { padding: 5mm 12mm 0; gap: 3.6mm; }
+.tarjeta { padding: 4mm 4.5mm; }
+.problema b.big { font-size: 18pt; } .problema p { font-size: 8.7pt; line-height: 1.42; }
+.lista { font-size: 8.5pt; gap: 1.3mm; }
+.perfil { padding: 3mm; } .av { width: 7mm; height: 7mm; font-size: 8pt; }
+.numeros { padding: 4.5mm 5mm; } .kpis { margin-bottom: 3mm; } .kpi b { font-size: 16pt; }
+.tabla td:not(:first-child), .tabla th:not(:first-child) { width: 18mm; padding-left: 3mm; }
+.sostiene { margin-top: 3mm; padding-top: 2.5mm; border-top: 1px solid rgba(255,255,255,.14); font-size: 7.8pt; line-height: 1.45; }
+.sostiene b { color: #FF8F84; }
+.pedido { padding: 4mm 5mm; } .pedido h2 { font-size: 13pt; }
+.cab { padding: 7mm 12mm 7mm; } .cab .fila { margin-top: 3mm; }
+.cuerpo { gap: 3mm; padding-top: 4mm; }
+.problema p { font-size: 8.4pt; } .lista { font-size: 8.2pt; }
+.perfil small { font-size: 7.1pt; }
+.pasos span { padding: .9mm 2.6mm; font-size: 7.4pt; } .pasos { margin-top: 2mm; gap: 2mm; }
+.pie { padding: 2.5mm 12mm 4mm; }
+</style>
+</head>
+<body>
+<div class="hoja">
+  <header class="cab">
+    <div class="marca"><svg class="logo" viewBox="0 0 100 100" aria-hidden="true"><circle cx="23" cy="27" r="14" fill="#E2701A"/><circle cx="77" cy="27" r="14" fill="#E2701A"/><circle cx="23" cy="28" r="7.5" fill="#FFC6B3"/><circle cx="77" cy="28" r="7.5" fill="#FFC6B3"/><ellipse cx="50" cy="57" rx="41" ry="36" fill="#F28C28"/><path d="M50 21 l-5 11 h10z M38 24 l-1 10 l-5 -7z M62 24 l1 10 l5 -7z" fill="#3A2414"/><ellipse cx="50" cy="72" rx="21" ry="15" fill="#FFF4E6"/><ellipse cx="35" cy="54" rx="6.5" ry="7.5" fill="#2B1A10"/><ellipse cx="65" cy="54" rx="6.5" ry="7.5" fill="#2B1A10"/><circle cx="37.5" cy="51" r="2.4" fill="#fff"/><circle cx="67.5" cy="51" r="2.4" fill="#fff"/><path d="M44.5 64.5 q5.5 -3.5 11 0 q-1.5 5 -5.5 6 q-4 -1 -5.5 -6z" fill="#C2456A"/><path d="M50 70.5 v3 M50 73.5 q-5 4.5 -9 0.5 M50 73.5 q5 4.5 9 0.5" stroke="#3A2414" stroke-width="2" fill="none" stroke-linecap="round"/></svg><b>SOYTIGRE<span>YA</span></b></div>
+    <div class="fila">
+      <div>
+        <h1>Que el ahorro y la venta<br>se queden en Tigre.</h1>
+        <p class="sub">Una sola app para los vecinos de Tigre: la tarjeta Soy Tigre, comprar en el barrio sin comisiones, trámites, salud, deporte y empleo. El vecino paga menos y el comercio cobra el 100%.</p>
+      </div>
+      <div class="qr"><img src="img/qr-soytigreya.png" alt="QR para abrir la app"><b>Escaneá y probala</b></div>
+    </div>
+  </header>
+
+  <div class="cuerpo">
+    <div class="dos">
+      <div class="tarjeta problema">
+        <p class="ceja">El problema</p>
+        <b class="big">20% a 30%</b>
+        <p>es la comisión que cobran las apps de delivery a los comercios del barrio. Esa plata sale del distrito. Además, los beneficios, las compras y los trámites están dispersos en varias apps y el Municipio no mide el impacto de su tarjeta.</p>
+      </div>
+      <div class="tarjeta">
+        <p class="ceja">La solución, funcionando hoy</p>
+        <ul class="lista">
+          <li>Tarjeta Soy Tigre con QR y beneficios reales, ordenados por cercanía.</li>
+          <li>Comprar o reservar turno con 0% de comisión y el descuento aplicado solo.</li>
+          <li>Trámites, reclamos, salud, deporte y empleo con mapas y "Cómo llegar".</li>
+          <li>Tigri, un asistente que responde como se habla.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div>
+      <p class="ceja">Una plataforma, cuatro personas</p>
+      <div class="perfiles">
+        <div class="perfil"><span class="av" style="background:#D02013">L</span><b>Vecina</b><small>Ahorra, compra en el barrio y resuelve trámites desde el celu.</small></div>
+        <div class="perfil"><span class="av" style="background:#B5541C">R</span><b>Comercio</b><small>Recibe pedidos pagos sin comisión, sube sus fotos y ve sus cobros.</small></div>
+        <div class="perfil"><span class="av" style="background:#515769">C</span><b>Atención al Vecino</b><small>Reclamos por urgencia, cuadrillas y mapa de calor.</small></div>
+        <div class="perfil"><span class="av" style="background:#3A3F4D">M</span><b>Desarrollo Económico</b><small>Mide el impacto y simula los números del programa.</small></div>
+      </div>
+    </div>
+
+    <div class="numeros">
+      <p class="ceja">Los números</p>
+      <div class="kpis">
+        <div class="kpi"><b>$152 M</b><small>Inversión del año 1: piloto, escalamiento y 6 meses de licencia. Después, $55 M por año.</small></div>
+        <div class="kpi verde"><b>2 años y 5 meses</b><small>para que el Municipio recupere la inversión con lo que vuelve a su caja.</small></div>
+        <div class="kpi rojo"><b>$3,7 por cada $1</b><small>invertido en 3 años quedan en los comercios de Tigre, en comisiones que no se pagan.</small></div>
+      </div>
+      <table class="tabla">
+        <tr><th></th><th>Año 1</th><th>Año 2</th><th>Año 3</th></tr>
+        <tr><td>Costo para el Municipio</td><td>$152,0 M</td><td>$55,2 M</td><td>$55,2 M</td></tr>
+        <tr><td>Vuelve a su caja (Plan Destacado, publicidad, banco que cofinancia descuentos, ahorro en atención)</td><td>$40,6 M</td><td>$124,4 M</td><td>$152,6 M</td></tr>
+        <tr><td>Resultado acumulado</td><td class="neg">−$111,4 M</td><td class="neg">−$42,2 M</td><td class="pos">+$55,2 M</td></tr>
+        <tr><td>Comisiones que quedan en los comercios (no es caja municipal)</td><td>$67,5 M</td><td>$360 M</td><td>$540 M</td></tr>
+      </table>
+      <p class="sostiene"><b>Cómo se sostiene:</b> gratis para el vecino, siempre · 0% de comisión al comercio · Plan Destacado opcional ($25.000 por mes) · publicidad local · un banco que cofinancia descuentos · menos atención presencial.</p>
+      <p class="nota">Supuestos a validar en el piloto. Sin bajar la licencia desde el año 2 ni sumar el aporte bancario, el recupero sería de 4 años y 3 meses.</p>
+    </div>
+
+    <div class="pedido">
+      <div>
+        <p class="ceja">Lo que proponemos</p>
+        <h2>Un piloto de 3 meses en Tigre Centro y Paseo Victorica.</h2>
+        <div class="pasos"><span>1 · Firmar el piloto</span><span>2 · Sumar 40 comercios y 2.000 vecinos</span><span>3 · Medir y decidir el escalamiento</span></div>
+      </div>
+      <div class="cta">Probala ahora<small>mila-ops-ia.github.io/soytigreya</small></div>
+    </div>
+  </div>
+
+  <footer class="pie"><span><b>SoyTigreYa</b> · Milagros Belén Sanabria · mila·ops · Trabajo Final Integrador, UNDelta · 2026</span><span>Prototipo académico · No es una app oficial del Municipio de Tigre</span></footer>
+</div>
+</body>
+</html>
