@@ -626,3 +626,109 @@ h2 { font-size: 1rem; letter-spacing: -0.01em; margin: 24px 0 10px; }
 .fb-campo input, .fb-campo textarea { padding: 10px 12px; border: 1px solid var(--linea); border-radius: 10px; font-size: .95rem; font-weight: 500; background: #fff; }
 .fb .btn { align-self: flex-start; width: auto; padding: 11px 22px; }
 .fb-ok { border-color: #CFE9DA !important; background: #F3FAF6; }
+
+/* =====================================================================
+   Rediseño v13: minimalista. Fondo blanco, menos cajas, rojo solo para
+   acciones y marca. Referencias: Mi Argentina, Mercado Pago, PedidosYa.
+   ===================================================================== */
+:root { --fondo: #FFFFFF; --suave: #F5F6F8; --linea: #ECEDF0; --texto: #1F2229; --muted: #6B6F7B; }
+html, body, .shell, .top { background: #fff; }
+body { color: var(--texto); }
+.demo-banda { background: var(--suave); color: #6B6F7B; font-weight: 500; font-size: .68rem; padding: 4px 10px; }
+.top { border-bottom: 1px solid var(--linea); padding: 10px 16px; }
+.marca b { font-weight: 800; letter-spacing: -.01em; }
+.sos { border: 0; padding: 6px; color: #D02013; }
+.campana { padding: 6px; }
+.quien .avatar-p { width: 32px; height: 32px; font-size: .9rem; }
+h2 { font-size: .95rem; font-weight: 700; margin: 28px 0 8px; }
+.main { padding: 0 20px; }
+
+/* inicio */
+.hola { margin: 18px 0 12px; }
+.hola h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -.02em; }
+.buscar { background: var(--suave) !important; border: 0 !important; border-radius: 12px !important; }
+.resumen { margin-top: 18px; display: flex; flex-direction: column; gap: 2px; padding: 0 0 18px; border-bottom: 1px solid var(--linea); }
+.res-et { font-size: .8rem; color: var(--muted); font-weight: 500; }
+.resumen strong { font-size: 2.3rem; font-weight: 800; letter-spacing: -.03em; color: var(--texto); line-height: 1.15; }
+.res-sub { font-size: .8rem; color: var(--muted); }
+.res-puntos { margin-top: 12px; display: flex; justify-content: space-between; align-items: center; background: var(--suave); border-radius: 10px; padding: 10px 12px; font-size: .85rem; font-weight: 600; text-align: left; }
+.res-puntos span:last-child { color: #D02013; font-weight: 700; }
+.res-puntos svg { color: #D02013; }
+.accesos4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin: 18px 0 6px; }
+.accesos4 button { display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: .75rem; font-weight: 600; padding: 4px 0; }
+.accesos4 span { width: 52px; height: 52px; border-radius: 50%; background: var(--suave); color: #1F2229; display: grid; place-items: center; font-size: 1.3rem; transition: background .15s; }
+.accesos4 span svg { width: 22px; height: 22px; }
+.accesos4 button:hover span { background: #FBE9E7; color: #D02013; }
+.h2-fila { display: flex; justify-content: space-between; align-items: baseline; }
+.h2-fila .link { font-size: .8rem; font-weight: 600; color: #D02013; }
+.lista-limpia { display: flex; flex-direction: column; }
+.lista-limpia button { display: flex; align-items: center; gap: 12px; padding: 11px 0; text-align: left; border-bottom: 1px solid var(--linea); }
+.lista-limpia button:last-child { border-bottom: 0; }
+.lista-limpia div { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.lista-limpia b { font-size: .9rem; font-weight: 600; }
+.lista-limpia small { font-size: .78rem; color: var(--muted); }
+.lista-limpia .ico { background: transparent; color: #515769; width: 28px; }
+.flecha { color: #B5B8C0; }
+.aviso-rio { display: flex; gap: 12px; align-items: center; text-align: left; width: 100%; margin-top: 12px; padding: 12px 14px; border-radius: 12px; background: #FFF6E5; color: #7A4B00; }
+.aviso-rio.alerta { background: #FDECEA; color: #9E180E; }
+.aviso-rio div { display: flex; flex-direction: column; }
+.aviso-rio small { font-size: .78rem; opacity: .85; }
+.card.activo { margin-top: 12px; }
+
+/* tarjetas: sin bordes cuando están sobre blanco, solo fondo suave */
+.card, .fila, .mini, .comercio, .prod, .tped, .trow, .kpi, .panel-cab { border-color: var(--linea) !important; }
+.mini { border: 0 !important; background: transparent; padding: 0; }
+.mini-img { border-radius: 12px; }
+.fila { border-radius: 12px; }
+.lista { gap: 8px; }
+
+/* chips y segmentos */
+.chip { background: var(--suave); border: 0 !important; border-radius: 20px; font-weight: 600; }
+.chip.on { background: #1F2229; color: #fff; }
+.seg { background: var(--suave); border-radius: 10px; }
+
+/* barra inferior */
+.bottom { border-top: 1px solid var(--linea); box-shadow: none; }
+.bottom button { font-size: .66rem; font-weight: 600; }
+.bottom button span { opacity: .5; color: #1F2229; }
+.bottom button.on { color: #D02013; }
+
+/* Tigri: botón redondo, sin texto */
+.fab { width: 54px; height: 54px; padding: 0; border-radius: 50%; display: grid; place-items: center; box-shadow: 0 6px 16px rgba(31, 34, 41, .18); }
+.fab b { display: none; }
+.fab span { width: auto; height: auto; background: transparent; color: #fff; font-size: 1.4rem; }
+.fab span svg { width: 26px; height: 26px; }
+
+/* landing de perfiles */
+.perfiles { max-width: 460px; margin: 0 auto; gap: 14px; }
+.perfiles h1 { font-size: 1.9rem; letter-spacing: -.02em; }
+.perfiles .lead { color: var(--muted); font-size: .95rem; max-width: 360px; }
+.perfiles-grid { display: flex !important; flex-direction: column; gap: 0 !important; width: 100%; border-top: 1px solid var(--linea); }
+.perfil-card { flex-direction: row !important; align-items: center; gap: 14px; text-align: left; border: 0 !important; border-bottom: 1px solid var(--linea) !important; border-radius: 0 !important; padding: 14px 4px !important; background: transparent !important; }
+.perfil-card:hover { background: var(--suave) !important; }
+.perfil-card .avatar-p.grande { width: 46px; height: 46px; font-size: 1.15rem; flex: none; }
+.perfil-txt { flex: 1; display: flex; flex-direction: column; }
+.perfil-txt b { font-size: 1rem; }
+.perfil-rol { font-size: .82rem; color: var(--muted); }
+.tour-btn { width: 100%; }
+.pie-links { display: flex; gap: 8px; justify-content: center; align-items: center; font-size: .85rem; color: var(--muted); }
+.pie-links .link { color: #515769; font-weight: 600; }
+.qr-entrada { border: 0 !important; background: var(--suave); }
+
+/* paneles anchos (comercio y municipio): mismo lenguaje */
+.shell.wide { background: #fff; }
+.kpi { background: var(--suave) !important; border: 0 !important; }
+/* listas del vecino como filas con separador, no como cajas */
+.shell.phone .lista { gap: 0; }
+.shell.phone .lista > .fila { border: 0 !important; border-bottom: 1px solid var(--linea) !important; border-radius: 0; padding: 12px 0; background: transparent; }
+.shell.phone .lista > .fila:last-child { border-bottom: 0 !important; }
+.titulo { color: var(--texto); }
+.ing-logo { box-shadow: none !important; width: 64px; height: 64px; }
+/* Marina: 4 indicadores principales + lista compacta */
+.kpis { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important; }
+.kpi-mas { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); column-gap: 28px; margin: 14px 0 6px; }
+.kpi-mas div { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--linea); font-size: .88rem; }
+.kpi-mas span { color: var(--muted); }
+.kpi-mas small { display: block; font-size: .72rem; }
+.kpi-mas b { font-size: 1rem; white-space: nowrap; }
+.shell.wide .card { border: 1px solid var(--linea) !important; }

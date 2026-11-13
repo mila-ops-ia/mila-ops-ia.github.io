@@ -246,20 +246,18 @@ function vPerfiles() {
   return `<main class="main perfiles">
     <div class="ing-logo">🐯</div>
     <h1>SoyTigre<span>Ya</span></h1>
-    <p class="lead">Una plataforma, cuatro personas. Elegí con quién querés recorrer la app.</p>
-    <button class="btn grande tour-btn" data-a="tourIniciar">▶ Ver el recorrido guiado <small>2 minutos, paso a paso</small></button>
+    <p class="lead">Beneficios, compras en el barrio y trámites de Tigre en un solo lugar. Elegí con quién recorrerla.</p>
     <div class="perfiles-grid">${PERFILES.map((p) => `
       <button class="perfil-card" data-a="perfil" data-v="${p.id}">
         ${avatarHtml(p, 'grande')}
-        <b>${p.nombre}</b><span class="perfil-rol">${p.rol}</span>
-        <span class="perfil-hace">${p.hace}</span>
-        <span class="perfil-entra">🔐 ${p.entra}</span>
+        <span class="perfil-txt"><b>${p.nombre}</b><span class="perfil-rol">${p.rol}</span></span>
+        <span class="flecha">›</span>
       </button>`).join('')}</div>
-    <div class="qr-entrada"><div class="qr" data-qr="https://mila-ops-ia.github.io/soytigreya"></div><div><b>📱 Abrila en tu celu</b><span class="muted">Escaneá el código o entrá a mila-ops-ia.github.io/soytigreya</span></div></div>
-    <button class="btn claro metodo-btn" data-a="metodo">📋 Cómo lo diseñamos: la Diplomatura dentro de la app</button>
+    <button class="btn grande tour-btn" data-a="tourIniciar">▶ Ver el recorrido guiado <small>2 minutos</small></button>
+    <div class="qr-entrada"><div class="qr" data-qr="https://mila-ops-ia.github.io/soytigreya"></div><div><b>Abrila en tu celu</b><span class="muted">Escaneá el código o entrá a mila-ops-ia.github.io/soytigreya</span></div></div>
     ${feedbackHtml()}
-    <p class="muted chico centro">Prototipo académico de demostración: no se conecta con Mi Argentina ni con sistemas del municipio.<br>
-      <button class="link" data-a="reiniciar">↺ Reiniciar los datos de la demo</button></p>
+    <p class="pie-links"><button class="link" data-a="metodo">Cómo lo diseñamos</button><span>·</span><button class="link" data-a="reiniciar">Reiniciar la demo</button></p>
+    <p class="muted chico centro">Prototipo académico: no se conecta con Mi Argentina ni con sistemas del municipio.</p>
   </main>`;
 }
 
@@ -284,36 +282,37 @@ function vInicio() {
   const activo = S.pedidos.filter((p) => p.mio && ['recibido', 'preparacion', 'listo'].includes(p.estado)).sort((a, b) => b.creado - a.creado)[0];
   const cerca2 = S.comercios.filter((c) => c.loc === S.usuario.loc && c.abierto);
   const r = rioAhora();
-  const accesos = [
-    ['🎁', 'Beneficios', 'tab', 'beneficios'], ['🥡', 'Takeaway', 'cat', 'gastro'], ['🧾', 'Pagar tasas', 'sub', 'tasas'], ['🚗', 'Estacionar', 'sub', 'estacionamiento'],
-    ['📣', 'Reclamos', 'serv', 'reclamos'], ['📅', 'Turnos', 'serv', 'turnos'], ['🚌', 'Colectivos', 'sub', 'colectivos'], ['💊', 'Farmacias', 'sub', 'farmacias'],
+  const alto = r.altura.toFixed(2).replace('.', ',');
+  const accesos = [['🛍️', 'Comprar', 'tab', 'comprar'], ['🎁', 'Beneficios', 'tab', 'beneficios'], ['💳', 'Pagar', 'serv', 'pagos'], ['📣', 'Reclamar', 'serv', 'reclamos']];
+  const mas = [
+    ['📅', 'Turnos municipales', 'Licencia, castración, tasas', 'serv', 'turnos'],
+    ['🚗', 'Estacionamiento medido', 'Activá y pagá desde el celu', 'sub', 'estacionamiento'],
+    ['🚌', 'Colectivos', 'Cuánto falta en tu parada', 'sub', 'colectivos'],
+    ['💊', 'Farmacias de turno', 'Abiertas ahora cerca tuyo', 'sub', 'farmacias'],
+    ['🌊', 'Altura del río', `Río Luján: ${alto} m · ${r.nivel.txt}`, 'sub', 'rio'],
   ];
+  const aviso = r.nivel.clase !== 'normal' ? `<button class="aviso-rio ${r.nivel.clase}" data-a="sub" data-v="rio"><span>🌊</span><div><b>Río Luján en ${r.nivel.txt.toLowerCase()}: ${alto} m</b><small>${r.sube ? 'Subiendo' : 'Bajando'} · tocá para ver el pronóstico</small></div></button>` : '';
   return `
-  <section class="hola"><p class="muted">Hola,</p><h1>${esc(S.usuario.nombre.split(' ')[0])} 👋</h1></section>
-  <input class="buscar" type="search" placeholder="🔎 Buscá comercios, beneficios o trámites" value="${esc(S.busca)}" data-f="busca">
+  <section class="hola"><h1>Hola, ${esc(S.usuario.nombre.split(' ')[0])}</h1></section>
+  <input class="buscar" type="search" placeholder="Buscá comercios, beneficios o trámites" value="${esc(S.busca)}" data-f="busca">
   <div id="resBusca">${resultadosBusca()}</div>
   <div class="dash"><div class="dcol">
-  ${bannerFlash()}
-  ${encuestaNps()}
-  ${puntosMini()}
-  <div class="card ahorro">
-    <p>Este mes ahorraste con tu tarjeta ${MARCA.tarjeta}</p>
+  <div class="resumen">
+    <span class="res-et">Ahorraste este mes con ${MARCA.tarjeta}</span>
     <strong>${plata(ahorro)}</strong>
-    <span>en ${plural(mes.length, 'compra', 'compras')} en comercios del distrito</span>
-    <button class="btn-claro" data-a="tab" data-v="credencial">Ver mi historial</button>
+    <span class="res-sub">en ${plural(mes.length, 'compra', 'compras')} en comercios del distrito</span>
+    <button class="res-puntos" data-a="sub" data-v="puntos"><span>⭐ ${S.puntos.saldo.toLocaleString('es-AR')} Puntos Tigre</span><span>Canjear</span></button>
   </div>
+  <div class="accesos4">${accesos.map(([e, t, a, v]) => `<button data-a="${a}" data-v="${v}"><span>${e}</span>${t}</button>`).join('')}</div>
+  ${encuestaNps()}
   ${activo ? cardActivo(activo) : ''}
-  <button class="card rio-mini ${r.nivel.clase}" data-a="sub" data-v="rio">
-    <span class="rio-ico">🌊</span><div><b>Río Luján: ${r.altura.toFixed(2).replace('.', ',')} m</b><span class="muted">${r.nivel.txt} · ${r.sube ? 'subiendo ↑' : 'bajando ↓'}</span></div><span class="flecha">›</span>
-  </button>
-  <h2>¿Qué necesitás?</h2>
-  <div class="accesos">${accesos.map(([e, t, a, v]) => `<button data-a="${a}" data-v="${v}"><span>${e}</span>${t}</button>`).join('')}</div>
+  ${aviso}
+  ${bannerFlash()}
   </div><div class="dcol">
-  <button class="card tigri-card" data-a="sheet" data-v="tigri"><span class="tg-avatar">🐯</span><div><b>¿Te ayudo con algo?</b><span class="muted">Preguntale a Tigri: "farmacia de turno", "quiero pizza", "hay un bache"…</span></div></button>
-  <h2>Cerca tuyo, en ${esc(S.usuario.loc)}</h2>
+  <div class="h2-fila"><h2>Cerca tuyo</h2><button class="link" data-a="tab" data-v="comprar">Ver todos</button></div>
   <div class="carrusel">${cerca2.map(miniComercio).join('') || '<p class="muted">Todavía no hay comercios con pedidos en tu localidad.</p>'}</div>
-  <h2>Avisos</h2>
-  <div class="lista">${AVISOS.map((a) => `<div class="fila"><span class="ico">${a.emoji}</span><div><b>${a.titulo}</b><p class="muted">${a.texto}</p></div></div>`).join('')}</div>
+  <h2>Servicios</h2>
+  <div class="lista-limpia">${mas.map(([e, t, d, a, v]) => `<button data-a="${a}" data-v="${v}"><span class="ico">${e}</span><div><b>${t}</b><small>${d}</small></div><span class="flecha">›</span></button>`).join('')}</div>
   </div></div>`;
 }
 
@@ -337,7 +336,7 @@ function cardActivo(p) {
   const c = comercio(p.cid);
   return `<button class="card activo" data-a="verPedidos">
     <div><span class="pill ${p.estado}">${ESTADO_TXT[p.estado]}</span><b>${esc(c.nombre)}</b>
-    <span class="muted">Retiro ${p.retiro} · código <b>${p.codigo}</b></span></div><span class="flecha">›</span></button>`;
+    <span class="muted">${p.servicio ? 'Turno' : 'Retiro'} ${p.retiro} · código <b>${p.codigo}</b></span></div><span class="flecha">›</span></button>`;
 }
 
 // ---------- beneficios ----------
@@ -1075,12 +1074,14 @@ function vEconomia() {
     ${kpi('Ventas en comercios locales', plata(ventas))}
     ${kpi('Comisiones que quedaron en Tigre', plata(ventas * MARCA.comisionApps), 'verde', `lo que se habría ido en apps al ${MARCA.comisionApps * 100}%`)}
     ${kpi('Ahorro de los vecinos', plata(ahorroVecinos), 'verde')}
-    ${kpi('Pedidos retirados', mes.length.toLocaleString('es-AR'))}
     ${kpi('Comercios adheridos', S.comercios.length + BENEFICIOS.length)}
-    ${kpi('Puntos Tigre canjeados', (184200 + S.puntos.canjeados).toLocaleString('es-AR'), '', 'cupones, tasas, estacionamiento y cultura')}
-    ${kpi('Tasas pagadas en término', '71%', 'verde', 'meta del piloto: 80% con Puntos Tigre')}
-    ${kpi('Reclamos de compras', indicadoresRP().tasa + ' cada 100 pedidos', '', indicadoresRP().sinMed + '% resueltos sin mediación')}
-    ${kpi('Pagos hechos por la app', (1840 + S.pagosApp).toLocaleString('es-AR'), '', 'tasas, multas y estacionamiento')}
+  </div>
+  <div class="kpi-mas">
+    <div><span>Pedidos retirados</span><b>${mes.length.toLocaleString('es-AR')}</b></div>
+    <div><span>Puntos Tigre canjeados</span><b>${(184200 + S.puntos.canjeados).toLocaleString('es-AR')}</b></div>
+    <div><span>Tasas pagadas en término <small>meta 80%</small></span><b>71%</b></div>
+    <div><span>Reclamos de compras <small>${indicadoresRP().sinMed}% sin mediación</small></span><b>${indicadoresRP().tasa} c/100</b></div>
+    <div><span>Pagos hechos por la app</span><b>${(1840 + S.pagosApp).toLocaleString('es-AR')}</b></div>
   </div>
   <div class="dos">
     <div class="card"><h3>Embudo del producto (AARRR)</h3>${embudo()}</div>
