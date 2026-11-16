@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Milagros Sanabria · Procesos, operaciones e IA</title>
+<meta name="description" content="10 años en operaciones, Supply Chain y mejora continua. Ordeno procesos, los mido con KPIs y los automatizo con IA.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%236b63d0'/%3E%3Ctext x='32' y='44' font-family='Arial' font-weight='800' font-size='34' text-anchor='middle' fill='white'%3Em%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --fondo:#f6f4f0; --blanco:#fff; --tinta:#1c1c27; --gris:#62627a; --linea:rgba(28,28,39,.09);
+    --violeta:#6b63d0; --violeta-osc:#4f47b3; --lila:#a29bf2; --lila-suave:#eeedf9;
+    --display:"Bricolage Grotesque",Inter,system-ui,sans-serif; --texto:Inter,system-ui,-apple-system,sans-serif;
+    --r:22px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--fondo);color:var(--tinta);font-family:var(--texto);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  img{max-width:100%;display:block}
+  .ancho{max-width:1040px;margin:0 auto;padding:0 20px}
+  h1,h2,h3{font-family:var(--display);letter-spacing:-.03em;line-height:1.02}
+  .eti{font-size:.74rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--violeta)}
+  section{padding:72px 0}
+  section h2{font-size:clamp(1.9rem,4.4vw,2.6rem);margin:10px 0 26px}
+  button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+  :focus-visible{outline:3px solid var(--lila);outline-offset:3px;border-radius:10px}
+
+  /* barra */
+  .barra{position:sticky;top:0;z-index:20;background:rgba(246,244,240,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .2s}
+  .barra.sombra{border-color:var(--linea)}
+  .barra .ancho{display:flex;align-items:center;gap:10px;height:62px}
+  .marca{font-family:var(--display);font-weight:800;font-size:1.45rem;text-decoration:none;margin-right:auto}
+  .marca span{color:var(--violeta)}
+  .barra nav{display:flex;gap:4px;margin-right:8px}
+  .barra nav a{text-decoration:none;font-size:.9rem;font-weight:500;color:var(--gris);padding:8px 12px;border-radius:999px}
+  .barra nav a:hover{background:var(--blanco);color:var(--tinta)}
+  .btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:600;font-size:.95rem;padding:12px 20px;border-radius:999px;transition:transform .15s,background .15s}
+  .btn:hover{transform:translateY(-1px)}
+  .btn-v{background:var(--violeta);color:#fff}
+  .btn-v:hover{background:var(--violeta-osc)}
+  .btn-b{background:var(--blanco);border:1px solid var(--linea)}
+  .btn-s{padding:9px 16px;font-size:.88rem}
+
+  /* inicio */
+  .inicio{padding:56px 0 40px}
+  .inicio .ancho{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:40px;align-items:center}
+  .inicio h1{font-size:clamp(2.5rem,7vw,4.4rem);font-weight:800;margin:14px 0 16px}
+  .inicio h1 em{font-style:normal;color:var(--violeta)}
+  .bajada{font-size:1.12rem;color:var(--gris);max-width:30ch}
+  .acciones{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+  .foto{position:relative;justify-self:center}
+  .foto img{width:260px;height:260px;border-radius:50%;object-fit:cover;border:6px solid var(--blanco);box-shadow:0 18px 50px rgba(107,99,208,.25)}
+  .estado{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);background:var(--blanco);border-radius:999px;padding:7px 14px;font-size:.82rem;font-weight:600;white-space:nowrap;box-shadow:0 6px 20px rgba(28,28,39,.12);display:flex;align-items:center;gap:7px}
+  .estado i{width:9px;height:9px;border-radius:50%;background:#2fb67c;box-shadow:0 0 0 0 rgba(47,182,124,.6);animation:latido 2s infinite}
+  @keyframes latido{70%{box-shadow:0 0 0 8px rgba(47,182,124,0)}100%{box-shadow:0 0 0 0 rgba(47,182,124,0)}}
+  .cifras{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:44px}
+  .cifra{background:var(--blanco);border:1px solid var(--linea);border-radius:var(--r);padding:20px 22px}
+  .cifra b{display:block;font-family:var(--display);font-weight:800;font-size:clamp(2rem,5vw,2.9rem);letter-spacing:-.04em;color:var(--violeta);line-height:1}
+  .cifra span{display:block;font-size:.88rem;color:var(--gris);margin-top:8px;line-height:1.35}
+  .sellos{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .sello{font-size:.82rem;font-weight:500;color:var(--gris);background:transparent;border:1px solid var(--linea);border-radius:999px;padding:6px 12px}
+
+  /* qué hago */
+  .opciones{display:flex;flex-wrap:wrap;gap:8px}
+  .op{padding:11px 18px;border-radius:999px;background:var(--blanco);border:1px solid var(--linea);font-weight:600;font-size:.95rem;transition:background .15s,color .15s}
+  .op[aria-selected="true"]{background:var(--tinta);color:#fff;border-color:var(--tinta)}
+  .panel{margin-top:16px;background:var(--blanco);border:1px solid var(--linea);border-radius:var(--r);padding:26px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:center;animation:entra .3s ease}
+  .panel p{font-size:1.08rem;max-width:46ch}
+  .panel .ej{display:block;font-size:.88rem;color:var(--gris);margin-top:10px}
+  .panel .num{font-family:var(--display);font-weight:800;font-size:2.6rem;color:var(--violeta);letter-spacing:-.04em;text-align:right;line-height:1}
+  .panel .num small{display:block;font-family:var(--texto);font-weight:500;font-size:.8rem;color:var(--gris);letter-spacing:0;margin-top:6px}
+  @keyframes entra{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  /* resultados */
+  .pestanas{display:inline-flex;background:var(--blanco);border:1px solid var(--linea);border-radius:999px;padding:4px;margin-bottom:18px}
+  .pest{padding:9px 18px;border-radius:999px;font-weight:600;font-size:.92rem;color:var(--gris)}
+  .pest[aria-selected="true"]{background:var(--violeta);color:#fff}
+  .tarjetas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .tarjetas[hidden]{display:none}
+  .t{background:var(--blanco);border:1px solid var(--linea);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column}
+  .t summary{list-style:none;cursor:pointer;padding:20px 22px;flex:1;position:relative}
+  .t summary::-webkit-details-marker{display:none}
+  .t summary::after{content:"+";position:absolute;top:16px;right:18px;width:28px;height:28px;border-radius:50%;background:var(--lila-suave);color:var(--violeta);font-weight:700;display:grid;place-items:center;transition:transform .2s}
+  .t[open] summary::after{transform:rotate(45deg)}
+  .t .n{font-family:var(--display);font-weight:800;font-size:2rem;color:var(--violeta);letter-spacing:-.04em;line-height:1}
+  .t h3{font-size:1.1rem;margin:10px 0 2px;letter-spacing:-.01em}
+  .t .donde{font-size:.78rem;color:var(--gris);font-weight:500}
+  .t .mas{padding:0 22px 20px;font-size:.92rem;color:var(--gris)}
+  .t.oscura{background:var(--tinta);color:#fff;border-color:var(--tinta)}
+  .t.oscura .n{color:var(--lila)}
+  .t.oscura .donde,.t.oscura .mas{color:#c6c5d6}
+  .t.oscura summary::after{background:rgba(255,255,255,.1);color:var(--lila)}
+  .app{background:var(--blanco);border:1px solid var(--linea);border-radius:var(--r);overflow:hidden;text-decoration:none;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+  .app:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(28,28,39,.1)}
+  .app img{aspect-ratio:16/10;object-fit:cover;object-position:top;border-bottom:1px solid var(--linea)}
+  .app div{padding:16px 20px 18px;flex:1;display:flex;flex-direction:column}
+  .app .donde{font-size:.74rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gris)}
+  .app h3{font-size:1.15rem;margin:6px 0 4px;letter-spacing:-.01em}
+  .app p{font-size:.9rem;color:var(--gris);flex:1}
+  .app .ir{margin-top:12px;font-weight:600;color:var(--violeta);font-size:.9rem}
+
+  /* recorrido */
+  .linea{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 18px;scrollbar-width:thin}
+  .hito{flex:0 0 190px;scroll-snap-align:start;text-align:left;background:var(--blanco);border:1px solid var(--linea);border-radius:18px;padding:16px 18px;position:relative;transition:border-color .15s,background .15s}
+  .hito .anio{font-family:var(--display);font-weight:800;font-size:1.5rem;color:var(--lila);letter-spacing:-.03em}
+  .hito b{display:block;font-size:.95rem;line-height:1.3;margin-top:4px}
+  .hito span{display:block;font-size:.8rem;color:var(--gris);margin-top:4px}
+  .hito[aria-pressed="true"]{border-color:var(--violeta);background:var(--lila-suave)}
+  .hito[aria-pressed="true"] .anio{color:var(--violeta)}
+  .hito.hoy::before{content:"Hoy";position:absolute;top:14px;right:14px;font-size:.7rem;font-weight:700;color:#fff;background:var(--violeta);border-radius:999px;padding:2px 8px}
+  .detalle{margin-top:6px;font-size:1rem;color:var(--tinta);min-height:1.6em}
+  .detalle b{color:var(--violeta)}
+  .pista{font-size:.8rem;color:var(--gris);margin-top:6px}
+
+  /* herramientas */
+  .dos{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+  .caja{background:var(--blanco);border:1px solid var(--linea);border-radius:var(--r);padding:24px}
+  .caja h3{font-size:1.15rem;margin-bottom:14px;letter-spacing:-.01em}
+  .chips{display:flex;flex-wrap:wrap;gap:7px}
+  .chips span{font-size:.85rem;padding:6px 12px;border-radius:999px;background:var(--fondo);border:1px solid var(--linea)}
+  .chips span.f{background:var(--lila-suave);border-color:transparent;color:var(--violeta-osc);font-weight:600}
+  .forma{list-style:none;display:grid;gap:12px}
+  .forma b{display:block;font-size:.95rem;line-height:1.3}
+  .forma span{font-size:.82rem;color:var(--gris)}
+
+  /* contacto */
+  .contacto .caja-c{background:var(--tinta);color:#fff;border-radius:28px;padding:44px clamp(24px,5vw,56px);position:relative;overflow:hidden}
+  .contacto .caja-c::before{content:"";position:absolute;width:420px;height:420px;border-radius:50%;background:var(--violeta);filter:blur(110px);opacity:.45;top:-180px;right:-120px}
+  .contacto .caja-c>*{position:relative}
+  .contacto h2{margin:10px 0 14px;font-size:clamp(2rem,5vw,3rem)}
+  .contacto .eti{color:var(--lila)}
+  .busco{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 26px}
+  .busco span{font-size:.88rem;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:7px 14px;color:#e4e3f0}
+  .contacto .btn-b{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18);color:#fff}
+  footer{padding:28px 0 40px;font-size:.82rem;color:var(--gris)}
+  footer .ancho{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+  /* aparece al bajar */
+  .ap{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+  .ap.ver{opacity:1;transform:none}
+
+  @media (max-width:860px){
+    .barra nav{display:none}
+    .inicio .ancho{grid-template-columns:1fr;gap:26px}
+    .foto{order:-1;justify-self:start}
+    .foto img{width:150px;height:150px;border-width:4px}
+    .estado{left:auto;right:-40px;transform:none;bottom:6px}
+    .tarjetas,.dos{grid-template-columns:1fr}
+    .panel{grid-template-columns:1fr}
+    .panel .num{text-align:left}
+  }
+  @media (max-width:520px){
+    section{padding:56px 0}
+    .cifras{grid-template-columns:1fr 1fr}
+    .cifras .cifra:first-child{grid-column:span 2}
+    .barra .btn-b{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .ap{opacity:1;transform:none}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<header class="barra" id="barra">
+  <div class="ancho">
+    <a class="marca" href="#inicio">mila<span>.</span></a>
+    <nav aria-label="Secciones">
+      <a href="#que-hago">Qué hago</a>
+      <a href="#resultados">Resultados</a>
+      <a href="#recorrido">Recorrido</a>
+    </nav>
+    <a class="btn btn-b btn-s" href="../cv-milagros-sanabria.pdf" download>CV</a>
+    <a class="btn btn-v btn-s" href="#contacto">Hablemos</a>
+  </div>
+</header>
+
+<main>
+  <section class="inicio" id="inicio">
+    <div class="ancho">
+      <div>
+        <span class="eti">Procesos · Operaciones · IA</span>
+        <h1>Ordeno la operación, la mido y la <em>automatizo</em>.</h1>
+        <p class="bajada">10 años en operaciones y Supply Chain. Hoy, procesos + IA.</p>
+        <div class="acciones">
+          <a class="btn btn-v" href="#resultados">Ver resultados</a>
+          <a class="btn btn-b" href="../cv-milagros-sanabria.pdf" download>Descargar CV</a>
+        </div>
+        <div class="sellos"><span class="sello">📍 Zona norte, Buenos Aires</span><span class="sello">Key User SAP</span><span class="sello">Multinacionales y fintech</span></div>
+      </div>
+      <div class="foto">
+        <img src="../img/mila.jpg" alt="Milagros Sanabria sonriendo" width="640" height="640">
+        <span class="estado"><i></i>Disponible ya</span>
+      </div>
+    </div>
+    <div class="ancho">
+      <div class="cifras">
+        <div class="cifra"><b data-contar="10">10</b><span>años en operaciones</span></div>
+        <div class="cifra"><b data-contar="1000" data-pre="+">+1.000</b><span>instalaciones coordinadas</span></div>
+        <div class="cifra"><b data-contar="60" data-suf=" %">60 %</b><span>menos trabajo manual con IA</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="que-hago">
+    <div class="ancho ap">
+      <span class="eti">Qué hago</span>
+      <h2>Tocá un tema</h2>
+      <div class="opciones" role="tablist" aria-label="Qué hago">
+        <button class="op" role="tab" aria-selected="true" data-i="0">⚙️ Procesos</button>
+        <button class="op" role="tab" aria-selected="false" data-i="1">📊 KPIs</button>
+        <button class="op" role="tab" aria-selected="false" data-i="2">🚚 Supply Chain</button>
+        <button class="op" role="tab" aria-selected="false" data-i="3">✨ IA</button>
+      </div>
+      <div class="panel" id="panel" role="tabpanel" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section id="resultados">
+    <div class="ancho ap">
+      <span class="eti">Resultados</span>
+      <h2>Lo que hice, en corto</h2>
+      <div class="pestanas" role="tablist" aria-label="Resultados">
+        <button class="pest" role="tab" aria-selected="true" aria-controls="r-empresas" id="p-empresas">En empresas</button>
+        <button class="pest" role="tab" aria-selected="false" aria-controls="r-apps" id="p-apps">Apps propias</button>
+      </div>
+
+      <div class="tarjetas" id="r-empresas" role="tabpanel" aria-labelledby="p-empresas">
+        <details class="t oscura"><summary><div class="n">60 %</div><h3>Asistentes de IA</h3><span class="donde">itti</span></summary><p class="mas">Por iniciativa propia, asistentes con Gemini que estandarizaron tareas y automatizaron el 60 % del trabajo manual de 30 personas.</p></details>
+        <details class="t"><summary><div class="n">+1.000 h</div><h3>Chatbot corporativo</h3><span class="donde">itti</span></summary><p class="mas">Proyecto completo: caso de negocio, riesgos, roadmap y pruebas UAT. Ahorro proyectado de más de 1.000 horas por mes.</p></details>
+        <details class="t"><summary><div class="n">+1.000</div><h3>Despliegues a escala</h3><span class="donde">itti</span></summary><p class="mas">Logística end-to-end de más de 1.000 instalaciones y más de 50 sucursales en 12 meses, con la meta anual superada.</p></details>
+        <details class="t"><summary><div class="n">0 papel</div><h3>Remitos online</h3><span class="donde">Merz Aesthetics</span></summary><p class="mas">Remitos sin papel y despachos más rápidos. Referente funcional en la implementación de SAP.</p></details>
+        <details class="t"><summary><div class="n">KPIs</div><h3>Tableros de gestión</h3><span class="donde">Johnson &amp; Johnson · Merz</span></summary><p class="mas">Controles internos y tableros en Power BI, Excel y SAP para seguir al operador logístico y presentar a gerencia.</p></details>
+        <details class="t"><summary><div class="n">SAP</div><h3>Key user</h3><span class="donde">Johnson &amp; Johnson · Merz</span></summary><p class="mas">Key user en el depósito de J&amp;J y referente funcional en la implementación de SAP en Merz.</p></details>
+      </div>
+
+      <div class="tarjetas" id="r-apps" role="tabpanel" aria-labelledby="p-apps" hidden>
+        <a class="app" href="https://mila-ops-ia.github.io/servicios/demo-cartera/" target="_blank" rel="noopener"><img src="../img/demo-cartera.jpg" alt="Tablero de Cartera" loading="lazy" width="960" height="600"><div><span class="donde">En uso</span><h3>Cartera</h3><p>Préstamos y cobranzas, con tablero de mora y rentabilidad.</p><span class="ir">Probar demo →</span></div></a>
+        <a class="app" href="https://mila-ops-ia.github.io/servicios/demo-reparto/" target="_blank" rel="noopener"><img src="../img/demo-reparto.jpg" alt="Inicio de Reparto" loading="lazy" width="960" height="600"><div><span class="donde">En uso</span><h3>Reparto</h3><p>Cuánto queda limpio por hora y por paquete.</p><span class="ir">Probar demo →</span></div></a>
+        <a class="app" href="https://mila-ops-ia.github.io/soytigreya/" target="_blank" rel="noopener"><img src="../img/demo-tigre.jpg" alt="Entrada de SoyTigreYa" loading="lazy" width="960" height="600"><div><span class="donde">Prototipo · Diplomatura</span><h3>SoyTigreYa</h3><p>Super-app municipal: beneficios, comercios y trámites.</p><span class="ir">Probar demo →</span></div></a>
+        <a class="app" href="https://github.com/mila-ops-ia/busqueda-laboral" target="_blank" rel="noopener" style="grid-column:1/-1"><div><span class="donde">Corre cada día</span><h3>🔎 Búsqueda laboral automática</h3><p>Busca avisos en LinkedIn, los puntúa según mi perfil y los carga en un Google Sheet.</p><span class="ir">Ver en GitHub →</span></div></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="recorrido">
+    <div class="ancho ap">
+      <span class="eti">Recorrido</span>
+      <h2>De la base a la estrategia</h2>
+      <div class="linea" id="linea">
+        <button class="hito" aria-pressed="false" data-d="Empecé atendiendo clientes: ahí aprendí cómo impacta cada falla de la operación."><div class="anio">2016</div><b>Atención al cliente</b><span>Johnson &amp; Johnson</span></button>
+        <button class="hito" aria-pressed="false" data-d="Depósito e inventario, como <b>key user de SAP</b>."><div class="anio">2017</div><b>Depósito e inventario</b><span>Johnson &amp; Johnson</span></button>
+        <button class="hito" aria-pressed="false" data-d="Analista de logística: controles y <b>tableros</b> para seguir al operador logístico."><div class="anio">2019</div><b>Analista de logística</b><span>Johnson &amp; Johnson</span></button>
+        <button class="hito" aria-pressed="false" data-d="Logística y facturación, referente en la <b>implementación de SAP</b> y remitos sin papel."><div class="anio">2021</div><b>Logística y facturación</b><span>Merz Aesthetics</span></button>
+        <button class="hito" aria-pressed="false" data-d="Coordiné la <b>distribución nacional</b> con equipo a cargo."><div class="anio">2022</div><b>Coordinadora de logística</b><span>Merz Aesthetics</span></button>
+        <button class="hito" aria-pressed="false" data-d="Despliegues a escala: <b>+1.000 instalaciones</b> y +50 sucursales en 12 meses."><div class="anio">2025</div><b>Operations &amp; Logistics Sr Analyst</b><span>itti</span></button>
+        <button class="hito hoy" aria-pressed="true" data-d="Procesos e IA: asistentes que automatizaron el <b>60 % del trabajo manual</b> de un equipo."><div class="anio">2026</div><b>Corporate Quality Specialist</b><span>itti</span></button>
+      </div>
+      <p class="detalle" id="detalle" aria-live="polite"></p>
+      <p class="pista">← Deslizá y tocá cada año →</p>
+    </div>
+  </section>
+
+  <section id="herramientas" style="padding-top:0">
+    <div class="ancho dos ap">
+      <div class="caja">
+        <h3>Herramientas</h3>
+        <div class="chips">
+          <span class="f">SAP (MM, SD, PP, FI)</span><span class="f">Excel avanzado</span><span class="f">Power BI</span><span class="f">Claude Code</span>
+          <span>Power Query</span><span>Looker Studio</span><span>QuickSight</span><span>WMS</span><span>Salesforce</span><span>Jira</span><span>Figma</span><span>Gemini</span><span>Lean Six Sigma</span><span>Scrum y Kanban</span>
+        </div>
+      </div>
+      <div class="caja">
+        <h3>Formación</h3>
+        <ul class="forma">
+          <li><b>Tecnicatura en Logística</b><span>Universidad de Belgrano · 2023–2026</span></li>
+          <li><b>Diplomatura en Negocios Digitales</b><span>Universidad Nacional del Delta · 2026</span></li>
+          <li><b>Power BI y tablero de comando</b><span>UTN y AMELTAF · 2025</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="contacto" id="contacto" style="padding-top:0">
+    <div class="ancho ap">
+      <div class="caja-c">
+        <span class="eti">Contacto</span>
+        <h2>¿Tenés un proceso para ordenar?</h2>
+        <div class="busco">
+          <span>Mejora continua · Procesos · Operaciones</span>
+          <span>Senior, especialista o coordinación</span>
+          <span>📍 Zona norte · presencial, híbrido o remoto</span>
+        </div>
+        <div class="acciones">
+          <a class="btn btn-v" href="mailto:milagrosbelensanabria@gmail.com">Escribime</a>
+          <a class="btn btn-b" href="https://www.linkedin.com/in/milagros-sanabria/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn btn-b" href="../cv-milagros-sanabria.pdf" download>CV</a>
+          <a class="btn btn-b" href="https://github.com/mila-ops-ia" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="ancho"><span>© 2026 Milagros Belén Sanabria</span><span>Hecho por mí, con Claude Code</span></div></footer>
+
+<script>
+  // Qué hago: un tema a la vez
+  const temas = [
+    {t:"Relevo cómo se trabaja hoy y lo rediseño (AS-IS / TO-BE), con Lean y procedimientos claros.", e:"Ej.: remitos sin papel en Merz Aesthetics.", n:"0 papel", s:"en remitos"},
+    {t:"Defino indicadores desde cero, aunque no haya historial, y armo tableros para decidir con datos.", e:"Power BI, Looker Studio y QuickSight.", n:"KPIs", s:"desde cero"},
+    {t:"Abastecimiento, inventario, distribución nacional y operadores 3PL/4PL.", e:"Ej.: despliegues de itti en 12 meses.", n:"+1.000", s:"instalaciones"},
+    {t:"Asistentes, chatbots y apps propias con Claude Code. Primero entiendo el proceso, después lo automatizo.", e:"Ej.: asistentes con Gemini para un equipo de 30 personas.", n:"60 %", s:"menos trabajo manual"}
+  ];
+  const panel = document.getElementById("panel");
+  const ops = [...document.querySelectorAll(".op")];
+  function mostrar(i){
+    ops.forEach((b,j)=>b.setAttribute("aria-selected", j===i));
+    const x = temas[i];
+    panel.style.animation="none"; panel.offsetHeight; panel.style.animation="";
+    panel.innerHTML = `<div><p>${x.t}</p><span class="ej">${x.e}</span></div><div class="num">${x.n}<small>${x.s}</small></div>`;
+  }
+  ops.forEach((b,i)=>b.addEventListener("click",()=>mostrar(i)));
+  mostrar(0);
+
+  // Resultados: pestañas
+  const pests = [...document.querySelectorAll(".pest")];
+  pests.forEach(p=>p.addEventListener("click",()=>{
+    pests.forEach(q=>{ const on = q===p; q.setAttribute("aria-selected", on); document.getElementById(q.getAttribute("aria-controls")).hidden = !on; });
+  }));
+
+  // Recorrido
+  const hitos = [...document.querySelectorAll(".hito")];
+  const detalle = document.getElementById("detalle");
+  function elegir(h){ hitos.forEach(x=>x.setAttribute("aria-pressed", x===h)); detalle.innerHTML = h.dataset.d; }
+  hitos.forEach(h=>h.addEventListener("click",()=>elegir(h)));
+  elegir(hitos[hitos.length-1]);
+  const linea = document.getElementById("linea");
+  linea.scrollLeft = linea.scrollWidth;
+
+  // Barra con borde al bajar
+  const barra = document.getElementById("barra");
+  addEventListener("scroll",()=>barra.classList.toggle("sombra", scrollY>8), {passive:true});
+
+  // Aparecer y contar
+  const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const fmt = n => n.toLocaleString("es-AR");
+  function contar(el){
+    const fin = +el.dataset.contar, pre = el.dataset.pre||"", suf = el.dataset.suf||"";
+    if (quieto) return;
+    const t0 = performance.now(), dur = 1200;
+    (function paso(t){ const k = Math.min(1,(t-t0)/dur), v = Math.round(fin*(1-Math.pow(1-k,3))); el.textContent = pre+fmt(v)+suf; if(k<1) requestAnimationFrame(paso); })(t0);
+  }
+  if ("IntersectionObserver" in window){
+    const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("ver"); io.unobserve(e.target); } }), {threshold:.12});
+    document.querySelectorAll(".ap").forEach(el=>io.observe(el));
+    const ic = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ contar(e.target); ic.unobserve(e.target); } }), {threshold:.6});
+    document.querySelectorAll("[data-contar]").forEach(el=>ic.observe(el));
+  } else document.querySelectorAll(".ap").forEach(el=>el.classList.add("ver"));
+</script>
+</body>
+</html>
