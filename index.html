@@ -127,6 +127,16 @@
   .proyecto.destacado .dato{color:var(--lila)}
   .proyecto.destacado p,.proyecto.destacado .donde{color:#c9c8d8}
   .proyecto.destacado a.enlace{color:var(--lila)}
+  .demos{padding-top:0}
+  .demos .grilla{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .demo{background:#fff;border-radius:var(--radio);overflow:hidden;display:flex;flex-direction:column;border:1px solid rgba(28,28,39,.06);text-decoration:none;color:inherit;transition:transform .2s ease,box-shadow .2s ease}
+  .demo:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(28,28,39,.1)}
+  .demo img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:top;border-bottom:1px solid rgba(28,28,39,.06)}
+  .demo-texto{padding:24px 26px 26px;display:flex;flex-direction:column;flex:1}
+  .demo .donde{font-size:.74rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);margin-bottom:6px}
+  .demo h3{font-size:1.3rem;font-weight:800;margin-bottom:8px}
+  .demo p{margin:0;color:var(--gris);font-size:.96rem;flex:1}
+  .demo .enlace{margin-top:16px;font-weight:600;color:var(--violeta)}
 
   /* Frases inclinadas */
   .frases{background:var(--violeta);color:#fff;overflow:hidden}
@@ -181,7 +191,7 @@
     .portada .contenedor{grid-template-columns:minmax(0,1fr);gap:56px}
     .foto{width:min(340px,86%)}
     .tablero{grid-template-columns:repeat(2,1fr);gap:40px 20px}
-    .grilla,.proyectos .grilla,.dos-columnas{grid-template-columns:1fr}
+    .grilla,.proyectos .grilla,.demos .grilla,.dos-columnas{grid-template-columns:1fr}
     .escalera{grid-template-columns:1fr;align-items:stretch}
     .peldano{height:auto!important}
     .etapas{display:none}
@@ -206,6 +216,7 @@
     <a href="#que-hago">Qué hago</a>
     <a href="#recorrido">Recorrido</a>
     <a href="#proyectos">Proyectos</a>
+    <a href="#demos">Demos</a>
     <a href="#preguntas">Preguntas</a>
   </nav>
   <a class="boton boton-violeta boton-chico" href="#contacto">Hablemos</a>
@@ -345,6 +356,45 @@
           <p>Un script que busca avisos nuevos en LinkedIn, los puntúa según mi perfil y los carga en un Google Sheet para seguir mis postulaciones.</p>
           <a class="enlace" href="https://github.com/mila-ops-ia/busqueda-laboral" target="_blank" rel="noopener">Ver en GitHub →</a>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="demos" id="demos">
+    <div class="contenedor">
+      <div class="cabecera aparece">
+        <span class="etiqueta">Probalo en vivo</span>
+        <h2>Tres apps que armé con Claude Code</h2>
+        <p>Primero relevé la necesidad y definí las reglas. Después las construí y las probé con quienes las usan. Las demos tienen datos inventados: tocá y cargá sin miedo.</p>
+      </div>
+      <div class="grilla">
+        <a class="demo aparece" href="https://mila-ops-ia.github.io/servicios/demo-cartera/" target="_blank" rel="noopener">
+          <img src="img/demo-cartera.jpg" alt="Tablero de la app Cartera con la ganancia del mes y alertas de cobranza" loading="lazy" width="960" height="600">
+          <div class="demo-texto">
+            <span class="donde">En uso · emprendimiento de préstamos</span>
+            <h3>Cartera</h3>
+            <p>Reemplazó un cuaderno: clientes, cuotas, cobranzas y un tablero con la salud del negocio (mora, cobranza y rentabilidad).</p>
+            <span class="enlace">Abrir la demo →</span>
+          </div>
+        </a>
+        <a class="demo aparece" href="https://mila-ops-ia.github.io/servicios/demo-reparto/" target="_blank" rel="noopener">
+          <img src="img/demo-reparto.jpg" alt="Inicio de la app Reparto con lo ganado en la quincena y la meta semanal" loading="lazy" width="960" height="600">
+          <div class="demo-texto">
+            <span class="donde">En uso · repartidor</span>
+            <h3>Reparto</h3>
+            <p>Para el celular: cuánto queda limpio por hora y por paquete, descontando nafta y arreglos, con meta semanal.</p>
+            <span class="enlace">Abrir la demo →</span>
+          </div>
+        </a>
+        <a class="demo aparece" href="https://mila-ops-ia.github.io/soytigreya/" target="_blank" rel="noopener">
+          <img src="img/demo-tigre.jpg" alt="Pantalla de entrada de SoyTigreYa con los cuatro perfiles para recorrerla" loading="lazy" width="960" height="600">
+          <div class="demo-texto">
+            <span class="donde">Prototipo · Diplomatura en Negocios Digitales</span>
+            <h3>SoyTigreYa</h3>
+            <p>Super-app municipal: beneficios, compras en el barrio y trámites, con vistas para vecinos, comercios y el municipio.</p>
+            <span class="enlace">Abrir la demo →</span>
+          </div>
+        </a>
       </div>
     </div>
   </section>
