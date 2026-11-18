@@ -168,12 +168,12 @@ svg.lucide { width: 1em; height: 1em; stroke-width: 2; vertical-align: -0.12em; 
 .slide.densa .tres-v .v-usd { font-size: 25px; margin-top: -6px; }
 .slide.densa .tres-v .v-txt { font-size: 23px; }
 .slide.final .ruta { flex: none; padding-top: 6px; }
-.slide.final .ruta::before { top: 84px; }
-.slide.final .et-cu { font-size: 21px; height: 38px; }
-.slide.final .etapa b { font-size: 36px; margin-top: 8px; }
-.slide.final .etapa p { font-size: 23px; line-height: 1.25; }
+.slide.final .ruta::before { top: 88px; }
+.slide.final .et-cu { font-size: 24px; height: 42px; }
+.slide.final .etapa b { font-size: 42px; margin-top: 12px; }
+.slide.final .etapa p { font-size: 27px; line-height: 1.28; }
 .slide.final .etapa { gap: 10px; }
-.slide.final .soporte { font-size: 24px; padding: 10px 24px; }
+.slide.final .soporte { font-size: 28px; padding: 16px 28px; }
 .slide.final .cf-1 { font-size: 46px; }
 .fin-abajo { display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: stretch; flex: 1; }
 .rsg { background: var(--osc); color: #fff; border-radius: 24px; padding: 24px 32px; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
@@ -183,7 +183,7 @@ svg.lucide { width: 1em; height: 1em; stroke-width: 2; vertical-align: -0.12em; 
 .fin-qr { display: flex; gap: 20px; align-items: stretch; }
 .qr2 { background: var(--rojo); color: #fff; border-radius: 24px; padding: 18px 20px 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; font-size: 25px; font-weight: 800; text-decoration: none; }
 .qr2 img { width: 190px; height: 190px; background: #fff; border-radius: 14px; padding: 10px; }
-.rsg-l { font-size: 24px; line-height: 1.32; color: var(--muted); background: var(--rosa); border-radius: 18px; padding: 16px 26px; }
+.rsg-l { font-size: 28px; line-height: 1.35; color: var(--muted); background: var(--rosa); border-radius: 18px; padding: 16px 26px; }
 .rsg-l b { color: var(--rojo-o); }
 .cierre-f { background: var(--rojo); color: #fff; border-radius: 24px; padding: 26px 40px; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
 .cf-1 { font-size: 50px; font-weight: 800; line-height: 1.08; letter-spacing: -1px; }
@@ -192,7 +192,7 @@ svg.lucide { width: 1em; height: 1em; stroke-width: 2; vertical-align: -0.12em; 
 .slide.final .qr2 { font-size: 22px; padding: 14px 16px 12px; }
 .slide.final .cierre-f { padding: 16px 36px; }
 .slide.final .fin-abajo { flex: none; }
-.slide.final .ruta { flex: 1; }
+.slide.final .ruta { flex: none; margin: auto 0; }
 .slide.final .qr2 { background: var(--osc); }
 /* --- ajustes de la versión de 4 --- */
 .slide .perfiles4 .pv { height: 236px; }
@@ -337,9 +337,26 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
 <body>
 <div id="escena">
 
-<!-- 1 · PITCH Y PROBLEMA -->
-<section class="slide on" data-notas="[0:00 a 1:00] De cada 100 pesos que un comercio de Tigre vende por una app de delivery, 25 se van en comisión. Y hasta 35 si usa su reparto. Esa plata se va de Tigre. Soy Milagros, y lo interesante es que Tigre ya tiene la mitad de la solución: la tarjeta Soy Tigre, con más de 500 comercios adheridos. Lo que le falta es que esos comercios puedan vender desde ahí. (Tocar Con el upgrade: SoyTigreYa.) SoyTigreYa es ese upgrade: los 100 pesos son del comercio. Y si reparte con su propio cadete, el envío también lo cobra él.">
-  <div class="cab"><p class="marca-s"><b>SOYTIGRE<span>YA</span></b> · Trabajo Final Integrador · Milagros Belén Sanabria</p><h2>El upgrade de Soy Tigre: que el comercio también pueda vender</h2><p class="bajada">Soy Tigre ya da descuentos en <b>más de 500 comercios</b>. Pero para vender online dependen de apps de delivery:</p></div>
+<!-- 1 · PORTADA -->
+<section class="slide roja on" data-notas="Hola, soy Milagros Sanabria. Les presento SoyTigreYa, el upgrade de la app Soy Tigre. Pueden escanear el QR y probarla mientras hablo. Es un prototipo académico, no la app oficial.">
+  <div class="portada">
+    <div class="col" style="gap:34px;">
+      <p class="ceja">Trabajo Final Integrador · Diplomatura en Negocios Digitales e Innovación</p>
+      <h1>SOYTIGRE<span>YA</span></h1>
+      <p style="font-size:40px; font-weight:600; max-width:860px;">El upgrade de la app Soy Tigre: a los descuentos de hoy les suma comprar en el barrio, trámites, salud, deporte y empleo.</p>
+      <div class="fila" style="align-items:center; gap:30px;">
+        <div class="qr"><img src="../img/qr-soytigreya.png" alt="QR para abrir la app"></div>
+        <div class="col" style="gap:8px;"><p style="font-size:34px; font-weight:800;">Escaneá y probala</p><p style="font-size:26px;">mila-ops-ia.github.io/soytigreya</p><p style="font-size:24px; opacity:.85;">Milagros Belén Sanabria · mila·ops · UNDelta · 2026</p></div>
+      </div>
+    </div>
+    <div class="tel"><img src="../capturas/inicio.jpg" alt="Inicio de la app"></div>
+  </div>
+  <div class="pie"><span>Prototipo académico · no es una app oficial del Municipio de Tigre</span><span>1</span></div>
+</section>
+
+<!-- 2 · PITCH Y PROBLEMA -->
+<section class="slide" data-notas="[0:00 a 1:00] De cada 100 pesos que un comercio de Tigre vende por una app de delivery, 25 se van en comisión. Y hasta 35 si usa su reparto. Esa plata se va de Tigre. Y lo interesante es que Tigre ya tiene la mitad de la solución: la tarjeta Soy Tigre, con más de 500 comercios adheridos. Lo que le falta es que esos comercios puedan vender desde ahí. (Tocar Con el upgrade: SoyTigreYa.) SoyTigreYa es ese upgrade: los 100 pesos son del comercio. Y si reparte con su propio cadete, el envío también lo cobra él.">
+  <div class="cab"><p class="ceja">De dónde partimos <span class="mod">M1 · Research e hipótesis de oportunidad</span></p><h2>El upgrade de Soy Tigre: que el comercio también pueda vender</h2><p class="bajada">Soy Tigre ya da descuentos en <b>más de 500 comercios</b>. Pero para vender online dependen de apps de delivery:</p></div>
   <div class="fila" style="flex:1; gap:64px; align-items:center;">
     <div class="col" style="flex:1; gap:28px;">
             <div class="cien">
@@ -349,10 +366,10 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
       </div>
     </div>
   </div>
-  <div class="pie"><span>Prototipo académico: no es una app oficial del Municipio de Tigre · Fuentes: Develop Argentina e iProfesional (2026), Parlamentario (2024)</span><span>1</span></div>
+  <div class="pie"><span>Prototipo académico: no es una app oficial del Municipio de Tigre · Fuentes: Develop Argentina e iProfesional (2026), Parlamentario (2024)</span><span>2</span></div>
 </section>
 
-<!-- 2 · LA SOLUCIÓN -->
+<!-- 3 · LA SOLUCIÓN -->
 <section class="slide" data-notas="[1:00 a 2:30] No les traigo una idea: les traigo algo que ya funciona. Es la misma Soy Tigre con más, y la usan cuatro personas: la vecina compra, la comerciante vende y reparte con su cadete, y el Municipio resuelve reclamos y mide los resultados. (Tocar Ver un pedido de punta a punta, en vivo · 1 minuto · Esc para volver.) Está construida con lo que vimos en la Diplomatura, y la pueden probar ahora con el QR.">
   <div class="cab"><p class="ceja">El upgrade, funcionando <span class="mod">M1 · Transformación digital · M4 · UX/UI</span></p><h2>SoyTigreYa: la misma Soy Tigre, con más</h2><p class="bajada">Suma <b>comprar</b>, <b>envío con el cadete del comercio</b>, <b>trámites</b> y <b>medición</b>. Ya funciona:</p></div>
   <div class="perfiles4">
@@ -367,10 +384,10 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
     <div class="qr-mini"><img src="../img/qr-soytigreya.png" alt="QR para abrir la app"><span>Probala en tu celu</span></div>
   </div>
   <p class="dipl"><b>La Diplomatura, aplicada:</b> Design Thinking · Lean Canvas · Kanban · MVP por etapas · UX a pocos toques · NPS y AARRR</p>
-  <div class="pie"><span>Datos de demostración · El detalle de cada módulo, en la sección 5 del trabajo</span><span>2</span></div>
+  <div class="pie"><span>Datos de demostración · El detalle de cada módulo, en la sección 5 del trabajo</span><span>3</span></div>
 </section>
 
-<!-- 3 · LA PLATA QUE SE QUEDA -->
+<!-- 4 · LA PLATA QUE SE QUEDA -->
 <section class="slide densa" data-notas="[2:30 a 4:00] La plata que se queda en Tigre trabaja tres veces. Con solo 100 de los 500 comercios: 360 millones por año quedan en el comercio, 173 vuelven al barrio en sueldos y proveedores, y hasta 11 y medio vuelven al Municipio. El upgrade cuesta 109 millones el primer año, unos 69 mil dólares. Un tercio de lo que presupuestó Santa Fe para su app municipal. Y se recupera: en 2 años en el escenario esperado, en poco más de 3 en el conservador y en menos de 2 en el optimista.">
   <div class="cab"><p class="ceja">Los números <span class="mod">M3 · ROI y KPIs</span></p><h2>La plata que se queda trabaja tres veces</h2><p class="bajada">Si <b>100 de los más de 500 comercios</b> de Soy Tigre venden por la app, en un año:</p></div>
   <div class="tres-v">
@@ -404,11 +421,11 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
     <div class="esc on"><span class="e-nom">Esperado</span><p class="e-com">250 comercios al año 5</p><p class="e-rec">Se recupera en <b>2 años</b></p><p class="e-det">Quedan <b>$2.588 M</b> (USD 1,64 M) en comercios</p></div>
     <div class="esc"><span class="e-nom">Optimista</span><p class="e-com">500 comercios al año 5</p><p class="e-rec">Se recupera en <b>1 año y 8 meses</b></p><p class="e-det">Quedan <b>$4.581 M</b> (USD 2,9 M) en comercios</p></div>
     </div>
-  <div class="pie"><span>Dólar oficial Banco Nación: $1.580 (18/11/2026) · Los tres montos de arriba no se suman · Supuestos y gráfico en el Anexo A del trabajo</span><span>3</span></div>
+  <div class="pie"><span>Dólar oficial Banco Nación: $1.580 (18/11/2026) · Los tres montos de arriba no se suman · Supuestos y gráfico en el Anexo A del trabajo</span><span>4</span></div>
 </section>
 
-<!-- 4 · CÓMO SEGUIMOS -->
-<section class="slide final" data-notas="[4:00 a 5:00] El riesgo está acotado porque vamos por etapas: primero se prueba 3 meses en Tigre Centro, y solo se sigue si los comercios se suman. El cadete del comercio está desde el primer día, y mila·ops acompaña con soporte y posventa en todas las etapas. Lo que pido es simple: un piloto de 3 meses con 40 comercios. Si funciona, crece a todo Tigre y después a otros municipios. Que el ahorro y la venta se queden en Tigre. Gracias. ¿Preguntas?">
+<!-- 5 · CÓMO SEGUIMOS -->
+<section class="slide final" data-notas="[4:00 a 5:00] El riesgo está acotado porque vamos por etapas: primero se prueba 3 meses en Tigre Centro, y solo se sigue si los comercios se suman. El cadete del comercio está desde el primer día, y mila·ops acompaña con soporte y posventa en todas las etapas. Lo que pido es simple: un piloto de 3 meses con 40 comercios. Si funciona, crece a todo Tigre y después a otros municipios.">
   <div class="cab"><p class="ceja">Cómo seguimos <span class="mod">M2 · M3 · MVP por etapas y gestión del riesgo</span></p><h2>De Tigre Centro a otros municipios, por etapas</h2></div>
   <p class="rsg-l"><b>¿Por qué por etapas? Por los riesgos.</b> Que los comercios no se sumen y que no haya un banco socio se prueban primero, en el piloto. Frente a las apps de delivery: 0% de comisión y cadete propio.</p>
   <div class="ruta">
@@ -419,18 +436,31 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
     <div class="etapa fut"><span class="et-cu">Año 3 en adelante</span><span class="et-pt"></span><b>Otros municipios</b><p>La misma plataforma, con la marca de cada municipio.</p></div>
   </div>
   <p class="soporte"><b>mila·ops acompaña todas las etapas:</b> soporte, capacitación a comercios y posventa, desde el piloto.</p>
-  <div class="fin-abajo">
-    <div class="cierre-f"><p class="cf-1">Que el ahorro y la venta se queden en Tigre.</p><p class="cf-2">¡Gracias!</p></div>
-    <div class="fin-qr">
-      <div class="qr2"><img src="../img/qr-soytigreya.png" alt="QR para abrir la app"><span>Probá la app</span></div>
-      <a class="qr2" href="https://docs.google.com/forms/d/e/1FAIpQLSdKRXBPEiUi4mCrS9Q42NO-v4DuR-QqupuJ9cMIeXA5iHMqNg/viewform" target="_blank" rel="noopener"><img src="../img/qr-opiniones.png" alt="QR para dejar tu opinión"><span>Dejá tu opinión</span></a>
-    </div>
-  </div>
-  <div class="pie"><span>Milagros Belén Sanabria · Diplomatura en Negocios Digitales e Innovación · mila-ops-ia.github.io/soytigreya</span><span>4</span></div>
+  <div class="pie"><span>Milagros Belén Sanabria · Diplomatura en Negocios Digitales e Innovación · mila-ops-ia.github.io/soytigreya</span><span>5</span></div>
 </section>
 
-
-
+<!-- 6 · CIERRE -->
+<section class="slide roja" data-notas="Que el ahorro y la venta se queden en Tigre. Con el primer QR prueban la app y con el segundo me dejan su opinión, son 30 segundos. Gracias. ¿Preguntas?">
+  <div class="cierre">
+    <div class="col" style="gap:34px;">
+      <h2 style="font-size:92px; line-height:1.05;">Que el ahorro y la venta se queden en Tigre.</h2>
+      <p style="font-size:44px; font-weight:800;">¡Gracias!</p>
+    </div>
+    <div class="fila" style="gap:28px; align-items:flex-start; flex:none;">
+      <div class="col" style="align-items:center; gap:14px;">
+        <div class="qr" style="width:250px; height:250px; padding:14px;"><img src="../img/qr-soytigreya.png" alt="QR para abrir la app"></div>
+        <p style="font-size:26px; font-weight:800;">Probá la app</p>
+        <p style="font-size:18px; white-space:nowrap;">mila-ops-ia.github.io/soytigreya</p>
+      </div>
+      <a class="col" href="https://docs.google.com/forms/d/e/1FAIpQLSdKRXBPEiUi4mCrS9Q42NO-v4DuR-QqupuJ9cMIeXA5iHMqNg/viewform" target="_blank" rel="noopener" style="align-items:center; gap:14px; color:inherit; text-decoration:none;">
+        <div class="qr" style="width:250px; height:250px; padding:14px;"><img src="../img/qr-opiniones.png" alt="QR para dejar tu opinión"></div>
+        <p style="font-size:26px; font-weight:800;">Dejá tu opinión</p>
+        <p style="font-size:18px; white-space:nowrap;">Formulario de 30 segundos</p>
+      </a>
+    </div>
+  </div>
+  <div class="pie"><span>Milagros Belén Sanabria · mila·ops · Diplomatura en Negocios Digitales e Innovación</span><span>6</span></div>
+</section>
 </div>
 
 <div id="demo-capa" role="dialog" aria-label="App SoyTigreYa en vivo">
@@ -443,7 +473,7 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
   <p class="demo-pie">App real publicada en mila-ops-ia.github.io/soytigreya · prototipo académico con datos de demostración</p>
 </div>
 <div id="barra"><i></i></div>
-<div id="cont">1 / 4</div>
+<div id="cont">1 / 6</div>
 <div id="nav"><button id="b-not" title="Notas del orador (N)"><i data-lucide="message-square-text"></i></button><button id="b-full" title="Pantalla completa (F)"><i data-lucide="maximize"></i></button><button id="b-ant" title="Anterior (←)"><i data-lucide="chevron-left"></i></button><button id="b-sig" title="Siguiente (→)"><i data-lucide="chevron-right"></i></button></div>
 <div id="notas"></div>
 <div class="ayuda" id="ayuda">← → para avanzar · N notas · F pantalla completa</div>
