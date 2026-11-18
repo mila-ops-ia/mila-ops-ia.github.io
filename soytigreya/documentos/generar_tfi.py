@@ -144,7 +144,7 @@ viñetas([
 # ---------- 3 ----------
 doc.add_heading('3. Propuesta de innovación o negocio digital', 1)
 doc.add_heading('En qué consiste', 2)
-p('SoyTigreYa es una super-app municipal, de tipo marketplace y plataforma de servicios, que convierte la tarjeta Soy Tigre en el centro de una experiencia digital completa. Está organizada en cuatro perfiles que comparten los mismos datos, como ocurriría en la realidad: la vecina, la dueña de un comercio, el área de Atención al Vecino y el área de Desarrollo Económico del municipio; cada uno ve solo lo que necesita. Funciona en el celular como aplicación web instalable (PWA). El diseño toma la identidad de la app oficial (barra roja, íconos de línea) y se organiza como una billetera: la tarjeta Soy Tigre arriba, que al tocarla muestra el QR, y un inicio central con doce accesos directos que entran en una sola pantalla.')
+p('SoyTigreYa es una super-app municipal, de tipo marketplace y plataforma de servicios, que convierte la tarjeta Soy Tigre en el centro de una experiencia digital completa. Está organizada en cuatro perfiles que comparten los mismos datos, como ocurriría en la realidad: la vecina, la dueña de un comercio, el área de Atención al Vecino y el área de Desarrollo Económico del municipio; cada uno ve solo lo que necesita. Funciona en el celular como aplicación web instalable (PWA). El diseño toma la identidad de la app oficial (barra roja, íconos de línea) y se organiza como una billetera: la tarjeta Soy Tigre arriba, que al tocarla muestra el QR, y un inicio central ordenado en cuatro categorías, con todo a un toque.')
 doc.add_heading('Cómo funcionaría', 2)
 viñetas([
     ('Credencial digital: ', 'un código QR que cambia cada 30 segundos para validar la identidad en la caja, más un historial que muestra cuánto ahorró el vecino cada mes.'),
@@ -182,7 +182,7 @@ tabla([
     ['1 · Transformación digital', 'Digitalización vs. transformación; research e hipótesis de oportunidad; ética digital; sobreexpectación; adopción y gestión del cambio', 'No se digitaliza la tarjeta: se reorganiza la relación vecino–comercio–municipio con datos compartidos. Hipótesis: un canal municipal sin comisión. Ley 25.326 y aviso de prototipo. Tigri funciona con reglas antes que con IA. Piloto con early adopters antes de escalar.'],
     ['2 · Metodologías ágiles', 'Manifiesto ágil, Scrum, Kanban y Lean; Design Thinking; persona y propuesta de valor; ideación; prototipado y testeo; Lean Canvas', 'Sprints de dos semanas; Kanban de pedidos con límite de trabajo en curso en el panel del comercio; cuatro proto-personas; brainstorming y 6-3-5 para priorizar el retiro en el local antes que el delivery; Lean Canvas (Anexo A).'],
     ['3 · Innovación', 'Doble diamante; deseabilidad, factibilidad y viabilidad; POV; SCAMPER; MVP e historias de usuario; financiamiento por tramos; SMART, KPIs y ROI; explore/exploit', 'POV de Lucía; SCAMPER: QR en lugar del cupón de papel, combinar beneficios y compras, eliminar la comisión. MVP por incrementos con tramos que se liberan si se valida la hipótesis. Objetivos SMART y ROI en el panel de Desarrollo Económico.'],
-    ['4 · UX/UI', 'Diseño centrado en las personas; heurísticas de Nielsen; onboarding; accesibilidad POUR; leyes de Hick y Fitts; arquitectura de la información; pruebas de usabilidad', 'Inicio al centro de la barra y doce accesos sin scroll (Hick y Fitts); estado visible del pedido y del reclamo; un solo estilo de íconos; mapas con ubicación; letra grande; plan de prueba con 5 usuarios por perfil (Anexo A).'],
+    ['4 · UX/UI', 'Diseño centrado en las personas; heurísticas de Nielsen; onboarding; accesibilidad POUR; leyes de Hick y Fitts; arquitectura de la información; pruebas de usabilidad', 'Inicio al centro de la barra y cuatro categorías con todo a un toque (Hick y Fitts); estado visible del pedido y del reclamo; un solo estilo de íconos; mapas con ubicación; letra grande; plan de prueba con 5 usuarios por perfil (Anexo A).'],
     ['5 · Gestión de productos', 'Product Vision Board; Product-Market Fit; growth hacking: gamificación, escasez y referidos', 'Visión: que el ahorro y la venta se queden en Tigre. PMF medido con retención y NPS, con encuesta dentro de la app. Puntos Tigre, ofertas flash e invitaciones entre vecinos. Embudo AARRR en el panel municipal.'],
     ['Clase final', 'Pitch, presentación efectiva, KPIs y monetización', 'Presentación interactiva con calculadora de impacto y la app embebida; ingresos por piloto, escalamiento y licencia.'],
 ], [3.0, 5.4, 7.6])
@@ -323,7 +323,7 @@ def figura_ancha(n, f, txt):
     r = ley.add_run(f'Figura {n}. {txt}'); r.font.size = Pt(9); r.italic = True
 
 figura_ancha(1, 'perfiles.jpg', 'Pantalla de entrada: los cuatro perfiles y el recorrido guiado')
-imgs = [('inicio.jpg', 'Inicio: tarjeta y accesos'), ('beneficios.jpg', 'Beneficios reales por cercanía'), ('pedido.jpg', 'Seguimiento del pedido'),
+imgs = [('inicio.jpg', 'Inicio: tarjeta y categorías'), ('beneficios.jpg', 'Beneficios reales por cercanía'), ('pedido.jpg', 'Seguimiento del pedido'),
         ('salud-centros.jpg', 'Salud: centros cercanos'), ('trabajo.jpg', 'Trabajo y formación'), ('tigri.jpg', 'Chat con Tigri')]
 t = doc.add_table(rows=4, cols=3)
 for k, (f, txt) in enumerate(imgs):
