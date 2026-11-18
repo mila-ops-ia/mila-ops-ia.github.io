@@ -1211,3 +1211,22 @@ html, body, .shell, .shell.phone, .shell.wide { background: var(--fondo-b); }
 .ent-pie-b small { font-size: .68rem; color: #6B6F7B; line-height: 1.25; }
 
 a.ent-fb { text-decoration: none; color: inherit; }
+
+/* efecto local: tu compra trabaja tres veces */
+.imp-mini { width: 100%; margin-top: 12px; display: flex; align-items: center; gap: 12px; text-align: left; background: #E8F5EE; color: #14532D; border-radius: 16px; padding: 12px 14px; }
+.imp-mini > span:nth-child(2) { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.imp-mini b { font-size: .9rem; }
+.imp-mini small { font-size: .74rem; opacity: .8; }
+.imp-mini .flecha { color: #1B7A47; }
+.imp-ico { width: 38px; height: 38px; flex: none; border-radius: 12px; background: #1B7A47; color: #fff; display: grid; place-items: center; }
+.imp-ico svg { width: 20px; height: 20px; }
+.imp-ico.grande { width: 56px; height: 56px; border-radius: 18px; margin: 0 auto; }
+.imp-ico.grande svg { width: 28px; height: 28px; }
+.imp-hoja { display: flex; flex-direction: column; gap: 12px; text-align: center; }
+.imp-hoja h2 { margin: 0; font-size: 1.2rem; }
+.imp-paso { display: flex; gap: 12px; text-align: left; background: var(--fondo-b); border-radius: 14px; padding: 12px; }
+.imp-paso i { width: 28px; height: 28px; flex: none; border-radius: 50%; background: #1B7A47; color: #fff; font-style: normal; font-weight: 800; display: grid; place-items: center; font-size: .85rem; }
+.imp-paso div { display: flex; flex-direction: column; gap: 2px; }
+.imp-paso b { font-size: .92rem; }
+.imp-paso span { font-size: .82rem; color: #4B4F5A; line-height: 1.4; }
+.imp-paso strong { color: #1B7A47; }

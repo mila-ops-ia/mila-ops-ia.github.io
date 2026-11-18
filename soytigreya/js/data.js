@@ -404,6 +404,8 @@ const MODELO = {
   banco: 50e6,                                        // banco o billetera que cofinancia descuentos, por año (año 1: medio año)
   tramites: [5000, 20000, 30000], ahorroTramite: 1500, // trámites que dejan de ser presenciales
   comercios: [50, 100, 150], pedidosMes: [30, 60, 60], ticket: 20000, comisionApps: 0.25, mesesA1: 9, // impacto en la comunidad
+  recircula: 0.48,      // parte de lo que factura un comercio local que vuelve a gastarse en la zona (estudios Civic Economics / AMIBA, EE.UU.; supuesto a validar)
+  tasaComercio: 0.008,  // tasa por verificación de industrias y comercios de Tigre: 0,80% de los ingresos (Ordenanza Impositiva 2026, N.º 4336/25)
 };
 const MODELO_BASE = { licencia: 6.9e6, banco: 30e6, planComercios: [30, 75, 120] }; // sin las palancas
 

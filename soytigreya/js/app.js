@@ -305,6 +305,33 @@ function misDelMes() {
   return S.pedidos.filter((p) => p.mio && p.estado !== 'rechazado' && p.creado >= desde);
 }
 
+// ---------- Efecto local: la plata que se queda en Tigre trabaja tres veces ----------
+function miImpacto() {
+  const mes = misDelMes();
+  const compras = mes.reduce((a, p) => a + p.total, 0);
+  const queda = compras * MODELO.comisionApps;          // comisión que no se fue a una app
+  return { n: mes.length, compras, queda, circula: queda * MODELO.recircula, tasa: compras * MODELO.tasaComercio };
+}
+function impactoMini() {
+  const i = miImpacto();
+  if (!i.n) return `<button class="imp-mini" data-a="sheet" data-v="impacto"><span class="imp-ico">🌱</span><span><b>Tu compra trabaja 3 veces en Tigre</b><small>Mirá qué pasa cuando comprás en el barrio</small></span><span class="flecha">›</span></button>`;
+  return `<button class="imp-mini" data-a="sheet" data-v="impacto"><span class="imp-ico">🌱</span><span><b>Este mes dejaste ${plata(i.queda)} en el barrio</b><small>Tu compra trabaja 3 veces en Tigre · ver cómo</small></span><span class="flecha">›</span></button>`;
+}
+function impactoHoja() {
+  const i = miImpacto();
+  const sin = !i.n;
+  return `<div class="imp-hoja">
+    <span class="imp-ico grande">🌱</span>
+    <h2>Tu compra trabaja 3 veces en Tigre</h2>
+    <p class="muted">${sin ? 'Cuando comprás por SoyTigreYa en vez de una app de delivery, pasa esto:' : `Este mes hiciste ${plural(i.n, 'compra', 'compras')} por ${plata(i.compras)}. Esto pasó con esa plata:`}</p>
+    <div class="imp-paso"><i>1</i><div><b>Se queda en el comercio</b><span>${sin ? 'Hasta $25 de cada $100, que una app se llevaría de comisión.' : `<strong>${plata(i.queda)}</strong> que una app de delivery se habría llevado de comisión.`}</span></div></div>
+    <div class="imp-paso"><i>2</i><div><b>Vuelve a circular en el barrio</b><span>${sin ? 'El comercio lo usa en sueldos, proveedores de la zona y mejoras del local.' : `Unos <strong>${plata(i.circula)}</strong> que el comercio vuelve a gastar en sueldos, proveedores de la zona y mejoras del local.`}</span></div></div>
+    <div class="imp-paso"><i>3</i><div><b>Vuelve al Municipio</b><span>${sin ? 'El comercio paga su tasa sobre lo que vende, y eso financia calles, salud y deporte.' : `Cerca de <strong>${plata(i.tasa)}</strong> de tasa municipal que el comercio paga por esas ventas: calles, salud y deporte.`}</span></div></div>
+    <p class="muted chico">Cálculo estimado: comisión de referencia de las apps (25%), 48% de recirculación local y tasa municipal a comercios de 0,80%.</p>
+    <button class="btn grande" data-a="tab" data-v="comprar">Seguir comprando en el barrio</button>
+  </div>`;
+}
+
 function vInicio() {
   const mes = misDelMes();
   const ahorro = mes.reduce((a, p) => a + p.descuento, 0);
@@ -338,6 +365,7 @@ function vInicio() {
     </div>
     <button class="wcard2" data-a="sub" data-v="puntos"><span>⭐ ${S.puntos.saldo.toLocaleString('es-AR')} Puntos Tigre</span><span>Canjear ›</span></button>
   </div>
+  ${impactoMini()}
   ${encuestaNps()}
   ${activo ? cardActivo(activo) : ''}
   ${aviso}
@@ -943,6 +971,8 @@ function sheet() {
   } else if (s === 'notifs') {
     const ns = S.notifs.slice().reverse();
     html = `<h2>Notificaciones</h2>${ns.length ? `<div class="lista">${ns.map((n) => `<div class="fila"><span class="ico">${n.emoji}</span><div><b>${esc(n.txt)}</b><p class="muted">${fecha(n.t)} ${hora(n.t)}</p></div></div>`).join('')}</div>` : '<p class="muted">No tenés notificaciones.</p>'}`;
+  } else if (s === 'impacto') {
+    html = impactoHoja();
   } else if (s === 'benef' && S.benefSel != null) {
     const b = BENEFICIOS[S.benefSel];
     html = `<div class="benef-det">${b.foto ? `<div class="benef-det-foto" style="background-image:url(${FOTO(b.foto)})"></div>` : `<span class="grande-emoji">${b.emoji}</span>`}<h2>${esc(b.nombre)}</h2><p class="muted">${rubro(b.rubro).nombre} · ${esc(b.dir || '')} · ${b.loc}</p>
@@ -1346,7 +1376,8 @@ function proyeccion(cambios = {}) {
     };
     const vuelve = ing.plan + ing.pub + ing.banco + ing.ahorro;
     const comunidad = M.comercios[a] * M.pedidosMes[a] * M.ticket * M.comisionApps * (primero ? M.mesesA1 : 12);
-    anios.push({ costo, ing, vuelve, neto: vuelve - costo, comunidad });
+    const ventasApp = comunidad / M.comisionApps;
+    anios.push({ costo, ing, vuelve, neto: vuelve - costo, comunidad, ventasApp, recircula: comunidad * M.recircula, tasa: ventasApp * M.tasaComercio });
   }
   let acum = 0, recupero = null;
   anios.forEach((y, k) => { const antes = acum; acum += y.neto; y.acum = acum; if (recupero === null && antes < 0 && acum >= 0) recupero = k + (-antes / y.neto); });
@@ -1392,6 +1423,12 @@ function finanzasHtml() {
         <p class="muted chico">Sin palancas (licencia de $6,9 M y $30 M del banco) recupera en ${recuperoTxt(base.recupero)}. <button class="link" data-a="simReset">Volver al escenario propuesto</button></p>
       </div>
     </div>
+    <div class="comp"><p class="fin-tit">La plata que se queda trabaja tres veces</p>
+      <table class="fin-t"><tr><th></th><th>Año 1</th><th>Año 2</th><th>Año 3</th></tr>
+        ${fila('1 · Se queda en el comercio (comisiones que no se pagan)', (a) => millones(a.comunidad))}
+        ${fila('2 · Vuelve a circular en el barrio (sueldos, proveedores, mejoras)', (a) => millones(a.recircula))}
+        ${fila('3 · Vuelve al Municipio (tasa a comercios, 0,80% de las ventas)', (a) => `hasta ${millones(a.tasa)}`)}</table>
+      <p class="muted chico">Son tres beneficiarios distintos: no se suman. La vuelta 2 usa 48% de recirculación local (estudios de EE.UU., a validar en el piloto). La vuelta 3 es plata nueva solo sobre ventas nuevas o formalizadas.</p></div>
     <div class="comp"><p class="fin-tit">¿Es mucho? Lo que pagaron otros</p>
       ${(() => { const filas = [{ quien: 'SoyTigreYa', que: 'Año 1: piloto, escalamiento y 6 meses de soporte', monto: y[0].costo, yo: true }, ...COMPARACION]; const max = Math.max(...filas.map((f) => f.monto)); return filas.map((f) => `<div class="comp-f ${f.yo ? 'yo' : ''}"><span class="comp-t"><b>${f.quien}</b><small>${f.que}${f.anio ? ` · ${f.anio}` : ''}</small></span><div class="comp-b"><i style="width:${(f.monto / max) * 100}%"></i></div><b class="comp-m">${millones(f.monto)}</b></div>`).join(''); })()}
       <p class="muted chico">Santa Fe presupuestó $316 M para una app municipal comparable: SoyTigreYa cuesta menos de la mitad el primer año. Fuentes: portales de compras y prensa local.</p></div>
@@ -1585,6 +1622,7 @@ function initMaps() {
 let timerId = null;
 // ---------- íconos: los emojis del contenido pasan a íconos de línea (Lucide) ----------
 const EMOJI_ICONO = {
+  '🌱': 'sprout',
   '🔊': 'volume-2', '🔇': 'volume-x', '🎙️': 'mic', '🎙': 'mic',
   '🎢': 'ferris-wheel', '🚲': 'bike',
   '🏥': 'hospital', '❤️': 'heart-pulse', '👁️': 'eye', '🦷': 'smile', '💉': 'syringe', '🧠': 'brain', '🩻': 'scan', '🤰': 'baby', '📞': 'phone', '🧪': 'flask-conical', '🦴': 'bone',
@@ -1722,7 +1760,7 @@ function crearPedido(t, retiro) {
   S.pedidos.push(p);
   const pts = sumarPuntos(Math.floor(p.total / PUNTOS.porCompra), `Compra en ${t.c.nombre}`, '🛍️');
   S.carrito = null; S.sheet = null; S.abierto = null; S.tab = 'comprar'; S.comprarTab = 'pedidos';
-  if (!S.tour) setTimeout(() => toast(`✅ ${t.c.servicio ? 'Turno reservado' : 'Pedido enviado'}. Ahorraste ${plata(p.descuento + (p.cupon || 0))} y sumaste ⭐ ${pts} puntos.`), 100);
+  if (!S.tour) setTimeout(() => toast(`✅ ${t.c.servicio ? 'Turno reservado' : 'Pedido enviado'}. Ahorraste ${plata(p.descuento + (p.cupon || 0))}, sumaste ⭐ ${pts} puntos y ${plata(p.total * MODELO.comisionApps)} quedaron en el barrio.`), 100);
   return p;
 }
 
