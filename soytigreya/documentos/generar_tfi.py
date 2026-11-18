@@ -256,7 +256,7 @@ tabla([
     ['Bloque', 'Contenido'],
     ['Problema', 'Comisiones de 20% a 30% para los comercios; beneficios, compras y trámites dispersos; el municipio no mide el impacto.'],
     ['Segmentos', 'Vecinos con tarjeta Soy Tigre y comercios de barrio. Early adopters: gastronomía de Tigre Centro.'],
-    ['Propuesta de valor única', 'Que el ahorro y la venta se queden en Tigre: el vecino paga menos y el comercio cobra el 100%.'],
+    ['Propuesta de valor única', 'Que el ahorro y la venta se queden en Tigre: el vecino paga menos y el comercio vende sin comisión.'],
     ['Solución', 'App con descuento automático, compra con retiro, trámites, pagos, puntos y paneles de gestión.'],
     ['Canales', 'App municipal, comercios adheridos, cámaras de comercio y canales del municipio.'],
     ['Fuentes de ingreso', 'Gratis para el vecino y 0% de comisión. En el año 2: Plan Destacado ($30 M), publicidad local ($14,4 M), banco que cofinancia descuentos ($50 M) y ahorro en atención ($30 M): $124,4 M. Para mila·ops: licencia por municipio.'],

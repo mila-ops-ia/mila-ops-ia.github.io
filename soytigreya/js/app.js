@@ -968,7 +968,7 @@ function sheet() {
   } else if (s === 'onboarding') {
     const pasos = [
       ['🪪', 'Tu credencial Soy Tigre, en el celu', 'Mostrá el QR en la caja de cualquier comercio adherido. Cambia cada 30 segundos para que nadie la copie.'],
-      ['🛍️', 'Comprá en el barrio, sin comisión', 'Pedí para retirar: el descuento se aplica solo y el comercio cobra el 100% de la venta.'],
+      ['🛍️', 'Comprá en el barrio, sin comisión', 'Pedí para retirar: el descuento se aplica solo y el comercio no paga comisión.'],
       ['⭐', 'Sumá Puntos Tigre', 'Comprando en el barrio, pagando a tiempo o reciclando. Los canjeás por descuentos y saldo.'],
     ];
     const i = S.onbPaso || 0, pa = pasos[i];
