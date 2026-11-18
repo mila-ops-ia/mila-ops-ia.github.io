@@ -107,6 +107,16 @@ svg.lucide { width: 1em; height: 1em; stroke-width: 2; vertical-align: -0.12em; 
 .toggle button { font-size: 30px; padding: 18px 32px; }
 .bajada { font-size: 36px; font-weight: 600; color: var(--muted); line-height: 1.25; margin-top: 4px; }
 .bajada b { color: var(--rojo); }
+.tres-v .vuelta { padding: 22px 30px 20px; gap: 6px; }
+.tres-v .v-n { width: 50px; height: 50px; font-size: 28px; }
+.tres-v .v-tit { margin-top: 2px; }
+.tres-v .v-num { font-size: 90px; }
+.tres-v .v-txt { font-size: 25px; }
+.v-abajo .v-control, .v-abajo .v-inv { padding: 14px 30px; }
+.v-abajo .v-control .toque { display: none; }
+.v-abajo .v-inv p { font-size: 31px; }
+.v-nota { font-size: 25px; line-height: 1.3; color: var(--piz); background: var(--rosa); border-radius: 18px; padding: 16px 26px; }
+.v-nota b { color: var(--rojo-o); }
 /* objetivos del piloto */
 .metas { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; flex: 1; }
 .meta { background: var(--papel); border: 1px solid var(--linea); border-radius: 26px; padding: 34px 44px; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
@@ -299,14 +309,15 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
       <span class="v-n">3</span>
       <p class="v-tit">Vuelve al Municipio</p>
       <p class="v-num" id="r-tasa">$11,5 M</p>
-      <p class="v-txt">de tasa municipal que el comercio paga por lo que vende</p>
+      <p class="v-txt">de tasa municipal sobre lo que vende el comercio</p>
     </div>
   </div>
+  <p class="v-nota"><b>Para ubicarnos:</b> la tarjeta Soy Tigre real ya tiene <b>más de 500 comercios</b>. SoyTigreYa es una propuesta distinta y acá calculamos con solo 100.</p>
   <div class="v-abajo">
     <div class="v-control"><label>Probá con más o menos comercios: <b id="o-com">100</b></label><input type="range" id="s-com" min="20" max="500" step="10" value="100"><span class="toque"><i data-lucide="pointer"></i> Mové el control</span></div>
     <div class="v-inv"><p>¿Cuánto cuesta? <b>$152 M</b> el primer año</p><p>y se recupera en <b class="v-rojo">2 años y 5 meses</b></p></div>
   </div>
-  <div class="pie"><span>Estimación: 60 pedidos por mes por comercio, de $20.000 cada uno · Los tres montos no se suman</span><span>4</span></div>
+  <div class="pie"><span>Estimación: 60 pedidos por mes por comercio, de $20.000 cada uno · Los tres montos no se suman · Comercios adheridos: Parlamentario (2024)</span><span>4</span></div>
 </section>
 
 <!-- 5 · CIERRE -->
