@@ -311,6 +311,19 @@ tabla([
 ], [6.0, 4.5, 5.5])
 p('El comercio activa el envío en su panel, fija el precio y hasta dónde lleva, y lo puede desactivar cuando quiera. No requiere logística nueva: usa el cadete que muchos locales ya tienen. Como referencia de la etapa siguiente, en Rosario una cooperativa de cadetes trabaja con más de 100 comercios cobrando por hora y no por comisión (La Capital).')
 p('Adquisición por redes sociales. No se crean cuentas nuevas: se usan las que el Municipio ya tiene activas (Instagram, TikTok, Facebook), con Tigri como cara de la campaña, videos cortos de comercios del barrio y un botón para que cada comercio comparta su local. Se mide con vecinos nuevos por canal (registros desde cada enlace o QR), costo por vecino registrado (gasto de la campaña ÷ vecinos nuevos) y cuántos de ellos hacen su primer pedido.')
+doc.add_heading('Matriz de riesgos: peligrosidad, vulnerabilidad y nivel', 2)
+tabla([
+    ['Riesgo', 'Peligrosidad', 'Vulnerabilidad', 'Nivel'],
+    ['Baja adopción de los comercios', 'Alta', 'Alta: sin comercios no hay ventas ni datos', 'Alto'],
+    ['Financiamiento del descuento', 'Media', 'Alta: el recupero en 2 años depende del banco socio', 'Alto'],
+    ['Competencia de plataformas privadas', 'Alta', 'Media: no se compite en publicidad, sí en precio final y cercanía', 'Medio'],
+    ['Logística del delivery', 'Media', 'Media: hay retiro y envío del comercio; no todos tienen cadete', 'Medio'],
+    ['Protección de datos personales', 'Baja', 'Alta: un incidente daña la confianza en el Municipio', 'Medio'],
+    ['Costo y abuso de los Puntos Tigre', 'Media', 'Media: topes y vencimiento limitan el costo', 'Medio'],
+    ['Problemas con una compra', 'Media', 'Baja: respuesta en 24 horas y mediación municipal', 'Bajo'],
+    ['Brecha digital', 'Media', 'Baja: modo accesible, versión web y WhatsApp', 'Bajo'],
+], [5.0, 2.3, 6.7, 2.0])
+p('Peligrosidad es la probabilidad de que el riesgo ocurra; vulnerabilidad, cuánto afectaría al proyecto con las mitigaciones ya previstas en la sección 6. El nivel combina las dos. Es una valoración cualitativa de la autora, a revisar con los datos del piloto. Los dos riesgos altos son los que se validan primero: la meta de 40 comercios en tres meses y el acuerdo con un banco o billetera.')
 doc.add_heading('Comparación con otras contrataciones', 2)
 tabla([
     ['Caso', 'Qué incluye', 'Monto'],

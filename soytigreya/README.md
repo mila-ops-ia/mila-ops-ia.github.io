@@ -47,7 +47,7 @@ El botón **"▶ Ver el recorrido guiado"** muestra, en 10 pasos, cómo un pedid
 
 ## Documentos
 
-- **[Presentación interactiva (5 diapositivas)](https://mila-ops-ia.github.io/soytigreya/presentacion/)**: con calculadora de impacto y la app embebida. Flechas para avanzar, N para notas y F para pantalla completa.
+- **[Presentación interactiva (6 diapositivas)](https://mila-ops-ia.github.io/soytigreya/presentacion/)**: con calculadora de impacto y la app embebida. Flechas para avanzar, N para notas y F para pantalla completa.
 - [Todos los enlaces en una página](https://mila-ops-ia.github.io/soytigreya/enlaces.html) ([PDF](documentos/Enlaces%20-%20SoyTigreYa.pdf))
 - [Presentación en PDF](documentos/Presentacion%20-%20SoyTigreYa.pdf)
 - [Folleto de una hoja para inversores (PDF)](documentos/Folleto%20-%20SoyTigreYa.pdf)

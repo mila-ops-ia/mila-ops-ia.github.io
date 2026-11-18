@@ -109,6 +109,16 @@ svg.lucide { width: 1em; height: 1em; stroke-width: 2; vertical-align: -0.12em; 
 .bajada b { color: var(--rojo); }
 .v-nota { font-size: 25px; line-height: 1.3; color: var(--piz); background: var(--rosa); border-radius: 18px; padding: 16px 26px; }
 .v-nota b { color: var(--rojo-o); }
+/* riesgos */
+.riesgos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; flex: 1; }
+.riesgo { background: var(--papel); border: 1px solid var(--linea); border-radius: 26px; padding: 36px 34px; display: flex; flex-direction: column; gap: 16px; }
+.r-niv { align-self: flex-start; font-size: 22px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 8px 18px; border-radius: 999px; }
+.r-niv.alto { background: var(--rojo); color: #fff; }
+.r-niv.medio { background: #F6D58A; color: #5C4300; }
+.r-tit { font-size: 44px; font-weight: 800; color: var(--piz); line-height: 1.12; }
+.r-pv { font-size: 26px; font-weight: 700; color: var(--rojo); }
+.r-cub { font-size: 29px; line-height: 1.35; color: var(--muted); margin-top: auto; }
+.r-cub b { color: var(--piz); }
 /* objetivos del piloto */
 .metas { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; flex: 1; }
 .meta { background: var(--papel); border: 1px solid var(--linea); border-radius: 26px; padding: 34px 44px; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
@@ -311,7 +321,18 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
   <div class="pie"><span>Para comparar: San Cayetano pagó $85,7 M por su app y Santa Fe presupuestó $316 M · Estimación: 60 pedidos por mes por comercio, de $20.000 · Los tres montos no se suman</span><span>4</span></div>
 </section>
 
-<!-- 5 · CIERRE -->
+<!-- 5 · RIESGOS -->
+<section class="slide" data-notas="Ningún proyecto está libre de riesgos, así que los miramos de frente. Para cada uno evaluamos dos cosas: la peligrosidad, que es qué tan probable es que pase, y la vulnerabilidad, que es cuánto nos afectaría. Los dos más altos: que los comercios no se sumen, porque sin comercios no hay app, y que no consigamos un banco socio, porque el recupero en 2 años depende de eso. Los dos se prueban primero, en el piloto. El tercero es que las apps de delivery reaccionen: ahí nuestra defensa es el 0% de comisión y el envío con el cadete del propio comercio. En el trabajo escrito están los ocho riesgos con su análisis. Aclarar que es una valoración cualitativa, a revisar con los datos del piloto.">
+  <div class="cab"><p class="ceja">Riesgos <span class="mod">M1 · M3 · Gestión del riesgo</span></p><h2>Qué puede salir mal y cómo lo cubrimos</h2><p class="bajada">Miramos qué tan probable es (<b>peligrosidad</b>) y cuánto nos afectaría (<b>vulnerabilidad</b>).</p></div>
+  <div class="riesgos">
+    <div class="riesgo"><span class="r-niv alto">Riesgo alto</span><p class="r-tit">Que los comercios no se sumen</p><p class="r-pv">Peligrosidad alta<br>Vulnerabilidad alta</p><p class="r-cub"><b>Cómo lo cubrimos:</b> panel simple y capacitación en el local. Se prueba primero: 40 comercios en 3 meses.</p></div>
+    <div class="riesgo"><span class="r-niv alto">Riesgo alto</span><p class="r-tit">Que no haya un banco socio</p><p class="r-pv">Peligrosidad media<br>Vulnerabilidad alta</p><p class="r-cub"><b>Cómo lo cubrimos:</b> cerrar el acuerdo antes de crecer. Con menos aporte, el recupero se estira.</p></div>
+    <div class="riesgo"><span class="r-niv medio">Riesgo medio</span><p class="r-tit">Que las apps de delivery reaccionen</p><p class="r-pv">Peligrosidad alta<br>Vulnerabilidad media</p><p class="r-cub"><b>Cómo lo cubrimos:</b> 0% de comisión y envío con el cadete del propio comercio.</p></div>
+  </div>
+  <div class="pie"><span>Valoración cualitativa, a revisar con los datos del piloto · Los ocho riesgos están en el trabajo escrito</span><span>5</span></div>
+</section>
+
+<!-- 6 · CIERRE -->
 <section class="slide roja" data-notas="Esa es la idea: que el ahorro y la venta se queden en Tigre. Con el primer QR prueban la app y con el segundo me dejan su opinión, son 30 segundos. Gracias. ¿Preguntas? Si preguntan cómo se empieza: con una prueba de 3 meses en Tigre Centro con 40 comercios, y solo se sigue si se cumplen las metas (40 comercios, 2.000 vecinos comprando y 95% de pedidos sin problemas). Si preguntan quién paga el descuento: se comparte entre el Municipio y el comercio, con topes.">
   <div class="cierre">
     <div class="col" style="gap:34px;">
@@ -331,7 +352,7 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
       </a>
     </div>
   </div>
-  <div class="pie"><span>Milagros Belén Sanabria · mila·ops · Diplomatura en Negocios Digitales e Innovación</span><span>5</span></div>
+  <div class="pie"><span>Milagros Belén Sanabria · mila·ops · Diplomatura en Negocios Digitales e Innovación</span><span>6</span></div>
 </section>
 
 </div>
@@ -346,7 +367,7 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
   <p class="demo-pie">App real publicada en mila-ops-ia.github.io/soytigreya · prototipo académico con datos de demostración</p>
 </div>
 <div id="barra"><i></i></div>
-<div id="cont">1 / 5</div>
+<div id="cont">1 / 6</div>
 <div id="nav"><button id="b-not" title="Notas del orador (N)"><i data-lucide="message-square-text"></i></button><button id="b-full" title="Pantalla completa (F)"><i data-lucide="maximize"></i></button><button id="b-ant" title="Anterior (←)"><i data-lucide="chevron-left"></i></button><button id="b-sig" title="Siguiente (→)"><i data-lucide="chevron-right"></i></button></div>
 <div id="notas"></div>
 <div class="ayuda" id="ayuda">← → para avanzar · N notas · F pantalla completa</div>
