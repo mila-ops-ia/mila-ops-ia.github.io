@@ -1158,3 +1158,47 @@ html, body, .shell, .shell.phone, .shell.wide { background: var(--fondo-b); }
   .shell.phone .bottom button.centro.on span { opacity: 1 !important; color: #D02013 !important; }
   .shell.phone .bottom button.centro span svg { width: 22px; height: 22px; }
 }
+
+/* =====================================================================
+   v28 · Pantalla de entrada: un botón principal, lo demás en bloques chicos
+   ===================================================================== */
+.entrada { max-width: 480px; margin: 0 auto; padding: 0 0 28px !important; display: flex; flex-direction: column; gap: 18px; }
+.ent-hero { background: #D02013; color: #fff; padding: 26px 22px 28px; border-radius: 0 0 28px 28px; position: relative; overflow: hidden; }
+.ent-hero::after { content: ''; position: absolute; right: -90px; bottom: -70px; width: 320px; height: 190px; background: linear-gradient(115deg, transparent 40%, rgba(59,163,217,.45) 40%, rgba(59,163,217,.45) 58%, transparent 58%, transparent 66%, rgba(255,255,255,.16) 66%, rgba(255,255,255,.16) 80%, transparent 80%); }
+.ent-hero > * { position: relative; z-index: 1; }
+.ent-marca { display: flex; align-items: center; gap: 10px; font-size: 1rem; letter-spacing: .02em; }
+.ent-marca b span { font-weight: 500; opacity: .85; }
+.ent-logo { width: 42px; height: 42px; border-radius: 50%; background: #fff; padding: 3px; flex: none; }
+.ent-hero h1 { font-size: 2.3rem; line-height: 1.04; font-weight: 800; letter-spacing: -.02em; margin: 22px 0 8px; color: #fff; }
+.ent-hero p { font-size: .98rem; opacity: .95; max-width: 300px; }
+.ent-cta { margin-top: 20px; width: 100%; background: #fff; color: #D02013; border-radius: 16px; padding: 14px 18px; font-weight: 800; font-size: 1.1rem; display: flex; flex-direction: column; align-items: center; gap: 2px; box-shadow: 0 12px 26px -12px rgba(0,0,0,.45); }
+.ent-cta small { font-size: .78rem; font-weight: 600; color: #6B6F7B; }
+.ent-cta:active { transform: scale(.98); }
+.ent-bloque { padding: 0 18px; }
+.ent-bloque h2 { margin: 0 2px 10px; font-size: .74rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #6B6F7B; }
+.ent-otros { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.ent-perfil { background: #fff; border-radius: 16px; padding: 14px 6px 12px; display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; }
+.ent-perfil .avatar-p { width: 40px; height: 40px; font-size: 1rem; margin-bottom: 4px; }
+.ent-perfil b { font-size: .92rem; }
+.ent-perfil small { font-size: .7rem; color: #6B6F7B; line-height: 1.25; }
+.ent-tours { display: flex; gap: 8px; overflow-x: auto; margin: 0 -18px; padding: 0 18px 4px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.ent-tours::-webkit-scrollbar { display: none; }
+.ent-tour { flex: none; width: 150px; scroll-snap-align: start; background: #17181C; color: #fff; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 6px; text-align: left; min-height: 118px; }
+.ent-tour-n { width: 30px; height: 30px; border-radius: 50%; background: #D02013; display: grid; place-items: center; font-size: .8rem; margin-bottom: auto; }
+.ent-tour-n svg { width: 14px; height: 14px; }
+.ent-tour b { font-size: .88rem; line-height: 1.2; }
+.ent-tour small { font-size: .7rem; opacity: .7; }
+.ent-fb { margin: 0 18px; background: #fff; border-radius: 16px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; text-align: left; }
+.ent-fb > span:first-child { width: 38px; height: 38px; border-radius: 12px; background: #FBE9E7; color: #D02013; display: grid; place-items: center; flex: none; }
+.ent-fb > span:nth-child(2) { flex: 1; display: flex; flex-direction: column; }
+.ent-fb small { font-size: .76rem; color: #6B6F7B; }
+.entrada .fb { margin: 0 18px; width: auto; max-width: none; }
+.entrada .qr-entrada { margin: 0 18px; }
+.entrada .pie-links, .entrada .centro { padding: 0 18px; }
+@media (min-width: 760px) {
+  .entrada { max-width: 560px; padding-top: 24px !important; }
+  .ent-hero { border-radius: 28px; padding: 34px 32px 36px; }
+  .ent-tour { width: auto; flex: 1; }
+  .ent-tours { overflow: visible; }
+}
+@media (max-width: 759px) { .shell.landing .entrada { margin: 0 -16px; } }

@@ -264,19 +264,27 @@ function tigriSvg(cls = '') {
 
 // ---------- elegir perfil ----------
 function vPerfiles() {
-  return `<main class="main perfiles">
-    <div class="ing-logo">${tigriSvg()}</div>
-    <h1>SoyTigre<span>Ya</span></h1>
-    <p class="lead">Beneficios, compras en el barrio y trámites de Tigre en un solo lugar. Elegí con quién recorrerla.</p>
-    <div class="perfiles-grid">${PERFILES.map((p) => `
-      <button class="perfil-card" data-a="perfil" data-v="${p.id}">
-        ${avatarHtml(p, 'grande')}
-        <span class="perfil-txt"><b>${p.nombre}</b><span class="perfil-rol">${p.rol}</span></span>
-        <span class="flecha">›</span>
-      </button>`).join('')}</div>
-    <div class="tours"><p class="tours-tit">Recorridos guiados</p>${Object.entries(RECORRIDOS).map(([id, r], k) => `<button class="tour-op ${k === 0 ? 'prin' : ''}" data-a="tourIniciar" data-v="${id}"><span class="tour-num">${k + 1}</span><span class="tour-txt"><b>${r.titulo}</b><small>${r.desc} · ${r.pasos.length} pasos · ${r.min}</small></span><span class="tour-ok">${S.tourHecho && S.tourHecho[id] ? '✅' : '▶'}</span></button>`).join('')}</div>
+  const lucia = PERFILES.find((p) => p.id === 'lucia');
+  const otros = PERFILES.filter((p) => p.id !== 'lucia');
+  const corto = { rosa: 'Comercio', carlos: 'Atención al Vecino', marina: 'Desarrollo Económico' };
+  const hecho = fbEstado();
+  return `<main class="main entrada">
+    <section class="ent-hero">
+      <div class="ent-marca"><span class="ent-logo">${tigriSvg()}</span><b>SOYTIGRE<span>YA</span></b></div>
+      <h1>Todo Tigre<br>en una app.</h1>
+      <p>Beneficios, compras en el barrio y trámites, en un solo lugar.</p>
+      <button class="ent-cta" data-a="perfil" data-v="${lucia.id}">Entrar a la app<small>como ${lucia.nombre}, vecina</small></button>
+    </section>
+    <section class="ent-bloque">
+      <h2>Mirala desde el otro lado</h2>
+      <div class="ent-otros">${otros.map((p) => `<button class="ent-perfil" data-a="perfil" data-v="${p.id}">${avatarHtml(p)}<b>${p.nombre}</b><small>${corto[p.id] || p.rol}</small></button>`).join('')}</div>
+    </section>
+    <section class="ent-bloque">
+      <h2>O dejá que te la muestre</h2>
+      <div class="ent-tours">${Object.entries(RECORRIDOS).map(([id, r], k) => `<button class="ent-tour" data-a="tourIniciar" data-v="${id}"><span class="ent-tour-n"><i data-lucide="${S.tourHecho && S.tourHecho[id] ? 'check' : 'play'}"></i></span><b>${r.titulo}</b><small>${r.pasos.length} pasos · ${r.min}</small></button>`).join('')}</div>
+    </section>
+    ${S.fbAbierto || (hecho && !S.fbOtra) ? feedbackHtml() : `<button class="ent-fb" data-a="fbAbrir"><span>🐾</span><span><b>¿Qué te pareció?</b><small>Dejá tu puntaje en 30 segundos</small></span><span class="flecha">›</span></button>`}
     <div class="qr-entrada"><div class="qr" data-qr="https://mila-ops-ia.github.io/soytigreya"></div><div><b>Abrila en tu celu</b><span class="muted">Escaneá el código o entrá a mila-ops-ia.github.io/soytigreya</span></div></div>
-    ${feedbackHtml()}
     <p class="pie-links"><button class="link" data-a="metodo">Cómo lo diseñamos</button><span>·</span><button class="link" data-a="reiniciar">Reiniciar la demo</button></p>
     <p class="muted chico centro">Prototipo académico: no se conecta con Mi Argentina ni con sistemas del municipio.<br>Fotos: Wikimedia Commons (CC BY y CC BY-SA), créditos en el README.</p>
   </main>`;
@@ -2176,6 +2184,7 @@ const ACT = {
   guardarLocal() { toast('Listo: los vecinos ya ven tu local actualizado.'); },
   tigriVoz() { S.tigriMudo = !S.tigriMudo; if (S.tigriMudo && 'speechSynthesis' in window) speechSynthesis.cancel(); else { const u = [...S.chat].reverse().find((m) => m.de === 'tg' && !m.tmp); if (u) setTimeout(() => tigriHabla(u.html), 50); } },
   tigriMic() { tigriEscucha(); return false; },
+  fbAbrir() { S.fbAbierto = true; },
   letra() { S.letra = !S.letra; },
   voltear(v, el) { el.classList.toggle('dada'); return false; },
   tab(v) { S.tab = v; S.abierto = null; S.sub = null; S.sheet = null; window.scrollTo(0, 0); },

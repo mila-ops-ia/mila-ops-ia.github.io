@@ -322,7 +322,7 @@ def figura_ancha(n, f, txt):
     ley = doc.add_paragraph(); ley.alignment = WD_ALIGN_PARAGRAPH.CENTER
     r = ley.add_run(f'Figura {n}. {txt}'); r.font.size = Pt(9); r.italic = True
 
-figura_ancha(1, 'perfiles.jpg', 'Pantalla de entrada: los cuatro perfiles y el recorrido guiado')
+figura_ancha(1, 'perfiles.jpg', 'Pantalla de entrada: acceso a la app, los otros perfiles y los recorridos guiados')
 imgs = [('inicio.jpg', 'Inicio: tarjeta y categorías'), ('beneficios.jpg', 'Beneficios reales por cercanía'), ('pedido.jpg', 'Seguimiento del pedido'),
         ('salud-centros.jpg', 'Salud: centros cercanos'), ('trabajo.jpg', 'Trabajo y formación'), ('tigri.jpg', 'Chat con Tigri')]
 t = doc.add_table(rows=4, cols=3)
