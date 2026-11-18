@@ -1202,3 +1202,10 @@ html, body, .shell, .shell.phone, .shell.wide { background: var(--fondo-b); }
   .ent-tours { overflow: visible; }
 }
 @media (max-width: 759px) { .shell.landing .entrada { margin: 0 -16px; } }
+
+.ent-pie { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 0 18px; }
+.ent-pie-b { background: #fff; border-radius: 16px; padding: 12px; display: flex; align-items: center; gap: 10px; text-align: left; }
+.ent-pie-b svg { width: 20px; height: 20px; color: #D02013; flex: none; }
+.ent-pie-b span { display: flex; flex-direction: column; min-width: 0; }
+.ent-pie-b b { font-size: .82rem; line-height: 1.2; }
+.ent-pie-b small { font-size: .68rem; color: #6B6F7B; line-height: 1.25; }
