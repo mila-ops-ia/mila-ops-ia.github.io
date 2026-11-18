@@ -1292,7 +1292,9 @@ function pcLocal(c) {
     <div><h3 class="vista-tit">Vista previa</h3><div class="carrusel">${miniComercio(c)}</div>
       <div class="card" style="margin-top:12px"><h3>Datos del local</h3>
         <p class="linea"><span>Dirección</span><b>${esc(c.dir)}</b></p><p class="linea"><span>Localidad</span><b>${c.loc}</b></p>
-        <p class="linea"><span>Descuento Soy Tigre</span><b>${c.desc}%</b></p><p class="linea"><span>Horario</span><b>${horarioTxt(c)}</b></p></div></div>
+        <p class="linea"><span>Descuento Soy Tigre</span><b>${c.desc}%</b></p><p class="linea"><span>Horario</span><b>${horarioTxt(c)}</b></p>
+        <button class="btn claro compartir" data-a="compartirLocal">📣 Compartir mi local en redes</button>
+        <p class="muted chico">Instagram, WhatsApp o donde quieras. Se comparte un mensaje con tu descuento y el enlace a la app.</p></div></div>
   </div>
   ${c.servicio ? '' : envioCard(c)}`;
 }
@@ -2291,6 +2293,15 @@ const ACT = {
   cerrarSheet() { if ('speechSynthesis' in window) speechSynthesis.cancel(); if (S.sheet !== 'pagando') S.sheet = null; },
   retiro(v) { S.retiro = Number(v); },
   entrega(v) { S.entrega = v; },
+  compartirLocal() {
+    const c = comercio(S.panelCid);
+    const url = location.origin + location.pathname;
+    const texto = `Pedime por SoyTigreYa: ${c.nombre}, ${c.desc}% con tu tarjeta Soy Tigre y sin comisión.`;
+    if (navigator.share) navigator.share({ title: c.nombre, text: texto, url }).catch(() => {});
+    else if (navigator.clipboard) navigator.clipboard.writeText(texto + ' ' + url).then(() => toast('Enlace copiado. Pegalo en Instagram, WhatsApp o donde quieras.')).catch(() => toast('Copiá este enlace: ' + url));
+    else toast('Copiá este enlace: ' + url);
+    return false;
+  },
   envioToggle() { const c = comercio(S.panelCid); c.envio = { ...envioDe(c), activo: !envioDe(c).activo }; toast(c.envio.activo ? 'Envíos activados: los vecinos ya pueden pedir que se lo lleves.' : 'Envíos desactivados. Seguís vendiendo con retiro en el local.'); },
   pago(v) { S.pago = v; },
   pagar() {

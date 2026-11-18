@@ -1241,3 +1241,4 @@ a.ent-fb { text-decoration: none; color: inherit; }
 .envio-pros li { margin-bottom: 4px; }
 .envio-pros b { color: var(--tinta, #17181C); }
 .envio-card .plan-cab .btn { flex: none; width: auto; padding: 10px 18px; }
+.btn.compartir { width: 100%; margin-top: 12px; }

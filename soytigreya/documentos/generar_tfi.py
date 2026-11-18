@@ -198,7 +198,7 @@ doc.add_heading('Recursos necesarios', 2)
 viñetas([
     ('Equipo: ', 'líder de producto, diseñador UX/UI, dos desarrolladores, un referente de la Secretaría de Desarrollo Económico y un equipo de soporte y capacitación a comercios.'),
     ('Tecnología: ', 'aplicación web progresiva, base de datos en la nube, pasarela de pagos, validación de identidad (Mi Argentina o RENAPER) y servicios de mapas.'),
-    ('Comunicación: ', 'campaña para vecinos y comercios aprovechando los canales municipales existentes.'),
+    ('Comunicación: ', 'campaña para vecinos y comercios por los canales y las redes que el Municipio ya tiene activas.'),
 ])
 p('Inversión del Municipio: como upgrade de Soy Tigre, reutiliza la credencial, los beneficios y la base de comercios. En el año 1, $109 M (piloto $37 M, escalamiento $30 M y seis meses de licencia y soporte a $6,9 M por mes); desde el año 2, $55 M por año (licencia de $4,5 M por mes más infraestructura). Los precios de mila·ops surgen del costo del equipo más un 30% de margen; la pasarela de pago cobra de 0,6% a 0,8% por operación con QR.')
 doc.add_heading('Posibles aliados', 2)
@@ -299,6 +299,7 @@ tabla([
     ['Vuelve a la caja del Municipio', '$40,6 M', 'Plan $4,5 M + publicidad $3,6 M + banco $25 M + ahorro $7,5 M', 'Cobros y convenio con el banco'],
 ], [4.0, 2.0, 6.5, 3.5])
 p('Fórmulas del modelo. Plata que queda en los comercios = comercios × pedidos por mes × ticket × 25% × meses; en el año 2: 100 × 60 × $20.000 × 25% × 12 = $360 M (sobre $1.440 M de ventas). Vuelve al barrio = lo anterior × 48%. Vuelve al Municipio = ventas × 0,80%. Recupero = momento en que el resultado acumulado deja de ser negativo: −$68,4 M (año 1) + $69,2 M (año 2) = +$0,8 M, es decir, al cierre del año 2. Todas las metas se leen en los paneles de la app, por lo que se pueden auditar mes a mes.')
+p('Adquisición por redes sociales. No se crean cuentas nuevas: se usan las que el Municipio ya tiene activas (Instagram, TikTok, Facebook), con Tigri como cara de la campaña, videos cortos de comercios del barrio y un botón para que cada comercio comparta su local. Se mide con vecinos nuevos por canal (registros desde cada enlace o QR), costo por vecino registrado (gasto de la campaña ÷ vecinos nuevos) y cuántos de ellos hacen su primer pedido.')
 doc.add_heading('Comparación con otras contrataciones', 2)
 tabla([
     ['Caso', 'Qué incluye', 'Monto'],
