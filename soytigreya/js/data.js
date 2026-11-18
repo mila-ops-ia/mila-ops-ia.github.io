@@ -414,3 +414,6 @@ const COMPARACION = [
   { quien: 'Ciudad de Buenos Aires', que: 'Plataforma de trámites digitales (adjudicado)', monto: 483.6e6, anio: null },
   { quien: 'San Cayetano (PBA)', que: 'Municipio chico: gestión con mapa y app con turnos (adjudicado)', monto: 85.7e6, anio: 2026 },
 ];
+
+// Opiniones de quienes prueban el prototipo: formulario de Google (más simple que la base propia).
+const FORM_OPINION = 'https://docs.google.com/forms/d/e/1FAIpQLSdKRXBPEiUi4mCrS9Q42NO-v4DuR-QqupuJ9cMIeXA5iHMqNg/viewform';

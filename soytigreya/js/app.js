@@ -283,7 +283,7 @@ function vPerfiles() {
       <h2>O dejá que te la muestre</h2>
       <div class="ent-tours">${Object.entries(RECORRIDOS).map(([id, r], k) => `<button class="ent-tour" data-a="tourIniciar" data-v="${id}"><span class="ent-tour-n"><i data-lucide="${S.tourHecho && S.tourHecho[id] ? 'check' : 'play'}"></i></span><b>${r.titulo}</b><small>${r.pasos.length} pasos · ${r.min}</small></button>`).join('')}</div>
     </section>
-    ${S.fbAbierto || (hecho && !S.fbOtra) ? feedbackHtml() : `<button class="ent-fb" data-a="fbAbrir"><span>🐾</span><span><b>¿Qué te pareció?</b><small>Dejá tu puntaje en 30 segundos</small></span><span class="flecha">›</span></button>`}
+    <a class="ent-fb" href="${FORM_OPINION}" target="_blank" rel="noopener"><span>🐾</span><span><b>¿Qué te pareció?</b><small>Dejá tu puntaje en 30 segundos</small></span><span class="flecha">›</span></a>
     <div class="qr-entrada"><div class="qr" data-qr="https://mila-ops-ia.github.io/soytigreya"></div><div><b>Abrila en tu celu</b><span class="muted">Escaneá el código o entrá a mila-ops-ia.github.io/soytigreya</span></div></div>
     <div class="ent-pie"><button class="ent-pie-b" data-a="metodo"><i data-lucide="lightbulb"></i><span><b>Cómo lo diseñamos</b><small>La Diplomatura dentro de la app</small></span></button><button class="ent-pie-b" data-a="reiniciar"><i data-lucide="rotate-ccw"></i><span><b>Empezar de cero</b><small>Vuelve a los datos iniciales</small></span></button></div>
     <p class="muted chico centro">Prototipo académico: no se conecta con Mi Argentina ni con sistemas del municipio.<br>Fotos: Wikimedia Commons (CC BY y CC BY-SA), créditos en el README.</p>

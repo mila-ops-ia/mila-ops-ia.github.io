@@ -1209,3 +1209,5 @@ html, body, .shell, .shell.phone, .shell.wide { background: var(--fondo-b); }
 .ent-pie-b span { display: flex; flex-direction: column; min-width: 0; }
 .ent-pie-b b { font-size: .82rem; line-height: 1.2; }
 .ent-pie-b small { font-size: .68rem; color: #6B6F7B; line-height: 1.25; }
+
+a.ent-fb { text-decoration: none; color: inherit; }
