@@ -221,7 +221,7 @@ doc.add_heading('7. Resultados esperados', 1)
 viñetas([
     ('Para los usuarios: ', 'ahorro concreto y visible cada mes, menos tiempo en filas y trámites, seguimiento de pedidos y reclamos, y una sola app para la vida en el distrito.'),
     ('Para los comercios y el municipio: ', 'más ventas sin comisiones abusivas, un canal digital propio y un incentivo a la formalización. El municipio obtiene datos de consumo por localidad, mejora la gestión de reclamos y aumenta la recaudación digital.'),
-    ('Impacto en la comunidad: ', 'el consumo queda dentro del partido y fortalece el empleo local. La propuesta tiene triple impacto: económico, porque protege el bolsillo del vecino y el margen del comerciante; social, porque conecta a la comunidad; y de gestión, porque posiciona al municipio como referente de innovación.'),
+    ('Impacto en la comunidad: ', 'la plata que se queda en Tigre trabaja tres veces. En el año 2, $360 M dejan de irse en comisiones y quedan en los comercios; con una recirculación local del 48%, unos $173 M vuelven al barrio en sueldos, proveedores y mejoras; y el comercio tributa en Tigre su tasa del 0,80% sobre las ventas, hasta $11,5 M. No es solo una app: es infraestructura económica local (Anexo A).'),
     ('Crecimiento futuro: ', 'Tigri con inteligencia artificial, integración con transporte y turismo del Delta, y un modelo replicable en otros municipios.'),
 ])
 p('Viabilidad económica. Se separan tres preguntas. Inversión del Municipio: $152 M el año 1 y $55 M por año después. Lo que vuelve a su caja (Plan Destacado, publicidad local, un banco que cofinancia descuentos y el ahorro de trámites presenciales): $40,6 M, $124,4 M y $152,6 M en los años 1 a 3, con un resultado de −$111,4 M, +$69,2 M y +$97,4 M; recupera la inversión en 2 años y 5 meses. Lo que gana la comunidad, que no es caja municipal: comisiones que quedan en los comercios por $67,5 M, $360 M y $540 M; por cada $1 invertido en tres años quedan $3,7 en los comercios de Tigre. Como referencia, Santa Fe presupuestó $316 M (2025) para una app municipal comparable. Detalle en el Anexo A.')
@@ -278,6 +278,14 @@ tabla([
     ['Comisiones que quedan en los comercios (no es caja municipal)', '$67,5 M', '$360,0 M', '$540,0 M'],
 ], [7.0, 3.0, 3.0, 3.0])
 p('Recupero de la inversión: 2 años y 5 meses. Sin las palancas (licencia de $6,9 M por mes desde el año 2 y aporte bancario de $30 M), 4 años y 3 meses. El año 1 incluye solo seis meses de ingresos, porque la plataforma está en piloto. Supuestos a validar en el piloto; el panel de Desarrollo Económico permite simular las palancas.')
+doc.add_heading('Efecto en la economía local: la plata que se queda trabaja tres veces', 2)
+tabla([
+    ['Vuelta', 'Año 1', 'Año 2', 'Año 3'],
+    ['1 · Se queda en el comercio: comisiones que no se pagan a las apps (25% de las ventas)', '$67,5 M', '$360,0 M', '$540,0 M'],
+    ['2 · Vuelve a circular en el barrio: sueldos, proveedores y mejoras (48% de la vuelta 1)', '$32,4 M', '$172,8 M', '$259,2 M'],
+    ['3 · Vuelve al Municipio: tasa a comercios, 0,80% de las ventas (tope)', '$2,2 M', '$11,5 M', '$17,3 M'],
+], [8.5, 2.5, 2.5, 2.5])
+p('Son tres beneficiarios distintos y no se suman. La recirculación del 48% surge de estudios de comercios independientes en Estados Unidos (Civic Economics y AMIBA) y es un supuesto a validar en el piloto. La tasa es la alícuota general de la tasa por verificación de industrias y comercios de Tigre (Ordenanza Impositiva 2026, N.º 4336/25); solo es recaudación nueva sobre ventas nuevas o formalizadas. En la app, el vecino ve este efecto con sus propias compras ("Tu compra trabaja 3 veces en Tigre").')
 doc.add_heading('Comparación con otras contrataciones', 2)
 tabla([
     ['Caso', 'Qué incluye', 'Monto'],
@@ -345,6 +353,8 @@ for f in [
     'Municipalidad de Santa Fe, Licitación Pública 1/2025 (app municipal); FM Vintage, ofertas recibidas (2025).',
     'Caynet, app de San Cayetano (2026); Voces de la Comuna 15, plataforma de trámites de la Ciudad de Buenos Aires.',
     'Pausa y Mirador Provincial, relanzamiento de Billetera Santa Fe (noviembre de 2025).',
+    'Municipalidad de Tigre, Ordenanza Impositiva 2026 (N.º 4336/25), Boletín Oficial N.º 1051: tasa por verificación de industrias y comercios.',
+    'Civic Economics, Indie Impact Study Series; AMIBA, The Local Multiplier Effect: recirculación local de comercios independientes.',
     'Fotos ilustrativas: Wikimedia Commons (CC BY y CC BY-SA), con créditos en el repositorio del proyecto.',
     'La Capital (Rosario), "Unos 150 comercios ya son parte de la plataforma de compras del Banco Municipal" (2023).',
     'Govlaunch, Munimercado de la ciudad de Neuquén.',

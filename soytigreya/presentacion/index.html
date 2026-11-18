@@ -252,8 +252,8 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
 </section>
 
 <!-- 4 · CALCULADORA -->
-<section class="slide oscura" data-notas="Los números, separados en dos preguntas. Primero, la calculadora en vivo: cuánta plata queda en los comercios de Tigre en lugar de irse en comisiones. Con 100 comercios, 60 pedidos por mes, ticket de 20.000 pesos y 25% de comisión son 360 millones por año, unas 6,5 veces lo que cuesta mantener la plataforma. Eso no es caja del Municipio. Segundo, la caja del Municipio: invierte 152 millones el primer año, menos de la mitad de los 316 millones que presupuestó la ciudad de Santa Fe en 2025 para una app municipal, y recupera la inversión en 2 años y 5 meses con Plan Destacado, publicidad, un banco que cofinancia descuentos y el ahorro en atención. Contenido aplicado: ROI y KPIs del módulo 3.">
-  <div class="cab"><p class="ceja">Los números, claros <span class="mod">M3 · ROI y KPIs</span></p><h2>Dos preguntas, dos respuestas</h2></div>
+<section class="slide oscura" data-notas="Esto no es solo una app: es plata que se queda en Tigre y trabaja tres veces. La calculadora es en vivo. Uno: con 100 comercios, 60 pedidos por mes y ticket de 20.000 pesos, 360 millones por año dejan de irse en comisiones y quedan en los comercios. Dos: el comercio vuelve a gastar buena parte en el barrio, en sueldos, proveedores y mejoras; con una recirculación del 48 por ciento, que es lo que midieron estudios en Estados Unidos, son 173 millones más de actividad local. Tres: el comercio paga su tasa municipal, que en Tigre es 0,80 por ciento de lo que vende: hasta 11,5 millones por año sobre esas ventas. Son tres beneficiarios distintos, no se suman. Y la caja del Municipio: invierte 152 millones el primer año, menos de la mitad de lo que presupuestó Santa Fe, y la recupera en 2 años y 5 meses. Contenido aplicado: ROI y KPIs del módulo 3.">
+  <div class="cab"><p class="ceja">Los números, claros <span class="mod">M3 · ROI y KPIs</span></p><h2>La plata que se queda, trabaja tres veces</h2></div>
   <div class="calc">
     <div class="col" style="gap:30px;">
       <div class="slider"><label>Comercios activos <b id="o-com">100</b></label><input type="range" id="s-com" min="20" max="500" step="10" value="100"></div>
@@ -262,18 +262,18 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
       <div class="slider"><label>Comisión de las apps <b id="o-por">25%</b></label><input type="range" id="s-por" min="15" max="35" step="1" value="25"></div>
       <p class="toque"><i data-lucide="sliders-horizontal"></i> Mové los valores</p>
     </div>
-    <div class="col" style="gap:16px;">
-      <p class="muted" style="font-size:26px;">1 · Para los comercios: comisiones que se quedan en Tigre, por año</p>
-      <p class="res-num" id="r-anio">$360 M</p>
-      <p style="font-size:28px;"><b id="r-x" style="color:#FF8F84;">6,5 veces</b> lo que cuesta mantener la plataforma ($55 M por año)</p>
-      <p class="muted" id="r-ped" style="font-size:22px;">6.000 pedidos por mes · $120 M en ventas</p>
-      <div class="caja-muni"><p class="muted" style="font-size:26px;">2 · Para la caja del Municipio</p>
-        <p style="font-size:30px;">Invierte <b>$152 M</b> el año 1 y la <b style="color:#FF8F84;">recupera en 2 años y 5 meses</b></p>
-        <p class="muted" style="font-size:22px;">Resultado: −$111 M · +$69 M · +$97 M (años 1 a 3)</p>
-        <p style="font-size:22px;">Como referencia: <b style="color:#FF8F84;">Santa Fe presupuestó $316 M</b> para una app municipal (2025)</p></div>
+    <div class="col" style="gap:10px;">
+      <p class="muted" style="font-size:24px;">1 · Se queda en el comercio: comisiones que no se pagan, por año</p>
+      <p class="res-num" id="r-anio" style="font-size:120px; line-height:1;">$360 M</p>
+      <p class="muted" id="r-ped" style="font-size:20px;">6.000 pedidos por mes · $120 M en ventas</p>
+      <div class="caja-muni"><p class="muted" style="font-size:24px;">2 · Vuelve a circular en el barrio</p>
+        <p style="font-size:30px;"><b id="r-circ" style="color:#FF8F84;">$173 M</b> en sueldos, proveedores y mejoras del local</p></div>
+      <div class="caja-muni"><p class="muted" style="font-size:24px;">3 · Vuelve al Municipio</p>
+        <p style="font-size:30px;">Hasta <b id="r-tasa" style="color:#FF8F84;">$11,5 M</b> de tasa a comercios (0,80% de las ventas)</p>
+        <p style="font-size:22px;">Invierte <b>$152 M</b> el año 1 y la <b style="color:#FF8F84;">recupera en 2 años y 5 meses</b> · Santa Fe presupuestó $316 M (2025)</p></div>
     </div>
   </div>
-  <div class="pie"><span>Lo que queda en los comercios no es caja del Municipio · Supuestos a validar en el piloto</span><span>4</span></div>
+  <div class="pie"><span>Tres beneficiarios distintos: no se suman · 48% de recirculación local (estudios de EE.UU.) y tasa de Tigre 2026 · Supuestos a validar en el piloto</span><span>4</span></div>
 </section>
 
 <!-- 5 · LA SOLUCIÓN -->
@@ -470,8 +470,9 @@ function calc() {
   document.getElementById('o-tic').textContent = '$' + fmt(tic); document.getElementById('o-por').textContent = por + '%';
   const ventasMes = com * ped * tic, anio = ventasMes * por / 100 * 12;
   document.getElementById('r-anio').textContent = '$' + fmt(Math.round(anio / 1e6)) + ' M';
-  const x = anio / 55.2e6;
-  document.getElementById('r-x').textContent = (x >= 10 ? Math.round(x) : x.toFixed(1).replace('.', ',')) + ' veces';
+  const m1 = (n) => '$' + (n / 1e6).toFixed(1).replace('.', ',').replace(',0', '') + ' M';
+  document.getElementById('r-circ').textContent = m1(anio * 0.48);
+  document.getElementById('r-tasa').textContent = m1(ventasMes * 12 * 0.008);
   document.getElementById('r-ped').textContent = `${fmt(com * ped)} pedidos por mes · $${fmt(Math.round(ventasMes / 1e6))} M en ventas`;
 }
 document.querySelectorAll('input[type=range]').forEach((r) => r.oninput = calc); calc();
