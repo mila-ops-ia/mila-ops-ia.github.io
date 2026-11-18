@@ -292,6 +292,27 @@ tabla([
     ['Tasa municipal sobre esas ventas, tope (0,80%)', '$43,8 M', '$82,8 M', '$146,6 M'],
 ], [7.0, 3.0, 3.0, 3.0])
 p('Los tres escenarios usan las mismas fórmulas y el mismo costo; cambia la adopción. Resultado acumulado, año por año: conservador −$82,2 M, −$57,5 M, −$12,8 M, +$48,4 M y +$129,7 M; esperado −$68,4 M, +$0,8 M, +$98,2 M, +$219,6 M y +$372,2 M; optimista −$65,4 M, +$29,0 M, +$169,6 M, +$350,7 M y +$585,5 M. El escenario esperado coincide con la proyección a tres años y crece 50 comercios por año; el conservador supone 30% menos comercios, menos pedidos y un aporte bancario menor; el optimista llega a los 500 comercios ya adheridos a Soy Tigre. Comercios con Plan Destacado al año 5: 120, 180 y 330; trámites por la app: 35.000, 50.000 y 70.000. Son supuestos propios, a validar en el piloto.')
+def fig_anexo(letra, archivo, txt):
+    par = doc.add_paragraph(); par.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    par.paragraph_format.keep_with_next = True
+    par.add_run().add_picture(f'{CAPT}/{archivo}', width=Cm(15))
+    ley = doc.add_paragraph(); ley.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r = ley.add_run(f'Gráfico {letra}. {txt}'); r.font.size = Pt(9); r.italic = True
+
+fig_anexo('A', 'grafico-escenarios.jpg', 'Resultado acumulado para el Municipio a 5 años, en los tres escenarios')
+doc.add_heading('Hoja de ruta y próximos pasos', 2)
+fig_anexo('B', 'hoja-de-ruta.jpg', 'Hoja de ruta: del piloto en Tigre Centro a otros municipios')
+tabla([
+    ['Etapa', 'Cuándo', 'Qué se hace', 'Condición para avanzar'],
+    ['Probar', 'Meses 1 a 3', 'Piloto en Tigre Centro y Paseo Victorica: credencial, beneficios, compra con retiro o envío del comercio.', '40 comercios, 2.000 vecinos, NPS de 40 o más y 95% de pedidos sin incidencias.'],
+    ['Crecer', 'Meses 4 a 6', 'Todas las localidades; tasas, estacionamiento y reclamos.', 'Acuerdo con un banco o billetera y adopción sostenida.'],
+    ['Mejorar', 'Meses 7 a 12', 'Asistente, Puntos Tigre, campañas en redes y Plan Destacado.', '50 comercios activos y 30 con Plan Destacado.'],
+    ['Sumar reparto', 'Año 2', 'Al cadete del comercio se suman socios de reparto que cobran por viaje y no por comisión.', 'Convenio con una cooperativa o un servicio de envíos, y demanda medida en la app.'],
+    ['Otros municipios', 'Año 3 en adelante', 'La misma plataforma con la marca, las localidades y los comercios de cada municipio.', 'Resultados auditables en Tigre y un municipio con tarjeta de beneficios propia.'],
+], [2.6, 2.6, 6.0, 4.8])
+p('Socios de reparto. El envío con el cadete del comercio no exige logística nueva, pero no todos los locales tienen cadete. La etapa siguiente es integrar terceros que cobren por viaje y no un porcentaje de la venta: cooperativas de cadetes, como la que en Rosario trabaja con más de 100 comercios, o los servicios de envíos por viaje de las plataformas. El comercio conserva el 0% de comisión sobre la venta y elige el reparto que le conviene. Es una hipótesis a validar: depende de las condiciones comerciales de cada servicio.')
+p('Otros municipios. La plataforma se configura por municipio (marca, localidades, rubros y trámites), por lo que el segundo municipio no paga el desarrollo de base: paga la adaptación, la integración con sus sistemas y la licencia. Los candidatos naturales son municipios que ya tienen una tarjeta de beneficios y comercios adheridos. La propuesta se lleva con los resultados medidos en Tigre: comercios activos, plata que quedó en los comercios y recupero.')
+p('Tarjeta física. Soy Tigre hoy permite pedir la tarjeta física. Se mantiene como opción para quien la pida, en especial personas mayores o sin celular; la credencial digital con QR pasa a ser la principal. Así se reduce el costo de impresión y envío sin dejar a nadie afuera, en línea con la mitigación de la brecha digital.')
 doc.add_heading('Efecto en la economía local: la plata que se queda trabaja tres veces', 2)
 tabla([
     ['Vuelta', 'Año 1', 'Año 2', 'Año 3'],
