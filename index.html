@@ -89,6 +89,7 @@
   .pest[aria-selected="true"]{background:var(--violeta);color:#fff}
   .tarjetas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
   .tarjetas[hidden]{display:none}
+  #r-apps{grid-template-columns:repeat(2,minmax(0,1fr))}
   .t{background:var(--blanco);border:1px solid var(--linea);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column}
   .t summary{list-style:none;cursor:pointer;padding:20px 22px;flex:1;position:relative}
   .t summary::-webkit-details-marker{display:none}
@@ -157,7 +158,7 @@
     .foto{order:-1;justify-self:start}
     .foto img{width:150px;height:150px;border-width:4px}
     .estado{left:auto;right:-40px;transform:none;bottom:6px}
-    .tarjetas,.dos{grid-template-columns:1fr}
+    .tarjetas,.dos,#r-apps{grid-template-columns:1fr}
     .panel{grid-template-columns:1fr}
     .panel .num{text-align:left}
   }
@@ -252,6 +253,7 @@
         <a class="app" href="https://mila-ops-ia.github.io/servicios/demo-cartera/" target="_blank" rel="noopener"><img src="img/demo-cartera.jpg" alt="Tablero de Cartera" loading="lazy" width="960" height="600"><div><span class="donde">En uso</span><h3>Cartera</h3><p>Préstamos y cobranzas, con tablero de mora y rentabilidad.</p><span class="ir">Probar demo →</span></div></a>
         <a class="app" href="https://mila-ops-ia.github.io/servicios/demo-reparto/" target="_blank" rel="noopener"><img src="img/demo-reparto.jpg" alt="Inicio de Reparto" loading="lazy" width="960" height="600"><div><span class="donde">En uso</span><h3>Reparto</h3><p>Cuánto queda limpio por hora y por paquete.</p><span class="ir">Probar demo →</span></div></a>
         <a class="app" href="https://mila-ops-ia.github.io/soytigreya/" target="_blank" rel="noopener"><img src="img/demo-tigre.jpg" alt="Entrada de SoyTigreYa" loading="lazy" width="960" height="600"><div><span class="donde">Prototipo · Diplomatura</span><h3>SoyTigreYa</h3><p>Super-app municipal: beneficios, comercios y trámites.</p><span class="ir">Probar demo →</span></div></a>
+        <a class="app" href="https://github.com/mila-ops-ia/forecast-consumo-indec" target="_blank" rel="noopener"><img src="img/demo-forecast.jpg" alt="Consultas SQL del forecast de consumo" loading="lazy" width="960" height="600"><div><span class="donde">Datos públicos · SQL</span><h3>Forecast de consumo</h3><p>Cómo viene el consumo en supermercados, por provincia, con datos del INDEC.</p><span class="ir">Ver el proyecto →</span></div></a>
         <a class="app" href="https://github.com/mila-ops-ia/busqueda-laboral" target="_blank" rel="noopener" style="grid-column:1/-1"><div><span class="donde">Corre cada día</span><h3>🔎 Búsqueda laboral automática</h3><p>Busca avisos en LinkedIn, los puntúa según mi perfil y los carga en un Google Sheet.</p><span class="ir">Ver en GitHub →</span></div></a>
       </div>
     </div>
