@@ -76,6 +76,24 @@ svg.lucide { width: 1em; height: 1em; stroke-width: 2; vertical-align: -0.12em; 
 .pov span { padding: 2px 10px; border-radius: 8px; transition: .3s; }
 .pov .u { background: #E8F3FB; } .pov .n { background: var(--rosa); } .pov .i { background: #FFF3D6; }
 
+/* 4 la plata que se queda trabaja tres veces */
+.tres-v { display: flex; align-items: stretch; gap: 18px; flex: 1; }
+.vuelta { flex: 1; background: var(--papel); border: 1px solid var(--linea); border-radius: 26px; padding: 34px 34px 30px; display: flex; flex-direction: column; gap: 10px; }
+.v-n { width: 64px; height: 64px; border-radius: 50%; background: var(--rojo); color: #fff; font-weight: 800; font-size: 34px; display: grid; place-items: center; }
+.v-tit { font-size: 34px; white-space: nowrap; font-weight: 800; color: var(--piz); margin-top: 8px; }
+.v-num { font-size: 104px; font-weight: 800; color: var(--rojo); letter-spacing: -3px; line-height: 1; }
+.v-txt { font-size: 28px; color: var(--muted); line-height: 1.3; }
+.v-flecha { align-self: center; font-size: 64px; font-weight: 800; color: var(--rojo); }
+.v-abajo { display: flex; gap: 28px; align-items: stretch; }
+.v-control { flex: 1; background: var(--papel); border: 1px solid var(--linea); border-radius: 22px; padding: 22px 30px; display: flex; flex-direction: column; gap: 10px; justify-content: center; }
+.v-control label { font-size: 28px; font-weight: 600; color: var(--piz); }
+.v-control label b { color: var(--rojo); font-size: 34px; }
+.v-control input { accent-color: var(--rojo); }
+.v-control .toque { font-size: 20px; }
+.v-inv { flex: 1; background: var(--osc); color: #fff; border-radius: 22px; padding: 22px 34px; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+.v-inv p { font-size: 34px; font-weight: 600; }
+.v-inv b { font-weight: 800; }
+.v-rojo { color: #FF8F84; }
 /* 4 calculadora */
 .caja-muni { margin-top: 18px; padding-top: 16px; border-top: 2px solid rgba(255,255,255,.18); display: flex; flex-direction: column; gap: 6px; }
 .calc { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; flex: 1; align-items: center; }
@@ -251,29 +269,36 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
   <div class="pie"><span>Espacio del problema del doble diamante</span><span>3</span></div>
 </section>
 
-<!-- 4 · CALCULADORA -->
-<section class="slide oscura" data-notas="Esto no es solo una app: es plata que se queda en Tigre y trabaja tres veces. La calculadora es en vivo. Uno: con 100 comercios, 60 pedidos por mes y ticket de 20.000 pesos, 360 millones por año dejan de irse en comisiones y quedan en los comercios. Dos: el comercio vuelve a gastar buena parte en el barrio, en sueldos, proveedores y mejoras; con una recirculación del 48 por ciento, que es lo que midieron estudios en Estados Unidos, son 173 millones más de actividad local. Tres: el comercio paga su tasa municipal, que en Tigre es 0,80 por ciento de lo que vende: hasta 11,5 millones por año sobre esas ventas. Son tres beneficiarios distintos, no se suman. Y la caja del Municipio: invierte 152 millones el primer año, menos de la mitad de lo que presupuestó Santa Fe, y la recupera en 2 años y 5 meses. Contenido aplicado: ROI y KPIs del módulo 3.">
-  <div class="cab"><p class="ceja">Los números, claros <span class="mod">M3 · ROI y KPIs</span></p><h2>La plata que se queda, trabaja tres veces</h2></div>
-  <div class="calc">
-    <div class="col" style="gap:30px;">
-      <div class="slider"><label>Comercios activos <b id="o-com">100</b></label><input type="range" id="s-com" min="20" max="500" step="10" value="100"></div>
-      <div class="slider"><label>Pedidos por comercio por mes <b id="o-ped">60</b></label><input type="range" id="s-ped" min="10" max="300" step="10" value="60"></div>
-      <div class="slider"><label>Ticket promedio <b id="o-tic">$20.000</b></label><input type="range" id="s-tic" min="8000" max="40000" step="1000" value="20000"></div>
-      <div class="slider"><label>Comisión de las apps <b id="o-por">25%</b></label><input type="range" id="s-por" min="15" max="35" step="1" value="25"></div>
-      <p class="toque"><i data-lucide="sliders-horizontal"></i> Mové los valores</p>
+<!-- 4 · LA PLATA QUE SE QUEDA -->
+<section class="slide" data-notas="Esto no es solo una app: es plata que se queda en Tigre y trabaja tres veces. Leer las tres tarjetas de izquierda a derecha. Uno: con 100 comercios vendiendo por la app, 360 millones por año dejan de irse en comisiones y quedan en los comercios. Dos: el comercio vuelve a gastar buena parte en el barrio, en sueldos, proveedores y mejoras: unos 173 millones. Tres: el comercio paga su tasa municipal sobre lo que vende: hasta 11,5 millones para el Municipio. Mover el control de comercios para mostrar cómo crece. Son tres beneficiarios distintos, no se suman. Abajo, la inversión: 152 millones el primer año, menos de la mitad de lo que presupuestó Santa Fe, y se recupera en 2 años y 5 meses. Si preguntan por los supuestos: 25% de comisión de las apps, 48% de recirculación local según estudios de Estados Unidos y la tasa de Tigre de 0,80%. Contenido aplicado: ROI y KPIs del módulo 3.">
+  <div class="cab"><p class="ceja">Los números <span class="mod">M3 · ROI y KPIs</span></p><h2>La plata que se queda trabaja tres veces</h2></div>
+  <div class="tres-v">
+    <div class="vuelta">
+      <span class="v-n">1</span>
+      <p class="v-tit">Queda en el comercio</p>
+      <p class="v-num" id="r-anio">$360 M</p>
+      <p class="v-txt">por año que ya no se van en comisiones de apps</p>
     </div>
-    <div class="col" style="gap:10px;">
-      <p class="muted" style="font-size:24px;">1 · Se queda en el comercio: comisiones que no se pagan, por año</p>
-      <p class="res-num" id="r-anio" style="font-size:120px; line-height:1;">$360 M</p>
-      <p class="muted" id="r-ped" style="font-size:20px;">6.000 pedidos por mes · $120 M en ventas</p>
-      <div class="caja-muni"><p class="muted" style="font-size:24px;">2 · Vuelve a circular en el barrio</p>
-        <p style="font-size:30px;"><b id="r-circ" style="color:#FF8F84;">$173 M</b> en sueldos, proveedores y mejoras del local</p></div>
-      <div class="caja-muni"><p class="muted" style="font-size:24px;">3 · Vuelve al Municipio</p>
-        <p style="font-size:30px;">Hasta <b id="r-tasa" style="color:#FF8F84;">$11,5 M</b> de tasa a comercios (0,80% de las ventas)</p>
-        <p style="font-size:22px;">Invierte <b>$152 M</b> el año 1 y la <b style="color:#FF8F84;">recupera en 2 años y 5 meses</b> · Santa Fe presupuestó $316 M (2025)</p></div>
+    <span class="v-flecha">→</span>
+    <div class="vuelta">
+      <span class="v-n">2</span>
+      <p class="v-tit">Vuelve al barrio</p>
+      <p class="v-num" id="r-circ">$173 M</p>
+      <p class="v-txt">en sueldos, proveedores de la zona y mejoras del local</p>
+    </div>
+    <span class="v-flecha">→</span>
+    <div class="vuelta">
+      <span class="v-n">3</span>
+      <p class="v-tit">Vuelve al Municipio</p>
+      <p class="v-num" id="r-tasa">$11,5 M</p>
+      <p class="v-txt">de tasa que el comercio paga por esas ventas</p>
     </div>
   </div>
-  <div class="pie"><span>Tres beneficiarios distintos: no se suman · 48% de recirculación local (estudios de EE.UU.) y tasa de Tigre 2026 · Supuestos a validar en el piloto</span><span>4</span></div>
+  <div class="v-abajo">
+    <div class="v-control"><label>Probá con más o menos comercios: <b id="o-com">100</b></label><input type="range" id="s-com" min="20" max="500" step="10" value="100"><span class="toque"><i data-lucide="pointer"></i> Mové el control</span></div>
+    <div class="v-inv"><p>El Municipio invierte <b>$152 M</b> el primer año</p><p>y lo recupera en <b class="v-rojo">2 años y 5 meses</b></p></div>
+  </div>
+  <div class="pie"><span>Estimación con 60 pedidos por mes por comercio y ticket de $20.000 · Los tres montos son de distintos beneficiarios: no se suman</span><span>4</span></div>
 </section>
 
 <!-- 5 · LA SOLUCIÓN -->
@@ -465,15 +490,13 @@ document.querySelectorAll('[data-c]').forEach((c) => c.onclick = () => c.classLi
 // 4 · Calculadora
 const fmt = (n) => n.toLocaleString('es-AR');
 function calc() {
-  const com = +document.getElementById('s-com').value, ped = +document.getElementById('s-ped').value, tic = +document.getElementById('s-tic').value, por = +document.getElementById('s-por').value;
-  document.getElementById('o-com').textContent = com; document.getElementById('o-ped').textContent = ped;
-  document.getElementById('o-tic').textContent = '$' + fmt(tic); document.getElementById('o-por').textContent = por + '%';
+  const com = +document.getElementById('s-com').value, ped = 60, tic = 20000, por = 25;
+  document.getElementById('o-com').textContent = com;
   const ventasMes = com * ped * tic, anio = ventasMes * por / 100 * 12;
-  document.getElementById('r-anio').textContent = '$' + fmt(Math.round(anio / 1e6)) + ' M';
-  const m1 = (n) => '$' + (n / 1e6).toFixed(1).replace('.', ',').replace(',0', '') + ' M';
+  const m1 = (n) => '$' + (n >= 1e8 ? fmt(Math.round(n / 1e6)) : (n / 1e6).toFixed(1).replace('.', ',').replace(',0', '')) + ' M';
+  document.getElementById('r-anio').textContent = m1(anio);
   document.getElementById('r-circ').textContent = m1(anio * 0.48);
   document.getElementById('r-tasa').textContent = m1(ventasMes * 12 * 0.008);
-  document.getElementById('r-ped').textContent = `${fmt(com * ped)} pedidos por mes · $${fmt(Math.round(ventasMes / 1e6))} M en ventas`;
 }
 document.querySelectorAll('input[type=range]').forEach((r) => r.oninput = calc); calc();
 

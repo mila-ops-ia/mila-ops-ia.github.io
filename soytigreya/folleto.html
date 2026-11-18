@@ -88,6 +88,24 @@ p { margin: 0; }
 .perfil small { font-size: 7.1pt; }
 .pasos span { padding: .9mm 2.6mm; font-size: 7.4pt; } .pasos { margin-top: 2mm; gap: 2mm; }
 .pie { padding: 2.5mm 12mm 4mm; }
+.vueltas { display: flex; align-items: stretch; gap: 2mm; }
+.vueltas > i { align-self: center; font-style: normal; font-weight: 900; font-size: 16pt; color: var(--rojo); }
+.vta { flex: 1; background: #fff; border-radius: 4mm; padding: 4.5mm 4mm; display: flex; flex-direction: column; gap: 1mm; }
+.vta span { width: 7mm; height: 7mm; border-radius: 50%; background: var(--rojo); color: #fff; font-weight: 800; font-size: 9.5pt; display: grid; place-items: center; }
+.vta b { font-size: 21pt; font-weight: 900; color: var(--rojo); line-height: 1.1; margin-top: 1.5mm; letter-spacing: -.02em; }
+.vta strong { font-size: 10.5pt; }
+.vta small { font-size: 8.8pt; color: var(--muted); line-height: 1.35; }
+.inversion { background: var(--tinta); color: #fff; border-radius: 4mm; padding: 5mm; display: grid; grid-template-columns: repeat(3, 1fr); gap: 5mm; }
+.inversion div { display: flex; flex-direction: column; gap: .8mm; }
+.inversion small { font-size: 8.5pt; opacity: .75; font-weight: 600; }
+.inversion b { font-size: 17pt; font-weight: 900; line-height: 1.1; }
+.inversion b.verde { color: #6FD39B; }
+.inversion span { font-size: 8.5pt; opacity: .85; line-height: 1.35; }
+.aclara { font-size: 8pt; color: var(--muted); text-align: center; }
+.vta { padding: 3.5mm 4mm; }
+.inversion { padding: 4mm 5mm; }
+.cuerpo { gap: 2.6mm; }
+.pedido { padding: 3.5mm 5mm; }
 </style>
 </head>
 <body>
@@ -131,23 +149,23 @@ p { margin: 0; }
       </div>
     </div>
 
-    <div class="numeros">
-      <p class="ceja">Los números</p>
-      <div class="kpis">
-        <div class="kpi"><b>$152 M</b><small>Inversión del año 1. Después, $55 M por año. Santa Fe presupuestó $316 M para una app municipal (2025).</small></div>
-        <div class="kpi verde"><b>2 años y 5 meses</b><small>para que el Municipio recupere la inversión con lo que vuelve a su caja.</small></div>
-        <div class="kpi rojo"><b>$3,7 por cada $1</b><small>invertido en 3 años quedan en los comercios de Tigre, en comisiones que no se pagan.</small></div>
+    <div>
+      <p class="ceja">La plata que se queda en Tigre trabaja tres veces</p>
+      <div class="vueltas">
+        <div class="vta"><span>1</span><b>$360 M</b><strong>Queda en el comercio</strong><small>por año que ya no se van en comisiones de apps</small></div>
+        <i>→</i>
+        <div class="vta"><span>2</span><b>$173 M</b><strong>Vuelve al barrio</strong><small>en sueldos, proveedores y mejoras del local</small></div>
+        <i>→</i>
+        <div class="vta"><span>3</span><b>$11,5 M</b><strong>Vuelve al Municipio</strong><small>de tasa que el comercio paga por esas ventas</small></div>
       </div>
-      <table class="tabla">
-        <tr><th></th><th>Año 1</th><th>Año 2</th><th>Año 3</th></tr>
-        <tr><td>Costo para el Municipio</td><td>$152,0 M</td><td>$55,2 M</td><td>$55,2 M</td></tr>
-        <tr><td>Vuelve a su caja (Plan Destacado, publicidad, banco que cofinancia descuentos, ahorro en atención)</td><td>$40,6 M</td><td>$124,4 M</td><td>$152,6 M</td></tr>
-        <tr><td>Resultado acumulado</td><td class="neg">−$111,4 M</td><td class="neg">−$42,2 M</td><td class="pos">+$55,2 M</td></tr>
-      </table>
-      <p class="sostiene"><b>La plata que se queda trabaja tres veces (año 2):</b> $360 M en los comercios → $173 M que vuelven a circular en el barrio, en sueldos, proveedores y mejoras → hasta $11,5 M de tasa municipal sobre esas ventas.</p>
-      <p class="sostiene" style="margin-top:1.5mm; padding-top:0; border-top:0"><b>Cómo se sostiene:</b> gratis para el vecino, siempre · 0% de comisión al comercio · Plan Destacado opcional ($25.000 por mes) · publicidad local · un banco que cofinancia descuentos · menos atención presencial.</p>
-      <p class="nota">Supuestos a validar en el piloto. Sin bajar la licencia desde el año 2 ni sumar el aporte bancario, el recupero sería de 4 años y 3 meses.</p>
     </div>
+
+    <div class="inversion">
+      <div><small>El Municipio invierte</small><b>$152 M</b><span>el primer año, y $55 M por año después</span></div>
+      <div><small>Lo recupera en</small><b class="verde">2 años y 5 meses</b><span>con Plan Destacado, publicidad, un banco socio y ahorro en atención</span></div>
+      <div><small>Para comparar</small><b>$316 M</b><span>presupuestó Santa Fe para una app municipal (2025)</span></div>
+    </div>
+    <p class="aclara">Estimación para el año 2, con 100 comercios. Gratis para el vecino y 0% de comisión para el comercio.</p>
 
     <div class="pedido">
       <div>
