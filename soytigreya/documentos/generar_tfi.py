@@ -285,6 +285,20 @@ tabla([
     ['3 · Vuelve al Municipio: tasa a comercios, 0,80% de las ventas (tope)', '$2,2 M', '$11,5 M', '$17,3 M'],
 ], [8.5, 2.5, 2.5, 2.5])
 p('Son tres beneficiarios distintos y no se suman. La recirculación del 48% surge de estudios de comercios independientes en Estados Unidos (Civic Economics y AMIBA) y es un supuesto a validar en el piloto. La tasa es la alícuota general de la tasa por verificación de industrias y comercios de Tigre (Ordenanza Impositiva 2026, N.º 4336/25); solo es recaudación nueva sobre ventas nuevas o formalizadas. En la app, el vecino ve este efecto con sus propias compras ("Tu compra trabaja 3 veces en Tigre").')
+doc.add_heading('Objetivos del primer año: metas, fórmulas y dónde se comprueban', 2)
+tabla([
+    ['Objetivo', 'Meta', 'Cómo se calcula', 'Dónde se comprueba'],
+    ['Comercios vendiendo (mes 3)', '40', 'Comercios con al menos un pedido entregado en el mes', 'Panel de Desarrollo Económico'],
+    ['Vecinos que compraron (mes 3)', '2.000', 'Vecinos distintos con al menos un pedido', 'Panel de Desarrollo Económico'],
+    ['Recomendación (NPS)', '40 o más', '% que responde 9 o 10 − % que responde 0 a 6', 'Encuesta dentro de la app'],
+    ['Pedidos sin incidencias', '95%', '(pedidos − pedidos con reclamo) ÷ pedidos × 100', 'Panel de Atención al Vecino'],
+    ['Comercios activos (mes 12)', '50', 'Comercios con pedidos en el mes', 'Panel de Desarrollo Económico'],
+    ['Comercios con Plan Destacado', '30', 'Planes activos. Ingreso: 30 × $25.000 × 6 meses = $4,5 M', 'Cobros del plan'],
+    ['Trámites hechos por la app', '5.000', 'Trámites iniciados en la app. Ahorro: 5.000 × $1.500 = $7,5 M', 'Panel de Atención al Vecino'],
+    ['Plata que queda en los comercios', '$67,5 M', '50 comercios × 30 pedidos por mes × $20.000 × 25% × 9 meses', 'Ventas registradas en la app'],
+    ['Vuelve a la caja del Municipio', '$40,6 M', 'Plan $4,5 M + publicidad $3,6 M + banco $25 M + ahorro $7,5 M', 'Cobros y convenio con el banco'],
+], [4.0, 2.0, 6.5, 3.5])
+p('Fórmulas del modelo. Plata que queda en los comercios = comercios × pedidos por mes × ticket × 25% × meses; en el año 2: 100 × 60 × $20.000 × 25% × 12 = $360 M (sobre $1.440 M de ventas). Vuelve al barrio = lo anterior × 48%. Vuelve al Municipio = ventas × 0,80%. Recupero = momento en que el resultado acumulado deja de ser negativo: −$68,4 M (año 1) + $69,2 M (año 2) = +$0,8 M, es decir, al cierre del año 2. Todas las metas se leen en los paneles de la app, por lo que se pueden auditar mes a mes.')
 doc.add_heading('Comparación con otras contrataciones', 2)
 tabla([
     ['Caso', 'Qué incluye', 'Monto'],
