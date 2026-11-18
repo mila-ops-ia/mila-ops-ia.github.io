@@ -221,6 +221,25 @@ svg.lucide { width: 1em; height: 1em; stroke-width: 2; vertical-align: -0.12em; 
 .slide.final .etapa b { font-size: 36px; }
 .slide.final .soporte { font-size: 25px; padding: 12px 26px; }
 .slide.final .rsg-l { font-size: 25px; }
+/* versión breve */
+.inv3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.inv3 > div { border-radius: 24px; padding: 26px 32px; display: flex; flex-direction: column; gap: 6px; }
+.inv3 .inv-c { background: var(--osc); color: #fff; }
+.inv3 p { font-size: 46px; font-weight: 600; line-height: 1.1; }
+.inv3 p b { font-weight: 800; }
+.inv3 p.inv-s { font-size: 26px; font-weight: 500; opacity: .9; }
+.inv3 .inv-b p.inv-s { color: var(--muted); opacity: 1; }
+.inv3 .inv-b p { font-size: 40px; }
+.inv3 .inv-b p.inv-s { font-size: 26px; }
+.tres-v .vuelta { justify-content: center; }
+.tres-v .v-num { font-size: 104px; white-space: nowrap; }
+.tres-v .v-txt { font-size: 32px; }
+.slide.final .ruta { flex: 1; margin: 0; align-content: center; padding-top: 0; }
+.slide.final .ruta::before { top: calc(50% - 46px); }
+.slide.final .etapa b { font-size: 44px; }
+.slide.final .etapa p { font-size: 30px; }
+.slide.final .et-cu { font-size: 24px; }
+.slide .perfiles4 .pcard p { font-size: 26px; font-weight: 600; color: var(--piz); }
 /* riesgos */
 .riesgos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; flex: 1; }
 .riesgo { background: var(--papel); border: 1px solid var(--linea); border-radius: 26px; padding: 36px 34px; display: flex; flex-direction: column; gap: 16px; }
@@ -372,13 +391,13 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
 
 <!-- 2 · PITCH Y PROBLEMA -->
 <section class="slide" data-notas="[0:00 a 1:00] De cada 100 pesos que un comercio de Tigre vende por una app de delivery, 25 se van en comisión. Y hasta 35 si usa su reparto. Esa plata se va de Tigre. Y lo interesante es que Tigre ya tiene la mitad de la solución: la tarjeta Soy Tigre, con más de 500 comercios adheridos. Lo que le falta es que esos comercios puedan vender desde ahí. (Tocar Con el upgrade: SoyTigreYa.) SoyTigreYa es ese upgrade: los 100 pesos son del comercio. Y si reparte con su propio cadete, el envío también lo cobra él.">
-  <div class="cab"><p class="ceja">El problema · Pain point <span class="mod">M1 · Research e hipótesis de oportunidad</span></p><h2>El upgrade de Soy Tigre: que el comercio también pueda vender</h2><p class="bajada">Soy Tigre ya da descuentos en <b>más de 500 comercios</b>. Pero para vender online dependen de apps de delivery:</p></div>
+  <div class="cab"><p class="ceja">El problema · Pain point <span class="mod">M1 · Research e hipótesis de oportunidad</span></p><h2>El upgrade de Soy Tigre: que el comercio también pueda vender</h2><p class="bajada">Soy Tigre ya tiene <b>más de 500 comercios</b>. Para vender online, dependen de apps de delivery:</p></div>
   <div class="fila" style="flex:1; gap:64px; align-items:center;">
     <div class="col" style="flex:1; gap:28px;">
             <div class="cien">
         <div class="toggle" id="t100"><button class="on" data-v="hoy">Hoy, con apps de delivery</button><button data-v="sty">Con el upgrade: SoyTigreYa</button></div>
         <div class="cien-barra"><div class="b-com" id="b-com" style="flex-basis:75%">$75 al comercio</div><div class="b-app" id="b-app" style="flex-basis:25%">$25 de comisión</div></div>
-        <p class="muted" id="t100-txt" style="font-size:30px;">De cada $100 que vende, la app de delivery se queda con $25, y hasta $35 si usa su reparto. Esa plata se va de Tigre.</p>
+        <p class="muted" id="t100-txt" style="font-size:30px;">La app de delivery se queda con $25 de cada $100. Esa plata se va de Tigre.</p>
       </div>
     </div>
   </div>
@@ -387,75 +406,51 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
 
 <!-- 3 · LA SOLUCIÓN -->
 <section class="slide" data-notas="[1:00 a 2:30] No les traigo una idea: les traigo un MVP que ya funciona. Es la misma Soy Tigre con más, y la usan cuatro personas: la vecina compra, la comerciante vende y reparte con su cadete, y el Municipio resuelve reclamos y mide los resultados. (Tocar Ver un pedido de punta a punta, en vivo · 1 minuto · Esc para volver.) Está construida con lo que vimos en la Diplomatura, y la pueden probar ahora con el QR.">
-  <div class="cab"><p class="ceja">La solución · MVP funcionando <span class="mod">M1 · Transformación digital · M4 · UX/UI</span></p><h2>SoyTigreYa: la misma Soy Tigre, con más</h2><p class="bajada">Suma <b>comprar</b>, <b>envío con el cadete del comercio</b>, <b>trámites</b> y <b>medición</b>. Ya funciona:</p></div>
+  <div class="cab"><p class="ceja">La solución · MVP funcionando <span class="mod">M1 · Transformación digital · M4 · UX/UI</span></p><h2>SoyTigreYa: la misma Soy Tigre, con más</h2><p class="bajada">Suma <b>comprar</b>, <b>envío con cadete propio</b>, <b>trámites</b> y <b>medición</b>.</p></div>
   <div class="perfiles4">
-    <button class="pcard" data-demo="lucia"><div class="pv tel-mini"><img src="../capturas/inicio.jpg" alt="Pantalla de Lucía"></div><div class="pc-txt"><span class="p-av" style="background:#D02013">L</span><div><b>Lucía</b><span>La vecina</span></div></div><p>Ahorra, compra y elige: lo retira o se lo traen.</p><span class="ver"><i data-lucide="play"></i> Ver en vivo</span></button>
-    <button class="pcard" data-demo="rosa"><div class="pv pc-mini"><img src="../capturas/rosa.jpg" alt="Panel de Rosa"></div><div class="pc-txt"><span class="p-av" style="background:#b5541c">R</span><div><b>Rosa</b><span>La comerciante</span></div></div><p>Recibe pedidos pagos y los lleva con su cadete. Sin comisión.</p><span class="ver"><i data-lucide="play"></i> Ver en vivo</span></button>
-    <button class="pcard" data-demo="carlos"><div class="pv pc-mini"><img src="../capturas/carlos.jpg" alt="Panel de Carlos"></div><div class="pc-txt"><span class="p-av" style="background:#515769">C</span><div><b>Carlos</b><span>Municipio · reclamos</span></div></div><p>Recibe los reclamos y los resuelve por urgencia.</p><span class="ver"><i data-lucide="play"></i> Ver en vivo</span></button>
-    <button class="pcard" data-demo="marina"><div class="pv pc-mini"><img src="../capturas/marina.jpg" alt="Panel de Marina"></div><div class="pc-txt"><span class="p-av" style="background:#3A3F4D">M</span><div><b>Marina</b><span>Municipio · resultados</span></div></div><p>Ve cuánto se vende y cuánto se ahorra.</p><span class="ver"><i data-lucide="play"></i> Ver en vivo</span></button>
+    <button class="pcard" data-demo="lucia"><div class="pv tel-mini"><img src="../capturas/inicio.jpg" alt="Pantalla de Lucía"></div><div class="pc-txt"><span class="p-av" style="background:#D02013">L</span><div><b>Lucía</b><span>La vecina</span></div></div><p>Compra y ahorra.</p><span class="ver"><i data-lucide="play"></i> Ver en vivo</span></button>
+    <button class="pcard" data-demo="rosa"><div class="pv pc-mini"><img src="../capturas/rosa.jpg" alt="Panel de Rosa"></div><div class="pc-txt"><span class="p-av" style="background:#b5541c">R</span><div><b>Rosa</b><span>La comerciante</span></div></div><p>Vende sin comisión.</p><span class="ver"><i data-lucide="play"></i> Ver en vivo</span></button>
+    <button class="pcard" data-demo="carlos"><div class="pv pc-mini"><img src="../capturas/carlos.jpg" alt="Panel de Carlos"></div><div class="pc-txt"><span class="p-av" style="background:#515769">C</span><div><b>Carlos</b><span>Municipio · reclamos</span></div></div><p>Resuelve reclamos.</p><span class="ver"><i data-lucide="play"></i> Ver en vivo</span></button>
+    <button class="pcard" data-demo="marina"><div class="pv pc-mini"><img src="../capturas/marina.jpg" alt="Panel de Marina"></div><div class="pc-txt"><span class="p-av" style="background:#3A3F4D">M</span><div><b>Marina</b><span>Municipio · resultados</span></div></div><p>Mide resultados.</p><span class="ver"><i data-lucide="play"></i> Ver en vivo</span></button>
   </div>
   <div class="fila" style="align-items:center; gap:28px;">
     <button class="btn" data-demo="tour" style="font-size:28px; padding:20px 32px;"><i data-lucide="route"></i> Ver un pedido de punta a punta, en vivo</button>
     <p class="toque"><i data-lucide="pointer"></i> Se abre la app real en grande · Esc para volver</p>
     <div class="qr-mini"><img src="../img/qr-soytigreya.png" alt="QR para abrir la app"><span>Probala en tu celu</span></div>
   </div>
-  <p class="dipl"><b>La Diplomatura, aplicada:</b> Design Thinking · Lean Canvas · Kanban · MVP por etapas · UX a pocos toques · NPS y AARRR</p>
+  <p class="dipl"><b>La Diplomatura, aplicada:</b> Design Thinking · Lean Canvas · Kanban · MVP · UX · NPS</p>
   <div class="pie"><span>Datos de demostración · El detalle de cada módulo, en la sección 5 del trabajo</span><span>3</span></div>
 </section>
 
 <!-- 4 · LA PLATA QUE SE QUEDA -->
-<section class="slide densa" data-notas="[2:30 a 4:00] La plata que se queda en Tigre trabaja tres veces. Con solo 100 de los 500 comercios: 360 millones por año quedan en el comercio, 173 vuelven al barrio en sueldos y proveedores, y hasta 11 y medio vuelven al Municipio. El upgrade cuesta 109 millones el primer año, unos 69 mil dólares. Un tercio de lo que presupuestó Santa Fe para su app municipal. Y el payback: 2 años en el escenario esperado, poco más de 3 en el conservador y menos de 2 en el optimista.">
-  <div class="cab"><p class="ceja">Business case <span class="mod">M3 · ROI y KPIs</span></p><h2>La plata que se queda trabaja tres veces</h2><p class="bajada">Si <b>100 de los más de 500 comercios</b> de Soy Tigre venden por la app, en un año:</p></div>
+<section class="slide" data-notas="[2:30 a 4:00] La plata que se queda en Tigre trabaja tres veces. Con solo 100 de los 500 comercios: 360 millones por año quedan en el comercio, 173 vuelven al barrio en sueldos y proveedores, y hasta 11 y medio vuelven al Municipio. El upgrade cuesta 109 millones el primer año, unos 69 mil dólares. Un tercio de lo que presupuestó Santa Fe para su app municipal. Y el payback: 2 años en el escenario esperado, poco más de 3 en el conservador y menos de 2 en el optimista.">
+  <div class="cab"><p class="ceja">Business case <span class="mod">M3 · ROI y KPIs</span></p><h2>La plata que se queda trabaja tres veces</h2><p class="bajada">Con <b>100 de los 500 comercios</b> de Soy Tigre, por año:</p></div>
   <div class="tres-v">
-    <div class="vuelta">
-      <span class="v-n">1</span>
-      <p class="v-tit">Queda en el comercio</p>
-      <p class="v-num" id="r-anio">$360 M</p>
-      <p class="v-usd">USD 228.000</p>
-      <p class="v-txt">que ya no se van en comisiones</p>
-    </div>
+    <div class="vuelta"><span class="v-n">1</span><p class="v-tit">Queda en el comercio</p><p class="v-num">$360 M</p><p class="v-txt">sin comisiones</p></div>
     <span class="v-flecha">→</span>
-    <div class="vuelta">
-      <span class="v-n">2</span>
-      <p class="v-tit">Vuelve al barrio</p>
-      <p class="v-num" id="r-circ">$173 M</p>
-      <p class="v-usd">USD 109.000</p>
-      <p class="v-txt">el comercio los gasta acá: sueldos, proveedores y mejoras</p>
-    </div>
+    <div class="vuelta"><span class="v-n">2</span><p class="v-tit">Vuelve al barrio</p><p class="v-num">$173 M</p><p class="v-txt">sueldos y proveedores</p></div>
     <span class="v-flecha">→</span>
-    <div class="vuelta">
-      <span class="v-n">3</span>
-      <p class="v-tit">Vuelve al Municipio</p>
-      <p class="v-num" id="r-tasa">$11,5 M</p>
-      <p class="v-usd">USD 7.300</p>
-      <p class="v-txt">de tasa municipal sobre lo que vende el comercio</p>
-    </div>
+    <div class="vuelta"><span class="v-n">3</span><p class="v-tit">Vuelve al Municipio</p><p class="v-num">$11,5 M</p><p class="v-txt">por tasa municipal</p></div>
   </div>
-  <p class="esc-tit">A 5 años, en tres escenarios <span>· el upgrade cuesta <b>$109 M</b> (USD 69.000) el primer año</span></p>
-  <div class="escs">
-      <div class="esc"><span class="e-nom">Conservador</span><p class="e-com">175 comercios al año 5</p><p class="e-rec">Payback: <b>3 años y 3 meses</b></p><p class="e-det">Quedan <b>$1.370 M</b> (USD 867.000) en comercios</p></div>
-    <div class="esc on"><span class="e-nom">Esperado</span><p class="e-com">250 comercios al año 5</p><p class="e-rec">Payback: <b>2 años</b></p><p class="e-det">Quedan <b>$2.588 M</b> (USD 1,64 M) en comercios</p></div>
-    <div class="esc"><span class="e-nom">Optimista</span><p class="e-com">500 comercios al año 5</p><p class="e-rec">Payback: <b>1 año y 8 meses</b></p><p class="e-det">Quedan <b>$4.581 M</b> (USD 2,9 M) en comercios</p></div>
-    </div>
-  <div class="pie"><span>Dólar oficial Banco Nación: $1.580 (18/11/2026) · Los tres montos de arriba no se suman · Supuestos y gráfico en el Anexo A del trabajo</span><span>4</span></div>
+  <div class="v-inv ancho"><p>Inversión: <b>$109 M</b> <span class="usd-c">(USD 69.000)</span> · Payback: <b class="v-rojo">2 años</b></p></div>
+  <div class="pie"><span>Dólar oficial: $1.580 (18/11/2026) · Escenarios a 5 años y supuestos, en el trabajo escrito</span><span>4</span></div>
 </section>
 
 <!-- 5 · CÓMO SEGUIMOS -->
-<section class="slide final" data-notas="[4:00 a 5:00] El riesgo está acotado porque el roadmap va por etapas: primero se prueba 3 meses en Tigre Centro, y solo se sigue si los comercios se suman. El cadete del comercio está desde el primer día, y mila·ops acompaña con soporte y posventa en todas las etapas. La inversión que les propongo es SoyTigreYa en Tigre: 109 millones el primer año, unos 69 mil dólares, que se recuperan en 2 años. Y para quien quiera ir más lejos hay una segunda oportunidad, opcional, de scale-up: una vez probada en Tigre, llevar la misma plataforma a otros municipios. Lo que pido hoy es simple: un piloto de 3 meses con 40 comercios.">
-  <div class="cab"><p class="ceja">Roadmap <span class="mod">M2 · M3 · MVP por etapas y gestión del riesgo</span></p><h2>SoyTigreYa en Tigre: el roadmap, por etapas</h2></div>
-  <p class="rsg-l"><b>¿Por qué por etapas? Por los riesgos.</b> Que los comercios no se sumen y que no haya un banco socio se prueban primero, en el piloto. Frente a las apps de delivery: 0% de comisión y cadete propio.</p>
+<section class="slide final" data-notas="[4:00 a 5:00] El riesgo está acotado porque el roadmap va por etapas: primero un piloto de 3 meses en Tigre Centro, y solo se sigue si los comercios se suman. La inversión es de 109 millones el primer año, unos 69 mil dólares, con payback de 2 años. Después queda una suscripción de soporte de 4 millones y medio por mes, que incluye soporte, capacitación a comercios y mejoras: no entregamos la app y nos vamos. Y para quien quiera ir más lejos hay un scale-up opcional: llevarla a otros municipios. Lo que pido hoy es simple: un piloto de 3 meses con 40 comercios. Si preguntan por los riesgos: que los comercios no se sumen y que no haya un banco socio; los dos se prueban en el piloto.">
+  <div class="cab"><p class="ceja">Roadmap <span class="mod">M2 · M3 · MVP por etapas</span></p><h2>El roadmap: por etapas, en Tigre</h2></div>
   <div class="ruta">
-    <div class="etapa"><span class="et-cu">Meses 1 a 3</span><span class="et-pt"></span><b>Piloto</b><p>Tigre Centro, 40 comercios. Ya con envío del cadete del comercio.</p></div>
-    <div class="etapa"><span class="et-cu">Meses 4 a 6</span><span class="et-pt"></span><b>Crecer</b><p>Todo Tigre, con trámites y pagos.</p></div>
-    <div class="etapa"><span class="et-cu">Meses 7 a 12</span><span class="et-pt"></span><b>Mejorar</b><p>Asistente, puntos y redes sociales.</p></div>
-    <div class="etapa fut"><span class="et-cu">Año 2</span><span class="et-pt"></span><b>Partners estratégicos</b><p>Servicios de reparto que cobran por viaje, no por comisión.</p></div>
+    <div class="etapa"><span class="et-cu">Meses 1 a 3</span><span class="et-pt"></span><b>Piloto</b><p>40 comercios</p></div>
+    <div class="etapa"><span class="et-cu">Meses 4 a 6</span><span class="et-pt"></span><b>Crecer</b><p>Todo Tigre</p></div>
+    <div class="etapa"><span class="et-cu">Meses 7 a 12</span><span class="et-pt"></span><b>Mejorar</b><p>Asistente y puntos</p></div>
+    <div class="etapa fut"><span class="et-cu">Año 2</span><span class="et-pt"></span><b>Partners</b><p>Reparto por viaje</p></div>
   </div>
-  <p class="soporte"><b>Customer success:</b> mila·ops acompaña todas las etapas con soporte, capacitación a comercios y posventa.</p>
-  <div class="inv2">
-    <div class="inv-a"><span class="inv-t">La inversión · SoyTigreYa en Tigre</span><p><b>$109 M</b> (USD 69.000) el primer año</p><p class="inv-s">Payback de 2 años en el escenario esperado.</p></div>
-    <div class="inv-b"><span class="inv-t">Opcional · Scale-up</span><p><b>Escalar a otros municipios</b></p><p class="inv-s">La misma plataforma con la marca de cada municipio, una vez probada en Tigre.</p></div>
+  <div class="inv3">
+    <div class="inv-a"><span class="inv-t">La inversión</span><p><b>$109 M</b></p><p class="inv-s">USD 69.000 el primer año</p></div>
+    <div class="inv-c"><span class="inv-t">Suscripción de soporte</span><p><b>$4,5 M</b> por mes</p><p class="inv-s">USD 2.850 desde el año 2</p></div>
+    <div class="inv-b"><span class="inv-t">Opcional · Scale-up</span><p><b>Otros municipios</b></p><p class="inv-s">Una vez probada en Tigre</p></div>
   </div>
-  <div class="pie"><span>Milagros Belén Sanabria · Diplomatura en Negocios Digitales e Innovación · mila-ops-ia.github.io/soytigreya</span><span>5</span></div>
+  <div class="pie"><span>La suscripción incluye soporte, capacitación a comercios y mejoras · El primer año ya está dentro de los $109 M</span><span>5</span></div>
 </section>
 
 <!-- 6 · CIERRE -->
@@ -536,7 +531,7 @@ document.querySelectorAll('#t100 button').forEach((b) => b.onclick = () => {
   const com = document.getElementById('b-com'), app = document.getElementById('b-app');
   com.style.flexBasis = hoy ? '75%' : '100%'; com.textContent = hoy ? '$75 al comercio' : '$100 al comercio · $0 de comisión';
   app.style.flexBasis = hoy ? '25%' : '0%'; app.textContent = hoy ? '$25 de comisión' : '';
-  document.getElementById('t100-txt').textContent = hoy ? 'De cada $100 que vende, la app de delivery se queda con $25, y hasta $35 si usa su reparto. Esa plata se va de Tigre.' : 'Con el upgrade, los $100 son del comercio. Y si reparte con su propio cadete, el envío también lo cobra él, completo.';
+  document.getElementById('t100-txt').textContent = hoy ? 'La app de delivery se queda con $25 de cada $100. Esa plata se va de Tigre.' : 'Con el upgrade, los $100 son del comercio.';
 });
 
 // 3 · Mapa de empatía
