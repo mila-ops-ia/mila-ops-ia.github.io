@@ -1242,3 +1242,37 @@ a.ent-fb { text-decoration: none; color: inherit; }
 .envio-pros b { color: var(--tinta, #17181C); }
 .envio-card .plan-cab .btn { flex: none; width: auto; padding: 10px 18px; }
 .btn.compartir { width: 100%; margin-top: 12px; }
+
+/* v29 · Entrada sin desplazar: dos columnas en compu, compacta en celu */
+@media (min-width: 1024px) {
+  .entrada { max-width: 1060px; display: grid; grid-template-columns: 1fr 1fr; column-gap: 22px; row-gap: 14px; align-items: start; padding: 20px 0 0 !important; }
+  .entrada > .ent-hero { grid-column: 1; grid-row: 1 / span 4; align-self: stretch; display: flex; flex-direction: column; justify-content: center; padding: 40px 38px; }
+  .entrada > .ent-hero h1 { font-size: 3.2rem; margin-top: 28px; }
+  .entrada > .ent-hero p { font-size: 1.1rem; max-width: 360px; }
+  .entrada > .ent-bloque, .entrada > .ent-fb, .entrada > .qr-entrada { grid-column: 2; }
+  .entrada > .ent-bloque { padding: 0; }
+  .entrada > .ent-fb, .entrada > .qr-entrada { margin: 0; }
+  .entrada .qr-entrada .qr { width: 84px; }
+  .entrada .ent-tours { margin: 0; padding: 0; }
+}
+@media (max-width: 759px) {
+  .entrada { gap: 12px; padding-bottom: 14px !important; }
+  .ent-hero { padding: 18px 20px 20px; }
+  .ent-hero h1 { font-size: 2rem; margin: 14px 0 6px; }
+  .ent-cta { margin-top: 14px; padding: 12px 16px; }
+  .ent-perfil { padding: 10px 6px 9px; }
+  .ent-bloque h2 { margin-bottom: 7px; }
+  .ent-tours { overflow: visible; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); }
+  .ent-tour { width: auto; min-height: 96px; padding: 10px; }
+  .ent-tour b { font-size: .78rem; }
+  .ent-fb { padding: 10px 14px; }
+}
+.shell.landing { min-height: 0 !important; }
+.shell.landing .entrada { min-height: 0 !important; }
+@media (max-width: 759px) and (max-height: 720px) {
+  .ent-hero p { display: none; }
+  .ent-hero h1 { font-size: 1.8rem; margin: 10px 0 0; }
+  .ent-logo { width: 34px; height: 34px; }
+  .entrada { gap: 10px; padding-bottom: 8px !important; }
+  .ent-tour { min-height: 84px; }
+}
