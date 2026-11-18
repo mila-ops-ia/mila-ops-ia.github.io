@@ -105,6 +105,8 @@ svg.lucide { width: 1em; height: 1em; stroke-width: 2; vertical-align: -0.12em; 
 .cien-barra { height: 200px; border-radius: 24px; }
 .cien-barra div { font-size: 44px; }
 .toggle button { font-size: 30px; padding: 18px 32px; }
+.bajada { font-size: 36px; font-weight: 600; color: var(--muted); line-height: 1.25; margin-top: 4px; }
+.bajada b { color: var(--rojo); }
 /* objetivos del piloto */
 .metas { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; flex: 1; }
 .meta { background: var(--papel); border: 1px solid var(--linea); border-radius: 26px; padding: 34px 44px; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
@@ -228,7 +230,7 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
 <div id="escena">
 
 <!-- 1 · PORTADA -->
-<section class="slide roja on" data-notas="Buen día. Soy Milagros, de mila·ops. Les presento SoyTigreYa: convertir la tarjeta Soy Tigre en una plataforma donde el vecino ahorra, el comercio vende sin comisión y el municipio mide. No es una idea en papel: el prototipo funciona y lo pueden abrir ahora escaneando el QR.">
+<section class="slide roja on" data-notas="Hola, soy Milagros. Les presento SoyTigreYa: una sola app para los vecinos de Tigre, con beneficios, compras en el barrio, trámites, salud, deporte y empleo. Pueden escanear el QR y probarla mientras hablo.">
   <div class="portada">
     <div class="col" style="gap:34px;">
       <p class="ceja">Trabajo Final Integrador · Diplomatura en Negocios Digitales e Innovación</p>
@@ -245,15 +247,14 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
 </section>
 
 <!-- 2 · PITCH Y PROBLEMA -->
-<section class="slide" data-notas="El pitch en una frase. Después el problema con un ejemplo simple: de cada 100 pesos que un vecino gasta en una app de delivery, entre 20 y 30 se van en comisión, fuera del distrito. Tocar el botón para comparar con SoyTigreYa: la comisión es cero y los 100 pesos de la venta son del comercio. Si preguntan por el medio de pago: el QR o la tarjeta cobran su costo aparte, menos del 1%, igual que en el mostrador; eso no es una comisión de la plataforma. Si preguntan por la base: Tigre tiene 446.925 habitantes y más de 500 comercios ya adheridos a la tarjeta Soy Tigre.">
-  <div class="cab"><p class="ceja">El problema <span class="mod">M1 · Research e hipótesis de oportunidad</span></p><h2>De cada $100, ¿cuánto se lleva la app?</h2></div>
+<section class="slide" data-notas="Arranco con una pregunta: de cada 100 pesos que gastamos en una app de delivery, ¿cuánto le queda al comercio? 75. Los otros 25 se van en comisión, afuera de Tigre. (Tocar Con SoyTigreYa.) Con SoyTigreYa los 100 son del comercio: la app no cobra comisión. Si preguntan: el medio de pago cobra menos del 1%, igual que en el mostrador. Tigre tiene 446.925 habitantes y más de 500 comercios ya adheridos a la tarjeta Soy Tigre.">
+  <div class="cab"><p class="ceja">El problema <span class="mod">M1 · Research e hipótesis de oportunidad</span></p><h2>De cada $100 que gastás en una app de delivery, ¿cuánto le queda al comercio?</h2></div>
   <div class="fila" style="flex:1; gap:64px; align-items:center;">
     <div class="col" style="flex:1; gap:28px;">
-      <p style="font-size:44px; font-weight:600; color:var(--piz);">SoyTigreYa ayuda a los <b style="color:var(--rojo)">vecinos de Tigre</b> a ahorrar y resolver trámites, y a los <b style="color:var(--rojo)">comercios de barrio</b> a vender sin pagar comisión.</p>
-      <div class="cien">
-        <div class="toggle" id="t100"><button class="on" data-v="hoy">Hoy, con apps privadas</button><button data-v="sty">Con SoyTigreYa</button></div>
+            <div class="cien">
+        <div class="toggle" id="t100"><button class="on" data-v="hoy">Hoy, con apps de delivery</button><button data-v="sty">Con SoyTigreYa</button></div>
         <div class="cien-barra"><div class="b-com" id="b-com" style="flex-basis:75%">$75 al comercio</div><div class="b-app" id="b-app" style="flex-basis:25%">$25 de comisión</div></div>
-        <p class="muted" id="t100-txt" style="font-size:30px;">Las apps de delivery cobran entre 20% y 30% por pedido, con cargos de hasta 35%. Esa plata sale del distrito.</p>
+        <p class="muted" id="t100-txt" style="font-size:30px;">Las apps de delivery se quedan con $25 de cada $100. Esa plata se va de Tigre.</p>
       </div>
     </div>
   </div>
@@ -261,86 +262,86 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
 </section>
 
 <!-- 3 · LA SOLUCIÓN -->
-<section class="slide" data-notas="La solución: una plataforma, cuatro personas, que comparten los mismos datos. Cada tarjeta es la pantalla real de cada perfil. Tocar Ver en vivo para abrir la app en grande, por encima de la presentación: arriba se cambia de perfil, y con Esc se vuelve. Lo más potente es el recorrido guiado: en diez pasos muestra cómo un pedido y un reclamo pasan por las cuatro personas.">
-  <div class="cab"><p class="ceja">La solución, funcionando <span class="mod">M1 · Transformación digital · M4 · UX/UI</span></p><h2>Una plataforma, cuatro personas</h2></div>
+<section class="slide" data-notas="No es una idea: ya funciona. Es una sola app con cuatro personas. Lucía, la vecina, ahorra y compra desde el celu. Rosa, la comerciante, recibe los pedidos. Carlos, del Municipio, resuelve los reclamos. Y Marina, también del Municipio, mide los resultados. Se los muestro. (Tocar Ver un pedido de punta a punta y dejarlo correr uno o dos minutos. Esc para volver.)">
+  <div class="cab"><p class="ceja">La solución, funcionando <span class="mod">M1 · Transformación digital · M4 · UX/UI</span></p><h2>Ya funciona: una sola app, cuatro personas</h2><p class="bajada">Lo que hace una, lo ve la otra al instante.</p></div>
   <div class="perfiles4">
-    <button class="pcard" data-demo="lucia"><div class="pv tel-mini"><img src="../capturas/inicio.jpg" alt="Pantalla de Lucía"></div><div class="pc-txt"><span class="p-av" style="background:#D02013">L</span><div><b>Lucía</b><span>Vecina · app en el celu</span></div></div><p>Ahorra, compra en el barrio y resuelve trámites.</p><span class="ver"><i data-lucide="play"></i> Ver en vivo</span></button>
-    <button class="pcard" data-demo="rosa"><div class="pv pc-mini"><img src="../capturas/rosa.jpg" alt="Panel de Rosa"></div><div class="pc-txt"><span class="p-av" style="background:#b5541c">R</span><div><b>Rosa</b><span>Comercio · panel del local</span></div></div><p>Recibe pedidos pagos y ve sus cobros.</p><span class="ver"><i data-lucide="play"></i> Ver en vivo</span></button>
-    <button class="pcard" data-demo="carlos"><div class="pv pc-mini"><img src="../capturas/carlos.jpg" alt="Panel de Carlos"></div><div class="pc-txt"><span class="p-av" style="background:#515769">C</span><div><b>Carlos</b><span>Atención al Vecino</span></div></div><p>Ordena los reclamos por urgencia.</p><span class="ver"><i data-lucide="play"></i> Ver en vivo</span></button>
-    <button class="pcard" data-demo="marina"><div class="pv pc-mini"><img src="../capturas/marina.jpg" alt="Panel de Marina"></div><div class="pc-txt"><span class="p-av" style="background:#3A3F4D">M</span><div><b>Marina</b><span>Desarrollo Económico</span></div></div><p>Mide el impacto del programa.</p><span class="ver"><i data-lucide="play"></i> Ver en vivo</span></button>
+    <button class="pcard" data-demo="lucia"><div class="pv tel-mini"><img src="../capturas/inicio.jpg" alt="Pantalla de Lucía"></div><div class="pc-txt"><span class="p-av" style="background:#D02013">L</span><div><b>Lucía</b><span>La vecina</span></div></div><p>Ahorra, compra en el barrio y hace trámites desde el celu.</p><span class="ver"><i data-lucide="play"></i> Ver en vivo</span></button>
+    <button class="pcard" data-demo="rosa"><div class="pv pc-mini"><img src="../capturas/rosa.jpg" alt="Panel de Rosa"></div><div class="pc-txt"><span class="p-av" style="background:#b5541c">R</span><div><b>Rosa</b><span>La comerciante</span></div></div><p>Recibe los pedidos ya pagos, sin comisión.</p><span class="ver"><i data-lucide="play"></i> Ver en vivo</span></button>
+    <button class="pcard" data-demo="carlos"><div class="pv pc-mini"><img src="../capturas/carlos.jpg" alt="Panel de Carlos"></div><div class="pc-txt"><span class="p-av" style="background:#515769">C</span><div><b>Carlos</b><span>Municipio · reclamos</span></div></div><p>Recibe los reclamos y los resuelve por urgencia.</p><span class="ver"><i data-lucide="play"></i> Ver en vivo</span></button>
+    <button class="pcard" data-demo="marina"><div class="pv pc-mini"><img src="../capturas/marina.jpg" alt="Panel de Marina"></div><div class="pc-txt"><span class="p-av" style="background:#3A3F4D">M</span><div><b>Marina</b><span>Municipio · resultados</span></div></div><p>Ve cuánto se vende y cuánto se ahorra.</p><span class="ver"><i data-lucide="play"></i> Ver en vivo</span></button>
   </div>
   <div class="fila" style="align-items:center; gap:28px;">
-    <button class="btn" data-demo="tour" style="font-size:28px; padding:20px 32px;"><i data-lucide="route"></i> Recorrido guiado en vivo</button>
+    <button class="btn" data-demo="tour" style="font-size:28px; padding:20px 32px;"><i data-lucide="route"></i> Ver un pedido de punta a punta, en vivo</button>
     <p class="toque"><i data-lucide="pointer"></i> Se abre la app real en grande · Esc para volver</p>
   </div>
-  <div class="pie"><span>Los cuatro perfiles comparten los mismos datos</span><span>3</span></div>
+  <div class="pie"><span>Prototipo funcionando, con datos de demostración</span><span>3</span></div>
 </section>
 
 <!-- 4 · LA PLATA QUE SE QUEDA -->
-<section class="slide" data-notas="Esto no es solo una app: es plata que se queda en Tigre y trabaja tres veces. Leer las tres tarjetas de izquierda a derecha. Uno: con 100 comercios vendiendo por la app, 360 millones por año dejan de irse en comisiones y quedan en los comercios. Dos: el comercio vuelve a gastar buena parte en el barrio, en sueldos, proveedores y mejoras: unos 173 millones. Tres: el comercio paga su tasa municipal sobre lo que vende: hasta 11,5 millones para el Municipio. Mover el control de comercios para mostrar cómo crece. Son tres beneficiarios distintos, no se suman. Abajo, la inversión: 152 millones el primer año, menos de la mitad de lo que presupuestó Santa Fe, y se recupera en 2 años y 5 meses. Si preguntan por los supuestos: 25% de comisión de las apps, 48% de recirculación local según estudios de Estados Unidos y la tasa de Tigre de 0,80%. Contenido aplicado: ROI y KPIs del módulo 3.">
-  <div class="cab"><p class="ceja">Los números <span class="mod">M3 · ROI y KPIs</span></p><h2>La plata que se queda trabaja tres veces</h2></div>
+<section class="slide" data-notas="Esto no es solo una app. La plata que se queda en Tigre trabaja tres veces. Uno: con 100 comercios, 360 millones por año dejan de irse en comisiones y quedan en el comercio. Dos: el comercio gasta buena parte acá, en sueldos, proveedores y mejoras: 173 millones que vuelven al barrio. Tres: sobre lo que vende paga su tasa municipal: hasta 11 millones y medio. (Mover el control.) Con más comercios, crece todo. ¿Cuánto cuesta? 152 millones el primer año, y se recupera en 2 años y 5 meses. Si preguntan de dónde sale el 360: 100 comercios por 60 pedidos por mes por 20.000 pesos por 12 meses son 1.440 millones en ventas; el 25% que cobraría una app son 360. El 48% vuelve al barrio según estudios de Estados Unidos, y la tasa de Tigre es 0,80%. Santa Fe presupuestó 316 millones para una app municipal.">
+  <div class="cab"><p class="ceja">Los números <span class="mod">M3 · ROI y KPIs</span></p><h2>La plata que se queda trabaja tres veces</h2><p class="bajada">Con <b><span id="n-com">100</span> comercios</b> vendiendo por la app, en un año:</p></div>
   <div class="tres-v">
     <div class="vuelta">
       <span class="v-n">1</span>
       <p class="v-tit">Queda en el comercio</p>
       <p class="v-num" id="r-anio">$360 M</p>
-      <p class="v-txt">por año que ya no se van en comisiones de apps</p>
+      <p class="v-txt">que ya no se van en comisiones</p>
     </div>
     <span class="v-flecha">→</span>
     <div class="vuelta">
       <span class="v-n">2</span>
       <p class="v-tit">Vuelve al barrio</p>
       <p class="v-num" id="r-circ">$173 M</p>
-      <p class="v-txt">en sueldos, proveedores de la zona y mejoras del local</p>
+      <p class="v-txt">el comercio los gasta acá: sueldos, proveedores y mejoras</p>
     </div>
     <span class="v-flecha">→</span>
     <div class="vuelta">
       <span class="v-n">3</span>
       <p class="v-tit">Vuelve al Municipio</p>
       <p class="v-num" id="r-tasa">$11,5 M</p>
-      <p class="v-txt">de tasa que el comercio paga por esas ventas</p>
+      <p class="v-txt">de tasa municipal que el comercio paga por lo que vende</p>
     </div>
   </div>
   <div class="v-abajo">
     <div class="v-control"><label>Probá con más o menos comercios: <b id="o-com">100</b></label><input type="range" id="s-com" min="20" max="500" step="10" value="100"><span class="toque"><i data-lucide="pointer"></i> Mové el control</span></div>
-    <div class="v-inv"><p>El Municipio invierte <b>$152 M</b> el primer año</p><p>y lo recupera en <b class="v-rojo">2 años y 5 meses</b></p></div>
+    <div class="v-inv"><p>¿Cuánto cuesta? <b>$152 M</b> el primer año</p><p>y se recupera en <b class="v-rojo">2 años y 5 meses</b></p></div>
   </div>
-  <div class="pie"><span>Estimación con 60 pedidos por mes por comercio y ticket de $20.000 · Los tres montos son de distintos beneficiarios: no se suman</span><span>4</span></div>
+  <div class="pie"><span>Estimación: 60 pedidos por mes por comercio, de $20.000 cada uno · Los tres montos no se suman</span><span>4</span></div>
 </section>
 
 <!-- 5 · MVP Y AGILIDAD -->
-<section class="slide" data-notas="Implementación ágil. El MVP crece por incrementos, como la patineta que se convierte en auto: cada etapa ya es útil. El financiamiento es por tramos, metered funding: cada tramo se libera solo si el anterior validó su hipótesis. Si preguntan cómo se trabaja: Scrum en sprints de dos semanas y Kanban.">
-  <div class="cab"><p class="ceja">Implementación <span class="mod">M2 · M3 · MVP y financiamiento por tramos</span></p><h2>Empezar chico, crecer con resultados</h2></div>
+<section class="slide" data-notas="No pedimos toda la plata junta. Son tres etapas. Primero, probar 3 meses en Tigre Centro con 40 comercios. Si funciona, crecer a todo Tigre. Y después, mejorar con lo más avanzado. Cada etapa se paga solo si la anterior dio resultado. Si preguntan cómo se trabaja: Scrum en sprints de dos semanas y Kanban.">
+  <div class="cab"><p class="ceja">Implementación <span class="mod">M2 · M3 · MVP y financiamiento por tramos</span></p><h2>Empezar chico, crecer con resultados</h2><p class="bajada">No se pide toda la plata junta: cada etapa se paga <b>solo si la anterior funcionó</b>.</p></div>
   <div class="mvp">
-    <button class="inc on" data-i><i data-lucide="bike" class="vehic"></i><span class="tramo">Tramo 1 · meses 1–3</span><h3>Piloto</h3><p>Tigre Centro: credencial, beneficios y compra con retiro.</p><span class="precio">$55 M</span></button>
-    <button class="inc" data-i><i data-lucide="car" class="vehic"></i><span class="tramo">Tramo 2 · meses 4–6</span><h3>Escalamiento</h3><p>Todas las localidades, tasas, estacionamiento y reclamos.</p><span class="precio">$55 M</span></button>
-    <button class="inc" data-i><i data-lucide="rocket" class="vehic"></i><span class="tramo">Tramo 3 · meses 7–12</span><h3>Super-app</h3><p>Tigri con IA, Puntos Tigre y WhatsApp.</p><span class="precio">$6,9 M/mes</span></button>
+    <button class="inc on" data-i><i data-lucide="bike" class="vehic"></i><span class="tramo">Etapa 1 · 3 meses</span><h3>Probar</h3><p>En Tigre Centro, con 40 comercios.</p><span class="precio">$55 M</span></button>
+    <button class="inc" data-i><i data-lucide="car" class="vehic"></i><span class="tramo">Etapa 2 · 3 meses</span><h3>Crecer</h3><p>A todo Tigre, con más trámites y pagos.</p><span class="precio">$55 M</span></button>
+    <button class="inc" data-i><i data-lucide="rocket" class="vehic"></i><span class="tramo">Etapa 3 · 6 meses</span><h3>Mejorar</h3><p>Asistente con IA, puntos y WhatsApp.</p><span class="precio">$41 M</span></button>
   </div>
-  <div class="pie"><span>Cada tramo se libera solo si el anterior validó su hipótesis</span><span>5</span></div>
+  <div class="pie"><span>Total del primer año: $152 M, con infraestructura · La etapa 3 son 6 meses de $6,9 M</span><span>5</span></div>
 </section>
 
 <!-- 6 · OBJETIVOS DEL PILOTO -->
-<section class="slide" data-notas="Cómo sabemos si el piloto funcionó: cuatro objetivos SMART, medibles a las 12 semanas. 40 comercios con catálogo activo, 2.000 vecinos con al menos un pedido, un NPS de 40 o más y 95 por ciento de pedidos sin incidencias. Todo se ve en vivo en el panel de Marina, junto con el embudo AARRR. Si preguntan por el crecimiento: Puntos Tigre, ofertas flash y referidos.">
-  <div class="cab"><p class="ceja">Medir <span class="mod">M3 · M5 · Objetivos SMART</span></p><h2>Cómo sabemos si el piloto funcionó</h2></div>
+<section class="slide" data-notas="¿Y cómo sabemos si funcionó? Con cuatro metas a los 3 meses: 40 comercios vendiendo, 2.000 vecinos que compraron, que la recomienden y que el 95% de los pedidos salga sin problemas. Si se cumplen, seguimos. Si no, frenamos. Si preguntan por el +40: es el NPS; a los que la recomiendan con 9 o 10 se les restan los que ponen 6 o menos. Arriba de 40 es bueno.">
+  <div class="cab"><p class="ceja">Medir <span class="mod">M3 · M5 · Objetivos SMART</span></p><h2>¿Cómo sabemos si funcionó?</h2><p class="bajada">Cuatro metas a los 3 meses. Si se cumplen, <b>seguimos</b>. Si no, <b>frenamos</b>.</p></div>
   <div class="metas">
-    <div class="meta"><p class="m-num">40</p><p class="m-txt">comercios vendiendo por la app</p></div>
-    <div class="meta"><p class="m-num">2.000</p><p class="m-txt">vecinos con al menos una compra</p></div>
-    <div class="meta"><p class="m-num">NPS 40</p><p class="m-txt">o más: vecinos que la recomiendan</p></div>
-    <div class="meta"><p class="m-num">95%</p><p class="m-txt">de pedidos sin problemas</p></div>
+    <div class="meta"><p class="m-num">40</p><p class="m-txt">comercios vendiendo: les sirve a ellos</p></div>
+    <div class="meta"><p class="m-num">2.000</p><p class="m-txt">vecinos que compraron: la gente la usa</p></div>
+    <div class="meta"><p class="m-num">+40</p><p class="m-txt">en la encuesta "¿la recomendarías?" (va de −100 a 100)</p></div>
+    <div class="meta"><p class="m-num">95%</p><p class="m-txt">de los pedidos sin problemas: funciona bien</p></div>
   </div>
-  <div class="pie"><span>Se miden a las 12 semanas, en el panel de Desarrollo Económico</span><span>6</span></div>
+  <div class="pie"><span>Se miden en la misma app, en el panel de Marina</span><span>6</span></div>
 </section>
 
 <!-- 7 · CIERRE -->
-<section class="slide roja" data-notas="Cierre con el llamado a la acción: firmar el piloto. Tres pasos concretos. Invitar a todos a escanear el QR y probar el recorrido guiado, y a dejar su opinión con el segundo QR, que abre un formulario de 30 segundos. Agradecer y abrir a preguntas. Preguntas probables: quién paga el descuento (esquema compartido municipio y comercio con topes); el delivery (después del piloto, con cooperativas); y qué pasa si algo sale mal con un pedido: el vecino lo reporta en la app, el comercio tiene 24 horas para devolver la plata o reponer el producto, y si no hay acuerdo media la oficina municipal de defensa del consumidor. Marina lo mide en reclamos cada 100 pedidos.">
+<section class="slide roja" data-notas="Lo que proponemos es probarla 3 meses: mostrarle la app al Municipio, firmar el acuerdo y salir en Tigre Centro en 6 semanas. Con el primer QR prueban la app y con el segundo me dejan su opinión, son 30 segundos. Gracias. ¿Preguntas? Si preguntan quién paga el descuento: se comparte entre el Municipio y el comercio, con topes. Si algo sale mal con un pedido: el comercio tiene 24 horas para resolver y, si no, media el Municipio.">
   <div class="cierre">
     <div class="col" style="gap:34px;">
-      <p class="ceja">El próximo paso</p>
-      <h2 style="font-size:96px;">Firmemos el piloto</h2>
+      <p class="ceja">Lo que proponemos</p>
+      <h2 style="font-size:96px;">Probémosla 3 meses</h2>
       <div class="pasos-c">
-        <div><i>1</i>Demo con Desarrollo Económico y Modernización</div>
-        <div><i>2</i>Carta de intención y referente municipal</div>
-        <div><i>3</i>Lanzamiento en Tigre Centro en 6 semanas</div>
+        <div><i>1</i>Mostrarle la app al Municipio</div>
+        <div><i>2</i>Firmar el acuerdo para probarla 3 meses</div>
+        <div><i>3</i>Salir en Tigre Centro en 6 semanas</div>
       </div>
       <p style="font-size:38px; font-weight:800;">¡Gracias!</p>
     </div>
@@ -416,7 +417,7 @@ document.querySelectorAll('#t100 button').forEach((b) => b.onclick = () => {
   const com = document.getElementById('b-com'), app = document.getElementById('b-app');
   com.style.flexBasis = hoy ? '75%' : '100%'; com.textContent = hoy ? '$75 al comercio' : '$100 al comercio · $0 de comisión';
   app.style.flexBasis = hoy ? '25%' : '0%'; app.textContent = hoy ? '$25 de comisión' : '';
-  document.getElementById('t100-txt').textContent = hoy ? 'Las apps de delivery cobran entre 20% y 30% por pedido, con cargos de hasta 35%. Esa plata sale del distrito.' : 'SoyTigreYa no cobra comisión: la venta completa es del comercio y queda en Tigre. El medio de pago cobra lo mismo que en el mostrador.';
+  document.getElementById('t100-txt').textContent = hoy ? 'Las apps de delivery se quedan con $25 de cada $100. Esa plata se va de Tigre.' : 'SoyTigreYa no cobra comisión: los $100 son del comercio y quedan en Tigre.';
 });
 
 // 3 · Mapa de empatía
@@ -427,6 +428,7 @@ const fmt = (n) => n.toLocaleString('es-AR');
 function calc() {
   const com = +document.getElementById('s-com').value, ped = 60, tic = 20000, por = 25;
   document.getElementById('o-com').textContent = com;
+  document.getElementById('n-com').textContent = com;
   const ventasMes = com * ped * tic, anio = ventasMes * por / 100 * 12;
   const m1 = (n) => '$' + (n >= 1e8 ? fmt(Math.round(n / 1e6)) : (n / 1e6).toFixed(1).replace('.', ',').replace(',0', '')) + ' M';
   document.getElementById('r-anio').textContent = m1(anio);
