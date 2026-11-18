@@ -165,7 +165,7 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
 .gauge { display: flex; gap: 20px; align-items: center; }
 
 /* 10 cierre */
-.cierre { display: grid; grid-template-columns: 1fr 460px; gap: 72px; align-items: center; flex: 1; }
+.cierre { display: grid; grid-template-columns: 1fr 540px; gap: 56px; align-items: center; flex: 1; }
 .pasos-c { display: flex; flex-direction: column; gap: 18px; }
 .pasos-c div { display: flex; gap: 20px; align-items: center; font-size: 32px; }
 .pasos-c i { font-style: normal; width: 56px; height: 56px; border-radius: 50%; background: #fff; color: var(--rojo); display: grid; place-items: center; font-weight: 800; flex: none; }
@@ -370,7 +370,7 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
 </section>
 
 <!-- 10 · CIERRE -->
-<section class="slide roja" data-notas="Cierre con el llamado a la acción: firmar el piloto. Tres pasos concretos. Invitar a todos a escanear el QR y probar el recorrido guiado. Agradecer y abrir a preguntas. Preguntas probables: quién paga el descuento (esquema compartido municipio y comercio con topes); el delivery (después del piloto, con cooperativas); y qué pasa si algo sale mal con un pedido: el vecino lo reporta en la app, el comercio tiene 24 horas para devolver la plata o reponer el producto, y si no hay acuerdo media la oficina municipal de defensa del consumidor. Marina lo mide en reclamos cada 100 pedidos.">
+<section class="slide roja" data-notas="Cierre con el llamado a la acción: firmar el piloto. Tres pasos concretos. Invitar a todos a escanear el QR y probar el recorrido guiado, y a dejar su opinión con el segundo QR, que abre un formulario de 30 segundos. Agradecer y abrir a preguntas. Preguntas probables: quién paga el descuento (esquema compartido municipio y comercio con topes); el delivery (después del piloto, con cooperativas); y qué pasa si algo sale mal con un pedido: el vecino lo reporta en la app, el comercio tiene 24 horas para devolver la plata o reponer el producto, y si no hay acuerdo media la oficina municipal de defensa del consumidor. Marina lo mide en reclamos cada 100 pedidos.">
   <div class="cierre">
     <div class="col" style="gap:34px;">
       <p class="ceja">El próximo paso</p>
@@ -382,10 +382,17 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
       </div>
       <p style="font-size:38px; font-weight:800;">Que el ahorro y la venta se queden en Tigre. ¡Gracias!</p>
     </div>
-    <div class="col" style="align-items:center; gap:18px;">
-      <div class="qr" style="width:400px; height:400px; padding:22px;"><img src="../img/qr-soytigreya.png" alt="QR para abrir la app"></div>
-      <p style="font-size:30px; font-weight:800;">Escaneá y probala</p>
-      <p style="font-size:24px;">mila-ops-ia.github.io/soytigreya</p>
+    <div class="fila" style="gap:28px; align-items:flex-start; flex:none;">
+      <div class="col" style="align-items:center; gap:14px;">
+        <div class="qr" style="width:250px; height:250px; padding:14px;"><img src="../img/qr-soytigreya.png" alt="QR para abrir la app"></div>
+        <p style="font-size:26px; font-weight:800;">Probá la app</p>
+        <p style="font-size:18px; white-space:nowrap;">mila-ops-ia.github.io/soytigreya</p>
+      </div>
+      <a class="col" href="https://docs.google.com/forms/d/e/1FAIpQLSdKRXBPEiUi4mCrS9Q42NO-v4DuR-QqupuJ9cMIeXA5iHMqNg/viewform" target="_blank" rel="noopener" style="align-items:center; gap:14px; color:inherit; text-decoration:none;">
+        <div class="qr" style="width:250px; height:250px; padding:14px;"><img src="../img/qr-opiniones.png" alt="QR para dejar tu opinión"></div>
+        <p style="font-size:26px; font-weight:800;">Dejá tu opinión</p>
+        <p style="font-size:18px; white-space:nowrap;">Formulario de 30 segundos</p>
+      </a>
     </div>
   </div>
   <div class="pie"><span>Milagros Belén Sanabria · mila·ops · Diplomatura en Negocios Digitales e Innovación</span><span>10</span></div>
