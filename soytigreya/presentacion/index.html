@@ -171,7 +171,10 @@ svg.lucide { width: 1em; height: 1em; stroke-width: 2; vertical-align: -0.12em; 
 .slide.final .ruta::before { top: 84px; }
 .slide.final .et-cu { font-size: 21px; height: 38px; }
 .slide.final .etapa b { font-size: 36px; margin-top: 8px; }
-.slide.final .etapa p { font-size: 24px; }
+.slide.final .etapa p { font-size: 23px; line-height: 1.25; }
+.slide.final .etapa { gap: 10px; }
+.slide.final .soporte { font-size: 24px; padding: 10px 24px; }
+.slide.final .cf-1 { font-size: 46px; }
 .fin-abajo { display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: stretch; flex: 1; }
 .rsg { background: var(--osc); color: #fff; border-radius: 24px; padding: 24px 32px; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
 .rsg-t { font-size: 22px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: #FF8F84; margin-bottom: 4px; }
@@ -185,9 +188,9 @@ svg.lucide { width: 1em; height: 1em; stroke-width: 2; vertical-align: -0.12em; 
 .cierre-f { background: var(--rojo); color: #fff; border-radius: 24px; padding: 26px 40px; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
 .cf-1 { font-size: 50px; font-weight: 800; line-height: 1.08; letter-spacing: -1px; }
 .cf-2 { font-size: 30px; font-weight: 700; }
-.slide.final .qr2 img { width: 150px; height: 150px; }
+.slide.final .qr2 img { width: 124px; height: 124px; }
 .slide.final .qr2 { font-size: 22px; padding: 14px 16px 12px; }
-.slide.final .cierre-f { padding: 20px 36px; }
+.slide.final .cierre-f { padding: 16px 36px; }
 .slide.final .fin-abajo { flex: none; }
 .slide.final .ruta { flex: 1; }
 .slide.final .qr2 { background: var(--osc); }
@@ -200,6 +203,8 @@ svg.lucide { width: 1em; height: 1em; stroke-width: 2; vertical-align: -0.12em; 
 .escs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .slide.densa .e-det { font-size: 21px; }
 .slide.densa .e-rec { font-size: 26px; }
+.soporte { font-size: 26px; text-align: center; color: #fff; background: var(--osc); border-radius: 999px; padding: 12px 26px; }
+.soporte b { font-weight: 800; color: #FF8F84; }
 /* riesgos */
 .riesgos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; flex: 1; }
 .riesgo { background: var(--papel); border: 1px solid var(--linea); border-radius: 26px; padding: 36px 34px; display: flex; flex-direction: column; gap: 16px; }
@@ -403,16 +408,17 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
 </section>
 
 <!-- 4 · CÓMO SEGUIMOS -->
-<section class="slide final" data-notas="¿Cómo seguimos? Por etapas, y lo hacemos así por los riesgos: los dos más altos son que los comercios no se sumen y que no consigamos un banco socio, y los dos se prueban primero, en el piloto. Si las apps de delivery reaccionan, nuestra defensa es el 0% de comisión y el envío con el cadete del comercio. Entonces, el primer año: probar tres meses en Tigre Centro con 40 comercios, crecer a todo Tigre con trámites y pagos, y mejorar con el asistente, los puntos y las redes. El año 2 sumamos socios de reparto que cobran por viaje y no por comisión. Y desde el año 3, otros municipios con la misma plataforma. Esa es la idea: que el ahorro y la venta se queden en Tigre. Con el primer QR prueban la app y con el segundo me dejan su opinión. Gracias. ¿Preguntas?">
+<section class="slide final" data-notas="¿Cómo seguimos? Por etapas, y lo hacemos así por los riesgos: los dos más altos son que los comercios no se sumen y que no consigamos un banco socio, y los dos se prueban primero, en el piloto. Si las apps de delivery reaccionan, nuestra defensa es el 0% de comisión y el envío con el cadete del comercio. Entonces, el primer año: probar tres meses en Tigre Centro con 40 comercios, crecer a todo Tigre con trámites y pagos, y mejorar con el asistente, los puntos y las redes. El envío con el cadete del propio comercio está desde el primer día; más adelante, en el año 2, sumamos socios de reparto que cobran por viaje y no por comisión. Y en todas las etapas mila·ops acompaña con soporte, capacitación y posventa: no se entrega la app y nos vamos. Y desde el año 3, otros municipios con la misma plataforma. Esa es la idea: que el ahorro y la venta se queden en Tigre. Con el primer QR prueban la app y con el segundo me dejan su opinión. Gracias. ¿Preguntas?">
   <div class="cab"><p class="ceja">Cómo seguimos <span class="mod">M2 · M3 · MVP por etapas y gestión del riesgo</span></p><h2>De Tigre Centro a otros municipios, por etapas</h2></div>
-  <p class="rsg-l"><b>¿Por qué por etapas? Por los riesgos.</b> Los dos más altos, que los comercios no se sumen y que no haya un banco socio, se prueban primero en el piloto. Si las apps de delivery reaccionan, la defensa es el 0% de comisión y el cadete propio. Cada etapa empieza solo si la anterior cumplió.</p>
+  <p class="rsg-l"><b>¿Por qué por etapas? Por los riesgos.</b> Que los comercios no se sumen y que no haya un banco socio se prueban primero, en el piloto. Frente a las apps de delivery: 0% de comisión y cadete propio.</p>
   <div class="ruta">
-    <div class="etapa"><span class="et-cu">Meses 1 a 3</span><span class="et-pt"></span><b>Probar</b><p>Tigre Centro, con 40 comercios.</p></div>
+    <div class="etapa"><span class="et-cu">Meses 1 a 3</span><span class="et-pt"></span><b>Probar</b><p>Tigre Centro, 40 comercios. Ya con envío del cadete del comercio.</p></div>
     <div class="etapa"><span class="et-cu">Meses 4 a 6</span><span class="et-pt"></span><b>Crecer</b><p>Todo Tigre, con trámites y pagos.</p></div>
     <div class="etapa"><span class="et-cu">Meses 7 a 12</span><span class="et-pt"></span><b>Mejorar</b><p>Asistente, puntos y redes sociales.</p></div>
-    <div class="etapa fut"><span class="et-cu">Año 2</span><span class="et-pt"></span><b>Sumar reparto</b><p>Al cadete del comercio se suman socios que cobran por viaje, no por comisión.</p></div>
+    <div class="etapa fut"><span class="et-cu">Año 2</span><span class="et-pt"></span><b>Más reparto</b><p>Socios de reparto que cobran por viaje, no por comisión.</p></div>
     <div class="etapa fut"><span class="et-cu">Año 3 en adelante</span><span class="et-pt"></span><b>Otros municipios</b><p>La misma plataforma, con la marca de cada municipio.</p></div>
   </div>
+  <p class="soporte"><b>mila·ops acompaña todas las etapas:</b> soporte, capacitación a comercios y posventa, desde el piloto.</p>
   <div class="fin-abajo">
     <div class="cierre-f"><p class="cf-1">Que el ahorro y la venta se queden en Tigre.</p><p class="cf-2">¡Gracias!</p></div>
     <div class="fin-qr">
