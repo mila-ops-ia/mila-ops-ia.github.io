@@ -277,6 +277,21 @@ tabla([
     ['Acumulado', '−$68,4 M', '+$0,8 M', '+$98,2 M'],
 ], [7.0, 3.0, 3.0, 3.0])
 p('Recupero de la inversión: 2 años. Sin las palancas (licencia de $6,9 M por mes desde el año 2 y aporte bancario de $30 M), 3 años y 4 meses. El año 1 incluye solo seis meses de ingresos, porque la plataforma está en piloto. Supuestos a validar en el piloto; el panel de Desarrollo Económico permite simular las palancas.')
+doc.add_heading('Proyección a 5 años en tres escenarios', 2)
+tabla([
+    ['', 'Conservador', 'Esperado', 'Optimista'],
+    ['Comercios vendiendo (año 1 a año 5)', '35 → 175', '50 → 250', '60 → 500'],
+    ['Pedidos por mes por comercio', '30 y luego 45', '30 y luego 60', '30 y luego 60'],
+    ['Aporte del banco o billetera por año', '$30 M', '$50 M', '$50 M'],
+    ['Costo para el Municipio en 5 años', '$329,8 M', '$329,8 M', '$329,8 M'],
+    ['Vuelve a la caja del Municipio en 5 años', '$459,5 M', '$702,0 M', '$915,3 M'],
+    ['Resultado acumulado al año 5', '+$129,7 M', '+$372,2 M', '+$585,5 M'],
+    ['Recupero de la inversión', '3 años y 3 meses', '2 años', '1 año y 8 meses'],
+    ['Queda en los comercios en 5 años', '$1.370,2 M', '$2.587,5 M', '$4.581,0 M'],
+    ['Vuelve al barrio en 5 años (48%)', '$657,7 M', '$1.242,0 M', '$2.198,9 M'],
+    ['Tasa municipal sobre esas ventas, tope (0,80%)', '$43,8 M', '$82,8 M', '$146,6 M'],
+], [7.0, 3.0, 3.0, 3.0])
+p('Los tres escenarios usan las mismas fórmulas y el mismo costo; cambia la adopción. Resultado acumulado, año por año: conservador −$82,2 M, −$57,5 M, −$12,8 M, +$48,4 M y +$129,7 M; esperado −$68,4 M, +$0,8 M, +$98,2 M, +$219,6 M y +$372,2 M; optimista −$65,4 M, +$29,0 M, +$169,6 M, +$350,7 M y +$585,5 M. El escenario esperado coincide con la proyección a tres años y crece 50 comercios por año; el conservador supone 30% menos comercios, menos pedidos y un aporte bancario menor; el optimista llega a los 500 comercios ya adheridos a Soy Tigre. Comercios con Plan Destacado al año 5: 120, 180 y 330; trámites por la app: 35.000, 50.000 y 70.000. Son supuestos propios, a validar en el piloto.')
 doc.add_heading('Efecto en la economía local: la plata que se queda trabaja tres veces', 2)
 tabla([
     ['Vuelta', 'Año 1', 'Año 2', 'Año 3'],

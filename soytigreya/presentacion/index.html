@@ -115,6 +115,29 @@ svg.lucide { width: 1em; height: 1em; stroke-width: 2; vertical-align: -0.12em; 
 .modf .m-n { width: 62px; height: 62px; border-radius: 50%; background: var(--rojo); color: #fff; font-weight: 800; font-size: 32px; display: grid; place-items: center; }
 .modf b { font-size: 36px; font-weight: 800; color: var(--piz); }
 .modf > span:last-child { font-size: 30px; color: var(--muted); line-height: 1.3; }
+/* escenarios a 5 años */
+.tres-v .vuelta { padding: 20px 30px 18px; gap: 4px; }
+.tres-v .v-n { width: 48px; height: 48px; font-size: 26px; }
+.tres-v .v-tit { margin-top: 2px; font-size: 32px; }
+.tres-v .v-num { font-size: 84px; }
+.tres-v .v-txt { font-size: 24px; }
+.esc-tit { font-size: 30px; font-weight: 800; color: var(--piz); }
+.esc-tit span { font-weight: 600; color: var(--muted); }
+.esc-tit b { color: var(--rojo); }
+.escs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.esc { background: var(--papel); border: 1px solid var(--linea); border-radius: 22px; padding: 18px 26px; display: flex; flex-direction: column; gap: 4px; }
+.esc.on { background: var(--osc); border-color: var(--osc); color: #fff; }
+.e-nom { align-self: flex-start; font-size: 19px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--rojo); }
+.esc.on .e-nom { color: #FF8F84; }
+.e-com { font-size: 24px; color: var(--muted); }
+.esc.on .e-com { color: rgba(255,255,255,.75); }
+.e-rec { font-size: 27px; font-weight: 600; color: var(--piz); white-space: nowrap; }
+.esc.on .e-rec { color: #fff; }
+.e-rec b { font-weight: 800; color: var(--rojo); }
+.esc.on .e-rec b { color: #FF8F84; }
+.e-det { font-size: 24px; color: var(--muted); }
+.esc.on .e-det { color: rgba(255,255,255,.85); }
+.e-det b { color: var(--piz); } .esc.on .e-det b { color: #fff; }
 /* riesgos */
 .riesgos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; flex: 1; }
 .riesgo { background: var(--papel); border: 1px solid var(--linea); border-radius: 26px; padding: 36px 34px; display: flex; flex-direction: column; gap: 16px; }
@@ -296,8 +319,8 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
 </section>
 
 <!-- 4 · LA PLATA QUE SE QUEDA -->
-<section class="slide" data-notas="No es solo una mejora de la app: es plata que se queda en Tigre y trabaja tres veces. Si 100 de los más de 500 comercios de Soy Tigre venden por la app: uno, 360 millones por año dejan de irse en comisiones y quedan en el comercio. Dos, el comercio gasta buena parte acá, en sueldos, proveedores y mejoras: 173 millones que vuelven al barrio. Tres, sobre lo que vende paga su tasa municipal: hasta 11 millones y medio. (Mover el control.) Con más comercios, crece todo. ¿Cuánto cuesta el upgrade? 109 millones el primer año, y se recupera en 2 años. Cuesta menos que una app nueva porque la tarjeta, los vecinos y los más de 500 comercios ya están: solo se paga lo nuevo, que es vender, trámites y medición. Para comparar con casos reales: San Cayetano, un municipio chico, pagó 85,7 millones por su app; Santa Fe presupuestó 316 millones y la Ciudad de Buenos Aires adjudicó 483 millones por su plataforma de trámites. Si preguntan de dónde sale el 360: 100 comercios por 60 pedidos por mes por 20.000 pesos por 12 meses son 1.440 millones en ventas; el 25% que cobraría una app son 360. El 48% vuelve al barrio según estudios de Estados Unidos, y la tasa de Tigre es 0,80%.">
-  <div class="cab"><p class="ceja">Los números <span class="mod">M3 · ROI y KPIs</span></p><h2>La plata que se queda trabaja tres veces</h2><p class="bajada">Si <b><span id="n-com">100</span> de los más de 500 comercios</b> de Soy Tigre venden por la app, en un año:</p></div>
+<section class="slide" data-notas="No es solo una mejora de la app: es plata que se queda en Tigre y trabaja tres veces. Si 100 de los más de 500 comercios de Soy Tigre venden por la app: uno, 360 millones por año dejan de irse en comisiones y quedan en el comercio. Dos, el comercio gasta buena parte acá, en sueldos, proveedores y mejoras: 173 millones que vuelven al barrio. Tres, sobre lo que vende paga su tasa municipal: hasta 11 millones y medio. Abajo, la proyección a 5 años en tres escenarios. En el conservador llegamos a 175 comercios y se recupera en 3 años y 3 meses. En el esperado, 250 comercios y se recupera en 2 años. En el optimista, los 500 comercios de Soy Tigre y se recupera en 1 año y 8 meses. En los tres casos se recupera y la plata que queda en los comercios es mucho mayor que la inversión. ¿Cuánto cuesta el upgrade? 109 millones el primer año y 55 por año después: 330 millones en 5 años. Cuesta menos que una app nueva porque la tarjeta, los vecinos y los más de 500 comercios ya están: solo se paga lo nuevo, que es vender, trámites y medición. Para comparar con casos reales: San Cayetano, un municipio chico, pagó 85,7 millones por su app; Santa Fe presupuestó 316 millones y la Ciudad de Buenos Aires adjudicó 483 millones por su plataforma de trámites. Si preguntan de dónde sale el 360: 100 comercios por 60 pedidos por mes por 20.000 pesos por 12 meses son 1.440 millones en ventas; el 25% que cobraría una app son 360. El 48% vuelve al barrio según estudios de Estados Unidos, y la tasa de Tigre es 0,80%.">
+  <div class="cab"><p class="ceja">Los números <span class="mod">M3 · ROI y KPIs</span></p><h2>La plata que se queda trabaja tres veces</h2><p class="bajada">Si <b>100 de los más de 500 comercios</b> de Soy Tigre venden por la app, en un año:</p></div>
   <div class="tres-v">
     <div class="vuelta">
       <span class="v-n">1</span>
@@ -320,11 +343,13 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
       <p class="v-txt">de tasa municipal sobre lo que vende el comercio</p>
     </div>
   </div>
-  <div class="v-abajo">
-    <div class="v-control"><label>Probá con más o menos comercios: <b id="o-com">100</b></label><input type="range" id="s-com" min="20" max="500" step="10" value="100"><span class="toque"><i data-lucide="pointer"></i> Mové el control</span></div>
-    <div class="v-inv"><p>El upgrade cuesta <b>$109 M</b> el primer año</p><p>y se recupera en <b class="v-rojo">2 años</b></p></div>
+  <p class="esc-tit">A 5 años, en tres escenarios <span>· el upgrade cuesta <b>$109 M</b> el primer año y $55 M por año después</span></p>
+  <div class="escs">
+    <div class="esc"><span class="e-nom">Conservador</span><p class="e-com">175 comercios al año 5</p><p class="e-rec">Se recupera en <b>3 años y 3 meses</b></p><p class="e-det">Quedan <b>$1.370 M</b> en los comercios</p></div>
+    <div class="esc on"><span class="e-nom">Esperado</span><p class="e-com">250 comercios al año 5</p><p class="e-rec">Se recupera en <b>2 años</b></p><p class="e-det">Quedan <b>$2.588 M</b> en los comercios</p></div>
+    <div class="esc"><span class="e-nom">Optimista</span><p class="e-com">500 comercios al año 5</p><p class="e-rec">Se recupera en <b>1 año y 8 meses</b></p><p class="e-det">Quedan <b>$4.581 M</b> en los comercios</p></div>
   </div>
-  <div class="pie"><span>Para comparar: San Cayetano pagó $85,7 M por su app y Santa Fe presupuestó $316 M · Estimación: 60 pedidos por mes por comercio, de $20.000 · Los tres montos no se suman</span><span>4</span></div>
+  <div class="pie"><span>Para comparar: San Cayetano pagó $85,7 M por su app y Santa Fe presupuestó $316 M · Los tres montos de arriba no se suman · Supuestos de cada escenario, en el Anexo A</span><span>4</span></div>
 </section>
 
 <!-- 5 · CONTENIDOS -->
@@ -438,17 +463,7 @@ document.querySelectorAll('[data-c]').forEach((c) => c.onclick = () => c.classLi
 
 // 4 · Calculadora
 const fmt = (n) => n.toLocaleString('es-AR');
-function calc() {
-  const com = +document.getElementById('s-com').value, ped = 60, tic = 20000, por = 25;
-  document.getElementById('o-com').textContent = com;
-  document.getElementById('n-com').textContent = com;
-  const ventasMes = com * ped * tic, anio = ventasMes * por / 100 * 12;
-  const m1 = (n) => '$' + (n >= 1e8 ? fmt(Math.round(n / 1e6)) : (n / 1e6).toFixed(1).replace('.', ',').replace(',0', '')) + ' M';
-  document.getElementById('r-anio').textContent = m1(anio);
-  document.getElementById('r-circ').textContent = m1(anio * 0.48);
-  document.getElementById('r-tasa').textContent = m1(ventasMes * 12 * 0.008);
-}
-document.querySelectorAll('input[type=range]').forEach((r) => r.oninput = calc); calc();
+
 
 
 // 5 · Demo en vivo en grande
