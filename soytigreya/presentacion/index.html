@@ -264,8 +264,9 @@ svg.lucide { width: 1em; height: 1em; stroke-width: 2; vertical-align: -0.12em; 
 .mercado b { color: var(--rojo); font-weight: 800; }
 .pcard.fija { cursor: default; }
 .pcard.fija:hover { border-color: var(--linea); transform: none; box-shadow: none; }
-.slide .perfiles4 .pv { height: 192px; }
-.slide .perfiles4 .tel-mini img { height: 180px; }
+.slide .perfiles4 .pv { height: 350px; }
+.slide .perfiles4 .tel-mini img { height: 332px; }
+.slide .perfiles4 { flex: 1; align-content: center; }
 .prueba { display: flex; align-items: center; gap: 22px; background: var(--osc); color: #fff; border-radius: 22px; padding: 14px 26px 14px 14px; }
 .prueba img { width: 178px; height: 178px; background: #fff; border-radius: 12px; padding: 6px; flex: none; }
 .prueba div { display: flex; flex-direction: column; gap: 2px; }
@@ -378,7 +379,7 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
 .gauge { display: flex; gap: 20px; align-items: center; }
 
 /* 10 cierre */
-.cierre { display: grid; grid-template-columns: 1fr 850px; gap: 56px; align-items: center; flex: 1; }
+.cierre { display: grid; grid-template-columns: 1fr 460px; gap: 56px; align-items: center; flex: 1; }
 .pasos-c { display: flex; flex-direction: column; gap: 18px; }
 .pasos-c div { display: flex; gap: 20px; align-items: center; font-size: 32px; }
 .pasos-c i { font-style: normal; width: 56px; height: 56px; border-radius: 50%; background: #fff; color: var(--rojo); display: grid; place-items: center; font-weight: 800; flex: none; }
@@ -440,7 +441,7 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
 </section>
 
 <!-- 3 · LA SOLUCIÓN -->
-<section class="slide" data-notas="[1:00 a 2:00] No les traigo una idea: les traigo un MVP que ya funciona. Es la misma Soy Tigre con más, y la usan cuatro personas. Lucía, la vecina, compra y ahorra desde el celu. Rosa, la comerciante, recibe los pedidos y vende sin comisión, con su propio cadete. Carlos, del Municipio, resuelve los reclamos. Y Marina mide los resultados. Está construida con lo que vimos en la Diplomatura, y la pueden probar ahora mismo con el QR.">
+<section class="slide" data-notas="[1:00 a 2:00] No les traigo una idea: les traigo un MVP que ya funciona. Es la misma Soy Tigre con más, y la usan cuatro personas. Lucía, la vecina, compra y ahorra desde el celu. Rosa, la comerciante, recibe los pedidos y vende sin comisión, con su propio cadete. Carlos, del Municipio, resuelve los reclamos. Y Marina mide los resultados. Está construida con lo que vimos en la Diplomatura, y la pueden probar con el QR de la portada.">
   <div class="cab"><p class="ceja">La solución · MVP funcionando <span class="mod">M1 · Transformación digital · M4 · UX/UI</span></p><h2>SoyTigreYa: la misma Soy Tigre, con más</h2><p class="bajada">Suma <b>comprar</b>, <b>envío con cadete propio</b>, <b>trámites</b> y <b>medición</b>.</p></div>
   <div class="perfiles4">
     <div class="pcard fija"><div class="pv tel-mini"><img src="../capturas/inicio.jpg" alt="Pantalla de Lucía"></div><div class="pc-txt"><span class="p-av" style="background:#D02013">L</span><div><b>Lucía</b><span>La vecina</span></div></div><p>Compra y ahorra.</p></div>
@@ -448,7 +449,6 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
     <div class="pcard fija"><div class="pv pc-mini"><img src="../capturas/carlos.jpg" alt="Panel de Carlos"></div><div class="pc-txt"><span class="p-av" style="background:#515769">C</span><div><b>Carlos</b><span>Municipio · reclamos</span></div></div><p>Resuelve reclamos.</p></div>
     <div class="pcard fija"><div class="pv pc-mini"><img src="../capturas/marina.jpg" alt="Panel de Marina"></div><div class="pc-txt"><span class="p-av" style="background:#3A3F4D">M</span><div><b>Marina</b><span>Municipio · resultados</span></div></div><p>Mide resultados.</p></div>
   </div>
-  <div class="prueba"><img src="../img/qr-soytigreya.png" alt="QR para abrir la app"><div><b>Probala vos, ahora</b><span>Escaneá el código o entrá a mila-ops-ia.github.io/soytigreya</span></div></div>
   <p class="dipl"><b>La Diplomatura, aplicada:</b> Design Thinking · Lean Canvas · Kanban · MVP · UX · NPS</p>
   <div class="pie"><span>Datos de demostración · El detalle de cada módulo, en la sección 5 del trabajo</span><span>3</span></div>
 </section>
@@ -484,18 +484,13 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
 </section>
 
 <!-- 6 · CIERRE -->
-<section class="slide roja" data-notas="Que el ahorro y la venta se queden en Tigre. Con el primer QR prueban la app y con el segundo me dejan su opinión, son 30 segundos. Gracias. ¿Preguntas?">
+<section class="slide roja" data-notas="Que el ahorro y la venta se queden en Tigre. Con este QR me dejan su opinión, son 30 segundos. Gracias. ¿Preguntas?">
   <div class="cierre">
     <div class="col" style="gap:34px;">
-      <h2 style="font-size:70px; line-height:1.08;">Que el ahorro y la venta se queden en Tigre.</h2>
+      <h2 style="font-size:92px; line-height:1.05;">Que el ahorro y la venta se queden en Tigre.</h2>
       <p style="font-size:44px; font-weight:800;">¡Gracias!</p>
     </div>
     <div class="fila" style="gap:28px; align-items:flex-start; flex:none;">
-      <div class="col" style="align-items:center; gap:14px;">
-        <div class="qr" style="width:400px; height:400px; padding:18px;"><img src="../img/qr-soytigreya.png" alt="QR para abrir la app"></div>
-        <p style="font-size:38px; font-weight:800;">Probá la app</p>
-        <p style="font-size:24px; white-space:nowrap;">mila-ops-ia.github.io/soytigreya</p>
-      </div>
       <a class="col" href="https://docs.google.com/forms/d/e/1FAIpQLSdKRXBPEiUi4mCrS9Q42NO-v4DuR-QqupuJ9cMIeXA5iHMqNg/viewform" target="_blank" rel="noopener" style="align-items:center; gap:14px; color:inherit; text-decoration:none;">
         <div class="qr" style="width:400px; height:400px; padding:18px;"><img src="../img/qr-opiniones.png" alt="QR para dejar tu opinión"></div>
         <p style="font-size:38px; font-weight:800;">Dejá tu opinión</p>
