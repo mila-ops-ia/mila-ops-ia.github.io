@@ -395,7 +395,7 @@ const FOTO = (k) => `img/fotos/${k}.jpg`;
 // Tres preguntas separadas: cuánto invierte el Municipio, cuánto vuelve a su caja y cuánto gana la comunidad.
 // Precios de mila·ops = costo del equipo + 30% de margen. Supuestos a validar en el piloto.
 const MODELO = {
-  piloto: 55e6, escalamiento: 55e6,           // meses 1-3 y 4-6
+  piloto: 37e6, escalamiento: 30e6,           // meses 1-3 y 4-6
   licenciaA1: 6.9e6,                          // licencia y soporte, meses 7-12 del año 1
   licencia: 4.5e6,                            // licencia y soporte desde el año 2 (equipo de mantenimiento más chico)
   infra: 1.2e6,                               // base de datos y hosting, por año

@@ -200,7 +200,7 @@ viñetas([
     ('Tecnología: ', 'aplicación web progresiva, base de datos en la nube, pasarela de pagos, validación de identidad (Mi Argentina o RENAPER) y servicios de mapas.'),
     ('Comunicación: ', 'campaña para vecinos y comercios aprovechando los canales municipales existentes.'),
 ])
-p('Inversión del Municipio: en el año 1, $152 M (piloto $55 M, escalamiento $55 M y seis meses de licencia y soporte a $6,9 M por mes); desde el año 2, $55 M por año (licencia de $4,5 M por mes con un equipo de mantenimiento más chico, más infraestructura). Los precios de mila·ops surgen del costo del equipo más un 30% de margen; la pasarela de pago cobra de 0,6% a 0,8% por operación con QR.')
+p('Inversión del Municipio: como upgrade de Soy Tigre, reutiliza la credencial, los beneficios y la base de comercios. En el año 1, $109 M (piloto $37 M, escalamiento $30 M y seis meses de licencia y soporte a $6,9 M por mes); desde el año 2, $55 M por año (licencia de $4,5 M por mes más infraestructura). Los precios de mila·ops surgen del costo del equipo más un 30% de margen; la pasarela de pago cobra de 0,6% a 0,8% por operación con QR.')
 doc.add_heading('Posibles aliados', 2)
 p('Secretaría de Desarrollo Económico del Municipio, cámaras de comercio locales, Mercado Pago y Banco Provincia (Cuenta DNI) como medios de pago, cooperativas de mensajería para el delivery, la Universidad Nacional del Delta para investigación y prácticas, y el área de Modernización para la integración con los sistemas existentes.')
 doc.add_heading('Principales desafíos o riesgos', 2)
@@ -224,7 +224,7 @@ viñetas([
     ('Impacto en la comunidad: ', 'la plata que se queda en Tigre trabaja tres veces. En el año 2, $360 M dejan de irse en comisiones y quedan en los comercios; con una recirculación local del 48%, unos $173 M vuelven al barrio en sueldos, proveedores y mejoras; y el comercio tributa en Tigre su tasa del 0,80% sobre las ventas, hasta $11,5 M. No es solo una app: es infraestructura económica local (Anexo A).'),
     ('Crecimiento futuro: ', 'Tigri con inteligencia artificial, integración con transporte y turismo del Delta, y un modelo replicable en otros municipios.'),
 ])
-p('Viabilidad económica. Lo que vuelve a la caja del Municipio (Plan Destacado, publicidad local, un banco que cofinancia descuentos y el ahorro de trámites presenciales) es de $40,6 M, $124,4 M y $152,6 M en los años 1 a 3: recupera la inversión en 2 años y 5 meses. Por cada $1 invertido en tres años quedan $3,7 en los comercios de Tigre. Como referencia, Santa Fe presupuestó $316 M (2025) para una app municipal comparable. Detalle en el Anexo A.')
+p('Viabilidad económica. Lo que vuelve a la caja del Municipio (Plan Destacado, publicidad local, un banco que cofinancia descuentos y el ahorro de trámites presenciales) es de $40,6 M, $124,4 M y $152,6 M en los años 1 a 3: recupera la inversión en 2 años. Por cada $1 invertido en tres años quedan $4,4 en los comercios de Tigre. Como referencia, Santa Fe presupuestó $316 M (2025) por su app municipal. Detalle en el Anexo A.')
 p('Indicadores de éxito: vecinos activos y retención a 90 días, pedidos y comercios activos, ahorro de los vecinos, comisiones evitadas, tiempo de resolución de reclamos, tasas pagadas en término y NPS.')
 
 # ---------- 8 ----------
@@ -260,23 +260,23 @@ tabla([
     ['Solución', 'App con descuento automático, compra con retiro, trámites, pagos, puntos y paneles de gestión.'],
     ['Canales', 'App municipal, comercios adheridos, cámaras de comercio y canales del municipio.'],
     ['Fuentes de ingreso', 'Gratis para el vecino y 0% de comisión. En el año 2: Plan Destacado ($30 M), publicidad local ($14,4 M), banco que cofinancia descuentos ($50 M) y ahorro en atención ($30 M): $124,4 M. Para mila·ops: licencia por municipio.'],
-    ['Estructura de costos', 'Año 1: $152 M (piloto, escalamiento y seis meses de licencia). Desde el año 2: $55,2 M por año (licencia $4,5 M por mes e infraestructura $1,2 M). Pasarela 0,6% a 0,8%.'],
+    ['Estructura de costos', 'Año 1: $109 M (piloto, escalamiento y seis meses de licencia). Desde el año 2: $55,2 M por año (licencia $4,5 M por mes e infraestructura $1,2 M). Pasarela 0,6% a 0,8%.'],
     ['Métricas clave', 'Vecinos activos, retención, NPS, comercios activos, comercios con Plan Destacado y comisiones evitadas.'],
     ['Ventaja injusta', 'Más de 500 comercios y la tarjeta Soy Tigre ya instalada, con el aval del municipio.'],
 ], [4.0, 12.0])
 doc.add_heading('Proyección financiera a tres años (escenario propuesto)', 2)
 tabla([
     ['Concepto', 'Año 1', 'Año 2', 'Año 3'],
-    ['Costo para el Municipio', '$152,0 M', '$55,2 M', '$55,2 M'],
+    ['Costo para el Municipio', '$109,0 M', '$55,2 M', '$55,2 M'],
     ['Plan Destacado (30 / 100 / 120 comercios)', '$4,5 M', '$30,0 M', '$36,0 M'],
     ['Publicidad local (2 / 4 / 6 espacios)', '$3,6 M', '$14,4 M', '$21,6 M'],
     ['Banco o billetera que cofinancia descuentos', '$25,0 M', '$50,0 M', '$50,0 M'],
     ['Ahorro en atención presencial', '$7,5 M', '$30,0 M', '$45,0 M'],
     ['Vuelve a la caja del Municipio', '$40,6 M', '$124,4 M', '$152,6 M'],
-    ['Resultado del año', '−$111,4 M', '+$69,2 M', '+$97,4 M'],
-    ['Acumulado', '−$111,4 M', '−$42,2 M', '+$55,2 M'],
+    ['Resultado del año', '−$68,4 M', '+$69,2 M', '+$97,4 M'],
+    ['Acumulado', '−$68,4 M', '+$0,8 M', '+$98,2 M'],
 ], [7.0, 3.0, 3.0, 3.0])
-p('Recupero de la inversión: 2 años y 5 meses. Sin las palancas (licencia de $6,9 M por mes desde el año 2 y aporte bancario de $30 M), 4 años y 3 meses. El año 1 incluye solo seis meses de ingresos, porque la plataforma está en piloto. Supuestos a validar en el piloto; el panel de Desarrollo Económico permite simular las palancas.')
+p('Recupero de la inversión: 2 años. Sin las palancas (licencia de $6,9 M por mes desde el año 2 y aporte bancario de $30 M), 3 años y 4 meses. El año 1 incluye solo seis meses de ingresos, porque la plataforma está en piloto. Supuestos a validar en el piloto; el panel de Desarrollo Económico permite simular las palancas.')
 doc.add_heading('Efecto en la economía local: la plata que se queda trabaja tres veces', 2)
 tabla([
     ['Vuelta', 'Año 1', 'Año 2', 'Año 3'],
@@ -288,7 +288,7 @@ p('Son tres beneficiarios distintos y no se suman. La recirculación del 48% sur
 doc.add_heading('Comparación con otras contrataciones', 2)
 tabla([
     ['Caso', 'Qué incluye', 'Monto'],
-    ['SoyTigreYa (propuesta)', 'Año 1: piloto, escalamiento y seis meses de soporte; después, $55 M por año', '$152 M'],
+    ['SoyTigreYa (propuesta)', 'Año 1: piloto, escalamiento y seis meses de soporte; después, $55 M por año', '$109 M'],
     ['Ciudad de Santa Fe (2025)', 'App municipal: desarrollo, implementación y mantenimiento. Presupuesto oficial; ofertas de $274,9 M y $284,4 M', '$316 M'],
     ['Ciudad de Buenos Aires', 'Plataforma de diseño y trámites digitales (adjudicado)', '$483,6 M'],
     ['San Cayetano, PBA (2026)', 'Municipio chico: gestión georreferenciada y app con turnos de salud (adjudicado)', '$85,7 M'],

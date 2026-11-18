@@ -1388,7 +1388,8 @@ function proyeccion(cambios = {}) {
 const millones = (n) => `${n < 0 ? '−' : ''}$${Math.abs(n / 1e6).toFixed(1).replace('.', ',').replace(',0', '')} M`;
 function recuperoTxt(r) {
   if (r === null) return 'más de 5 años';
-  const a = Math.floor(r), m = Math.round((r - a) * 12);
+  let a = Math.floor(r), m = Math.round((r - a) * 12);
+  if (m === 12) { a += 1; m = 0; }
   return `${plural(a, 'año', 'años')}${m ? ` y ${plural(m, 'mes', 'meses')}` : ''}`;
 }
 function finanzasHtml() {
@@ -1429,7 +1430,7 @@ function finanzasHtml() {
       <p class="muted chico">Son tres beneficiarios distintos: no se suman. La vuelta 2 usa 48% de recirculación local (estudios de EE.UU., a validar en el piloto). La vuelta 3 es plata nueva solo sobre ventas nuevas o formalizadas.</p></div>
     <div class="comp"><p class="fin-tit">¿Es mucho? Lo que pagaron otros</p>
       ${(() => { const filas = [{ quien: 'SoyTigreYa', que: 'Año 1: piloto, escalamiento y 6 meses de soporte', monto: y[0].costo, yo: true }, ...COMPARACION]; const max = Math.max(...filas.map((f) => f.monto)); return filas.map((f) => `<div class="comp-f ${f.yo ? 'yo' : ''}"><span class="comp-t"><b>${f.quien}</b><small>${f.que}${f.anio ? ` · ${f.anio}` : ''}</small></span><div class="comp-b"><i style="width:${(f.monto / max) * 100}%"></i></div><b class="comp-m">${millones(f.monto)}</b></div>`).join(''); })()}
-      <p class="muted chico">Santa Fe presupuestó $316 M para una app municipal comparable: SoyTigreYa cuesta menos de la mitad el primer año. Fuentes: portales de compras y prensa local.</p></div>
+      <p class="muted chico">Santa Fe presupuestó $316 M para una app municipal comparable: SoyTigreYa, al ser un upgrade de Soy Tigre, cuesta cerca de un tercio el primer año. Fuentes: portales de compras y prensa local.</p></div>
     <p class="muted chico">Supuestos a validar en el piloto. Precios de mila·ops: costo del equipo más 30% de margen.</p>
   </div>`;
 }
