@@ -41,6 +41,10 @@ const fecha = (ts) => new Date(ts).toLocaleDateString('es-AR', { day: 'numeric',
 const rubro = (id) => RUBROS.find((c) => c.id === id) || { nombre: id, emoji: '🏪' };
 const cat = rubro;
 const comercio = (id) => S.comercios.find((c) => c.id === id);
+// Envío con cadete propio: lo activa y lo cobra el comercio (la app no se queda con nada)
+const ENVIO_DEF = { c2: { activo: true, costo: 1500, radio: 3 }, c1: { activo: true, costo: 2000, radio: 3 } };
+const envioDe = (c) => c.envio || ENVIO_DEF[c.id] || { activo: false, costo: 1500, radio: 3 };
+const conEnvio = (c) => !c.servicio && envioDe(c).activo;
 const inicioMes = (d = new Date()) => new Date(d.getFullYear(), d.getMonth(), 1).getTime();
 const MESES = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
 const norm = (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
@@ -400,7 +404,7 @@ function fotoDe(c) { return c.fotoLocal || (c.foto ? FOTO(c.foto) : ''); }
 function miniComercio(c) {
   return `<button class="mini" data-a="abrir" data-v="${c.id}">
     <div class="mini-img" style="background:${c.color}${fotoDe(c) ? ` url(${fotoDe(c)}) center/cover` : ''}">${fotoDe(c) ? '' : c.emoji}<em>-${c.desc}%</em></div>
-    <div class="mini-txt">${c.destacado ? '<span class="dest-tag">Destacado</span>' : ''}<b>${esc(c.nombre)}</b><span class="muted">${c.servicio ? 'Turnos online' : `Retirá en ${c.prep} min`}</span></div></button>`;
+    <div class="mini-txt">${c.destacado ? '<span class="dest-tag">Destacado</span>' : ''}<b>${esc(c.nombre)}</b><span class="muted">${c.servicio ? 'Turnos online' : `Retirá en ${c.prep} min`}${conEnvio(c) ? ' · 🛵 Envío' : ''}</span></div></button>`;
 }
 
 function cardActivo(p) {
@@ -585,14 +589,15 @@ function pedidoActivo(p) {
   const idx = ESTADOS.indexOf(p.estado);
   return `<div class="card pedido">
     <div class="ped-cab"><span class="avatar chico" style="background:${c.color}">${c.emoji}</span><div><b>${esc(c.nombre)}</b><span class="muted">${esc(c.dir)}</span></div></div>
-    <ol class="pasos">${ESTADOS.slice(0, 3).map((e, i) => `<li class="${i < idx ? 'hecho' : i === idx ? 'actual' : ''}">${p.servicio ? ['Turno pedido', 'Confirmado', 'Te esperan'][i] : ESTADO_TXT[e]}</li>`).join('')}</ol>
+    <ol class="pasos">${ESTADOS.slice(0, 3).map((e, i) => `<li class="${i < idx ? 'hecho' : i === idx ? 'actual' : ''}">${p.servicio ? ['Turno pedido', 'Confirmado', 'Te esperan'][i] : p.entrega === 'envio' && e === 'listo' ? 'En camino' : ESTADO_TXT[e]}</li>`).join('')}</ol>
     <div class="retiro">
-      <div><span class="muted">${p.servicio ? 'Tu turno' : 'Retirás'}</span><b>${p.retiro}</b><span class="muted">${p.servicio ? 'Código de reserva' : 'Código de retiro'}</span><b class="codigo">${p.codigo}</b></div>
+      <div><span class="muted">${p.servicio ? 'Tu turno' : p.entrega === 'envio' ? `Te lo llevan a ${esc(p.dir)}` : 'Retirás'}</span><b>${p.retiro}</b><span class="muted">${p.servicio ? 'Código de reserva' : p.entrega === 'envio' ? 'Código para el cadete' : 'Código de retiro'}</span><b class="codigo">${p.codigo}</b></div>
       <div class="qr chico" data-qr="RETIRO|${p.id}|${p.codigo}"></div>
     </div>
     <details><summary>Detalle · ${plata(p.total)}</summary>
       ${p.items.map((it) => `<p class="linea"><span>${it.qty} × ${esc(it.nombre)}</span><span>${plata(it.precio * it.qty)}</span></p>`).join('')}
       <p class="linea verde"><span>Beneficio ${MARCA.tarjeta} (-${p.desc}%)</span><span>-${plata(p.descuento)}</span></p>
+      ${p.entrega === 'envio' ? `<p class="linea"><span>Envío del comercio</span><span>${p.envio ? plata(p.envio) : 'Gratis'}</span></p>` : ''}
       <p class="linea"><span>Pago</span><span>${PAGOS.find((x) => x.id === p.pago).nombre}</span></p>
     </details>
     ${bloqueRP(p)}
@@ -937,6 +942,10 @@ function sheet() {
   const s = S.sheet;
   if (s === 'checkout' && S.carrito) {
     const t = totalesCarrito();
+    const env = conEnvio(t.c) ? envioDe(t.c) : null;
+    if (!env) S.entrega = 'retiro';
+    const porEnvio = env && S.entrega === 'envio';
+    const aPagar = t.total + (porEnvio ? env.costo : 0);
     html = `<h2>Tu pedido en ${esc(t.c.nombre)}</h2>
       ${t.items.map((it) => `<div class="linea-item"><span>${it.emoji}</span><span class="grow">${esc(it.nombre)}</span>
         <div class="qty"><button data-a="menos" data-v="${it.pid}">−</button><b>${it.qty}</b><button data-a="mas" data-v="${it.pid}">+</button></div>
@@ -945,14 +954,19 @@ function sheet() {
         <p class="linea"><span>Subtotal</span><span>${plata(t.subtotal)}</span></p>
         <p class="linea verde"><span>🐯 Beneficio ${MARCA.tarjeta} (-${t.c.desc}%)</span><span>-${plata(t.descuento)}</span></p>
         ${t.hayCupon ? `<button class="linea cupon-fila" data-a="toggleCupon"><span>🎟️ Usar mi cupón Puntos Tigre</span><span>${t.cupon ? '-' + plata(t.cupon) : 'No usar'} ${t.cupon ? '✔' : '○'}</span></button>` : ''}
-        <p class="linea total"><span>Total</span><span>${plata(t.total)}</span></p>
+        ${porEnvio ? `<p class="linea"><span>🛵 Envío con el cadete del comercio</span><span>${env.costo ? plata(env.costo) : 'Gratis'}</span></p>` : ''}
+        <p class="linea total"><span>Total</span><span>${plata(aPagar)}</span></p>
         <p class="compara">Ahorrás <b>${plata(t.descuento + t.cupon)}</b> y sumás <b>⭐ ${Math.floor(t.total / PUNTOS.porCompra)} Puntos Tigre</b>. Como ${esc(t.c.nombre)} no paga comisión por vender acá, el precio no viene inflado.</p>
       </div>
-      <p class="muted">${t.c.servicio ? '¿Cuándo es tu turno?' : '¿Cuándo lo retirás?'}</p>
+      ${env ? `<p class="muted">¿Cómo lo recibís?</p>
+      <div class="chips"><button class="chip ${!porEnvio ? 'on' : ''}" data-a="entrega" data-v="retiro">🏪 Lo retiro</button><button class="chip ${porEnvio ? 'on' : ''}" data-a="entrega" data-v="envio">🛵 Me lo traen${env.costo ? ' · ' + plata(env.costo) : ' · gratis'}</button></div>
+      ${porEnvio ? `<label class="env-dir">¿A dónde?<input data-f="envDir" placeholder="Calle y altura" value="${esc(S.envDir || '')}"></label>
+      <p class="muted chico">Lo lleva el cadete de ${esc(t.c.nombre)}, hasta ${env.radio} km del local. El envío lo cobra el comercio: la app no se queda con nada.</p>` : ''}` : ''}
+      <p class="muted">${t.c.servicio ? '¿Cuándo es tu turno?' : porEnvio ? '¿Para cuándo?' : '¿Cuándo lo retirás?'}</p>
       <div class="chips">${horarios(t.c).map((h) => `<button class="chip ${S.retiro === h.i ? 'on' : ''}" data-a="retiro" data-v="${h.i}">${h.txt}</button>`).join('')}</div>
       <p class="muted">¿Cómo pagás?</p>
       <div class="pagos">${PAGOS.map((p) => `<button class="${S.pago === p.id ? 'on' : ''}" data-a="pago" data-v="${p.id}">${p.emoji} ${p.nombre}</button>`).join('')}</div>
-      <button class="btn grande" data-a="pagar">${t.c.servicio ? (S.pago === 'efectivo' ? 'Reservar turno' : 'Reservar y pagar') : S.pago === 'efectivo' ? 'Confirmar pedido' : 'Pagar'} ${plata(t.total)}</button>`;
+      <button class="btn grande" data-a="pagar">${t.c.servicio ? (S.pago === 'efectivo' ? 'Reservar turno' : 'Reservar y pagar') : S.pago === 'efectivo' ? 'Confirmar pedido' : 'Pagar'} ${plata(aPagar)}</button>`;
   } else if (s === 'cobro' && S.cobro) {
     const c = S.cobro;
     if (S.pago === 'efectivo') S.pago = 'mp';
@@ -1191,7 +1205,7 @@ function pcPedidos(c) {
   };
   const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
   const entregadosHoy = ped.filter((p) => p.estado === 'retirado' && p.creado >= hoy.getTime()).length;
-  return `<div class="kanban">${col('recibido', '🆕 Nuevos')}${col('preparacion', '👩‍🍳 En preparación · máx. 5')}${col('listo', '✅ Listos para retirar')}</div>
+  return `<div class="kanban">${col('recibido', '🆕 Nuevos')}${col('preparacion', '👩‍🍳 En preparación · máx. 5')}${col('listo', '✅ Listos para retirar o llevar')}</div>
   <p class="muted">Entregados hoy: ${entregadosHoy}. Los pedidos nuevos llegan cuando un vecino compra desde la app. Sin comisión por venta.</p>`;
 }
 
@@ -1203,7 +1217,8 @@ function tarjetaPedido(p) {
       ? `<button class="btn" data-a="avanzar" data-v="${p.id}">Marcar listo</button>`
       : `<div class="validar"><input inputmode="numeric" maxlength="4" placeholder="Código" id="cod-${p.id}"><button class="btn" data-a="entregar" data-v="${p.id}">Entregar</button></div>`;
   return `<div class="tped">
-    <div class="tped-cab"><b>#${p.id}</b><span class="muted">Retira ${p.retiro}</span></div>
+    <div class="tped-cab"><b>#${p.id}</b><span class="muted">${p.entrega === 'envio' ? 'Entregar' : 'Retira'} ${p.retiro}</span></div>
+    ${p.entrega === 'envio' ? `<p class="tped-env">🛵 Llevar a ${esc(p.dir)}${p.envio ? ` · envío ${plata(p.envio)} para vos` : ''}</p>` : ''}
     ${p.items.map((it) => `<p>${it.qty} × ${esc(it.nombre)}</p>`).join('')}
     <p class="linea"><span>${pago.emoji} ${pago.nombre}</span><b>${plata(p.total)}</b></p>
     <p class="muted chico">Incluye beneficio ${MARCA.tarjeta} de ${plata(p.descuento)}. ${p.pago === 'efectivo' ? 'Cobrar al entregar.' : 'Ya pagado.'}</p>
@@ -1246,6 +1261,22 @@ function hoyComercio(c) {
     <div><small>Horario</small><b>${horarioTxt(c)}</b></div>
   </div>`;
 }
+function envioCard(c) {
+  const e = envioDe(c);
+  const mes = S.pedidos.filter((p) => p.cid === c.id && p.entrega === 'envio' && p.estado === 'retirado' && p.creado >= inicioMes());
+  return `<div class="card form envio-card">
+    <div class="plan-cab"><div><b>🛵 Envíos con tu cadete</b><span class="muted">Opcional. Si ya tenés quien reparta, sumalo acá.</span></div>
+      <button class="btn ${e.activo ? 'claro' : ''}" data-a="envioToggle">${e.activo ? 'Desactivar' : 'Activar envíos'}</button></div>
+    ${e.activo ? `<div class="fila-horario">
+      <label>Cuánto cobrás el envío<select data-f="envCosto">${[0, 1000, 1500, 2000, 2500, 3000].map((v) => `<option value="${v}" ${e.costo === v ? 'selected' : ''}>${v ? plata(v) : 'Gratis'}</option>`).join('')}</select></label>
+      <label>Hasta dónde llevás<select data-f="envRadio">${[1, 2, 3, 5].map((v) => `<option value="${v}" ${e.radio === v ? 'selected' : ''}>${v} km</option>`).join('')}</select></label></div>
+    <p class="linea"><span>Envíos entregados este mes</span><b>${mes.length}</b></p>
+    <p class="linea"><span>Cobrado por envíos</span><b>${plata(mes.reduce((a, p) => a + (p.envio || 0), 0))}</b></p>` : ''}
+    <ul class="envio-pros"><li><b>El envío lo cobrás vos, completo.</b> La app no se queda con nada.</li>
+      <li><b>Sigue siendo 0% de comisión</b> sobre la venta. En las apps de delivery, la comisión con reparto llega hasta 35%.</li>
+      <li><b>Vos decidís</b> el precio, hasta dónde llevás y cuándo lo activás.</li></ul>
+  </div>`;
+}
 function pcLocal(c) {
   const h = c.horario || { abre: '11:00', cierra: '23:00', domingo: true };
   return `<div class="dos">
@@ -1262,7 +1293,8 @@ function pcLocal(c) {
       <div class="card" style="margin-top:12px"><h3>Datos del local</h3>
         <p class="linea"><span>Dirección</span><b>${esc(c.dir)}</b></p><p class="linea"><span>Localidad</span><b>${c.loc}</b></p>
         <p class="linea"><span>Descuento Soy Tigre</span><b>${c.desc}%</b></p><p class="linea"><span>Horario</span><b>${horarioTxt(c)}</b></p></div></div>
-  </div>`;
+  </div>
+  ${c.servicio ? '' : envioCard(c)}`;
 }
 const ACREDITA = { mp: ['Al instante', 0], dni: ['En el día', 0], tarjeta: ['Débito 48 h · crédito 10 días', 3], efectivo: ['En la caja', 0] };
 function cobrosHtml(c) {
@@ -1755,6 +1787,8 @@ function crearPedido(t, retiro) {
     items: t.items.map(({ pid, nombre, precio, qty }) => ({ pid, nombre, precio, qty })),
     desc: t.c.desc + (t.extra || 0), pago: S.pago, creado: Date.now(), estado: 'recibido', mio: true, loc: t.c.loc, servicio: !!t.c.servicio, retiro: t.c.servicio ? retiro.toLowerCase() : `a las ${retiro}`,
   });
+  if (conEnvio(t.c) && S.entrega === 'envio') { p.entrega = 'envio'; p.envio = envioDe(t.c).costo; p.dir = (S.envDir || '').trim(); p.total += p.envio; }
+  S.entrega = 'retiro';
   if (t.cupon) { p.cupon = t.cupon; p.total -= t.cupon; S.puntos.cupones.splice(S.puntos.cupones.findIndex((c) => c.tipo === 'cupon'), 1); }
   S.pedidos.push(p);
   const pts = sumarPuntos(Math.floor(p.total / PUNTOS.porCompra), `Compra en ${t.c.nombre}`, '🛍️');
@@ -2256,9 +2290,12 @@ const ACT = {
   sheet(v) { S.sheet = v; S.retiro = 0; if (v === 'tigri') { S.tigriVisto = true; if (!S.chat.length) setTimeout(() => tigriHabla(saludo()), 300); } if (v === 'tigri' && !S.chat.length) S.chat.push({ de: 'tg', html: saludo(), acciones: [] }); },
   cerrarSheet() { if ('speechSynthesis' in window) speechSynthesis.cancel(); if (S.sheet !== 'pagando') S.sheet = null; },
   retiro(v) { S.retiro = Number(v); },
+  entrega(v) { S.entrega = v; },
+  envioToggle() { const c = comercio(S.panelCid); c.envio = { ...envioDe(c), activo: !envioDe(c).activo }; toast(c.envio.activo ? 'Envíos activados: los vecinos ya pueden pedir que se lo lleves.' : 'Envíos desactivados. Seguís vendiendo con retiro en el local.'); },
   pago(v) { S.pago = v; },
   pagar() {
     const t = totalesCarrito();
+    if (conEnvio(t.c) && S.entrega === 'envio' && !(S.envDir || '').trim()) { toast('Decinos a qué dirección te lo llevan.'); return false; }
     const retiro = horarios(t.c)[S.retiro].txt.replace(/Lo antes posible \((.*)\)/, '$1');
     procesando(S.pago === 'efectivo' ? 'Enviando tu pedido…' : `Procesando el pago con ${PAGOS.find((p) => p.id === S.pago).nombre}…`, () => crearPedido(t, retiro));
   },
@@ -2355,7 +2392,7 @@ const ACT = {
     const c = comercio(p.cid);
     p.estado = ESTADOS[ESTADOS.indexOf(p.estado) + 1];
     if (p.estado === 'preparacion') notificar(p, `${c.nombre} está preparando tu pedido`, '👩‍🍳');
-    if (p.estado === 'listo') notificar(p, `Tu pedido de ${c.nombre} está listo para retirar`, '✅');
+    if (p.estado === 'listo') notificar(p, p.entrega === 'envio' ? `Tu pedido de ${c.nombre} salió con el cadete del comercio` : `Tu pedido de ${c.nombre} está listo para retirar`, p.entrega === 'envio' ? '🛵' : '✅');
   },
   rechazar(id) {
     if (!confirm('¿Rechazar este pedido? Se le avisa al vecino y se le devuelve el pago.')) return false;
@@ -2368,7 +2405,7 @@ const ACT = {
     const cod = $('#cod-' + id).value.trim();
     if (cod !== p.codigo) { toast('❌ El código no coincide. Pedíselo al vecino.'); return false; }
     p.estado = 'retirado';
-    notificar(p, 'Retiraste tu pedido. ¡Gracias por comprar en el barrio!', '🎉');
+    notificar(p, p.entrega === 'envio' ? 'Recibiste tu pedido. ¡Gracias por comprar en el barrio!' : 'Retiraste tu pedido. ¡Gracias por comprar en el barrio!', '🎉');
     if (p.mio) S.npsPendiente = p.id;
     toast('✅ Pedido entregado.');
   },
@@ -2443,6 +2480,7 @@ document.addEventListener('input', (e) => {
   if (f === 'busca') { S.busca = e.target.value; $('#resBusca').innerHTML = resultadosBusca(); save(); }
   if (f === 'nombre') { S.usuario.nombre = e.target.value; save(); }
   if (f === 'recDir') { S.recForm.dir = e.target.value; save(); }
+  if (f === 'envDir') { S.envDir = e.target.value; save(); }
   if (f === 'recTxt') { S.recForm.texto = e.target.value; save(); }
   if (f === 'descLocal') { comercio(S.panelCid).descLocal = e.target.value; save(); }
   if (f === 'rpTxt' && S.rpForm) { S.rpForm.texto = e.target.value; save(); }
@@ -2462,6 +2500,7 @@ document.addEventListener('change', (e) => {
   else if (f === 'zona') S.estac.zona = el.value;
   else if (f === 'fotoLocal') { if (el.files && el.files[0]) achicarFoto(el.files[0], (url) => { comercio(S.panelCid).fotoLocal = url; render(); toast('Foto cargada. Ya la ven los vecinos.'); }); return; }
   else if (f === 'hAbre' || f === 'hCierra' || f === 'hDomingo') { const c = comercio(S.panelCid); c.horario = c.horario || { abre: '11:00', cierra: '23:00', domingo: true }; if (f === 'hDomingo') c.horario.domingo = el.checked; else c.horario[f === 'hAbre' ? 'abre' : 'cierra'] = el.value; }
+  else if (f === 'envCosto' || f === 'envRadio') { const c = comercio(S.panelCid); c.envio = { ...envioDe(c), [f === 'envCosto' ? 'costo' : 'radio']: Number(el.value) }; }
   else if (f === 'mLoc') S.mFiltro.loc = el.value;
   else if (f === 'cLoc') S.cFiltro.loc = el.value;
   else if (f === 'simLic' || f === 'simBanco' || f === 'simPlan') { S.sim[{ simLic: 'lic', simBanco: 'banco', simPlan: 'plan' }[f]] = Number(el.value); }
