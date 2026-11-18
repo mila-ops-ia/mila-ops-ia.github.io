@@ -107,14 +107,6 @@ svg.lucide { width: 1em; height: 1em; stroke-width: 2; vertical-align: -0.12em; 
 .toggle button { font-size: 30px; padding: 18px 32px; }
 .bajada { font-size: 36px; font-weight: 600; color: var(--muted); line-height: 1.25; margin-top: 4px; }
 .bajada b { color: var(--rojo); }
-.tres-v .vuelta { padding: 22px 30px 20px; gap: 6px; }
-.tres-v .v-n { width: 50px; height: 50px; font-size: 28px; }
-.tres-v .v-tit { margin-top: 2px; }
-.tres-v .v-num { font-size: 90px; }
-.tres-v .v-txt { font-size: 25px; }
-.v-abajo .v-control, .v-abajo .v-inv { padding: 14px 30px; }
-.v-abajo .v-control .toque { display: none; }
-.v-abajo .v-inv p { font-size: 31px; }
 .v-nota { font-size: 25px; line-height: 1.3; color: var(--piz); background: var(--rosa); border-radius: 18px; padding: 16px 26px; }
 .v-nota b { color: var(--rojo-o); }
 /* objetivos del piloto */
@@ -240,12 +232,12 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
 <div id="escena">
 
 <!-- 1 · PORTADA -->
-<section class="slide roja on" data-notas="Hola, soy Milagros. Les presento SoyTigreYa: una sola app para los vecinos de Tigre, con beneficios, compras en el barrio, trámites, salud, deporte y empleo. Pueden escanear el QR y probarla mientras hablo.">
+<section class="slide roja on" data-notas="Hola, soy Milagros. Tigre ya tiene la tarjeta Soy Tigre, con descuentos en más de 500 comercios. Mi propuesta se llama SoyTigreYa y es una mejora de esa app: a los descuentos les suma comprar en el barrio, trámites, salud, deporte y empleo, todo en un solo lugar. Pueden escanear el QR y probarla mientras hablo. Aclarar: es un prototipo académico, no la app oficial.">
   <div class="portada">
     <div class="col" style="gap:34px;">
       <p class="ceja">Trabajo Final Integrador · Diplomatura en Negocios Digitales e Innovación</p>
       <h1>SOYTIGRE<span>YA</span></h1>
-      <p style="font-size:44px; font-weight:600;">Beneficios, comercio de barrio, trámites, salud, deporte y empleo en una sola app.</p>
+      <p style="font-size:44px; font-weight:600;">El upgrade de la app Soy Tigre: a los descuentos de hoy les suma comprar en el barrio, trámites, salud, deporte y empleo.</p>
       <div class="fila" style="align-items:center; gap:30px;">
         <div class="qr"><img src="../img/qr-soytigreya.png" alt="QR para abrir la app"></div>
         <div class="col" style="gap:8px;"><p style="font-size:34px; font-weight:800;">Escaneá y probala</p><p style="font-size:26px;">mila-ops-ia.github.io/soytigreya</p><p style="font-size:24px; opacity:.85;">Milagros Belén Sanabria · mila·ops · UNDelta · 2026</p></div>
@@ -257,23 +249,23 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
 </section>
 
 <!-- 2 · PITCH Y PROBLEMA -->
-<section class="slide" data-notas="Arranco con una pregunta: de cada 100 pesos que gastamos en una app de delivery, ¿cuánto le queda al comercio? 75. Los otros 25 se van en comisión, afuera de Tigre. (Tocar Con SoyTigreYa.) Con SoyTigreYa los 100 son del comercio: la app no cobra comisión. Si preguntan: el medio de pago cobra menos del 1%, igual que en el mostrador. Tigre tiene 446.925 habitantes y más de 500 comercios ya adheridos a la tarjeta Soy Tigre.">
-  <div class="cab"><p class="ceja">El problema <span class="mod">M1 · Research e hipótesis de oportunidad</span></p><h2>De cada $100 que gastás en una app de delivery, ¿cuánto le queda al comercio?</h2></div>
+<section class="slide" data-notas="Partimos de algo que ya existe y funciona: Soy Tigre da descuentos en más de 500 comercios. ¿Qué le falta? Que esos comercios puedan vender desde la app. Hoy, para vender online, dependen de las apps de delivery, y de cada 100 pesos que venden, 25 se van en comisión, afuera de Tigre. (Tocar Con la mejora.) Con SoyTigreYa venden desde Soy Tigre y los 100 son del comercio. Si preguntan: el medio de pago cobra menos del 1%, igual que en el mostrador.">
+  <div class="cab"><p class="ceja">De dónde partimos <span class="mod">M1 · Research e hipótesis de oportunidad</span></p><h2>Soy Tigre ya da descuentos en más de 500 comercios. ¿Qué le falta?</h2><p class="bajada">Que esos comercios puedan <b>vender desde la app</b>. Hoy, para vender online, dependen de apps de delivery:</p></div>
   <div class="fila" style="flex:1; gap:64px; align-items:center;">
     <div class="col" style="flex:1; gap:28px;">
             <div class="cien">
-        <div class="toggle" id="t100"><button class="on" data-v="hoy">Hoy, con apps de delivery</button><button data-v="sty">Con SoyTigreYa</button></div>
+        <div class="toggle" id="t100"><button class="on" data-v="hoy">Hoy, con apps de delivery</button><button data-v="sty">Con el upgrade: SoyTigreYa</button></div>
         <div class="cien-barra"><div class="b-com" id="b-com" style="flex-basis:75%">$75 al comercio</div><div class="b-app" id="b-app" style="flex-basis:25%">$25 de comisión</div></div>
-        <p class="muted" id="t100-txt" style="font-size:30px;">Las apps de delivery se quedan con $25 de cada $100. Esa plata se va de Tigre.</p>
+        <p class="muted" id="t100-txt" style="font-size:30px;">De cada $100 que vende, la app de delivery se queda con $25. Esa plata se va de Tigre.</p>
       </div>
     </div>
   </div>
-  <div class="pie"><span>Fuentes: Develop Argentina (2026), iProfesional (2026)</span><span>2</span></div>
+  <div class="pie"><span>Fuentes: Develop Argentina (2026), iProfesional (2026), Parlamentario (2024)</span><span>2</span></div>
 </section>
 
 <!-- 3 · LA SOLUCIÓN -->
-<section class="slide" data-notas="No es una idea: ya funciona. Es una sola app con cuatro personas. Lucía, la vecina, ahorra y compra desde el celu. Rosa, la comerciante, recibe los pedidos. Carlos, del Municipio, resuelve los reclamos. Y Marina, también del Municipio, mide los resultados. Se los muestro. (Tocar Ver un pedido de punta a punta y dejarlo correr uno o dos minutos. Esc para volver.)">
-  <div class="cab"><p class="ceja">La solución, funcionando <span class="mod">M1 · Transformación digital · M4 · UX/UI</span></p><h2>Ya funciona: una sola app, cuatro personas</h2><p class="bajada">Lo que hace una, lo ve la otra al instante.</p></div>
+<section class="slide" data-notas="Esta es la mejora, y ya funciona. Es la misma Soy Tigre con más: comprar, hacer trámites y medir. La usan cuatro personas. Lucía, la vecina, ahorra y compra desde el celu. Rosa, la comerciante, recibe los pedidos. Carlos, del Municipio, resuelve los reclamos. Y Marina, también del Municipio, mide los resultados. Se los muestro. (Tocar Ver un pedido de punta a punta y dejarlo correr uno o dos minutos. Esc para volver.)">
+  <div class="cab"><p class="ceja">El upgrade, funcionando <span class="mod">M1 · Transformación digital · M4 · UX/UI</span></p><h2>SoyTigreYa: la misma Soy Tigre, con más</h2><p class="bajada">Suma <b>comprar</b>, <b>hacer trámites</b> y <b>medir resultados</b>. Ya funciona, para cuatro personas:</p></div>
   <div class="perfiles4">
     <button class="pcard" data-demo="lucia"><div class="pv tel-mini"><img src="../capturas/inicio.jpg" alt="Pantalla de Lucía"></div><div class="pc-txt"><span class="p-av" style="background:#D02013">L</span><div><b>Lucía</b><span>La vecina</span></div></div><p>Ahorra, compra en el barrio y hace trámites desde el celu.</p><span class="ver"><i data-lucide="play"></i> Ver en vivo</span></button>
     <button class="pcard" data-demo="rosa"><div class="pv pc-mini"><img src="../capturas/rosa.jpg" alt="Panel de Rosa"></div><div class="pc-txt"><span class="p-av" style="background:#b5541c">R</span><div><b>Rosa</b><span>La comerciante</span></div></div><p>Recibe los pedidos ya pagos, sin comisión.</p><span class="ver"><i data-lucide="play"></i> Ver en vivo</span></button>
@@ -288,8 +280,8 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
 </section>
 
 <!-- 4 · LA PLATA QUE SE QUEDA -->
-<section class="slide" data-notas="Esto no es solo una app. La plata que se queda en Tigre trabaja tres veces. Uno: con 100 comercios, 360 millones por año dejan de irse en comisiones y quedan en el comercio. Dos: el comercio gasta buena parte acá, en sueldos, proveedores y mejoras: 173 millones que vuelven al barrio. Tres: sobre lo que vende paga su tasa municipal: hasta 11 millones y medio. (Mover el control.) Con más comercios, crece todo. ¿Cuánto cuesta? 152 millones el primer año, y se recupera en 2 años y 5 meses. Si preguntan de dónde sale el 360: 100 comercios por 60 pedidos por mes por 20.000 pesos por 12 meses son 1.440 millones en ventas; el 25% que cobraría una app son 360. El 48% vuelve al barrio según estudios de Estados Unidos, y la tasa de Tigre es 0,80%. Santa Fe presupuestó 316 millones para una app municipal.">
-  <div class="cab"><p class="ceja">Los números <span class="mod">M3 · ROI y KPIs</span></p><h2>La plata que se queda trabaja tres veces</h2><p class="bajada">Con <b><span id="n-com">100</span> comercios</b> vendiendo por la app, en un año:</p></div>
+<section class="slide" data-notas="No es solo una mejora de la app: es plata que se queda en Tigre y trabaja tres veces. Si 100 de los más de 500 comercios de Soy Tigre venden por la app: uno, 360 millones por año dejan de irse en comisiones y quedan en el comercio. Dos, el comercio gasta buena parte acá, en sueldos, proveedores y mejoras: 173 millones que vuelven al barrio. Tres, sobre lo que vende paga su tasa municipal: hasta 11 millones y medio. (Mover el control.) Con más comercios, crece todo. ¿Cuánto cuesta la mejora? 152 millones el primer año, y se recupera en 2 años y 5 meses. Si preguntan de dónde sale el 360: 100 comercios por 60 pedidos por mes por 20.000 pesos por 12 meses son 1.440 millones en ventas; el 25% que cobraría una app son 360. El 48% vuelve al barrio según estudios de Estados Unidos, y la tasa de Tigre es 0,80%. Santa Fe presupuestó 316 millones para una app municipal.">
+  <div class="cab"><p class="ceja">Los números <span class="mod">M3 · ROI y KPIs</span></p><h2>La plata que se queda trabaja tres veces</h2><p class="bajada">Si <b><span id="n-com">100</span> de los más de 500 comercios</b> de Soy Tigre venden por la app, en un año:</p></div>
   <div class="tres-v">
     <div class="vuelta">
       <span class="v-n">1</span>
@@ -312,10 +304,9 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
       <p class="v-txt">de tasa municipal sobre lo que vende el comercio</p>
     </div>
   </div>
-  <p class="v-nota"><b>Para ubicarnos:</b> la tarjeta Soy Tigre real ya tiene <b>más de 500 comercios</b>. SoyTigreYa es una propuesta distinta y acá calculamos con solo 100.</p>
   <div class="v-abajo">
     <div class="v-control"><label>Probá con más o menos comercios: <b id="o-com">100</b></label><input type="range" id="s-com" min="20" max="500" step="10" value="100"><span class="toque"><i data-lucide="pointer"></i> Mové el control</span></div>
-    <div class="v-inv"><p>¿Cuánto cuesta? <b>$152 M</b> el primer año</p><p>y se recupera en <b class="v-rojo">2 años y 5 meses</b></p></div>
+    <div class="v-inv"><p>El upgrade cuesta <b>$152 M</b> el primer año</p><p>y se recupera en <b class="v-rojo">2 años y 5 meses</b></p></div>
   </div>
   <div class="pie"><span>Estimación: 60 pedidos por mes por comercio, de $20.000 cada uno · Los tres montos no se suman · Comercios adheridos: Parlamentario (2024)</span><span>4</span></div>
 </section>
@@ -399,7 +390,7 @@ document.querySelectorAll('#t100 button').forEach((b) => b.onclick = () => {
   const com = document.getElementById('b-com'), app = document.getElementById('b-app');
   com.style.flexBasis = hoy ? '75%' : '100%'; com.textContent = hoy ? '$75 al comercio' : '$100 al comercio · $0 de comisión';
   app.style.flexBasis = hoy ? '25%' : '0%'; app.textContent = hoy ? '$25 de comisión' : '';
-  document.getElementById('t100-txt').textContent = hoy ? 'Las apps de delivery se quedan con $25 de cada $100. Esa plata se va de Tigre.' : 'SoyTigreYa no cobra comisión: los $100 son del comercio y quedan en Tigre.';
+  document.getElementById('t100-txt').textContent = hoy ? 'De cada $100 que vende, la app de delivery se queda con $25. Esa plata se va de Tigre.' : 'Con el upgrade, el comercio vende desde la app sin comisión: los $100 son suyos y quedan en Tigre.';
 });
 
 // 3 · Mapa de empatía
