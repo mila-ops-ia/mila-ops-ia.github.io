@@ -224,7 +224,7 @@ viñetas([
     ('Impacto en la comunidad: ', 'la plata que se queda en Tigre trabaja tres veces. En el año 2, $360 M dejan de irse en comisiones y quedan en los comercios; con una recirculación local del 48%, unos $173 M vuelven al barrio en sueldos, proveedores y mejoras; y el comercio tributa en Tigre su tasa del 0,80% sobre las ventas, hasta $11,5 M. No es solo una app: es infraestructura económica local (Anexo A).'),
     ('Crecimiento futuro: ', 'Tigri con inteligencia artificial, integración con transporte y turismo del Delta, y un modelo replicable en otros municipios.'),
 ])
-p('Viabilidad económica. Se separan tres preguntas. Inversión del Municipio: $152 M el año 1 y $55 M por año después. Lo que vuelve a su caja (Plan Destacado, publicidad local, un banco que cofinancia descuentos y el ahorro de trámites presenciales): $40,6 M, $124,4 M y $152,6 M en los años 1 a 3, con un resultado de −$111,4 M, +$69,2 M y +$97,4 M; recupera la inversión en 2 años y 5 meses. Lo que gana la comunidad, que no es caja municipal: comisiones que quedan en los comercios por $67,5 M, $360 M y $540 M; por cada $1 invertido en tres años quedan $3,7 en los comercios de Tigre. Como referencia, Santa Fe presupuestó $316 M (2025) para una app municipal comparable. Detalle en el Anexo A.')
+p('Viabilidad económica. Lo que vuelve a la caja del Municipio (Plan Destacado, publicidad local, un banco que cofinancia descuentos y el ahorro de trámites presenciales) es de $40,6 M, $124,4 M y $152,6 M en los años 1 a 3: recupera la inversión en 2 años y 5 meses. Por cada $1 invertido en tres años quedan $3,7 en los comercios de Tigre. Como referencia, Santa Fe presupuestó $316 M (2025) para una app municipal comparable. Detalle en el Anexo A.')
 p('Indicadores de éxito: vecinos activos y retención a 90 días, pedidos y comercios activos, ahorro de los vecinos, comisiones evitadas, tiempo de resolución de reclamos, tasas pagadas en término y NPS.')
 
 # ---------- 8 ----------
@@ -275,7 +275,6 @@ tabla([
     ['Vuelve a la caja del Municipio', '$40,6 M', '$124,4 M', '$152,6 M'],
     ['Resultado del año', '−$111,4 M', '+$69,2 M', '+$97,4 M'],
     ['Acumulado', '−$111,4 M', '−$42,2 M', '+$55,2 M'],
-    ['Comisiones que quedan en los comercios (no es caja municipal)', '$67,5 M', '$360,0 M', '$540,0 M'],
 ], [7.0, 3.0, 3.0, 3.0])
 p('Recupero de la inversión: 2 años y 5 meses. Sin las palancas (licencia de $6,9 M por mes desde el año 2 y aporte bancario de $30 M), 4 años y 3 meses. El año 1 incluye solo seis meses de ingresos, porque la plataforma está en piloto. Supuestos a validar en el piloto; el panel de Desarrollo Económico permite simular las palancas.')
 doc.add_heading('Efecto en la economía local: la plata que se queda trabaja tres veces', 2)

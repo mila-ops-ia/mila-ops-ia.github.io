@@ -315,7 +315,7 @@ function miImpacto() {
 function impactoMini() {
   const i = miImpacto();
   if (!i.n) return `<button class="imp-mini" data-a="sheet" data-v="impacto"><span class="imp-ico">🌱</span><span><b>Tu compra trabaja 3 veces en Tigre</b><small>Mirá qué pasa cuando comprás en el barrio</small></span><span class="flecha">›</span></button>`;
-  return `<button class="imp-mini" data-a="sheet" data-v="impacto"><span class="imp-ico">🌱</span><span><b>Este mes dejaste ${plata(i.queda)} en el barrio</b><small>Tu compra trabaja 3 veces en Tigre · ver cómo</small></span><span class="flecha">›</span></button>`;
+  return `<button class="imp-mini" data-a="sheet" data-v="impacto"><span class="imp-ico">🌱</span><span><b>Este mes dejaste ${plata(i.queda)} en el barrio</b><small>Mirá cómo sigue trabajando esa plata</small></span><span class="flecha">›</span></button>`;
 }
 function impactoHoja() {
   const i = miImpacto();
@@ -1399,7 +1399,7 @@ function finanzasHtml() {
   const fila = (t, f, cls = '') => `<tr class="${cls}"><td>${t}</td>${[0, 1, 2].map((k) => `<td>${f(y[k])}</td>`).join('')}</tr>`;
   const y2 = y[1].ing;
   return `<div class="card fin">
-    <div class="sost-cab"><div><h3>Los números del programa</h3><p class="muted chico">Tres preguntas separadas: cuánto invierte el Municipio, cuánto vuelve a su caja y cuánto gana la comunidad.</p></div>
+    <div class="sost-cab"><div><h3>Los números del programa</h3><p class="muted chico">Lo que invierte el Municipio, lo que vuelve a su caja y lo que gana la comunidad.</p></div>
       <span class="sost-res ${P.recupero !== null && P.recupero <= 3 ? 'ok' : ''}">Recupera la inversión en ${recuperoTxt(P.recupero)}</span></div>
     <div class="fin-dos">
       <div>
@@ -1413,8 +1413,6 @@ function finanzasHtml() {
       </div>
       <div>
         <p class="fin-tit">3 · Lo que gana la comunidad (no es caja del Municipio)</p>
-        <table class="fin-t"><tr><th></th><th>Año 1</th><th>Año 2</th><th>Año 3</th></tr>
-          ${fila('Comisiones que quedan en los comercios', (a) => millones(a.comunidad))}</table>
         <p class="fin-grande">Por cada $1 que invierte el Municipio en 3 años, quedan <b>$${P.porPeso.toFixed(1).replace('.', ',')}</b> en los comercios de Tigre.</p>
         <p class="fin-tit" style="margin-top:14px">Simulá las palancas</p>
         <label class="sim">Licencia desde el año 2 <b>${millones(s.lic)} por mes</b><input type="range" min="3000000" max="7000000" step="100000" value="${s.lic}" data-f="simLic"></label>
