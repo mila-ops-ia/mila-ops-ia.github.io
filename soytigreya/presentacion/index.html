@@ -205,6 +205,22 @@ svg.lucide { width: 1em; height: 1em; stroke-width: 2; vertical-align: -0.12em; 
 .slide.densa .e-rec { font-size: 26px; }
 .soporte { font-size: 26px; text-align: center; color: #fff; background: var(--osc); border-radius: 999px; padding: 12px 26px; }
 .soporte b { font-weight: 800; color: #FF8F84; }
+.slide.final .ruta { grid-template-columns: repeat(4, 1fr); }
+.slide.final .ruta::before { background: linear-gradient(90deg, var(--rojo) 0 75%, #C9CCD4 75% 100%); left: 5%; right: 5%; }
+.inv2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.inv-a, .inv-b { border-radius: 24px; padding: 20px 30px; display: flex; flex-direction: column; gap: 4px; }
+.inv-a { background: var(--rojo); color: #fff; }
+.inv-b { background: transparent; border: 3px dashed #B9BDC7; color: var(--piz); }
+.inv-t { font-size: 20px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; opacity: .9; }
+.inv-b .inv-t { color: var(--muted); }
+.inv2 p { font-size: 34px; font-weight: 600; line-height: 1.15; }
+.inv2 p b { font-weight: 800; }
+.inv2 p.inv-s { font-size: 24px; font-weight: 500; opacity: .92; }
+.inv-b p.inv-s { color: var(--muted); opacity: 1; }
+.slide.final .etapa p { font-size: 24px; }
+.slide.final .etapa b { font-size: 36px; }
+.slide.final .soporte { font-size: 25px; padding: 12px 26px; }
+.slide.final .rsg-l { font-size: 25px; }
 /* riesgos */
 .riesgos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; flex: 1; }
 .riesgo { background: var(--papel); border: 1px solid var(--linea); border-radius: 26px; padding: 36px 34px; display: flex; flex-direction: column; gap: 16px; }
@@ -425,17 +441,20 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
 </section>
 
 <!-- 5 · CÓMO SEGUIMOS -->
-<section class="slide final" data-notas="[4:00 a 5:00] El riesgo está acotado porque vamos por etapas: primero se prueba 3 meses en Tigre Centro, y solo se sigue si los comercios se suman. El cadete del comercio está desde el primer día, y mila·ops acompaña con soporte y posventa en todas las etapas. Lo que pido es simple: un piloto de 3 meses con 40 comercios. Si funciona, crece a todo Tigre y después a otros municipios.">
-  <div class="cab"><p class="ceja">Cómo seguimos <span class="mod">M2 · M3 · MVP por etapas y gestión del riesgo</span></p><h2>De Tigre Centro a otros municipios, por etapas</h2></div>
+<section class="slide final" data-notas="[4:00 a 5:00] El riesgo está acotado porque vamos por etapas: primero se prueba 3 meses en Tigre Centro, y solo se sigue si los comercios se suman. El cadete del comercio está desde el primer día, y mila·ops acompaña con soporte y posventa en todas las etapas. La inversión que les propongo es SoyTigreYa en Tigre: 109 millones el primer año, unos 69 mil dólares, que se recuperan en 2 años. Y para quien quiera ir más lejos hay una segunda oportunidad, opcional: una vez probada en Tigre, escalar la misma plataforma a otros municipios. Lo que pido hoy es simple: un piloto de 3 meses con 40 comercios.">
+  <div class="cab"><p class="ceja">Cómo seguimos <span class="mod">M2 · M3 · MVP por etapas y gestión del riesgo</span></p><h2>SoyTigreYa en Tigre: el plan, por etapas</h2></div>
   <p class="rsg-l"><b>¿Por qué por etapas? Por los riesgos.</b> Que los comercios no se sumen y que no haya un banco socio se prueban primero, en el piloto. Frente a las apps de delivery: 0% de comisión y cadete propio.</p>
   <div class="ruta">
     <div class="etapa"><span class="et-cu">Meses 1 a 3</span><span class="et-pt"></span><b>Probar</b><p>Tigre Centro, 40 comercios. Ya con envío del cadete del comercio.</p></div>
     <div class="etapa"><span class="et-cu">Meses 4 a 6</span><span class="et-pt"></span><b>Crecer</b><p>Todo Tigre, con trámites y pagos.</p></div>
     <div class="etapa"><span class="et-cu">Meses 7 a 12</span><span class="et-pt"></span><b>Mejorar</b><p>Asistente, puntos y redes sociales.</p></div>
-    <div class="etapa fut"><span class="et-cu">Año 2</span><span class="et-pt"></span><b>Más reparto</b><p>Socios de reparto que cobran por viaje, no por comisión.</p></div>
-    <div class="etapa fut"><span class="et-cu">Año 3 en adelante</span><span class="et-pt"></span><b>Otros municipios</b><p>La misma plataforma, con la marca de cada municipio.</p></div>
+    <div class="etapa fut"><span class="et-cu">Año 2</span><span class="et-pt"></span><b>Partners estratégicos</b><p>Servicios de reparto que cobran por viaje, no por comisión.</p></div>
   </div>
   <p class="soporte"><b>mila·ops acompaña todas las etapas:</b> soporte, capacitación a comercios y posventa, desde el piloto.</p>
+  <div class="inv2">
+    <div class="inv-a"><span class="inv-t">La inversión · SoyTigreYa en Tigre</span><p><b>$109 M</b> (USD 69.000) el primer año</p><p class="inv-s">Se recupera en 2 años en el escenario esperado.</p></div>
+    <div class="inv-b"><span class="inv-t">Opcional · etapa de crecimiento</span><p><b>Escalar a otros municipios</b></p><p class="inv-s">La misma plataforma con la marca de cada municipio, una vez probada en Tigre.</p></div>
+  </div>
   <div class="pie"><span>Milagros Belén Sanabria · Diplomatura en Negocios Digitales e Innovación · mila-ops-ia.github.io/soytigreya</span><span>5</span></div>
 </section>
 
