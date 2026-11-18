@@ -229,8 +229,9 @@ p('Indicadores de éxito: vecinos activos y retención a 90 días, pedidos y com
 
 # ---------- 8 ----------
 doc.add_heading('8. Conclusiones', 1)
-p('La Diplomatura me dio un método para pensar la innovación como una disciplina y no como una ocurrencia: empezar por el problema de las personas, validar rápido con un prototipo, planificar por etapas y medir con indicadores. Llevar esas herramientas a un caso real de mi comunidad me permitió ver que la tecnología disponible ya alcanza para resolver problemas concretos, y que lo difícil está en entender a los usuarios, ordenar el proceso y sumar a los actores correctos.')
-p('SoyTigreYa muestra que la transformación digital puede ser una herramienta de equidad: cuando un municipio ofrece infraestructura digital pública, los comercios pequeños acceden a canales que antes solo podían pagar los grandes, y los vecinos ganan tiempo, ahorro y voz. Construir el prototipo, además de escribir la propuesta, fue la mejor forma de comprobar que la idea es viable y de detectar qué ajustar antes de llevarla a la práctica.')
+p('La Diplomatura me dio un método para pensar la innovación como una disciplina y no como una ocurrencia: empezar por el problema de las personas, validar con un prototipo, planificar por etapas y medir. En un caso real de mi comunidad vi que la tecnología disponible ya alcanza para resolver problemas concretos, y que lo difícil está en entender a los usuarios, ordenar el proceso y sumar a los actores correctos.')
+p('SoyTigreYa muestra que la transformación digital puede ser una herramienta de equidad: cuando un municipio ofrece infraestructura digital pública, los comercios pequeños acceden a canales que antes solo pagaban los grandes, y los vecinos ganan tiempo, ahorro y voz. Construir el prototipo, además de escribir la propuesta, fue la mejor forma de comprobar que la idea es viable.')
+p('Por ahora no tengo la oportunidad de llevar este proyecto adelante, pero estoy contenta con lo que pude crear: una app que logré materializar, aunque sea en un ambiente de prueba. No soy desarrolladora: para construirla me apoyé mucho en Claude Code, y eso también fue parte del aprendizaje.')
 
 # ---------- anexo ----------
 doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
@@ -312,7 +313,22 @@ tabla([
 ], [2.6, 2.6, 6.0, 4.8])
 p('Socios de reparto. El envío con el cadete del comercio no exige logística nueva, pero no todos los locales tienen cadete. La etapa siguiente es integrar terceros que cobren por viaje y no un porcentaje de la venta: cooperativas de cadetes, como la que en Rosario trabaja con más de 100 comercios, o los servicios de envíos por viaje de las plataformas. El comercio conserva el 0% de comisión sobre la venta y elige el reparto que le conviene. Es una hipótesis a validar: depende de las condiciones comerciales de cada servicio.')
 p('Otros municipios. La plataforma se configura por municipio (marca, localidades, rubros y trámites), por lo que el segundo municipio no paga el desarrollo de base: paga la adaptación, la integración con sus sistemas y la licencia. Los candidatos naturales son municipios que ya tienen una tarjeta de beneficios y comercios adheridos. La propuesta se lleva con los resultados medidos en Tigre: comercios activos, plata que quedó en los comercios y recupero.')
-p('Tarjeta física. Soy Tigre hoy permite pedir la tarjeta física. Se mantiene como opción para quien la pida, en especial personas mayores o sin celular; la credencial digital con QR pasa a ser la principal. Así se reduce el costo de impresión y envío sin dejar a nadie afuera, en línea con la mitigación de la brecha digital.')
+p('Tarjeta física. Soy Tigre hoy envía la tarjeta física al domicilio del vecino, y eso se mantiene. La credencial digital con QR se suma, no la reemplaza: el vecino usa la que prefiera. Recibir la tarjeta en casa es parte del vínculo con el programa y asegura que nadie quede afuera por no tener celular, en línea con la mitigación de la brecha digital.')
+doc.add_heading('Montos principales en pesos y en dólares', 2)
+tabla([
+    ['Concepto', 'Pesos', 'Dólares'],
+    ['Costo del upgrade, año 1', '$109,0 M', 'USD 69.000'],
+    ['Costo por año desde el año 2', '$55,2 M', 'USD 35.000'],
+    ['Costo total en 5 años', '$329,8 M', 'USD 209.000'],
+    ['Queda en los comercios, año 2', '$360,0 M', 'USD 228.000'],
+    ['Vuelve al barrio, año 2', '$172,8 M', 'USD 109.000'],
+    ['Vuelve al Municipio por tasa, año 2 (tope)', '$11,5 M', 'USD 7.300'],
+    ['Resultado acumulado al año 5: conservador', '+$129,7 M', 'USD 82.000'],
+    ['Resultado acumulado al año 5: esperado', '+$372,2 M', 'USD 236.000'],
+    ['Resultado acumulado al año 5: optimista', '+$585,5 M', 'USD 371.000'],
+    ['Queda en los comercios en 5 años: esperado', '$2.587,5 M', 'USD 1,64 M'],
+], [9.0, 3.5, 3.5])
+p('Conversión al dólar oficial del Banco Nación, tipo vendedor, del 18 de noviembre de 2026: $1.580 por dólar. Los montos en dólares están redondeados y son una referencia: el modelo se calcula en pesos de hoy, sin ajuste por inflación ni por variación futura del tipo de cambio.')
 doc.add_heading('Efecto en la economía local: la plata que se queda trabaja tres veces', 2)
 tabla([
     ['Vuelta', 'Año 1', 'Año 2', 'Año 3'],
@@ -429,6 +445,7 @@ for f in [
     'Pausa y Mirador Provincial, relanzamiento de Billetera Santa Fe (noviembre de 2025).',
     'Municipalidad de Tigre, Ordenanza Impositiva 2026 (N.º 4336/25), Boletín Oficial N.º 1051: tasa por verificación de industrias y comercios.',
     'Civic Economics, Indie Impact Study Series; AMIBA, The Local Multiplier Effect: recirculación local de comercios independientes.',
+    'Banco de la Nación Argentina, cotización del dólar oficial, tipo vendedor, al 18 de noviembre de 2026 ($1.580), según La Nación.',
     'Fotos ilustrativas: Wikimedia Commons (CC BY y CC BY-SA), con créditos en el repositorio del proyecto.',
     'La Capital (Rosario), "Unos 150 comercios ya son parte de la plataforma de compras del Banco Municipal" (2023).',
     'Govlaunch, Munimercado de la ciudad de Neuquén.',
