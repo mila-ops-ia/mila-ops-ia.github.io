@@ -149,7 +149,7 @@ doc.add_heading('Cómo funcionaría', 2)
 viñetas([
     ('Credencial digital: ', 'un código QR que cambia cada 30 segundos para validar la identidad en la caja, más un historial que muestra cuánto ahorró el vecino cada mes.'),
     ('Beneficios reales: ', 'el directorio de comercios adheridos con los descuentos publicados por el Municipio (supermercados, gastronomía, farmacias, mascotas, entretenimiento), con lista y mapa, ordenado por cercanía a la ubicación del vecino o al punto que elija en el mapa.'),
-    ('Compras con retiro en el local (takeaway): ', 'el vecino arma su pedido, el descuento se aplica solo, elige el horario de retiro y paga con Mercado Pago, Cuenta DNI, tarjeta o en efectivo. Recibe avisos cuando el pedido está en preparación y listo, y retira con un código que el comercio valida. Si algo sale mal, lo reporta: el comercio tiene 24 horas para proponer una solución y, si no hay acuerdo, media el municipio.'),
+    ('Compras con retiro o con envío del comercio: ', 'el vecino arma su pedido, el descuento se aplica solo y paga desde la app. Elige retirarlo o que se lo lleve el cadete del propio comercio, que cobra el envío completo. Recibe avisos y un código que el comercio valida. Si algo sale mal, lo reporta: el comercio tiene 24 horas para proponer una solución y, si no hay acuerdo, media el municipio.'),
     ('Trámites y pagos: ', 'turnos municipales, reclamos con foto, ubicación en el mapa y seguimiento por etapas, pago de tasas y multas, y estacionamiento medido con mapa de zonas.'),
     ('Salud, deporte y trabajo: ', 'turnos en la red municipal real (tres Hospitales de Diagnóstico Inmediato, el Materno Infantil y 23 CAFyS) con guardias visibles; inscripción a escuelas deportivas de los 18 polideportivos y a la colonia de verano; búsquedas laborales del distrito con CV guardado y cursos gratuitos del Tigre Instituto Formativo. Cada sección muestra en un mapa los lugares más cercanos con el botón "Cómo llegar".'),
     ('Servicios propios de Tigre: ', 'altura del río con niveles de alerta, colectivos, farmacias de turno y un botón de alerta visible en todas las pantallas.'),
@@ -176,7 +176,7 @@ p('Se contemplan también usuarios secundarios con necesidades particulares, com
 
 # ---------- 5 ----------
 doc.add_heading('5. Aplicación de contenidos de la Diplomatura', 1)
-p('Todos los módulos se aplicaron en la propuesta y se pueden ver en el prototipo: la pantalla "Cómo lo diseñamos" muestra, contenido por contenido, dónde aparece cada uno. La propuesta combina mejora continua (digitalizar procesos existentes) e innovación disruptiva (un canal público sin comisión que cambia la lógica de intermediación de las plataformas).')
+p('Todos los módulos se aplicaron en la propuesta y se pueden ver en el prototipo: la tabla siguiente muestra, contenido por contenido, dónde aparece cada uno. La propuesta combina mejora continua (digitalizar procesos existentes) e innovación disruptiva (un canal público sin comisión que cambia la lógica de intermediación de las plataformas).')
 tabla([
     ['Módulo', 'Contenidos aplicados', 'Cómo se aplican en SoyTigreYa'],
     ['1 · Transformación digital', 'Digitalización vs. transformación; research e hipótesis de oportunidad; ética digital; sobreexpectación; adopción y gestión del cambio', 'No se digitaliza la tarjeta: se reorganiza la relación vecino–comercio–municipio con datos compartidos. Hipótesis: un canal municipal sin comisión. Ley 25.326 y aviso de prototipo. Tigri funciona con reglas antes que con IA. Piloto con early adopters antes de escalar.'],
@@ -207,7 +207,7 @@ doc.add_heading('Principales desafíos o riesgos', 2)
 tabla([
     ['Riesgo', 'Mitigación'],
     ['Baja adopción de los comercios', 'Panel muy simple, capacitación presencial y acompañamiento en el alta.'],
-    ['Logística del delivery', 'Empezar solo con retiro en el local; sumar delivery con cooperativas en la etapa 2.'],
+    ['Logística del delivery', 'Retiro y envío a cargo del comercio; sumar cooperativas en la etapa 2.'],
     ['Financiamiento del descuento', 'Cofinanciamiento con un banco o billetera (como Cuenta DNI o Billetera Santa Fe) y topes por compra.'],
     ['Competencia de plataformas privadas', 'Competir por precio final y cercanía, no por publicidad.'],
     ['Protección de datos personales', 'Cumplir la Ley 25.326, usar datos agregados y consentimiento explícito.'],
@@ -257,7 +257,7 @@ tabla([
     ['Problema', 'Comisiones de 20% a 30% para los comercios; beneficios, compras y trámites dispersos; el municipio no mide el impacto.'],
     ['Segmentos', 'Vecinos con tarjeta Soy Tigre y comercios de barrio. Early adopters: gastronomía de Tigre Centro.'],
     ['Propuesta de valor única', 'Que el ahorro y la venta se queden en Tigre: el vecino paga menos y el comercio vende sin comisión.'],
-    ['Solución', 'App con descuento automático, compra con retiro, trámites, pagos, puntos y paneles de gestión.'],
+    ['Solución', 'App con descuento automático, compra con retiro o envío del comercio, trámites, pagos, puntos y paneles de gestión.'],
     ['Canales', 'App municipal, comercios adheridos, cámaras de comercio y canales del municipio.'],
     ['Fuentes de ingreso', 'Gratis para el vecino y 0% de comisión. En el año 2: Plan Destacado ($30 M), publicidad local ($14,4 M), banco que cofinancia descuentos ($50 M) y ahorro en atención ($30 M): $124,4 M. Para mila·ops: licencia por municipio.'],
     ['Estructura de costos', 'Año 1: $109 M (piloto, escalamiento y seis meses de licencia). Desde el año 2: $55,2 M por año (licencia $4,5 M por mes e infraestructura $1,2 M). Pasarela 0,6% a 0,8%.'],
@@ -299,6 +299,17 @@ tabla([
     ['Vuelve a la caja del Municipio', '$40,6 M', 'Plan $4,5 M + publicidad $3,6 M + banco $25 M + ahorro $7,5 M', 'Cobros y convenio con el banco'],
 ], [4.0, 2.0, 6.5, 3.5])
 p('Fórmulas del modelo. Plata que queda en los comercios = comercios × pedidos por mes × ticket × 25% × meses; en el año 2: 100 × 60 × $20.000 × 25% × 12 = $360 M (sobre $1.440 M de ventas). Vuelve al barrio = lo anterior × 48%. Vuelve al Municipio = ventas × 0,80%. Recupero = momento en que el resultado acumulado deja de ser negativo: −$68,4 M (año 1) + $69,2 M (año 2) = +$0,8 M, es decir, al cierre del año 2. Todas las metas se leen en los paneles de la app, por lo que se pueden auditar mes a mes.')
+doc.add_heading('Ventaja competitiva: el envío a cargo del comercio', 2)
+tabla([
+    ['', 'Apps de delivery', 'SoyTigreYa'],
+    ['Comisión sobre la venta', '20% a 30%', '0%'],
+    ['Si se usa el reparto', 'Hasta 35% en total', '0%: reparte el cadete del comercio'],
+    ['Quién cobra el envío', 'La app', 'El comercio, completo'],
+    ['Quién decide precio y zona de envío', 'La app', 'El comercio'],
+    ['Quién atiende al cliente', 'Un repartidor de la app', 'El cadete del local'],
+    ['A dónde va la plata', 'Fuera del distrito', 'Queda en Tigre'],
+], [6.0, 4.5, 5.5])
+p('El comercio activa el envío en su panel, fija el precio y hasta dónde lleva, y lo puede desactivar cuando quiera. No requiere logística nueva: usa el cadete que muchos locales ya tienen. Como referencia de la etapa siguiente, en Rosario una cooperativa de cadetes trabaja con más de 100 comercios cobrando por hora y no por comisión (La Capital).')
 p('Adquisición por redes sociales. No se crean cuentas nuevas: se usan las que el Municipio ya tiene activas (Instagram, TikTok, Facebook), con Tigri como cara de la campaña, videos cortos de comercios del barrio y un botón para que cada comercio comparta su local. Se mide con vecinos nuevos por canal (registros desde cada enlace o QR), costo por vecino registrado (gasto de la campaña ÷ vecinos nuevos) y cuántos de ellos hacen su primer pedido.')
 doc.add_heading('Comparación con otras contrataciones', 2)
 tabla([

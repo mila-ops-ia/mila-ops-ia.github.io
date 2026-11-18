@@ -289,7 +289,6 @@ function vPerfiles() {
     </section>
     <a class="ent-fb" href="${FORM_OPINION}" target="_blank" rel="noopener"><span>🐾</span><span><b>¿Qué te pareció?</b><small>Dejá tu puntaje en 30 segundos</small></span><span class="flecha">›</span></a>
     <div class="qr-entrada"><div class="qr" data-qr="https://mila-ops-ia.github.io/soytigreya"></div><div><b>Abrila en tu celu</b><span class="muted">Escaneá el código o entrá a mila-ops-ia.github.io/soytigreya</span></div></div>
-    <div class="ent-pie"><button class="ent-pie-b" data-a="metodo"><i data-lucide="lightbulb"></i><span><b>Cómo lo diseñamos</b><small>La Diplomatura dentro de la app</small></span></button><button class="ent-pie-b" data-a="reiniciar"><i data-lucide="rotate-ccw"></i><span><b>Empezar de cero</b><small>Vuelve a los datos iniciales</small></span></button></div>
     <p class="muted chico centro">Prototipo académico: no se conecta con Mi Argentina ni con sistemas del municipio.<br>Fotos: Wikimedia Commons (CC BY y CC BY-SA), créditos en el README.</p>
   </main>`;
 }
@@ -481,7 +480,7 @@ function vComercio(c) {
   <div class="hero" style="background:${c.color}${fotoDe(c) ? ` url(${fotoDe(c)}) center/cover` : ''}">${fotoDe(c) ? '' : `<span>${c.emoji}</span>`}</div>${c.descLocal || c.horario ? `<p class="local-info">${c.horario ? `🕒 ${horarioTxt(c)}` : ''}${c.descLocal ? `<span>${esc(c.descLocal)}</span>` : ''}</p>` : ''}
   <h1 class="titulo">${esc(c.nombre)}</h1>
   <p class="muted sub">${esc(c.dir)} · ${c.loc}</p>
-  <div class="tags"><span class="tag desc">${MARCA.tarjeta}: -${c.desc}%</span><span class="tag">${c.servicio ? '📅 Turnos online' : `🥡 Retiro en ${c.prep} min`}</span><span class="tag">0% comisión</span></div>
+  <div class="tags"><span class="tag desc">${MARCA.tarjeta}: -${c.desc}%</span><span class="tag">${c.servicio ? '📅 Turnos online' : `🥡 Retiro en ${c.prep} min`}</span>${conEnvio(c) ? `<span class="tag">🛵 Envío del local · ${envioDe(c).costo ? plata(envioDe(c).costo) : 'gratis'}</span>` : ''}<span class="tag">0% comisión</span></div>
   ${c.abierto ? '' : '<p class="aviso">Este comercio está cerrado ahora. Podés mirar, pero no pedir.</p>'}
   <div class="productos">${c.productos.map((p) => `
     <div class="prod ${p.disponible ? '' : 'agotado'}">
@@ -965,7 +964,7 @@ function sheet() {
       <p class="muted">${t.c.servicio ? '¿Cuándo es tu turno?' : porEnvio ? '¿Para cuándo?' : '¿Cuándo lo retirás?'}</p>
       <div class="chips">${horarios(t.c).map((h) => `<button class="chip ${S.retiro === h.i ? 'on' : ''}" data-a="retiro" data-v="${h.i}">${h.txt}</button>`).join('')}</div>
       <p class="muted">¿Cómo pagás?</p>
-      <div class="pagos">${PAGOS.map((p) => `<button class="${S.pago === p.id ? 'on' : ''}" data-a="pago" data-v="${p.id}">${p.emoji} ${p.nombre}</button>`).join('')}</div>
+      <div class="pagos">${PAGOS.map((p) => `<button class="${S.pago === p.id ? 'on' : ''}" data-a="pago" data-v="${p.id}">${p.emoji} ${p.id === 'efectivo' && porEnvio ? 'Efectivo al recibir' : p.nombre}</button>`).join('')}</div>
       <button class="btn grande" data-a="pagar">${t.c.servicio ? (S.pago === 'efectivo' ? 'Reservar turno' : 'Reservar y pagar') : S.pago === 'efectivo' ? 'Confirmar pedido' : 'Pagar'} ${plata(aPagar)}</button>`;
   } else if (s === 'cobro' && S.cobro) {
     const c = S.cobro;
@@ -1273,6 +1272,7 @@ function envioCard(c) {
     <p class="linea"><span>Envíos entregados este mes</span><b>${mes.length}</b></p>
     <p class="linea"><span>Cobrado por envíos</span><b>${plata(mes.reduce((a, p) => a + (p.envio || 0), 0))}</b></p>` : ''}
     <ul class="envio-pros"><li><b>El envío lo cobrás vos, completo.</b> La app no se queda con nada.</li>
+      <li><b>El cliente es tuyo.</b> Lo atiende tu cadete, con tu nombre, no el de otra app.</li>
       <li><b>Sigue siendo 0% de comisión</b> sobre la venta. En las apps de delivery, la comisión con reparto llega hasta 35%.</li>
       <li><b>Vos decidís</b> el precio, hasta dónde llevás y cuándo lo activás.</li></ul>
   </div>`;
@@ -1987,7 +1987,7 @@ function vMetodo() {
 // ---------- recorrido guiado ----------
 const TOUR_COMPRA = [
   { perfil: null, titulo: 'Una plataforma, cuatro personas', texto: 'Vas a ver cómo una compra y un reclamo pasan por la vecina, el comercio y el municipio. Tocá "Siguiente" para avanzar.' },
-  { perfil: 'lucia', titulo: 'Lucía arma su pedido', texto: 'Pide sorrentinos en Pastas Doña Rosa. El 30% de descuento Soy Tigre se aplica solo y además suma Puntos Tigre.',
+  { perfil: 'lucia', titulo: 'Lucía arma su pedido', texto: 'Pide sorrentinos en Pastas Doña Rosa. El 30% de descuento Soy Tigre se aplica solo y suma Puntos Tigre. Puede retirarlo o pedir que se lo lleve el cadete del local.',
     prep() { S.tab = 'comprar'; S.comprarTab = 'comercios'; S.abierto = 'c2'; S.carrito = { cid: 'c2', items: { c2p0: 2, c2p3: 1 } }; S.sheet = 'checkout'; S.retiro = 0; },
     accion() { const t = totalesCarrito(); S.tour.pedido = crearPedido(t, horariosRetiro(t.c.prep)[0].txt.replace(/Lo antes posible \((.*)\)/, '$1')).id; } },
   { perfil: 'lucia', titulo: 'El pedido sale al local', texto: 'Lucía ve en qué paso está su pedido y el código para retirarlo. No pagó comisión de delivery ni de app.',
