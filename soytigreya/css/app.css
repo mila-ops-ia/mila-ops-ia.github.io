@@ -1134,3 +1134,19 @@ html, body, .shell, .shell.phone, .shell.wide { background: var(--fondo-b); }
 @keyframes tg-pulso { 0%, 100% { box-shadow: 0 0 0 0 rgba(208,32,19,.45); } 50% { box-shadow: 0 0 0 8px rgba(208,32,19,0); } }
 .tg-avatar.hablando { animation: tg-habla .45s ease-in-out infinite alternate; }
 @keyframes tg-habla { from { transform: scale(1); } to { transform: scale(1.08) rotate(-3deg); } }
+
+/* =====================================================================
+   v26 · Inicio ordenado en 4 categorías (todo sigue a un toque)
+   ===================================================================== */
+.cats { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+.cat { background: #fff; border-radius: 18px; padding: 12px 8px 12px; }
+.cat h2 { margin: 0 8px 10px; font-size: .74rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #D02013; display: flex; align-items: center; gap: 8px; }
+.cat h2::before { content: ''; width: 4px; height: 14px; border-radius: 2px; background: #D02013; }
+.cat .hub { background: transparent; padding: 0; margin: 0; border-radius: 0; grid-template-columns: repeat(4, 1fr) !important; gap: 4px; }
+.cat-p h2 { color: #3A3F4D; } .cat-p h2::before { background: #3A3F4D; }
+.cat-s h2 { color: #0E7C86; } .cat-s h2::before { background: #0E7C86; }
+.cat-a h2 { color: #1F5F99; } .cat-a h2::before { background: #1F5F99; }
+.cat-p .hub span { color: #3A3F4D !important; border-color: #D9DCE3 !important; }
+.cat-s .hub span { color: #0E7C86 !important; border-color: #BFE3E6 !important; }
+.cat-a .hub span { color: #1F5F99 !important; border-color: #C6DCF1 !important; }
+@media (min-width: 760px) { .cats { display: grid; grid-template-columns: 1fr 1fr; } }

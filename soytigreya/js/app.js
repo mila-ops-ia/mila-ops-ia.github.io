@@ -304,10 +304,11 @@ function vInicio() {
   const cerca2 = S.comercios.filter((c) => (c.loc === S.usuario.loc || c.destacado) && c.abierto).sort((a, b) => !!b.destacado - !!a.destacado);
   const r = rioAhora();
   const alto = r.altura.toFixed(2).replace('.', ',');
-  const accesos = [
-    ['🛍️', 'Comprar', 'tab', 'comprar', 'r'], ['🎁', 'Beneficios', 'tab', 'beneficios', 'r'], ['💳', 'Pagar', 'serv', 'pagos', 'p'], ['📣', 'Reclamar', 'serv', 'reclamos', 'p'],
-    ['🏥', 'Salud', 'sub', 'salud', 's'], ['🏅', 'Deporte', 'sub', 'deportes', 'n'], ['💼', 'Empleo', 'sub', 'trabajo', 'a'], ['📅', 'Turnos', 'serv', 'turnos', 'p'],
-    ['🚗', 'Estacionar', 'sub', 'estacionamiento', 'p'], ['🚌', 'Colectivos', 'sub', 'colectivos', 'a'], ['💊', 'Farmacias', 'sub', 'farmacias', 's'], ['🌊', `Río ${alto} m`, 'sub', 'rio', 'a'],
+  const grupos = [
+    ['Ahorrar y comprar', 'r', [['🎁', 'Beneficios', 'tab', 'beneficios'], ['🛍️', 'Comprar', 'tab', 'comprar'], ['⭐', 'Puntos', 'sub', 'puntos'], ['🪪', 'Credencial', 'tab', 'credencial']]],
+    ['Trámites y pagos', 'p', [['📅', 'Turnos', 'serv', 'turnos'], ['📣', 'Reclamar', 'serv', 'reclamos'], ['💳', 'Pagar', 'serv', 'pagos'], ['🚗', 'Estacionar', 'sub', 'estacionamiento']]],
+    ['Salud y deporte', 's', [['🏥', 'Salud', 'sub', 'salud'], ['💊', 'Farmacias', 'sub', 'farmacias'], ['🏅', 'Deporte', 'sub', 'deportes'], ['🆘', 'Alerta', 'sub', 'alerta']]],
+    ['Trabajo y ciudad', 'a', [['💼', 'Empleo', 'sub', 'trabajo'], ['🚌', 'Colectivos', 'sub', 'colectivos'], ['🌊', `Río ${alto} m`, 'sub', 'rio'], ['🎪', 'Agenda', 'serv', 'agenda']]],
   ];
   const aviso = r.nivel.clase !== 'normal' ? `<button class="aviso-rio ${r.nivel.clase}" data-a="sub" data-v="rio"><span>🌊</span><div><b>Río Luján en ${r.nivel.txt.toLowerCase()}: ${alto} m</b><small>${r.sube ? 'Subiendo' : 'Bajando'} · tocá para ver el pronóstico</small></div></button>` : '';
   return `
@@ -332,7 +333,7 @@ function vInicio() {
   ${encuestaNps()}
   ${activo ? cardActivo(activo) : ''}
   ${aviso}
-  <div class="hub">${accesos.map(([e, x, a, v, c]) => `<button class="hub-${c}" data-a="${a}" data-v="${v}"><span>${e}</span>${x}</button>`).join('')}</div>
+  <div class="cats">${grupos.map(([tit, c, items]) => `<section class="cat cat-${c}"><h2>${tit}</h2><div class="hub">${items.map(([e, x, a, v]) => `<button class="hub-${c}" data-a="${a}" data-v="${v}"><span>${e}</span>${x}</button>`).join('')}</div></section>`).join('')}</div>
   </div><div class="dcol">
   ${bannerFlash()}
   ${publicidadHtml()}
@@ -1929,7 +1930,7 @@ const TOUR_COMPRA = [
 ];
 
 const TOUR_VIDA = [
-  { perfil: 'lucia', titulo: 'Todo empieza en el Inicio', texto: 'Arriba está la tarjeta Soy Tigre con lo que Lucía ahorró este mes. Abajo, doce accesos para hacer todo con un toque, sin buscar.',
+  { perfil: 'lucia', titulo: 'Todo empieza en el Inicio', texto: 'Arriba está la tarjeta Soy Tigre con lo que Lucía ahorró este mes. Abajo, cuatro categorías con todo a un toque: ahorrar y comprar, trámites y pagos, salud y deporte, trabajo y ciudad.',
     prep() { S.tab = 'inicio'; } },
   { perfil: 'lucia', titulo: 'Su tarjeta es un QR', texto: 'Al tocar la tarjeta se da vuelta y muestra el QR para la caja. Cambia cada 30 segundos, así nadie puede usar una captura.',
     prep() { S.tab = 'credencial'; } },
