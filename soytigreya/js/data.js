@@ -3,7 +3,7 @@ const MARCA = {
   app: 'SoyTigreYa',
   tarjeta: 'Soy Tigre',
   municipio: 'Municipio de Tigre',
-  comisionApps: 0.30, // comisión típica de las apps privadas, para comparar
+  comisionApps: 0.25, // comisión típica de las apps privadas, para comparar
 };
 
 const LOCALIDADES = ['Tigre Centro', 'Nordelta', 'Don Torcuato', 'El Talar', 'Benavídez', 'General Pacheco', 'Delta'];

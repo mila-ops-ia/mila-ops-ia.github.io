@@ -158,8 +158,8 @@ viñetas([
     ('Compras con retiro o con envío del comercio: ', 'el descuento se aplica solo y se paga desde la app. El vecino elige retirar o que lo lleve el cadete del propio comercio, que cobra el envío completo. Si algo sale mal, el comercio tiene 24 horas para resolver y, si no hay acuerdo, media el municipio.'),
     ('Trámites y servicios: ', 'reclamos con foto, mapa y seguimiento por etapas, pago de tasas y estacionamiento; turnos en la red de salud municipal, escuelas deportivas, empleo y cursos; altura del río, farmacias de turno y botón de alerta.'),
     ('Tigri y Puntos Tigre: ', 'un asistente que entiende lenguaje cotidiano ("quiero pizza", "hay un bache") y lleva a la acción; y recompensas por comprar en el barrio o pagar la tasa en término, con topes.'),
-    ('Panel del comercio: ', 'ventas del día, pedidos en tres columnas, reclamos, productos y ofertas, y Mi local, con fotos, horarios y envío propio con su precio.'),
-    ('Paneles del municipio, con formato de CRM: ', 'Atención al Vecino trabaja los reclamos como casos, por estado y urgencia, y cierra con foto; Desarrollo Económico sigue a los comercios como cuentas por etapa de adhesión y ve la proyección financiera.'),
+    ('Panel del comercio, con formato de CRM: ', 'indicadores del día, pedidos en tablero o en lista, clientes (quién compra, cuánto y quiénes repiten), reclamos, productos y Mi local, con fotos, horarios y envío propio.'),
+    ('Paneles del municipio, con el mismo formato: ', 'Atención al Vecino trabaja los reclamos como casos, por estado y urgencia, y cierra con foto; Desarrollo Económico sigue a los comercios como cuentas por etapa de adhesión y ve la proyección financiera.'),
 ])
 p('Desarrollé además un prototipo funcional navegable con datos de demostración, publicado en mila-ops-ia.github.io/soytigreya: se instala en el celular e incluye un recorrido guiado por los cuatro perfiles.')
 doc.add_heading('Qué valor aporta', 2)
@@ -287,7 +287,7 @@ tabla([
     ['Propuesta de valor única', 'Que el ahorro y la venta se queden en Tigre: el vecino paga menos y el comercio vende sin comisión.'],
     ['Solución', 'App con descuento automático, compra con retiro o envío del comercio, trámites, pagos, puntos y paneles de gestión.'],
     ['Canales', 'App municipal, comercios adheridos, cámaras de comercio y canales del municipio.'],
-    ['Fuentes de ingreso', 'Gratis para el vecino y 0% de comisión. En el año 2: Plan Destacado ($30 M), publicidad local ($14,4 M), banco que cofinancia descuentos ($50 M) y ahorro en atención ($30 M): $124,4 M. Para mila·ops: licencia por municipio.'],
+    ['Fuentes de ingreso', 'Gratis para el vecino y 0% de comisión. En el año 2: Plan Destacado ($30 M), publicidad local ($14,4 M), banco que cofinancia descuentos ($50 M) y ahorro en atención ($30 M): $124,4 M. Paral equipo de soporte: licencia por municipio.'],
     ['Estructura de costos', 'Año 1: $109 M (piloto, escalamiento y seis meses de licencia). Desde el año 2: $55,2 M por año (licencia $4,5 M por mes e infraestructura $1,2 M). Pasarela 0,6% a 0,8%.'],
     ['Métricas clave', 'Vecinos activos, retención, NPS, comercios activos, comercios con Plan Destacado y comisiones evitadas.'],
     ['Ventaja injusta', 'Más de 500 comercios y la tarjeta Soy Tigre ya instalada, con el aval del municipio.'],

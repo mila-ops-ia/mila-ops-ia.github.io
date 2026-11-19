@@ -1583,7 +1583,7 @@ function finanzasHtml() {
         <p><b>Rosario · cooperativa de cadetes</b><span>Reparto para más de 100 comercios, cobrando por hora y no por comisión.</span></p>
       </div>
       <p class="muted chico">Ninguno junta tarjeta, compra sin comisión, trámites y medición en una sola app: eso es lo que propone SoyTigreYa. Fuentes en el trabajo escrito.</p></div>
-    <p class="muted chico">Supuestos a validar en el piloto. Precios de mila·ops: costo del equipo más 30% de margen.</p>
+    <p class="muted chico">Supuestos a validar en el piloto. Precios del equipo de soporte: costo del equipo más 30% de margen.</p>
   </div>`;
 }
 
@@ -2194,7 +2194,7 @@ const TOUR_NEGOCIO = [
     prep() { S.tab = 'inicio'; }, scroll: '.pub-fila' },
   { perfil: 'marina', titulo: 'Las cuentas cierran', texto: 'Plan Destacado, publicidad, un banco que cofinancia los descuentos y el ahorro en atención suman más que el costo: desde el año 2 se paga sola.',
     prep() { S.mTab = 'finanzas'; }, scroll: '.sost' },
-  { perfil: 'marina', titulo: 'Y se puede replicar', texto: 'La plataforma se configura con otra marca y otras localidades. mila·ops la ofrece como licencia a otros municipios.' },
+  { perfil: 'marina', titulo: 'Y se puede replicar', texto: 'La plataforma se configura con otra marca y otras localidades. El equipo de soporte la ofrece como licencia a otros municipios.' },
 ];
 
 const RECORRIDOS = {
