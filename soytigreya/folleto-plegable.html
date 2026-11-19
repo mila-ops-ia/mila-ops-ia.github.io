@@ -5,8 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SoyTigreYa · Folleto plegable</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
 <style>
-:root { --rojo: #D02013; --rojo-o: #A81A10; --tinta: #17181C; --muted: #5F6370; --fondo: #F4F4F6; --marron: #B5541C; --piz: #3A3F4D; --verde: #1B7A47; --linea: #E3E5EA; }
+:root { --rojo: #D02013; --rojo-o: #A81A10; --tinta: #17181C; --muted: #5F6370; --fondo: #F4F4F6; --marron: #B5541C; --piz: #3A3F4D; --verde: #1B7A47; --linea: #E3E5EA; --celeste: #3BA3D9; }
 @page { size: A4 landscape; margin: 0; }
 * { box-sizing: border-box; }
 html, body { margin: 0; }
@@ -15,117 +16,110 @@ p, h1, h2, h3 { margin: 0; }
 .cara { width: 297mm; height: 210mm; margin: 0 auto; background: #fff; display: grid; grid-template-columns: repeat(3, 99mm); position: relative; overflow: hidden; page-break-after: always; }
 @media screen { .cara { margin: 18px auto; box-shadow: 0 10px 40px rgba(0,0,0,.25); } .guia { text-align: center; color: #fff; font-size: 13px; font-weight: 600; margin: 14px 0 -6px; } }
 @media print { .guia { display: none; } }
-.panel { display: flex; flex-direction: column; min-width: 0; position: relative; }
-.pad { padding: 0 9mm; }
+.panel { display: flex; flex-direction: column; min-width: 0; position: relative; overflow: hidden; }
 .tg { width: 100%; height: 100%; display: block; }
 .ceja { font-size: 8pt; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+/* celular entero, nunca cortado */
+.cel { border: 1.3mm solid var(--tinta); border-radius: 6mm; overflow: hidden; background: #fff; flex: none; }
+.cel img { display: block; width: 100%; }
+.franjas { position: absolute; right: -34mm; bottom: -14mm; width: 130mm; height: 60mm; background: linear-gradient(115deg, transparent 38%, rgba(59,163,217,.5) 38%, rgba(59,163,217,.5) 56%, transparent 56%, transparent 64%, rgba(255,255,255,.16) 64%, rgba(255,255,255,.16) 80%, transparent 80%); }
 
 /* ---------- TAPA ---------- */
-.tapa { background: var(--rojo); color: #fff; padding: 14mm 10mm 0; overflow: hidden; }
-.tapa::before { content: ''; position: absolute; left: -30mm; right: -30mm; bottom: -52mm; height: 120mm; background: var(--rojo-o); border-radius: 50%; }
-.tapa > * { position: relative; }
-.marca { font-weight: 800; font-size: 13pt; letter-spacing: .02em; }
+.tapa { background: var(--rojo); color: #fff; padding: 12mm 9mm 0; }
+.tapa > *:not(.franjas) { position: relative; z-index: 1; }
+.marca { display: flex; align-items: center; gap: 3mm; font-weight: 800; font-size: 13pt; }
+.marca i { width: 12mm; height: 12mm; border-radius: 50%; background: #fff; padding: .8mm; display: block; }
 .marca span { font-weight: 500; opacity: .85; }
-.tapa h1 { font-size: 29pt; line-height: 1.04; font-weight: 900; letter-spacing: -.02em; margin-top: 9mm; }
-.tapa .sub { font-size: 12pt; line-height: 1.4; margin-top: 5mm; opacity: .96; }
-.tapa .tigrazo { width: 66mm; height: 66mm; border-radius: 50%; background: #fff; padding: 3mm; margin: auto auto 0; box-shadow: 0 0 0 3mm rgba(255,255,255,.16); }
-.tapa .abrir { text-align: center; font-weight: 800; font-size: 11pt; padding: 6mm 0 9mm; }
+.tapa h1 { font-size: 24pt; line-height: 1.05; font-weight: 900; letter-spacing: -.02em; margin-top: 7mm; }
+.tapa .sub { font-size: 10.5pt; line-height: 1.4; margin-top: 3mm; opacity: .96; }
+.tapa .cel { width: 58mm; margin: auto auto 0; border-color: #fff; border-bottom: 0; border-radius: 6mm 6mm 0 0; }
+.tapa .cel img { height: 123mm; object-fit: cover; object-position: top; }
+.pild { position: absolute; z-index: 2; background: #fff; color: var(--tinta); border-radius: 10mm; padding: 1.6mm 3.6mm; font-size: 8.4pt; font-weight: 800; box-shadow: none; border: .4mm solid rgba(23,24,28,.08); }
+.pild b { color: var(--rojo); }
 
 /* ---------- CONTRATAPA ---------- */
-.contra { background: var(--fondo); padding: 14mm 10mm 9mm; align-items: center; text-align: center; }
-.contra h2 { font-size: 21pt; font-weight: 900; line-height: 1.08; }
-.contra .baj { font-size: 10.5pt; color: var(--muted); margin-top: 2mm; }
-.qr { background: #fff; border-radius: 6mm; padding: 5mm; width: 70mm; margin-top: 7mm; box-shadow: 0 1.5mm 5mm rgba(23,24,28,.08); }
+.contra { background: var(--tinta); color: #fff; padding: 13mm 10mm 9mm; align-items: center; text-align: center; }
+.contra h2 { font-size: 22pt; font-weight: 900; line-height: 1.08; }
+.contra .baj { font-size: 10.5pt; opacity: .8; margin-top: 2mm; }
+.qr { background: #fff; border-radius: 6mm; padding: 5mm; width: 68mm; margin-top: 6mm; }
 .qr img { width: 100%; display: block; }
-.url { font-size: 10pt; font-weight: 800; color: var(--rojo); margin-top: 4mm; }
+.url { font-size: 10pt; font-weight: 800; color: #FF8F84; margin-top: 4mm; }
 .firma { margin-top: auto; display: flex; flex-direction: column; align-items: center; gap: 3mm; }
 .duo { display: flex; align-items: center; }
-.duo img { width: 22mm; height: 22mm; border-radius: 50%; object-fit: cover; border: 1mm solid #fff; }
-.duo i { width: 22mm; height: 22mm; border-radius: 50%; background: #fff; border: 1mm solid #fff; margin-left: -4.5mm; display: block; padding: .6mm; }
-.firma b { font-size: 12pt; line-height: 1.3; }
-.legal { font-size: 7.2pt; color: var(--muted); line-height: 1.45; margin-top: 5mm; }
+.duo img { width: 23mm; height: 23mm; border-radius: 50%; object-fit: cover; border: 1mm solid #fff; }
+.duo i { width: 23mm; height: 23mm; border-radius: 50%; background: #fff; border: 1mm solid #fff; margin-left: -4.5mm; display: block; padding: .6mm; }
+.firma b { font-size: 12.5pt; line-height: 1.3; }
+.legal { font-size: 7.2pt; opacity: .6; line-height: 1.45; margin-top: 5mm; }
 
 /* ---------- SOLAPA ---------- */
-.solapa { background: #fff; padding: 14mm 9mm 9mm; }
+.solapa { background: var(--fondo); padding: 13mm 9mm 9mm; }
 .solapa .ceja { color: var(--rojo); }
-.solapa h2 { font-size: 19pt; font-weight: 900; line-height: 1.1; margin-top: 2.5mm; }
-.vs { margin-top: 7mm; display: flex; flex-direction: column; }
-.vs div { border-radius: 5mm; padding: 6mm 6mm 5.5mm; }
-.vs small { display: block; font-size: 8.2pt; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
-.vs b { display: block; font-size: 48pt; font-weight: 900; line-height: 1; letter-spacing: -.03em; margin-top: 1.5mm; }
-.vs span { display: block; font-size: 10.5pt; line-height: 1.35; margin-top: 1.5mm; }
-.vs .hoy { background: var(--fondo); } .vs .hoy small, .vs .hoy span { color: var(--muted); } .vs .hoy b { color: var(--piz); }
-.vs .ya { background: var(--rojo); color: #fff; margin-top: 3mm; }
-.base { margin-top: auto; border-top: .5mm solid var(--tinta); padding-top: 4.5mm; font-size: 12pt; font-weight: 800; line-height: 1.3; }
+.solapa h2 { font-size: 17pt; font-weight: 900; line-height: 1.12; margin-top: 2.5mm; }
+.vs { margin-top: 6mm; display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; }
+.vs div { border-radius: 5mm; padding: 5mm 4.5mm; }
+.vs small { display: block; font-size: 7.4pt; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; line-height: 1.3; min-height: 6mm; }
+.vs b { display: block; font-size: 36pt; font-weight: 900; line-height: 1; letter-spacing: -.03em; margin-top: 2mm; }
+.vs span { display: block; font-size: 9pt; line-height: 1.35; margin-top: 1.5mm; }
+.vs .hoy { background: #fff; } .vs .hoy small, .vs .hoy span { color: var(--muted); } .vs .hoy b { color: var(--piz); }
+.vs .ya { background: var(--rojo); color: #fff; }
+.gana { margin-top: 6mm; display: flex; flex-direction: column; gap: 2.6mm; }
+.g { background: #fff; border-radius: 4mm; padding: 3.6mm 4.5mm; border-left: 1.6mm solid var(--rojo); }
+.g.b { border-left-color: var(--marron); } .g.c { border-left-color: var(--piz); }
+.g small { display: block; font-size: 7.4pt; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.g b { display: block; font-size: 13.5pt; font-weight: 900; line-height: 1.15; margin-top: .6mm; color: var(--rojo); }
+.g.b b { color: var(--marron); } .g.c b { color: var(--piz); }
+.g span { display: block; font-size: 8.6pt; color: var(--muted); margin-top: .4mm; }
+.base { margin-top: auto; font-size: 10.5pt; font-weight: 800; line-height: 1.3; }
 .base em { font-style: normal; color: var(--rojo); }
 
-/* ---------- INTERIOR ---------- */
-.int { background: var(--fondo); }
-.int .cab { color: #fff; padding: 11mm 9mm 8mm; }
-.int.a .cab { background: var(--rojo); } .int.b .cab { background: var(--marron); } .int.c .cab { background: var(--piz); }
-.int .cab .ceja { opacity: .9; }
-.int .cab h3 { font-size: 23pt; font-weight: 900; line-height: 1.05; letter-spacing: -.02em; margin-top: 3mm; }
-.int .cab p { font-size: 10.5pt; line-height: 1.35; margin-top: 2.5mm; opacity: .95; }
-.int ul { list-style: none; margin: 0; padding: 7mm 9mm 0; display: flex; flex-direction: column; gap: 3.2mm; font-size: 11pt; font-weight: 600; line-height: 1.3; }
-.int li { display: flex; gap: 3mm; align-items: flex-start; }
-.int li i { flex: none; width: 5.6mm; height: 5.6mm; border-radius: 50%; display: grid; place-items: center; color: #fff; font-style: normal; font-weight: 900; font-size: 8pt; margin-top: .2mm; }
-.int.a li i { background: var(--rojo); } .int.b li i { background: var(--marron); } .int.c li i { background: var(--piz); }
-.demo { margin: auto 9mm 9mm; background: #fff; border-radius: 5mm; padding: 5.5mm 5.5mm 5mm; box-shadow: 0 1.5mm 5mm rgba(23,24,28,.07); }
-.demo .t { font-size: 7.8pt; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 3mm; }
-.fila { display: flex; justify-content: space-between; gap: 3mm; font-size: 10pt; padding: 1.7mm 0; border-bottom: .25mm solid var(--linea); }
-.fila:last-of-type { border-bottom: 0; }
-.fila b { font-weight: 700; white-space: nowrap; }
-.fila.v { color: var(--verde); font-weight: 700; }
-.fila.tot { font-size: 12.5pt; font-weight: 900; border-top: .5mm solid var(--tinta); border-bottom: 0; margin-top: 1mm; padding-top: 2.6mm; }
-.sello { margin-top: 3mm; border-radius: 3mm; padding: 2.6mm 3.5mm; font-size: 10pt; font-weight: 800; text-align: center; }
-.int.a .sello { background: #E7F4EC; color: var(--verde); }
-.int.b .sello { background: #FBEDE4; color: var(--marron); }
-.meta { margin-bottom: 3.2mm; } .meta:last-child { margin-bottom: 0; }
-.meta div { display: flex; justify-content: space-between; align-items: baseline; font-size: 9.6pt; font-weight: 600; }
-.meta div b { font-size: 13pt; font-weight: 900; }
-.meta u { display: block; height: 2.2mm; border-radius: 2mm; background: var(--linea); margin-top: 1.2mm; text-decoration: none; overflow: hidden; }
-.meta u::after { content: ''; display: block; height: 100%; background: var(--piz); border-radius: 2mm; width: var(--w); }
-.inv { margin: 0 9mm 9mm; background: var(--tinta); color: #fff; border-radius: 5mm; padding: 4.5mm 5.5mm; display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; }
+/* ---------- INTERIOR: una sola pieza de tres cuerpos ---------- */
+.int { background: #fff; padding: 12mm 8mm 9mm; }
+.int h2 { font-size: 19pt; font-weight: 900; line-height: 1.08; letter-spacing: -.01em; margin-top: 2.5mm; }
+.int .ceja { color: var(--rojo); }
+.serv { margin-top: 6mm; display: grid; grid-template-columns: 1fr 1fr; gap: 2.6mm; flex: 1; align-content: stretch; }
+.s { background: var(--fondo); border-radius: 4mm; padding: 3.4mm 3.4mm 3.2mm; display: flex; flex-direction: column; gap: 1mm; justify-content: center; }
+.s i { width: 8.6mm; height: 8.6mm; border-radius: 2.6mm; background: #fff; display: grid; place-items: center; color: var(--rojo); }
+.s i svg { width: 5mm; height: 5mm; stroke-width: 2.2; }
+.s b { font-size: 9.6pt; font-weight: 800; line-height: 1.15; margin-top: .8mm; }
+.s span { font-size: 7.8pt; color: var(--muted); line-height: 1.3; }
+.s.r { background: var(--rojo); color: #fff; } .s.r span { color: #fff; opacity: .92; } .s.r i { color: var(--rojo); }
+.s.n { background: var(--tinta); color: #fff; } .s.n span { color: #fff; opacity: .8; } .s.n i { color: var(--tinta); }
+.medio { background: var(--rojo); color: #fff; padding: 12mm 9mm 0; align-items: center; text-align: center; }
+.medio > *:not(.franjas) { position: relative; z-index: 1; }
+.medio .ceja { color: #fff; opacity: .9; }
+.medio h2 { color: #fff; font-size: 20pt; }
+.medio { padding-top: 11mm; }
+.medio p.b { font-size: 10pt; line-height: 1.4; margin-top: 2.5mm; opacity: .96; }
+.medio .cel { width: 72mm; margin: auto auto 0; border-color: #fff; border-bottom: 0; border-radius: 7mm 7mm 0 0; }
+.medio .cel img { height: 153mm; object-fit: cover; object-position: top; }
+.der .tigre { margin-top: 6mm; display: flex; flex-direction: column; gap: 2.6mm; flex: 1; }
+.t { background: var(--fondo); border-radius: 4mm; padding: 3.6mm 4mm; display: flex; gap: 3.2mm; align-items: center; flex: 1; }
+.t i { flex: none; width: 10mm; height: 10mm; border-radius: 3mm; background: #fff; display: grid; place-items: center; color: var(--rojo); }
+.t i svg { width: 5.6mm; height: 5.6mm; stroke-width: 2.2; }
+.t b { display: block; font-size: 10.4pt; font-weight: 800; line-height: 1.15; }
+.t span { display: block; font-size: 8.2pt; color: var(--muted); line-height: 1.3; margin-top: .4mm; }
+.inv { margin-top: 4mm; background: var(--tinta); color: #fff; border-radius: 5mm; padding: 4.5mm 5mm; display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; }
 .inv small { display: block; font-size: 8pt; opacity: .75; font-weight: 600; }
-.inv b { display: block; font-size: 17pt; font-weight: 900; line-height: 1.1; }
-.inv b em { font-style: normal; font-size: 9pt; } .inv b.v { color: #6FD39B; }
-.int.c .demo { margin-bottom: 4mm; }
-/* ajustes: sin sombras (salen como recuadros grises al imprimir), cabeceras parejas y sin huecos */
-.qr, .demo { box-shadow: none; }
-.qr { border: .4mm solid var(--linea); }
-.demo { border: .4mm solid var(--linea); margin-top: 0; }
-.int .cab { height: 68mm; display: flex; flex-direction: column; justify-content: flex-end; }
-.int .cab h3 { font-size: 25pt; }
-.int .cab p { font-size: 11pt; }
-.int ul { flex: 1; justify-content: center; padding-top: 0; gap: 4.2mm; font-size: 12pt; }
-.int li i { width: 6.4mm; height: 6.4mm; font-size: 8.6pt; }
-.demo .t { font-size: 8.2pt; }
-.fila { font-size: 10.8pt; padding: 2.1mm 0; }
-.fila.tot { font-size: 13.5pt; }
-.sello { font-size: 10.8pt; padding: 3mm 3.5mm; }
-.meta div { font-size: 10.4pt; } .meta div b { font-size: 14pt; } .meta { margin-bottom: 3.8mm; }
-.inv { padding: 5mm 5.5mm; } .inv b { font-size: 18pt; }
-.solapa .vs { margin-top: 8mm; }
-.vs div { padding: 7mm 6mm 6.5mm; }
-.vs b { font-size: 54pt; }
-.vs span { font-size: 11.5pt; }
-.base { font-size: 13pt; }
-.contra .firma { margin-top: auto; }
-.duo img, .duo i { width: 25mm; height: 25mm; }
-.firma b { font-size: 13pt; }
+.inv b { display: block; font-size: 16pt; font-weight: 900; line-height: 1.1; }
+.inv b em { font-style: normal; font-size: 8.6pt; } .inv b.v { color: #6FD39B; }
 </style>
 </head>
 <body>
 <p class="guia">Cara de afuera · al doblar: solapa (izquierda) · contratapa (centro) · tapa (derecha)</p>
 <div class="cara">
   <section class="panel solapa">
-    <p class="ceja">El problema, en un número</p>
+    <p class="ceja">Por qué ahora</p>
     <h2>Vender por internet le cuesta caro al comercio de barrio.</h2>
     <div class="vs">
       <div class="hoy"><small>Hoy, con apps de delivery</small><b>25%</b><span>de cada venta se va en comisión.</span></div>
-      <div class="ya"><small>Con SoyTigreYa</small><b>0%</b><span>La venta entera queda en el barrio.</span></div>
+      <div class="ya"><small>Con SoyTigreYa</small><b>0%</b><span>La venta queda en el barrio.</span></div>
     </div>
-    <p class="base">Tigre ya tiene la tarjeta, la app y más de 500 locales con descuento. <em>Falta unirlos.</em></p>
+    <div class="gana">
+      <div class="g"><small>Si sos vecino</small><b>Ahorrás en cada compra</b><span>El descuento de tu tarjeta se aplica solo.</span></div>
+      <div class="g b"><small>Si tenés un comercio</small><b>$300.000 más por mes</b><span>Lo que hoy se te va en comisiones.</span></div>
+      <div class="g c"><small>Si sos el Municipio</small><b>$360 millones por año</b><span>Quedan en Tigre, con 100 locales adheridos.</span></div>
+    </div>
+    <p class="base">Tigre ya tiene la tarjeta, la app y más de 500 locales. <em>Falta unirlos.</em></p>
   </section>
   <section class="panel contra">
     <h2>Probala ahora</h2>
@@ -136,47 +130,53 @@ p, h1, h2, h3 { margin: 0; }
       <div class="duo"><img src="img/mila.jpg" alt="Milagros Sanabria"><i><svg class="tg" viewBox="0 0 100 100" aria-hidden="true"><circle cx="23" cy="27" r="14" fill="#E2701A"/><circle cx="77" cy="27" r="14" fill="#E2701A"/><circle cx="23" cy="28" r="7.5" fill="#FFC6B3"/><circle cx="77" cy="28" r="7.5" fill="#FFC6B3"/><ellipse cx="50" cy="57" rx="41" ry="36" fill="#F28C28"/><path d="M50 21 l-5 11 h10z M38 24 l-1 10 l-5 -7z M62 24 l1 10 l5 -7z" fill="#3A2414"/><ellipse cx="50" cy="72" rx="21" ry="15" fill="#FFF4E6"/><ellipse cx="35" cy="54" rx="6.5" ry="7.5" fill="#2B1A10"/><ellipse cx="65" cy="54" rx="6.5" ry="7.5" fill="#2B1A10"/><circle cx="37.5" cy="51" r="2.4" fill="#fff"/><circle cx="67.5" cy="51" r="2.4" fill="#fff"/><path d="M44.5 64.5 q5.5 -3.5 11 0 q-1.5 5 -5.5 6 q-4 -1 -5.5 -6z" fill="#C2456A"/><path d="M50 70.5 v3 M50 73.5 q-5 4.5 -9 0.5 M50 73.5 q5 4.5 9 0.5" stroke="#3A2414" stroke-width="2" fill="none" stroke-linecap="round"/></svg></i></div>
       <b>Milagros y Tigri te esperan<br>para hacerlo realidad.</b>
     </div>
-    <p class="legal">Milagros Sanabria · Trabajo Final Integrador, UNDelta · 2026<br>Prototipo académico · No es una app oficial del Municipio de Tigre</p>
+    <p class="legal">Milagros Sanabria · Trabajo Final Integrador · Diplomatura en Negocios Digitales e Innovación, UNDelta · 2026<br>Prototipo académico · No es una app oficial del Municipio de Tigre</p>
   </section>
   <section class="panel tapa">
-    <p class="marca">SOYTIGRE<span>YA</span></p>
+    <div class="franjas"></div>
+    <p class="marca"><i><svg class="tg" viewBox="0 0 100 100" aria-hidden="true"><circle cx="23" cy="27" r="14" fill="#E2701A"/><circle cx="77" cy="27" r="14" fill="#E2701A"/><circle cx="23" cy="28" r="7.5" fill="#FFC6B3"/><circle cx="77" cy="28" r="7.5" fill="#FFC6B3"/><ellipse cx="50" cy="57" rx="41" ry="36" fill="#F28C28"/><path d="M50 21 l-5 11 h10z M38 24 l-1 10 l-5 -7z M62 24 l1 10 l5 -7z" fill="#3A2414"/><ellipse cx="50" cy="72" rx="21" ry="15" fill="#FFF4E6"/><ellipse cx="35" cy="54" rx="6.5" ry="7.5" fill="#2B1A10"/><ellipse cx="65" cy="54" rx="6.5" ry="7.5" fill="#2B1A10"/><circle cx="37.5" cy="51" r="2.4" fill="#fff"/><circle cx="67.5" cy="51" r="2.4" fill="#fff"/><path d="M44.5 64.5 q5.5 -3.5 11 0 q-1.5 5 -5.5 6 q-4 -1 -5.5 -6z" fill="#C2456A"/><path d="M50 70.5 v3 M50 73.5 q-5 4.5 -9 0.5 M50 73.5 q5 4.5 9 0.5" stroke="#3A2414" stroke-width="2" fill="none" stroke-linecap="round"/></svg></i><span style="opacity:1;font-weight:800">SOYTIGRE<span>YA</span></span></p>
     <h1>Que el ahorro y la venta se queden en Tigre.</h1>
-    <p class="sub">La app Soy Tigre que ya conocés, ahora también para comprar cerca de tu casa.</p>
-    <div class="tigrazo"><svg class="tg" viewBox="0 0 100 100" aria-hidden="true"><circle cx="23" cy="27" r="14" fill="#E2701A"/><circle cx="77" cy="27" r="14" fill="#E2701A"/><circle cx="23" cy="28" r="7.5" fill="#FFC6B3"/><circle cx="77" cy="28" r="7.5" fill="#FFC6B3"/><ellipse cx="50" cy="57" rx="41" ry="36" fill="#F28C28"/><path d="M50 21 l-5 11 h10z M38 24 l-1 10 l-5 -7z M62 24 l1 10 l5 -7z" fill="#3A2414"/><ellipse cx="50" cy="72" rx="21" ry="15" fill="#FFF4E6"/><ellipse cx="35" cy="54" rx="6.5" ry="7.5" fill="#2B1A10"/><ellipse cx="65" cy="54" rx="6.5" ry="7.5" fill="#2B1A10"/><circle cx="37.5" cy="51" r="2.4" fill="#fff"/><circle cx="67.5" cy="51" r="2.4" fill="#fff"/><path d="M44.5 64.5 q5.5 -3.5 11 0 q-1.5 5 -5.5 6 q-4 -1 -5.5 -6z" fill="#C2456A"/><path d="M50 70.5 v3 M50 73.5 q-5 4.5 -9 0.5 M50 73.5 q5 4.5 9 0.5" stroke="#3A2414" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div>
-    <p class="abrir">Abrilo y mirá qué ganás →</p>
+    <p class="sub">El upgrade digital de la app Soy Tigre.</p>
+    <div class="cel"><img src="capturas/inicio-hd.jpg" alt="La app en el celular"></div>
   </section>
 </div>
 <p class="guia">Cara de adentro · se imprime al dorso</p>
 <div class="cara">
-  <section class="panel int a">
-    <div class="cab"><p class="ceja">Si sos vecino</p><h3>Ahorrás en cada compra</h3><p>El descuento de tu tarjeta se aplica solo.</p></div>
-    <ul><li><i>1</i>Pedís a un local y te lo lleva su cadete.</li><li><i>2</i>Turnos médicos y pagos desde el celu.</li><li><i>3</i>Sumás puntos y los canjeás.</li></ul>
-    <div class="demo"><p class="t">Así se ve un pedido</p>
-      <p class="fila"><span>Sorrentinos</span><b>$13.900</b></p>
-      <p class="fila v"><span>Beneficio Soy Tigre</span><b>−$4.170</b></p>
-      <p class="fila"><span>Envío del local</span><b>$1.500</b></p>
-      <p class="fila tot"><span>Total</span><b>$11.230</b></p>
-      <p class="sello">Ahorraste $4.170</p></div>
+  <section class="panel int">
+    <p class="ceja">Todo Tigre en una app</p>
+    <h2>Lo de todos los días, a un toque.</h2>
+    <div class="serv">
+      <div class="s r"><i><i data-lucide="shopping-bag"></i></i><b>Comprar</b><span>0% de comisión para el comercio</span></div>
+      <div class="s "><i><i data-lucide="bike"></i></i><b>Envío del local</b><span>Con el cadete del propio comercio</span></div>
+      <div class="s "><i><i data-lucide="gift"></i></i><b>Beneficios</b><span>Más de 500 comercios con descuento</span></div>
+      <div class="s "><i><i data-lucide="star"></i></i><b>Puntos Tigre</b><span>Cachorro, Tigre y Tigre de Oro</span></div>
+      <div class="s "><i><i data-lucide="megaphone"></i></i><b>Reclamos</b><span>Con foto, mapa y seguimiento</span></div>
+      <div class="s "><i><i data-lucide="credit-card"></i></i><b>Pagos</b><span>Tasas, multas y estacionamiento</span></div>
+      <div class="s "><i><i data-lucide="stethoscope"></i></i><b>Salud</b><span>Turnos médicos y guardias</span></div>
+      <div class="s "><i><i data-lucide="medal"></i></i><b>Deporte</b><span>18 polideportivos y colonia</span></div>
+      <div class="s "><i><i data-lucide="tent"></i></i><b>Eventos</b><span>Ferias, música y talleres</span></div>
+      <div class="s "><i><i data-lucide="briefcase"></i></i><b>Empleo</b><span>Búsquedas y cursos gratuitos</span></div>
+    </div>
   </section>
-  <section class="panel int b">
-    <div class="cab"><p class="ceja">Si tenés un comercio</p><h3>$300.000 más por mes</h3><p>Lo que hoy se te va en comisiones.</p></div>
-    <ul><li><i>1</i>Tus clientes siguen siendo tuyos.</li><li><i>2</i>Un panel simple para vender y cobrar.</li><li><i>3</i>Cobrás el envío completo.</li></ul>
-    <div class="demo"><p class="t">Así entra una venta</p>
-      <p class="fila"><span>2 × Ñoquis de papa</span><b>$14.700</b></p>
-      <p class="fila"><span>En una app de delivery</span><b>−$3.675</b></p>
-      <p class="fila v"><span>Con SoyTigreYa</span><b>$0</b></p>
-      <p class="fila tot"><span>Cobrás</span><b>$14.700</b></p>
-      <p class="sello">Sin comisión por venta</p></div>
+  <section class="panel medio">
+    <div class="franjas"></div>
+    <p class="ceja">No es una idea: ya funciona</p>
+    <h2>Pedís, ahorrás y te lo traen.</h2>
+    <div class="cel"><img src="capturas/checkout-hd.jpg" alt="Un pedido en la app"></div>
   </section>
-  <section class="panel int c">
-    <div class="cab"><p class="ceja">Si sos el Municipio</p><h3>$360 millones por año</h3><p>Quedan en Tigre, con 100 locales adheridos.</p></div>
-    <ul><li><i>1</i>Sabés qué se compra y dónde.</li><li><i>2</i>Reclamos ordenados por urgencia.</li></ul>
-    <div class="demo"><p class="t">Se prueba en 3 meses</p>
-      <div class="meta"><div><span>Comercios vendiendo</span><b>40</b></div><u style="--w:40%"></u></div>
-      <div class="meta"><div><span>Vecinos que compraron</span><b>2.000</b></div><u style="--w:62%"></u></div>
-      <div class="meta"><div><span>Pedidos sin problemas</span><b>95%</b></div><u style="--w:95%"></u></div></div>
+  <section class="panel int der">
+    <p class="ceja">Pensada para Tigre</p>
+    <h2>Lo que ninguna otra app tiene.</h2>
+    <div class="tigre">
+      <div class="t"><i><i data-lucide="waves"></i></i><div><b>Altura del río</b><span>Pronóstico a 24 horas y aviso al celular si hay crecida.</span></div></div>
+      <div class="t"><i><i data-lucide="siren"></i></i><div><b>Botón de alerta</b><span>En todas las pantallas: envía tu ubicación.</span></div></div>
+      <div class="t"><i><i data-lucide="map-pin"></i></i><div><b>Envío por ubicación</b><span>El pedido llega a donde estás, sin escribir la dirección.</span></div></div>
+      <div class="t"><i><i data-lucide="message-circle"></i></i><div><b>Tigri, tu asistente</b><span>Le escribís "quiero pizza" o "hay un bache" y te lleva.</span></div></div>
+      <div class="t"><i><i data-lucide="layout-dashboard"></i></i><div><b>Paneles estilo CRM</b><span>Para el comercio y para el Municipio, con datos al día.</span></div></div>
+    </div>
     <div class="inv"><div><small>La inversión</small><b>$109 <em>millones</em></b></div><div><small>Se recupera en</small><b class="v">2 años</b></div></div>
   </section>
 </div>
+<script>lucide.createIcons();</script>
 </body>
 </html>
