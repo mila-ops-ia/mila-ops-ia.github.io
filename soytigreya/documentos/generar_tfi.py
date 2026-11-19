@@ -95,7 +95,7 @@ def enlace(par, url, texto=None, tam=None):
     u = OxmlElement('w:u'); u.set(qn('w:val'), 'single'); rpr.append(u)
     if tam:
         z = OxmlElement('w:sz'); z.set(qn('w:val'), str(int(tam * 2))); rpr.append(z)
-    r.append(rpr); t = OxmlElement('w:t'); t.text = texto or url.replace('https://', ''); r.append(t); h.append(r); par._p.append(h)
+    r.append(rpr); t = OxmlElement('w:t'); t.text = texto or url; r.append(t); h.append(r); par._p.append(h)
 
 def numero_pagina(par):
     r = par.add_run()
@@ -177,7 +177,7 @@ viñetas([
     ('Panel del comercio, con formato de CRM: ', 'indicadores del día, pedidos en tablero o en lista, clientes (quién compra, cuánto y quiénes repiten), reclamos, productos y Mi local, con fotos, horarios y envío propio.'),
     ('Paneles del municipio, con el mismo formato: ', 'Atención al Vecino trabaja los reclamos como casos, por estado y urgencia, y cierra con foto; Desarrollo Económico sigue a los comercios como cuentas por etapa de adhesión y ve la proyección financiera.'),
 ])
-p('Todo esto está implementado en un prototipo funcional navegable, con datos de demostración, publicado en mila-ops-ia.github.io/soytigreya. El inventario completo de funciones está en los Anexos.')
+p('Todo esto está implementado en un prototipo funcional navegable, con datos de demostración (el enlace está en la portada). El inventario completo de funciones está en los Anexos.')
 doc.add_heading('Qué valor aporta', 2)
 p('El diferencial no es competir con las grandes plataformas en volumen o publicidad, sino en precio final y en cercanía: como el comercio no paga una comisión de entre el 20% y el 35% y reparte con su propio cadete, cobrando el envío completo, el mismo plato puede costar menos en SoyTigreYa, y el vecino suma además el descuento de su tarjeta.')
 
