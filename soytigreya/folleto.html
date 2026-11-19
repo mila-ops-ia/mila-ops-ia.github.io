@@ -194,6 +194,9 @@ p { margin: 0; }
 .inversion { padding: 4mm 5.5mm; } .inversion b { font-size: 18pt; }
 .cierre { padding: 3.6mm 5.5mm; } .duo img, .duo i { width: 16mm; height: 16mm; } .cierre .t b { font-size: 14.5pt; }
 .ceja { margin-bottom: 1.8mm; }
+/* viñetas: punto del color de cada tarjeta, en vez de la tilde verde */
+.gn li::before { content: ''; width: 1.7mm; height: 1.7mm; border-radius: 50%; background: var(--rojo); margin-top: 1.5mm; }
+.gn.c2 li::before { background: #B5541C; } .gn.c3 li::before { background: #3A3F4D; }
 </style>
 </head>
 <body>
