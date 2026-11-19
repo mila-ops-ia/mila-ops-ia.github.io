@@ -97,7 +97,7 @@ def numero_pagina(par):
 sec.different_first_page_header_footer = True
 pie = sec.footer.paragraphs[0]; pie.alignment = WD_ALIGN_PARAGRAPH.CENTER; numero_pagina(pie)
 cab = sec.header.paragraphs[0]; cab.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-rc = cab.add_run('SoyTigreYa · Trabajo Final Integrador'); rc.font.size = Pt(9); rc.font.color.rgb = RGBColor(0x64, 0x70, 0x7D)
+rc = cab.add_run('SoyTigreYa · Anexos' if MODO == 'anexos' else 'SoyTigreYa · Trabajo Final Integrador'); rc.font.size = Pt(9); rc.font.color.rgb = RGBColor(0x64, 0x70, 0x7D)
 
 def centrado(txt, tam, negrita=False, color=None, antes=0, despues=6):
     par = doc.add_paragraph(); par.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -115,7 +115,8 @@ centrado('El upgrade de la app Soy Tigre: beneficios, comercio de cercanía y se
 centrado('Propuesta de innovación digital para el Municipio de Tigre', 12, despues=46)
 _q = doc.add_paragraph(); _q.alignment = WD_ALIGN_PARAGRAPH.CENTER; _q.paragraph_format.space_after = Pt(2)
 _q.add_run().add_picture(CAPT.rsplit('/', 1)[0] + '/img/qr-soytigreya.png', width=Cm(3.4))
-centrado('Prototipo funcional: mila-ops-ia.github.io/soytigreya', 10, color=AZUL, despues=70)
+centrado('Prototipo funcional: mila-ops-ia.github.io/soytigreya', 10, color=AZUL, despues=2)
+centrado('Todo el material: mila-ops-ia.github.io/soytigreya/enlaces.html', 10, color=AZUL, despues=58)
 for etiqueta, valor in (('Alumna: ', 'Milagros Sanabria'), ('Docente: ', 'Mg. Mauro Matías Alberti'), ('Modalidad: ', 'Individual'), ('Fecha: ', 'Noviembre de 2026')):
     par = doc.add_paragraph(); par.alignment = WD_ALIGN_PARAGRAPH.CENTER; par.paragraph_format.space_after = Pt(2)
     r = par.add_run(etiqueta); r.bold = True
@@ -176,9 +177,8 @@ tabla([
     ['Comercios y gastronómicos locales', 'Vender más sin perder margen, herramientas simples', 'Canal sin comisión, visibilidad, panel fácil, validación automática del descuento'],
     ['Municipio', 'Dinamizar la economía local y medir el impacto de sus programas', 'Datos por localidad, trazabilidad de reclamos, recaudación digital, cercanía'],
 ], [4.2, 5.4, 6.4])
-p('Los cuatro perfiles (proto-personas). ', negrita_inicio=None).runs[0].bold = True
 viñetas([
-    ('Lucía, la vecina: ', '41 años, docente de Tigre Centro con dos hijos. No sabe en qué comercios aplica su tarjeta, paga las tasas cuando se acuerda y nunca supo si resolvieron su reclamo de alumbrado: "quiero resolver todo desde el celu, sin dar vueltas".'),
+    ('Proto-persona principal, Lucía, la vecina: ', '41 años, docente de Tigre Centro con dos hijos. No sabe en qué comercios aplica su tarjeta, paga las tasas cuando se acuerda y nunca supo si resolvieron su reclamo de alumbrado: "quiero resolver todo desde el celu, sin dar vueltas".'),
     ('Rosa, la comerciante: ', 'dueña de una casa de pastas en Tigre Centro, con cadete propio. Las apps de delivery se llevan hasta el 35% de cada pedido y no tiene tiempo para sistemas complicados: "quiero vender por el celular sin regalar mi ganancia".'),
     ('Carlos, de Atención al Vecino: ', 'recibe reclamos por varios canales y no puede ordenarlos por urgencia ni avisarle al vecino cómo sigue el suyo: "necesito ver todos los casos en un solo lugar".'),
     ('Marina, de Desarrollo Económico: ', 'administra la tarjeta Soy Tigre sin saber cuánto se usa ni en qué localidad: "necesito datos para decidir dónde poner el esfuerzo".'),
@@ -237,7 +237,7 @@ viñetas([
     ('Para los comercios y el municipio: ', 'más ventas sin comisión y un canal digital propio; datos de consumo por localidad, mejor gestión de reclamos y más recaudación digital.'),
     ('Impacto en la comunidad: ', 'un comercio con 60 pedidos de $20.000 por mes deja de pagar $300.000 mensuales de comisión (60 × $20.000 × 25%). Con 100 comercios son $360 millones por año que quedan en Tigre ($300.000 × 100 × 12); parte vuelve al barrio en sueldos y proveedores (unos $173 millones) y al Municipio por tasa (hasta $11,5 millones).'),
 ])
-p('Lo que vuelve a la caja del Municipio (Plan Destacado, publicidad local, un banco que cofinancia descuentos y el ahorro de trámites presenciales) es de $40,6, $124,4 y $152,6 millones en los años 1 a 3: la inversión se recupera en 2 años. Por cada $1 invertido en tres años quedan $4,4 en los comercios de Tigre. A 5 años se proyectaron tres escenarios: conservador (175 comercios), recupera en 3 años y 3 meses; esperado (250), en 2 años; optimista (500), en 1 año y 8 meses. Como referencia, Santa Fe presupuestó $316 millones (2025) por su app municipal.', negrita_inicio='Viabilidad económica. ')
+p('Lo que vuelve a la caja del Municipio (Plan Destacado, publicidad local, un banco que cofinancia descuentos y el ahorro de trámites presenciales) es de $40,6, $124,4 y $152,6 millones en los años 1 a 3: la inversión se recupera en 2 años. Por cada $1 invertido en tres años quedan $4,4 en los comercios de Tigre. A 5 años se proyectaron tres escenarios: conservador (175 comercios), recupera en 3 años y 3 meses; esperado (250), en 2 años; optimista (500), en 1 año y 8 meses.', negrita_inicio='Viabilidad económica. ')
 p('vecinos activos y retención a 90 días, pedidos y comercios activos, comisiones evitadas, tiempo de resolución de reclamos y NPS.', negrita_inicio='Indicadores de éxito: ')
 p('', negrita_inicio='Objetivos del primer año, medibles en los paneles de la app:').paragraph_format.keep_with_next = True
 tabla([
@@ -255,7 +255,7 @@ p('Por eso creo que SoyTigreYa es viable en Tigre y en Argentina. No parte de ce
 p('La Diplomatura me dio el orden para llegar hasta acá: mirar primero a las personas y después a la tecnología, convertir una idea en algo que se puede probar y ponerle números que se puedan explicar. Me llevo, sobre todo, la convicción de que lo digital puede ser una herramienta de equidad: cuando la infraestructura es pública, el comercio chico compite con las mismas herramientas que el grande.')
 p('Por ahora no tengo la oportunidad de llevar este proyecto adelante, pero estoy contenta con lo que pude crear: una app que logré materializar, aunque sea en un ambiente de prueba. No soy desarrolladora; para construirla me apoyé mucho en Claude Code. Aprendí que hoy se puede pasar de una idea a un prototipo sin saber programar, y que lo que no se puede delegar es entender el problema.')
 if MODO == 'tfi':
-    _n = doc.add_paragraph(); _r = _n.add_run('Anexos, en documento aparte: herramientas, fórmulas, escenarios, inventario de funciones y fuentes.'); _r.italic = True; _r.font.size = Pt(9.5)
+    p('por iniciativa propia sumé el prototipo funcional, la presentación, un folleto, un pitch, instructivos de uso y anexos. Todo está en mila-ops-ia.github.io/soytigreya/enlaces.html.', negrita_inicio='Material adicional: ')
     _pg = OxmlElement('w:pgNumType'); _pg.set(qn('w:start'), '0'); sec._sectPr.append(_pg)
     doc.save(SALIDA)
     print('ok')
@@ -264,6 +264,7 @@ if MODO == 'tfi':
 # ---------- anexo ----------
 doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
 doc.add_heading('Anexo A: herramientas aplicadas', 1)
+p('En las tablas de estos anexos, "M" significa millones de pesos.').runs[0].italic = True
 doc.add_heading('Mapa de empatía de Lucía (proto-persona)', 2)
 tabla([
     ['Piensa y siente', 'Ve'],
@@ -288,8 +289,8 @@ tabla([
     ['Propuesta de valor única', 'Que el ahorro y la venta se queden en Tigre: el vecino paga menos y el comercio vende sin comisión.'],
     ['Solución', 'App con descuento automático, compra con retiro o envío del comercio, trámites, pagos, puntos y paneles de gestión.'],
     ['Canales', 'App municipal, comercios adheridos, cámaras de comercio y canales del municipio.'],
-    ['Fuentes de ingreso', 'Gratis para el vecino y 0% de comisión. En el año 2: Plan Destacado ($30 M), publicidad local ($14,4 M), banco que cofinancia descuentos ($50 M) y ahorro en atención ($30 M): $124,4 M. Paral equipo de soporte: licencia por municipio.'],
-    ['Estructura de costos', 'Año 1: $109 M (piloto, escalamiento y seis meses de licencia). Desde el año 2: $55,2 M por año (licencia $4,5 M por mes e infraestructura $1,2 M). Pasarela 0,6% a 0,8%.'],
+    ['Fuentes de ingreso', 'Gratis para el vecino y 0% de comisión. En el año 2: Plan Destacado ($30 M), publicidad local ($14,4 M), banco que cofinancia descuentos ($50 M) y ahorro en atención ($30 M): $124,4 M. Para el equipo de soporte: suscripción por municipio.'],
+    ['Estructura de costos', 'Año 1: $109 M (piloto, escalamiento y seis meses de suscripción de soporte). Desde el año 2: $55,2 M por año (suscripción de soporte $4,5 M por mes e infraestructura $1,2 M). Pasarela 0,6% a 0,8%.'],
     ['Métricas clave', 'Vecinos activos, retención, NPS, comercios activos, comercios con Plan Destacado y comisiones evitadas.'],
     ['Ventaja injusta', 'Más de 500 comercios y la tarjeta Soy Tigre ya instalada, con el aval del municipio.'],
 ], [4.0, 12.0])
@@ -305,7 +306,7 @@ tabla([
     ['Resultado del año', '−$68,4 M', '+$69,2 M', '+$97,4 M'],
     ['Acumulado', '−$68,4 M', '+$0,8 M', '+$98,2 M'],
 ], [7.0, 3.0, 3.0, 3.0])
-p('Recupero de la inversión: 2 años. Sin las palancas (licencia de $6,9 M por mes desde el año 2 y aporte bancario de $30 M), 3 años y 4 meses. El año 1 incluye solo seis meses de ingresos, porque la plataforma está en piloto. Supuestos a validar en el piloto; el panel de Desarrollo Económico permite simular las palancas.')
+p('Recupero de la inversión: 2 años. Sin las palancas (suscripción de $6,9 millones por mes desde el año 2 y aporte bancario de $30 millones), 3 años y 4 meses. El año 1 incluye solo seis meses de ingresos, porque la plataforma está en piloto. Supuestos a validar en el piloto; el panel de Desarrollo Económico permite simular las palancas.')
 doc.add_heading('Proyección a 5 años en tres escenarios', 2)
 tabla([
     ['', 'Conservador', 'Esperado', 'Optimista'],
@@ -320,7 +321,7 @@ tabla([
     ['Vuelve al barrio en 5 años (48%)', '$657,7 M', '$1.242,0 M', '$2.198,9 M'],
     ['Tasa municipal sobre esas ventas, tope (0,80%)', '$43,8 M', '$82,8 M', '$146,6 M'],
 ], [7.0, 3.0, 3.0, 3.0])
-p('Los tres escenarios usan las mismas fórmulas y el mismo costo; cambia la adopción. Resultado acumulado, año por año: conservador −$82,2 M, −$57,5 M, −$12,8 M, +$48,4 M y +$129,7 M; esperado −$68,4 M, +$0,8 M, +$98,2 M, +$219,6 M y +$372,2 M; optimista −$65,4 M, +$29,0 M, +$169,6 M, +$350,7 M y +$585,5 M. El escenario esperado coincide con la proyección a tres años y crece 50 comercios por año; el conservador supone 30% menos comercios, menos pedidos y un aporte bancario menor; el optimista llega a los 500 comercios ya adheridos a Soy Tigre. Comercios con Plan Destacado al año 5: 120, 180 y 330; trámites por la app: 35.000, 50.000 y 70.000. Son supuestos propios, a validar en el piloto.')
+p('Los tres escenarios usan las mismas fórmulas y el mismo costo; cambia la adopción. Resultado acumulado, año por año: conservador −$82,2 millones, −$57,5 millones, −$12,8 millones, +$48,4 millones y +$129,7 millones; esperado −$68,4 millones, +$0,8 millones, +$98,2 millones, +$219,6 millones y +$372,2 millones; optimista −$65,4 millones, +$29,0 millones, +$169,6 millones, +$350,7 millones y +$585,5 millones. El escenario esperado coincide con la proyección a tres años y crece 50 comercios por año; el conservador supone 30% menos comercios, menos pedidos y un aporte bancario menor; el optimista llega a los 500 comercios ya adheridos a Soy Tigre. Comercios con Plan Destacado al año 5: 120, 180 y 330; trámites por la app: 35.000, 50.000 y 70.000. Son supuestos propios, a validar en el piloto.')
 def fig_anexo(letra, archivo, txt):
     par = doc.add_paragraph(); par.alignment = WD_ALIGN_PARAGRAPH.CENTER
     par.paragraph_format.keep_with_next = True
@@ -339,7 +340,7 @@ tabla([
     ['Partners estratégicos', 'Año 2', 'Al cadete del comercio, que funciona desde el piloto, se suman servicios de reparto que cobran por viaje y no por comisión.', 'Convenio con una cooperativa o un servicio de envíos, y demanda medida en la app.'],
     ['Otros municipios', 'Año 3 en adelante', 'La misma plataforma con la marca, las localidades y los comercios de cada municipio.', 'Resultados auditables en Tigre y un municipio con tarjeta de beneficios propia.'],
 ], [2.6, 2.6, 6.0, 4.8])
-p('Suscripción de soporte (customer success). El equipo de soporte no entrega la plataforma y se retira: la acompaña con un servicio mensual que incluye soporte técnico, capacitación presencial a los comercios, mesa de ayuda, mantenimiento y mejoras. Funciona como una suscripción: $6,9 M por mes (USD 4.370) entre los meses 7 y 12, cuando la plataforma se está estabilizando, y $4,5 M por mes (USD 2.850) desde el año 2, con un equipo más chico. No es un costo adicional: el primer semestre de suscripción ($41,4 M) ya está dentro de los $109 M del año 1, y los $54 M anuales siguientes son casi todo el costo de $55,2 M por año, junto con $1,2 M de infraestructura. El Municipio puede darla de baja al cierre de cada etapa.')
+p('Suscripción de soporte (customer success). El equipo de soporte no entrega la plataforma y se retira: la acompaña con un servicio mensual que incluye soporte técnico, capacitación presencial a los comercios, mesa de ayuda, mantenimiento y mejoras. Funciona como una suscripción: $6,9 millones por mes (USD 4.370) entre los meses 7 y 12, cuando la plataforma se está estabilizando, y $4,5 millones por mes (USD 2.850) desde el año 2, con un equipo más chico. No es un costo adicional: el primer semestre de suscripción ($41,4 millones) ya está dentro de los $109 millones del año 1, y los $54 millones anuales siguientes son casi todo el costo de $55,2 millones por año, junto con $1,2 millones de infraestructura. El Municipio puede darla de baja al cierre de cada etapa.')
 p('Partners estratégicos de reparto. El envío con el cadete del comercio está disponible desde el piloto y no exige logística nueva, pero no todos los locales tienen cadete. Más adelante, la etapa siguiente es integrar terceros que cobren por viaje y no un porcentaje de la venta: cooperativas de cadetes, como la que en Rosario trabaja con más de 100 comercios, o los servicios de envíos por viaje de las plataformas. El comercio conserva el 0% de comisión sobre la venta y elige el reparto que le conviene. Es una hipótesis a validar: depende de las condiciones comerciales de cada servicio.')
 p('Otros municipios. La plataforma se configura por municipio (marca, localidades, rubros y trámites), por lo que el segundo municipio no paga el desarrollo de base: paga la adaptación, la integración con sus sistemas y la licencia. Los candidatos naturales son municipios que ya tienen una tarjeta de beneficios y comercios adheridos. La propuesta se lleva con los resultados medidos en Tigre: comercios activos, plata que quedó en los comercios y recupero.')
 p('Tarjeta física. Soy Tigre hoy envía la tarjeta física al domicilio del vecino, y eso se mantiene. La credencial digital con QR se suma, no la reemplaza: el vecino usa la que prefiera. Recibir la tarjeta en casa es parte del vínculo con el programa y asegura que nadie quede afuera por no tener celular, en línea con la mitigación de la brecha digital.')
@@ -379,8 +380,8 @@ tabla([
     ['Plata que queda en los comercios', '$67,5 M', '50 comercios × 30 pedidos por mes × $20.000 × 25% × 9 meses', 'Ventas registradas en la app'],
     ['Vuelve a la caja del Municipio', '$40,6 M', 'Plan $4,5 M + publicidad $3,6 M + banco $25 M + ahorro $7,5 M', 'Cobros y convenio con el banco'],
 ], [4.0, 2.0, 6.5, 3.5])
-p('El número base. Un comercio que vende 60 pedidos por mes de $20.000 factura $1.200.000 por la app; el 25% que cobraría una plataforma de delivery son $300.000 por mes, o $3,6 M por año. Con 100 comercios son $360 M por año. La inversión del año 1 ($109 M) equivale a lo que esos 100 comercios pagan hoy en comisiones en menos de cuatro meses ($30 M por mes). Es una comparación de escala; el recupero del Municipio se calcula aparte, con sus propios ingresos.')
-p('Fórmulas del modelo. Plata que queda en los comercios = comercios × pedidos por mes × ticket × 25% × meses; en el año 2: 100 × 60 × $20.000 × 25% × 12 = $360 M (sobre $1.440 M de ventas). Vuelve al barrio = lo anterior × 48%. Vuelve al Municipio = ventas × 0,80%. Recupero = momento en que el resultado acumulado deja de ser negativo: −$68,4 M (año 1) + $69,2 M (año 2) = +$0,8 M, es decir, al cierre del año 2. Todas las metas se leen en los paneles de la app, por lo que se pueden auditar mes a mes.')
+p('El número base. Un comercio que vende 60 pedidos por mes de $20.000 factura $1.200.000 por la app; el 25% que cobraría una plataforma de delivery son $300.000 por mes, o $3,6 millones por año. Con 100 comercios son $360 millones por año. La inversión del año 1 ($109 millones) equivale a lo que esos 100 comercios pagan hoy en comisiones en menos de cuatro meses ($30 millones por mes). Es una comparación de escala; el recupero del Municipio se calcula aparte, con sus propios ingresos.')
+p('Fórmulas del modelo. Plata que queda en los comercios = comercios × pedidos por mes × ticket × 25% × meses; en el año 2: 100 × 60 × $20.000 × 25% × 12 = $360 millones (sobre $1.440 millones de ventas). Vuelve al barrio = lo anterior × 48%. Vuelve al Municipio = ventas × 0,80%. Recupero = momento en que el resultado acumulado deja de ser negativo: −$68,4 millones (año 1) + $69,2 millones (año 2) = +$0,8 millones, es decir, al cierre del año 2. Todas las metas se leen en los paneles de la app, por lo que se pueden auditar mes a mes.')
 doc.add_heading('Ventaja competitiva: el envío a cargo del comercio', 2)
 tabla([
     ['', 'Apps de delivery', 'SoyTigreYa'],
@@ -404,7 +405,7 @@ tabla([
     ['Costo y abuso de los Puntos Tigre', 'Media', 'Media: topes y vencimiento limitan el costo', 'Medio'],
     ['Problemas con una compra', 'Media', 'Baja: respuesta en 24 horas y reintegro automático', 'Bajo'],
     ['Brecha digital', 'Media', 'Baja: modo accesible, versión web y WhatsApp', 'Bajo'],
-], [5.0, 2.3, 6.7, 2.0])
+], [4.4, 2.9, 6.7, 2.0])
 p('Peligrosidad es la probabilidad de que el riesgo ocurra; vulnerabilidad, cuánto afectaría al proyecto con las mitigaciones ya previstas en la sección 6. El nivel combina las dos. Es una valoración cualitativa de la autora, a revisar con los datos del piloto. Los dos riesgos altos son los que se validan primero: la meta de 40 comercios en tres meses y el acuerdo con un banco o billetera.')
 doc.add_heading('Comparación con otras contrataciones', 2)
 tabla([
@@ -419,7 +420,7 @@ p('Billetera Santa Fe, por su parte, financia hoy los reintegros mitad el comerc
 doc.add_heading('Product Vision Board', 2)
 tabla([
     ['Visión', 'Grupo objetivo', 'Necesidades', 'Producto', 'Objetivos'],
-    ['Que el ahorro y la venta se queden en Tigre.', 'Vecinos, comercios y áreas del municipio.', 'Comprar y resolver sin intermediarios; vender sin comisión; medir.', 'Super-app con cuatro perfiles conectados.', 'Consumo local, formalización y cobro en término.'],
+    ['Que el ahorro y la venta se queden en Tigre.', 'Vecinos, comercios y áreas del municipio.', 'Comprar y resolver sin intermediarios; vender sin comisión; medir.', 'Upgrade de Soy Tigre con cuatro perfiles conectados.', 'Consumo local, formalización y cobro en término.'],
 ], [3.2, 3.2, 3.4, 3.2, 3.0])
 doc.add_heading('Objetivos SMART del piloto y embudo AARRR', 2)
 viñetas([
@@ -451,7 +452,7 @@ tabla([
     ['Deporte', 'Inscripción a escuelas deportivas de los polideportivos y a la colonia de verano.', 'Lucía'],
     ['Empleo y cursos', 'Búsquedas laborales del distrito con CV guardado, seguimiento de postulaciones y cursos gratuitos.', 'Lucía'],
     ['Altura del río', 'Nivel del río Luján, pronóstico a 24 horas, niveles de atención (1,90 m) y alerta (2,30 m) y aviso al celular si hay crecida.', 'Lucía'],
-    ['Botón de alerta', 'Visible en todas las pantallas: envía la ubicación al Centro de Operaciones y muestra los teléfonos de emergencia.', 'Lucía'],
+    ['Botón de alerta', 'Visible en todas las pantallas: envía la ubicación al Centro de Operaciones.', 'Lucía'],
     ['Colectivos y farmacias', 'Cuánto falta para el colectivo y farmacias de turno en el mapa.', 'Lucía'],
     ['Eventos', 'Ferias, música, talleres y corridas del distrito.', 'Lucía'],
     ['Reciclaje', 'Puntos verdes en el mapa; al escanear su QR se suman puntos.', 'Lucía'],

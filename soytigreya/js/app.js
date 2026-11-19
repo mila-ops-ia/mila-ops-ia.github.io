@@ -1573,10 +1573,10 @@ function finanzasHtml() {
         <p class="fin-tit">3 · Lo que gana la comunidad (no es caja del Municipio)</p>
         <p class="fin-grande">Por cada $1 que invierte el Municipio en 3 años, quedan <b>$${P.porPeso.toFixed(1).replace('.', ',')}</b> en los comercios de Tigre.</p>
         <p class="fin-tit" style="margin-top:14px">Simulá las palancas</p>
-        <label class="sim">Licencia desde el año 2 <b>${millones(s.lic)} por mes</b><input type="range" min="3000000" max="7000000" step="100000" value="${s.lic}" data-f="simLic"></label>
+        <label class="sim">Suscripción de soporte desde el año 2 <b>${millones(s.lic)} por mes</b><input type="range" min="3000000" max="7000000" step="100000" value="${s.lic}" data-f="simLic"></label>
         <label class="sim">Aporte del banco o billetera <b>${millones(s.banco)} por año</b><input type="range" min="0" max="80000000" step="5000000" value="${s.banco}" data-f="simBanco"></label>
         <label class="sim">Comercios con Plan Destacado en el año 2 <b>${s.plan}</b><input type="range" min="25" max="200" step="5" value="${s.plan}" data-f="simPlan"></label>
-        <p class="muted chico">Sin palancas (licencia de $6,9 M y $30 M del banco) recupera en ${recuperoTxt(base.recupero)}. <button class="link" data-a="simReset">Volver al escenario propuesto</button></p>
+        <p class="muted chico">Sin palancas (soporte de $6,9 millones y $30 millones del banco) recupera en ${recuperoTxt(base.recupero)}. <button class="link" data-a="simReset">Volver al escenario propuesto</button></p>
       </div>
     </div>
     <div class="comp"><p class="fin-tit">La plata que se queda trabaja tres veces</p>
