@@ -209,13 +209,21 @@ viñetas([
 doc.add_heading('Recursos necesarios', 2)
 viñetas([
     ('Equipo: ', 'líder de producto, diseñador UX/UI, dos desarrolladores y un referente de la Secretaría de Desarrollo Económico.'),
-    ('Soporte por suscripción: ', 'el equipo de soporte acompaña todas las etapas con capacitación a comercios, mesa de ayuda y mejoras; la app no se entrega y se abandona.'),
+    ('Soporte por suscripción: ', 'el equipo de soporte acompaña todas las etapas con capacitación, mesa de ayuda y mejoras.'),
     ('Tecnología: ', 'aplicación web progresiva, base de datos en la nube, pasarela de pagos, validación de identidad (Mi Argentina o RENAPER) y servicios de mapas.'),
     ('Comunicación: ', 'las redes que el Municipio ya tiene activas, con Tigri como cara y los comercios como difusores.'),
 ])
-p('como upgrade de Soy Tigre, reutiliza la credencial, los beneficios y la base de comercios. En el año 1, $109 millones (USD 69.000 al tipo de cambio oficial de $1.580): piloto $37 millones, escalamiento $30 millones, seis meses de suscripción de soporte a $6,9 millones por mes e infraestructura. Desde el año 2, $55 millones por año: la suscripción baja a $4,5 millones por mes. Los precios surgen del costo del equipo más un 30% de margen; la pasarela de pago cobra de 0,6% a 0,8% por operación con QR.', negrita_inicio='Inversión del Municipio: ')
 doc.add_heading('Posibles aliados', 2)
 p('Secretaría de Desarrollo Económico del Municipio, cámaras de comercio locales, Mercado Pago y Banco Provincia (Cuenta DNI) como medios de pago, partners de reparto que cobren por viaje, la Universidad Nacional del Delta para investigación y prácticas, y el área de Modernización para la integración con los sistemas existentes.')
+p('', negrita_inicio='Inversión del Municipio, concepto por concepto:').paragraph_format.keep_with_next = True
+tabla([
+    ['Concepto', 'Monto', 'Cómo se calcula'],
+    ['Piloto (meses 1 a 3)', '$37 millones', 'Lo nuevo de la app y 40 comercios en marcha.'],
+    ['Escalamiento (meses 4 a 6)', '$30 millones', 'Todas las localidades, tasas y reclamos.'],
+    ['Soporte (meses 7 a 12)', '$42 millones', '6 × $6,9 millones + $0,6 de infraestructura.'],
+    ['Total del año 1', '$109 millones', '$37 + $30 + $42. USD 69.000 (dólar a $1.580).'],
+    ['Desde el año 2, por año', '$55 millones', '12 × $4,5 millones + $1,2 de infraestructura.'],
+], [5.2, 2.7, 8.1])
 doc.add_heading('Principales desafíos o riesgos', 2)
 tabla([
     ['Riesgo', 'Nivel', 'Mitigación'],
@@ -228,7 +236,7 @@ tabla([
     ['Problemas con una compra', 'Bajo', 'El comercio responde en 24 horas; si no responde, el pago se devuelve automáticamente al vecino.'],
     ['Abuso de los Puntos Tigre', 'Bajo', 'Canjes con tope, vencimiento a 12 meses y puntos solo por compras con QR.'],
 ], [4.6, 1.6, 9.8])
-p('Nivel = peligrosidad × vulnerabilidad (matriz en los Anexos). Los dos riesgos altos se prueban primero, en el piloto.')
+p('Los dos riesgos altos se prueban primero, en el piloto (matriz completa en los Anexos).')
 
 # ---------- 7 ----------
 doc.add_heading('7. Resultados esperados', 1)
@@ -237,9 +245,8 @@ viñetas([
     ('Para los comercios y el municipio: ', 'más ventas sin comisión y un canal digital propio; datos de consumo por localidad, mejor gestión de reclamos y más recaudación digital.'),
     ('Impacto en la comunidad: ', 'un comercio con 60 pedidos de $20.000 por mes deja de pagar $300.000 mensuales de comisión (60 × $20.000 × 25%). Con 100 comercios son $360 millones por año que quedan en Tigre ($300.000 × 100 × 12); parte vuelve al barrio en sueldos y proveedores (unos $173 millones) y al Municipio por tasa (hasta $11,5 millones).'),
 ])
-p('Lo que vuelve a la caja del Municipio (Plan Destacado, publicidad local, un banco que cofinancia descuentos y el ahorro de trámites presenciales) es de $40,6, $124,4 y $152,6 millones en los años 1 a 3: la inversión se recupera en 2 años. Por cada $1 invertido en tres años quedan $4,4 en los comercios de Tigre. A 5 años se proyectaron tres escenarios: conservador (175 comercios), recupera en 3 años y 3 meses; esperado (250), en 2 años; optimista (500), en 1 año y 8 meses.', negrita_inicio='Viabilidad económica. ')
-p('vecinos activos y retención a 90 días, pedidos y comercios activos, comisiones evitadas, tiempo de resolución de reclamos y NPS.', negrita_inicio='Indicadores de éxito: ')
-p('', negrita_inicio='Objetivos del primer año, medibles en los paneles de la app:').paragraph_format.keep_with_next = True
+p('Lo que vuelve a la caja del Municipio (Plan Destacado, publicidad local, un banco que cofinancia descuentos y el ahorro de trámites presenciales) es de $40,6, $124,4 y $152,6 millones en los años 1 a 3: la inversión se recupera en 2 años. A 5 años se proyectaron tres escenarios: conservador (175 comercios), recupera en 3 años y 3 meses; esperado (250), en 2 años; optimista (500), en 1 año y 8 meses.', negrita_inicio='Viabilidad económica. ')
+p('vecinos activos y retención a 90 días, pedidos y comercios activos, comisiones evitadas, tiempo de resolución de reclamos y NPS. Objetivos del primer año:', negrita_inicio='Indicadores de éxito: ')
 tabla([
     ['Objetivo', 'Meta', 'Cómo se calcula'],
     ['Comercios con Plan Destacado', '30', 'Planes activos: 30 × $25.000 × 6 meses = $4,5 millones de ingreso.'],
@@ -252,7 +259,7 @@ tabla([
 doc.add_heading('8. Conclusiones', 1)
 p('Empecé este trabajo con una pregunta: ¿por qué un comercio de mi barrio tiene que entregar hasta un tercio de cada venta para llegar al celular de sus vecinos, si el Municipio ya tiene una tarjeta y una app que los conectan? La respuesta que encontré es que no hace falta inventar nada nuevo: hace falta unir lo que ya existe.')
 p('Por eso creo que SoyTigreYa es viable en Tigre y en Argentina. No parte de cero, porque la tarjeta, los comercios adheridos y la app municipal ya están. Y se puede probar con poco riesgo: un piloto de tres meses con 40 comercios, que crece solo si cumple sus metas.')
-p('La Diplomatura me dio el orden para llegar hasta acá: mirar primero a las personas y después a la tecnología, convertir una idea en algo que se puede probar y ponerle números que se puedan explicar. Me llevo, sobre todo, la convicción de que lo digital puede ser una herramienta de equidad: cuando la infraestructura es pública, el comercio chico compite con las mismas herramientas que el grande.')
+p('La Diplomatura me dio el orden para llegar hasta acá: mirar primero a las personas y después a la tecnología, convertir una idea en algo que se puede probar y ponerle números que se puedan explicar. Confirmé que lo digital puede ser una herramienta de equidad: cuando la infraestructura es pública, el comercio chico compite con las mismas herramientas que el grande.')
 p('Por ahora no tengo la oportunidad de llevar este proyecto adelante, pero estoy contenta con lo que pude crear: una app que logré materializar, aunque sea en un ambiente de prueba. No soy desarrolladora; para construirla me apoyé mucho en Claude Code. Aprendí que hoy se puede pasar de una idea a un prototipo sin saber programar, y que lo que no se puede delegar es entender el problema.')
 if MODO == 'tfi':
     p('además del trabajo, la app y la presentación, por iniciativa propia sumé un folleto, un pitch, instructivos de uso y anexos. Todo está en mila-ops-ia.github.io/soytigreya/enlaces.html.', negrita_inicio='Material adicional: ')
