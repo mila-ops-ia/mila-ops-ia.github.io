@@ -176,6 +176,24 @@ p { margin: 0; }
 /* QR más grande */
 .qr { width: 46mm; padding: 3mm; border-radius: 5mm; } .qr b { font-size: 10.5pt; } .qr small { font-size: 7.2pt; }
 .cab .sub { max-width: 108mm; }
+/* lectura en 2 minutos: menos texto, letra más grande */
+.cuerpo { gap: 5mm; padding-top: 6mm; }
+.cab .sub { font-size: 11.5pt; }
+.gh { padding: 4.2mm 5.5mm; } .gh b { font-size: 34pt; } .gh span { font-size: 10.5pt; } .gh small { font-size: 8pt; }
+.gn { padding: 4.6mm 4.8mm 5mm; gap: 1.2mm; } .gn b.n { font-size: 18pt; } .gn p.d { font-size: 9.4pt; margin-bottom: 1.4mm; } .gn ul { font-size: 9.8pt; gap: 1.6mm; } .gn small.q { font-size: 8pt; }
+.todo { gap: 2.2mm; } .todo span { font-size: 9.4pt; padding: 1.8mm 4.2mm; }
+.inversion { padding: 4.8mm 5.5mm; } .inversion b { font-size: 19pt; } .inversion span, .inversion small { font-size: 9.4pt; }
+.cierre { padding: 4.4mm 5.5mm; } .duo img, .duo i { width: 18mm; height: 18mm; } .cierre .t b { font-size: 15.5pt; } .cierre .t span { font-size: 10pt; }
+.ceja { font-size: 8.4pt; margin-bottom: 2.2mm; }
+/* ajuste final de alto */
+.cab { padding: 7mm 12mm 6.5mm; } .qr { width: 42mm; }
+.cuerpo { gap: 3.6mm; padding-top: 4.6mm; }
+.gh { padding: 3.4mm 5.5mm; } .gh b { font-size: 30pt; }
+.gn { padding: 3.8mm 4.6mm 4.2mm; gap: 1mm; } .gn ul { gap: 1.2mm; font-size: 9.6pt; } .gn p.d { margin-bottom: .8mm; }
+.todo { gap: 1.8mm; } .todo span { padding: 1.5mm 4mm; font-size: 9.2pt; }
+.inversion { padding: 4mm 5.5mm; } .inversion b { font-size: 18pt; }
+.cierre { padding: 3.6mm 5.5mm; } .duo img, .duo i { width: 16mm; height: 16mm; } .cierre .t b { font-size: 14.5pt; }
+.ceja { margin-bottom: 1.8mm; }
 </style>
 </head>
 <body>
@@ -185,20 +203,19 @@ p { margin: 0; }
     <div class="fila">
       <div>
         <h1>Que el ahorro y la venta<br>se queden en Tigre.</h1>
-        <p class="sub">La app Soy Tigre que ya conocés, ahora también para comprarle al comercio de tu barrio.</p>
-        <div class="sellos"><span>Gratis para el vecino</span><span class="b">Ya funciona</span><span class="b">Se abre en el celu</span></div>
+        <p class="sub">La app Soy Tigre que ya conocés, ahora también para comprar cerca de tu casa.</p>
       </div>
-      <div class="qr"><img src="img/qr-soytigreya.png" alt="QR para abrir la app"><b>Escaneá y probala</b><small>Sin instalar nada</small></div>
+      <div class="qr"><img src="img/qr-soytigreya.png" alt="QR para abrir la app"><b>Escaneá y probala</b><small>Gratis, sin instalar nada</small></div>
     </div>
   </header>
 
   <div class="cuerpo">
     <div>
-      <p class="ceja">Lo que paga un comercio por vender por internet</p>
+      <p class="ceja">Vender por internet: hoy y con SoyTigreYa</p>
       <div class="gancho">
         <div class="gh hoy"><small>Hoy, con apps de delivery</small><b>25%<em>de comisión</em></b><span>La cuarta parte de cada venta se va de Tigre.</span></div>
         <i>→</i>
-        <div class="gh ya"><small>Con SoyTigreYa</small><b>0%<em>de comisión</em></b><span>La venta entera queda en el barrio.</span></div>
+        <div class="gh ya"><small>Con SoyTigreYa</small><b>0%</b><span>La venta entera queda en el barrio.</span></div>
       </div>
     </div>
 
@@ -206,32 +223,32 @@ p { margin: 0; }
       <p class="ceja">¿Qué ganás vos?</p>
       <div class="gana">
         <div class="gn"><small class="q">Si sos vecino</small><b class="n">Ahorrás en cada compra</b><p class="d">El descuento de tu tarjeta se aplica solo.</p>
-          <ul><li>Pedís al local de tu barrio y te lo lleva su cadete.</li><li>Turnos médicos, reclamos y pagos desde el celu.</li><li>Sumás Puntos Tigre y los canjeás.</li></ul></div>
+          <ul><li>Pedís a un local y te lo lleva su cadete.</li><li>Turnos médicos y pagos desde el celu.</li></ul></div>
         <div class="gn c2"><small class="q">Si tenés un comercio</small><b class="n">$300.000 más por mes</b><p class="d">Lo que hoy se te va en comisiones.</p>
-          <ul><li>Vendés por el celular sin pagar por cada venta.</li><li>Tus clientes y tu cadete siguen siendo tuyos.</li><li>Un panel simple para pedidos y cobros.</li></ul></div>
-        <div class="gn c3"><small class="q">Si sos el Municipio</small><b class="n">$360 millones por año</b><p class="d">Quedan en Tigre con 100 comercios.</p>
-          <ul><li>Sabés cuánto se usa la tarjeta y dónde.</li><li>Reclamos ordenados por urgencia.</li><li>Un canal directo con cada vecino.</li></ul></div>
+          <ul><li>Tus clientes siguen siendo tuyos.</li><li>Un panel simple para vender y cobrar.</li></ul></div>
+        <div class="gn c3"><small class="q">Si sos el Municipio</small><b class="n">$360 millones por año</b><p class="d">Quedan en Tigre, con 100 locales adheridos.</p>
+          <ul><li>Sabés qué se compra y dónde.</li><li>Reclamos ordenados por urgencia.</li></ul></div>
       </div>
     </div>
 
     <div>
       <p class="ceja">Todo en la app que Tigre ya tiene</p>
-      <div class="todo"><span class="r">Comprar sin comisión</span><span>Beneficios</span><span>Envío del local</span><span>Turnos y reclamos</span><span>Salud</span><span>Deporte</span><span>Eventos</span><span>Altura del río</span><span>Botón de alerta</span><span>Puntos Tigre</span><span>Tigri, tu asistente</span></div>
+      <div class="todo"><span class="r">Comprar</span><span>Beneficios</span><span>Envío del local</span><span>Trámites</span><span>Salud</span><span>Deporte</span><span>Eventos</span><span>Altura del río</span><span>Botón de alerta</span><span>Puntos Tigre</span><span>Tigri, tu asistente</span></div>
     </div>
 
     <div class="inversion">
       <div><small>La inversión</small><b>$109<em>millones</em></b><span>USD 69.000, el primer año</span></div>
-      <div><small>Se recupera en</small><b class="verde">2 años</b><span>con ingresos propios del Municipio</span></div>
-      <div><small>No es un invento</small><span><b style="font-size:10.5pt">Ya se hizo en Argentina:</b> MuniShop en Rosario, Billetera Santa Fe y Cuenta DNI. Lo nuevo es unirlo en una sola app.</span></div>
+      <div><small>Se recupera en</small><b class="verde">2 años</b><span>con ingresos propios</span></div>
+      <div><small>No es un invento</small><span><b style="font-size:10.5pt">Ya se hizo en Argentina:</b> MuniShop en Rosario, Billetera Santa Fe y Cuenta DNI.</span></div>
     </div>
 
     <div class="cierre">
       <div class="duo"><img src="img/mila.jpg" alt="Milagros Sanabria"><i><svg class="tg" viewBox="0 0 100 100" aria-hidden="true"><circle cx="23" cy="27" r="14" fill="#E2701A"/><circle cx="77" cy="27" r="14" fill="#E2701A"/><circle cx="23" cy="28" r="7.5" fill="#FFC6B3"/><circle cx="77" cy="28" r="7.5" fill="#FFC6B3"/><ellipse cx="50" cy="57" rx="41" ry="36" fill="#F28C28"/><path d="M50 21 l-5 11 h10z M38 24 l-1 10 l-5 -7z M62 24 l1 10 l5 -7z" fill="#3A2414"/><ellipse cx="50" cy="72" rx="21" ry="15" fill="#FFF4E6"/><ellipse cx="35" cy="54" rx="6.5" ry="7.5" fill="#2B1A10"/><ellipse cx="65" cy="54" rx="6.5" ry="7.5" fill="#2B1A10"/><circle cx="37.5" cy="51" r="2.4" fill="#fff"/><circle cx="67.5" cy="51" r="2.4" fill="#fff"/><path d="M44.5 64.5 q5.5 -3.5 11 0 q-1.5 5 -5.5 6 q-4 -1 -5.5 -6z" fill="#C2456A"/><path d="M50 70.5 v3 M50 73.5 q-5 4.5 -9 0.5 M50 73.5 q5 4.5 9 0.5" stroke="#3A2414" stroke-width="2" fill="none" stroke-linecap="round"/></svg></i></div>
-      <div class="t"><b>Milagros y Tigri te esperan para hacerlo realidad.</b><span>No es una idea: es una app que ya podés usar.</span></div>
-      <div class="ir">Probala hoy<small>mila-ops-ia.github.io/soytigreya</small></div>
+      <div class="t"><b>Milagros y Tigri te esperan para hacerlo realidad.</b><span>No es una idea: ya podés usarla.</span></div>
+      <div class="ir">Desde la compu<small>mila-ops-ia.github.io/soytigreya</small></div>
     </div>
 
-    <p class="aclara">La cuenta: un comercio con 60 pedidos por mes de $20.000 paga hoy una comisión promedio de 25%; por 100 comercios y 12 meses. Dólar oficial: $1.580 (18/11/2026).</p>
+    <p class="aclara">La cuenta: 60 pedidos por mes × $20.000 × 25% = $300.000 · × 100 locales × 12 meses = $360 millones · Dólar oficial: $1.580 (18/11/2026)</p>
   </div>
 
   <footer class="pie"><span><b>SoyTigreYa</b> · Milagros Sanabria · Trabajo Final Integrador, UNDelta · 2026</span><span>Prototipo académico · No es una app oficial del Municipio de Tigre</span></footer>
