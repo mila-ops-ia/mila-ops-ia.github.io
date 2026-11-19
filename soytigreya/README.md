@@ -2,7 +2,7 @@
 
 **Beneficios Soy Tigre, comercio de barrio y trámites municipales en una sola app.**
 
-Prototipo funcional del Trabajo Final Integrador de la **Diplomatura en Negocios Digitales e Innovación** (Universidad Nacional del Delta, 2026). Autora: Milagros Belén Sanabria.
+Prototipo funcional del Trabajo Final Integrador de la **Diplomatura en Negocios Digitales e Innovación** (Universidad Nacional del Delta, 2026). Autora: Milagros Sanabria.
 
 👉 **Probala en vivo:** https://mila-ops-ia.github.io/soytigreya
 
@@ -15,11 +15,11 @@ Se puede instalar en el celular: en Android, menú ⋮ › "Instalar app"; en iP
 
 ## La idea
 
-SoyTigreYa convierte la tarjeta de beneficios **Soy Tigre** en una super-app municipal:
+SoyTigreYa es el upgrade de la app **Soy Tigre**: a la tarjeta de beneficios que ya existe le suma comprar en el barrio, trámites y medición.
 
-- **Comercio de cercanía sin comisión.** Los comercios venden con retiro en el local (takeaway) sin pagar el 20 a 30% de comisión de las apps privadas, y el descuento Soy Tigre se aplica solo.
+- **Comercio de cercanía sin comisión.** Los comercios venden con retiro en el local o con envío de su propio cadete, sin pagar la comisión de las apps de delivery (25% en promedio, hasta 35% con reparto), y el descuento Soy Tigre se aplica solo.
 - **Trámites y servicios del vecino.** Turnos, reclamos con foto y mapa, pagos de tasas, multas y estacionamiento, altura del río, colectivos, farmacias de turno y botón de alerta.
-- **Datos para el municipio.** Ventas por localidad, comisiones que quedan en el distrito y gestión de reclamos.
+- **Datos para el municipio.** Paneles estilo CRM: casos de reclamos por estado y urgencia, comercios como cuentas, ventas por localidad y proyección financiera.
 
 ## Cuatro perfiles
 
@@ -28,9 +28,9 @@ Al entrar se elige con quién recorrer la app:
 | Perfil | Rol | Qué ve |
 |---|---|---|
 | 👩🏻 Lucía | Vecina de Tigre Centro | La app del celu: beneficios, compras, trámites, Puntos Tigre y la asistente Tigri |
-| 👩🏻‍🍳 Rosa | Dueña de Pastas Doña Rosa | El panel de su local: pedidos, productos y la comisión que se ahorró |
-| 👨🏽‍💼 Carlos | Atención al Vecino | Los reclamos en el mapa y los turnos del día |
-| 👩🏽‍💼 Marina | Desarrollo Económico | El impacto: ventas, comercios, ahorro de los vecinos y puntos |
+| 👩🏻‍🍳 Rosa | Dueña de Pastas Doña Rosa | El panel de su local, estilo CRM: pedidos en tablero o lista, clientes, reclamos, productos, envío propio y ventas |
+| 👨🏽‍💼 Carlos | Atención al Vecino | Los reclamos como casos, por estado y urgencia, el mapa, las cuadrillas y los turnos del día |
+| 👩🏽‍💼 Marina | Desarrollo Económico | El impacto: ventas, comercios como cuentas, finanzas y territorio |
 
 El botón **"▶ Ver el recorrido guiado"** muestra, en 10 pasos, cómo un pedido y un reclamo pasan por las cuatro personas.
 
@@ -38,28 +38,25 @@ El botón **"▶ Ver el recorrido guiado"** muestra, en 10 pasos, cómo un pedid
 
 - Credencial digital con QR que cambia cada 30 segundos
 - Beneficios en lista y mapa (OpenStreetMap)
-- Takeaway con descuento automático, horario de retiro y código de retiro
+- Compra con descuento automático, retiro en el local o envío con el cadete del comercio, y código de entrega
 - Pagos simulados con Mercado Pago, Cuenta DNI, tarjeta o efectivo
 - **Puntos Tigre:** se suman al comprar en el barrio, pagar la tasa a tiempo, reciclar y por reclamos resueltos. Se canjean por cupones, descuento en la tasa, estacionamiento o entradas culturales
 - **Tigri:** asistente de chat que entiende frases como "quiero pizza", "hay un bache" o "farmacia de turno". Por ahora funciona con reglas, y en la etapa 3 se conectaría a inteligencia artificial
+- **Salud, deporte y trabajo:** turnos médicos en la red municipal, escuelas deportivas y colonia, búsquedas laborales y cursos
+- **Lo propio de Tigre:** altura del río con pronóstico y aviso de crecida, botón de alerta que envía la ubicación, colectivos, farmacias de turno, agenda cultural y puntos verdes
 - Modo de letra grande y alto contraste
 - Versión de escritorio y app instalable (PWA) que abre sin conexión
 
 ## Documentos
 
-- **[Presentación interactiva (portada, 4 diapositivas y cierre; la versión extendida de 9 está en presentacion/completa.html)](https://mila-ops-ia.github.io/soytigreya/presentacion/)**: con calculadora de impacto y la app embebida. Flechas para avanzar, N para notas y F para pantalla completa.
-- [Todos los enlaces en una página](https://mila-ops-ia.github.io/soytigreya/enlaces.html) ([PDF](documentos/Enlaces%20-%20SoyTigreYa.pdf))
-- [Presentación en PDF](documentos/Presentacion%20-%20SoyTigreYa.pdf)
-- [Folleto de una hoja para inversores (PDF)](documentos/Folleto%20-%20SoyTigreYa.pdf)
-- [Formulario de opiniones](https://docs.google.com/forms/d/e/1FAIpQLSdKRXBPEiUi4mCrS9Q42NO-v4DuR-QqupuJ9cMIeXA5iHMqNg/viewform): puntaje de 1 a 5, comentario y nombre opcional
-- [Trabajo Final Integrador (PDF)](documentos/Trabajo%20Final%20Integrador%20-%20SoyTigreYa.pdf)
-- [Trabajo Final Integrador (Word)](documentos/Trabajo%20Final%20Integrador%20-%20SoyTigreYa.docx)
+- [Home con todos los enlaces](https://mila-ops-ia.github.io/soytigreya/enlaces.html)
+- [Presentación](https://mila-ops-ia.github.io/soytigreya/presentacion/): portada, 4 diapositivas y cierre. Flechas para avanzar, F pantalla completa ([PDF](documentos/Presentacion%20-%20SoyTigreYa.pdf)). La versión extendida de 9 está en presentacion/completa.html
+- [Trabajo Final Integrador (PDF)](documentos/Trabajo%20Final%20Integrador%20-%20SoyTigreYa.pdf): 8 hojas contando la portada ([Word](documentos/Trabajo%20Final%20Integrador%20-%20SoyTigreYa.docx))
+- [Anexos del trabajo (PDF)](documentos/Anexos%20-%20SoyTigreYa.pdf): herramientas, fórmulas, escenarios, hoja de ruta y fuentes
+- [Folleto de una hoja (PDF)](documentos/Folleto%20-%20SoyTigreYa.pdf)
+- [Pitch de 5 minutos (PDF)](documentos/Speech%20-%20SoyTigreYa.pdf)
 - [Instructivos de uso para cada perfil (PDF)](documentos/Instructivos%20de%20uso%20-%20SoyTigreYa.pdf)
-- [Capturas del prototipo](capturas/)
-
-## La Diplomatura dentro de la app
-
-La pantalla **"Cómo lo diseñamos"** (en la entrada) muestra cada contenido de los cinco módulos y dónde se ve en la app. Por ejemplo: onboarding y heurísticas de Nielsen (UX/UI), Kanban con límite de trabajo en curso en el panel del comercio (metodologías ágiles), encuesta NPS, embudo AARRR y objetivos SMART en el panel municipal (medición), y Puntos Tigre, ofertas flash y referidos (growth hacking).
+- [Formulario de opiniones](https://docs.google.com/forms/d/e/1FAIpQLSdKRXBPEiUi4mCrS9Q42NO-v4DuR-QqupuJ9cMIeXA5iHMqNg/viewform)
 
 ## Cómo está hecha
 

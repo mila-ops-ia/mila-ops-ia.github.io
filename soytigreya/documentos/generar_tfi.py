@@ -156,14 +156,17 @@ viñetas([
     ('Credencial digital: ', 'un QR que cambia cada 30 segundos y el historial del ahorro de cada mes. La tarjeta física se sigue enviando al domicilio: la digital se suma, no la reemplaza.'),
     ('Beneficios reales: ', 'los comercios adheridos con los descuentos publicados por el Municipio, en lista y mapa, ordenados por cercanía.'),
     ('Compras con retiro o con envío del comercio: ', 'el descuento se aplica solo y se paga desde la app. El vecino elige retirar o que lo lleve el cadete del propio comercio, que cobra el envío completo. Si algo sale mal, el comercio tiene 24 horas para resolver y, si no hay acuerdo, media el municipio.'),
-    ('Trámites y servicios: ', 'reclamos con foto, mapa y seguimiento por etapas, pago de tasas y estacionamiento; turnos en la red de salud municipal, escuelas deportivas, empleo y cursos; altura del río, farmacias de turno y botón de alerta.'),
-    ('Tigri y Puntos Tigre: ', 'un asistente que entiende lenguaje cotidiano ("quiero pizza", "hay un bache") y lleva a la acción; y recompensas por comprar en el barrio o pagar la tasa en término, con topes.'),
+    ('Trámites y pagos: ', 'turnos municipales, reclamos con foto, mapa y seguimiento por etapas, pago de tasas y multas, y estacionamiento medido con mapa de zonas.'),
+    ('Salud, deporte y trabajo: ', 'turnos médicos en la red municipal (hospitales de diagnóstico inmediato, Materno Infantil y centros de atención), con guardias visibles; inscripción a escuelas deportivas de los 18 polideportivos y a la colonia de verano; búsquedas laborales con CV guardado y cursos gratuitos.'),
+    ('Lo propio de Tigre: ', 'altura del río Luján con pronóstico a 24 horas y aviso al celular cuando supera el nivel de alerta por crecida; botón de alerta en todas las pantallas, que envía la ubicación al Centro de Operaciones; colectivos, farmacias de turno, agenda cultural y puntos verdes para reciclar.'),
+    ('Tigri: ', 'un asistente que entiende lenguaje cotidiano ("quiero pizza", "hay un bache") y lleva a la acción.'),
+    ('Puntos Tigre: ', 'se suman al comprar en el barrio (1 punto cada $1.000), pagar la tasa en término, reciclar en un punto verde escaneando su QR, ir a un turno o tener un reclamo resuelto. Se canjean por cupones, descuento en la tasa, saldo de estacionamiento o entradas culturales, y dan nivel: Cachorro, Tigre y Tigre de Oro.'),
     ('Panel del comercio, con formato de CRM: ', 'indicadores del día, pedidos en tablero o en lista, clientes (quién compra, cuánto y quiénes repiten), reclamos, productos y Mi local, con fotos, horarios y envío propio.'),
     ('Paneles del municipio, con el mismo formato: ', 'Atención al Vecino trabaja los reclamos como casos, por estado y urgencia, y cierra con foto; Desarrollo Económico sigue a los comercios como cuentas por etapa de adhesión y ve la proyección financiera.'),
 ])
-p('Desarrollé además un prototipo funcional navegable con datos de demostración, publicado en mila-ops-ia.github.io/soytigreya: se instala en el celular e incluye un recorrido guiado por los cuatro perfiles.')
+p('Todo esto está implementado en un prototipo funcional navegable, con datos de demostración, publicado en mila-ops-ia.github.io/soytigreya. El inventario completo de funciones está en los Anexos.')
 doc.add_heading('Qué valor aporta', 2)
-p('El diferencial no es competir con las grandes plataformas en volumen o publicidad, sino en precio final y en cercanía: como el comercio no paga una comisión de entre el 20% y el 35% y reparte con su propio cadete, cobrando el envío completo, el mismo plato puede costar menos en SoyTigreYa, y el vecino suma además el descuento de su tarjeta. Para el municipio, un programa de descuentos pasivo pasa a ser una herramienta activa de desarrollo económico, con datos para decidir.')
+p('El diferencial no es competir con las grandes plataformas en volumen o publicidad, sino en precio final y en cercanía: como el comercio no paga una comisión de entre el 20% y el 35% y reparte con su propio cadete, cobrando el envío completo, el mismo plato puede costar menos en SoyTigreYa, y el vecino suma además el descuento de su tarjeta.')
 
 # ---------- 4 ----------
 doc.add_heading('4. Usuarios o público objetivo', 1)
@@ -180,7 +183,7 @@ viñetas([
     ('Carlos, de Atención al Vecino: ', 'recibe reclamos por varios canales y no puede ordenarlos por urgencia ni avisarle al vecino cómo sigue el suyo: "necesito ver todos los casos en un solo lugar".'),
     ('Marina, de Desarrollo Económico: ', 'administra la tarjeta Soy Tigre sin saber cuánto se usa ni en qué localidad: "necesito datos para decidir dónde poner el esfuerzo".'),
 ])
-p('Para adultos mayores hay un modo de letra grande y alto contraste, y la tarjeta física sigue vigente para quien no usa el celular.')
+p('Para adultos mayores hay un modo de letra grande y alto contraste.')
 
 # ---------- 5 ----------
 _h5 = doc.add_heading('5. Aplicación de contenidos de la Diplomatura', 1)
@@ -203,17 +206,16 @@ viñetas([
     ('Etapa 3 · Mejora continua (meses 7 a 12): ', 'turnero completo, Tigri con inteligencia artificial conectada a los sistemas municipales, Puntos Tigre y canal por WhatsApp.'),
     ('Desde el año 2 · Partners y scale-up: ', 'partners estratégicos de reparto que cobren por viaje y no por comisión y, como opción de crecimiento, la misma plataforma para otros municipios.'),
 ])
-p('NPS = % de promotores − % de detractores, con la encuesta de la app; pedidos sin incidencias = 1 − reclamos ÷ pedidos. Las cuatro metas se leen en el panel de Desarrollo Económico, sin planillas aparte.', negrita_inicio='Cómo se miden las metas del piloto. ')
 doc.add_heading('Recursos necesarios', 2)
 viñetas([
     ('Equipo: ', 'líder de producto, diseñador UX/UI, dos desarrolladores y un referente de la Secretaría de Desarrollo Económico.'),
     ('Soporte por suscripción: ', 'el equipo de soporte acompaña todas las etapas con capacitación a comercios, mesa de ayuda y mejoras; la app no se entrega y se abandona.'),
     ('Tecnología: ', 'aplicación web progresiva, base de datos en la nube, pasarela de pagos, validación de identidad (Mi Argentina o RENAPER) y servicios de mapas.'),
-    ('Comunicación: ', 'las redes que el Municipio ya tiene activas, con Tigri como cara y los comercios como difusores, más un cartel con el QR en cada local adherido.'),
+    ('Comunicación: ', 'las redes que el Municipio ya tiene activas, con Tigri como cara y los comercios como difusores.'),
 ])
 p('como upgrade de Soy Tigre, reutiliza la credencial, los beneficios y la base de comercios. En el año 1, $109 millones (USD 69.000 al tipo de cambio oficial de $1.580): piloto $37 millones, escalamiento $30 millones, seis meses de suscripción de soporte a $6,9 millones por mes e infraestructura. Desde el año 2, $55 millones por año: la suscripción baja a $4,5 millones por mes. Los precios surgen del costo del equipo más un 30% de margen; la pasarela de pago cobra de 0,6% a 0,8% por operación con QR.', negrita_inicio='Inversión del Municipio: ')
 doc.add_heading('Posibles aliados', 2)
-p('Secretaría de Desarrollo Económico del Municipio, cámaras de comercio locales, Mercado Pago y Banco Provincia (Cuenta DNI) como medios de pago, partners de reparto que cobren por viaje, la Universidad Nacional del Delta para investigación y prácticas, el área de Modernización para la integración con los sistemas existentes y la oficina municipal de defensa del consumidor para mediar en las compras.')
+p('Secretaría de Desarrollo Económico del Municipio, cámaras de comercio locales, Mercado Pago y Banco Provincia (Cuenta DNI) como medios de pago, partners de reparto que cobren por viaje, la Universidad Nacional del Delta para investigación y prácticas, y el área de Modernización para la integración con los sistemas existentes.')
 doc.add_heading('Principales desafíos o riesgos', 2)
 tabla([
     ['Riesgo', 'Nivel', 'Mitigación'],
@@ -234,9 +236,8 @@ viñetas([
     ('Para los usuarios: ', 'ahorro concreto y visible cada mes, menos tiempo en filas y trámites, seguimiento de pedidos y reclamos, y una sola app para la vida en el distrito.'),
     ('Para los comercios y el municipio: ', 'más ventas sin comisión y un canal digital propio; datos de consumo por localidad, mejor gestión de reclamos y más recaudación digital.'),
     ('Impacto en la comunidad: ', 'un comercio con 60 pedidos de $20.000 por mes deja de pagar $300.000 mensuales de comisión (60 × $20.000 × 25%). Con 100 comercios son $360 millones por año que quedan en Tigre ($300.000 × 100 × 12); parte vuelve al barrio en sueldos y proveedores (unos $173 millones) y al Municipio por tasa (hasta $11,5 millones).'),
-    ('Crecimiento futuro: ', 'integración con transporte y turismo del Delta, y un modelo replicable en otros municipios.'),
 ])
-p('Lo que vuelve a la caja del Municipio (Plan Destacado, publicidad local, un banco que cofinancia descuentos y el ahorro de trámites presenciales) es de $40,6, $124,4 y $152,6 millones en los años 1 a 3: la inversión se recupera en 2 años (−$68,4 millones en el año 1 y +$69,2 millones en el año 2). Por cada $1 invertido en tres años quedan $4,4 en los comercios de Tigre. A 5 años se proyectaron tres escenarios: conservador (175 comercios), recupera en 3 años y 3 meses; esperado (250), en 2 años; optimista (500), en 1 año y 8 meses. Como referencia, Santa Fe presupuestó $316 millones (2025) por su app municipal.', negrita_inicio='Viabilidad económica. ')
+p('Lo que vuelve a la caja del Municipio (Plan Destacado, publicidad local, un banco que cofinancia descuentos y el ahorro de trámites presenciales) es de $40,6, $124,4 y $152,6 millones en los años 1 a 3: la inversión se recupera en 2 años. Por cada $1 invertido en tres años quedan $4,4 en los comercios de Tigre. A 5 años se proyectaron tres escenarios: conservador (175 comercios), recupera en 3 años y 3 meses; esperado (250), en 2 años; optimista (500), en 1 año y 8 meses. Como referencia, Santa Fe presupuestó $316 millones (2025) por su app municipal.', negrita_inicio='Viabilidad económica. ')
 p('vecinos activos y retención a 90 días, pedidos y comercios activos, comisiones evitadas, tiempo de resolución de reclamos y NPS.', negrita_inicio='Indicadores de éxito: ')
 p('', negrita_inicio='Objetivos del primer año, medibles en los paneles de la app:').paragraph_format.keep_with_next = True
 tabla([
@@ -254,7 +255,7 @@ p('Por eso creo que SoyTigreYa es viable en Tigre y en Argentina. No parte de ce
 p('La Diplomatura me dio el orden para llegar hasta acá: mirar primero a las personas y después a la tecnología, convertir una idea en algo que se puede probar y ponerle números que se puedan explicar. Me llevo, sobre todo, la convicción de que lo digital puede ser una herramienta de equidad: cuando la infraestructura es pública, el comercio chico compite con las mismas herramientas que el grande.')
 p('Por ahora no tengo la oportunidad de llevar este proyecto adelante, pero estoy contenta con lo que pude crear: una app que logré materializar, aunque sea en un ambiente de prueba. No soy desarrolladora; para construirla me apoyé mucho en Claude Code. Aprendí que hoy se puede pasar de una idea a un prototipo sin saber programar, y que lo que no se puede delegar es entender el problema.')
 if MODO == 'tfi':
-    _n = doc.add_paragraph(); _r = _n.add_run('Anexos, en documento aparte: herramientas aplicadas, fórmulas, escenarios, hoja de ruta y fuentes.'); _r.italic = True; _r.font.size = Pt(9.5)
+    _n = doc.add_paragraph(); _r = _n.add_run('Anexos, en documento aparte: herramientas, fórmulas, escenarios, inventario de funciones y fuentes.'); _r.italic = True; _r.font.size = Pt(9.5)
     _pg = OxmlElement('w:pgNumType'); _pg.set(qn('w:start'), '0'); sec._sectPr.append(_pg)
     doc.save(SALIDA)
     print('ok')
@@ -435,7 +436,34 @@ viñetas([
     'Revisión complementaria con las 10 heurísticas de Nielsen y los principios de accesibilidad POUR.',
 ])
 doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
-doc.add_heading('Anexo B: fuentes consultadas', 1)
+doc.add_heading('Anexo B: todo lo que tiene el prototipo', 1)
+p('Inventario completo de las funciones implementadas en el prototipo, por perfil. Todas se pueden recorrer en mila-ops-ia.github.io/soytigreya, con datos de demostración.')
+tabla([
+    ['Función', 'Qué hace', 'Quién la usa'],
+    ['Credencial digital', 'QR que cambia cada 30 segundos e historial del ahorro de cada mes. La tarjeta física sigue vigente.', 'Lucía'],
+    ['Beneficios', 'Comercios adheridos con sus descuentos, en lista y mapa, ordenados por cercanía.', 'Lucía'],
+    ['Comprar', 'Pedido con descuento automático, pago desde la app, retiro en el local o envío con el cadete del comercio y código de entrega.', 'Lucía y Rosa'],
+    ['Problemas con una compra', 'El vecino reclama con foto; el comercio tiene 24 horas para devolver o reponer; si no hay acuerdo, media el municipio.', 'Lucía, Rosa y Carlos'],
+    ['Turnos municipales', 'Licencia de conducir, zoonosis y otros trámites, con recordatorio.', 'Lucía y Carlos'],
+    ['Reclamos', 'Alumbrado, bacheo, poda y residuos, con foto, ubicación en el mapa y seguimiento por etapas.', 'Lucía y Carlos'],
+    ['Pagos', 'Tasas municipales, multas de tránsito y estacionamiento medido con mapa de zonas.', 'Lucía'],
+    ['Salud', 'Turnos médicos en la red municipal, centros en el mapa y guardias visibles.', 'Lucía'],
+    ['Deporte', 'Inscripción a escuelas deportivas de los polideportivos y a la colonia de verano.', 'Lucía'],
+    ['Empleo y cursos', 'Búsquedas laborales del distrito con CV guardado, seguimiento de postulaciones y cursos gratuitos.', 'Lucía'],
+    ['Altura del río', 'Nivel del río Luján, pronóstico a 24 horas, niveles de atención (1,90 m) y alerta (2,30 m) y aviso al celular si hay crecida.', 'Lucía'],
+    ['Botón de alerta', 'Visible en todas las pantallas: envía la ubicación al Centro de Operaciones y muestra los teléfonos de emergencia.', 'Lucía'],
+    ['Colectivos y farmacias', 'Cuánto falta para el colectivo y farmacias de turno en el mapa.', 'Lucía'],
+    ['Agenda cultural', 'Ferias, música, talleres y corridas del distrito.', 'Lucía'],
+    ['Reciclaje', 'Puntos verdes en el mapa; al escanear su QR se suman puntos.', 'Lucía'],
+    ['Puntos Tigre', 'Se suman por comprar (1 cada $1.000), pagar la tasa en término (200), reciclar (40), reclamo resuelto (100) e ir al turno (30). Se canjean por cupón de $2.000, 10% en la tasa, saldo de estacionamiento o entrada cultural. Niveles: Cachorro, Tigre (1.000 puntos) y Tigre de Oro (3.000). Vencen a los 12 meses.', 'Lucía y Marina'],
+    ['Tigri', 'Asistente que entiende lenguaje cotidiano, escrito o hablado, y lleva a la acción.', 'Lucía'],
+    ['Cerca tuyo y accesibilidad', 'Ordena todo por distancia con el botón Cómo llegar; modo de letra grande y alto contraste; se instala en el celular.', 'Lucía'],
+    ['Panel del comercio', 'Pedidos en tablero o lista, clientes, reclamos, productos y ofertas flash, Mi local, envío propio, cobros y Plan Destacado.', 'Rosa'],
+    ['Panel de Atención al Vecino', 'Casos por estado y urgencia, mapa de calor, cuadrillas, mediación de compras y turnos del día.', 'Carlos'],
+    ['Panel de Desarrollo Económico', 'Ventas y ahorro por período y localidad, comercios como cuentas, embudo AARRR, proyección financiera e informe descargable.', 'Marina'],
+    ['Recorrido guiado y opinión', 'Diez pasos que muestran un pedido y un reclamo pasando por los cuatro perfiles, y un formulario de opinión.', 'Todos'],
+], [3.6, 9.4, 3.0])
+doc.add_heading('Anexo C: fuentes consultadas', 1)
 for f in [
     'Tigre Municipio, ficha en App Store: apps.apple.com/us/app/id1643762916',
     'Municipio de Tigre, tigre.gob.ar/novedades: beneficios Soy Tigre en supermercados (2024), mascotas (2024) y gastronomía (2025).',
