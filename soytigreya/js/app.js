@@ -1590,10 +1590,9 @@ function finanzasHtml() {
       <p class="muted chico">Santa Fe presupuestó $316 M para una app municipal comparable: SoyTigreYa, al ser un upgrade de Soy Tigre, cuesta cerca de un tercio el primer año. Fuentes: portales de compras y prensa local.</p></div>
     <div class="comp"><p class="fin-tit">Ya se hizo en Argentina</p>
       <div class="antec">
-        <p><b>Rosario · MuniShop</b><span>Tienda municipal sin comisión del Banco Municipal: unos 150 comercios (La Capital, 2023).</span></p>
         <p><b>Santa Fe · Billetera Santa Fe</b><span>Reintegros en comercios de cercanía, financiados entre el comercio y el banco.</span></p>
         <p><b>Provincia de Buenos Aires · Cuenta DNI</b><span>Más de 10 millones de usuarios y 100.000 comercios con descuentos (2026).</span></p>
-        <p><b>Rosario · cooperativa de cadetes</b><span>Reparto para más de 100 comercios, cobrando por hora y no por comisión.</span></p>
+        <p><b>Rosario · Coopexpress</b><span>Cooperativa de cadetes que reparte para comercios por fuera de las apps.</span></p>
       </div>
       <p class="muted chico">Ninguno junta tarjeta, compra sin comisión, trámites y medición en una sola app: eso es lo que propone SoyTigreYa. Fuentes en el trabajo escrito.</p></div>
     <p class="muted chico">Supuestos a validar en el piloto. Precios del equipo de soporte: costo del equipo más 30% de margen.</p>

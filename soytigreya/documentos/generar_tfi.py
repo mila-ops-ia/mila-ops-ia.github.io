@@ -139,7 +139,7 @@ viñetas([
     ('Municipio: ', 'no puede medir el impacto real de la tarjeta ni el consumo por localidad, y gestiona reclamos con poca trazabilidad para el vecino.'),
 ])
 doc.add_heading('Oportunidades de mejora', 2)
-p('Existe una base instalada que reduce el costo de adopción: miles de vecinos ya tienen la tarjeta y la app municipal. Y hay antecedentes en Argentina: MuniShop (Rosario, tienda municipal sin comisión, unos 150 comercios en 2023), Billetera Santa Fe, con reintegros compartidos entre el Estado y el comercio, Cuenta DNI y la cooperativa de cadetes de Rosario, que cobra por viaje y no por comisión. Lo nuevo es reunirlo en la app que Tigre ya tiene.')
+p('Existe una base instalada que reduce el costo de adopción: miles de vecinos ya tienen la tarjeta y la app municipal. Y hay antecedentes en Argentina: Billetera Santa Fe, con reintegros compartidos entre el Estado y el comercio; Cuenta DNI, la billetera del Banco Provincia; y Coopexpress, una cooperativa de cadetes de Rosario que reparte para comercios por fuera de las apps. Lo nuevo es reunirlo en la app que Tigre ya tiene.')
 doc.add_heading('Cambios posibles mediante herramientas digitales', 2)
 viñetas([
     'Aplicar el descuento automáticamente al comprar por la app, sin cupones.',
@@ -251,7 +251,7 @@ tabla([
 # ---------- 8 ----------
 doc.add_heading('8. Conclusiones', 1)
 p('Empecé este trabajo con una pregunta: ¿por qué un comercio de mi barrio tiene que entregar hasta un tercio de cada venta para llegar al celular de sus vecinos, si el Municipio ya tiene una tarjeta y una app que los conectan? La respuesta que encontré es que no hace falta inventar nada nuevo: hace falta unir lo que ya existe.')
-p('Por eso creo que SoyTigreYa es viable en Tigre y en Argentina. No parte de cero, porque la tarjeta, los comercios adheridos y la app municipal ya están. Tiene antecedentes que funcionan, como MuniShop en Rosario y Billetera Santa Fe. Y se puede probar con poco riesgo: un piloto de tres meses con 40 comercios, que crece solo si cumple sus metas.')
+p('Por eso creo que SoyTigreYa es viable en Tigre y en Argentina. No parte de cero, porque la tarjeta, los comercios adheridos y la app municipal ya están. Tiene antecedentes que funcionan, como Billetera Santa Fe y Cuenta DNI. Y se puede probar con poco riesgo: un piloto de tres meses con 40 comercios, que crece solo si cumple sus metas.')
 p('La Diplomatura me dio el orden para llegar hasta acá: mirar primero a las personas y después a la tecnología, convertir una idea en algo que se puede probar y ponerle números que se puedan explicar. Me llevo, sobre todo, la convicción de que lo digital puede ser una herramienta de equidad: cuando la infraestructura es pública, el comercio chico compite con las mismas herramientas que el grande.')
 p('Por ahora no tengo la oportunidad de llevar este proyecto adelante, pero estoy contenta con lo que pude crear: una app que logré materializar, aunque sea en un ambiente de prueba. No soy desarrolladora; para construirla me apoyé mucho en Claude Code. Aprendí que hoy se puede pasar de una idea a un prototipo sin saber programar, y que lo que no se puede delegar es entender el problema.')
 if MODO == 'tfi':
@@ -341,7 +341,7 @@ tabla([
     ['Otros municipios', 'Año 3 en adelante', 'Resultados auditables en Tigre y un municipio con tarjeta de beneficios propia.'],
 ], [4.0, 3.2, 8.8])
 p('Suscripción de soporte (customer success). El equipo de soporte no entrega la plataforma y se retira: la acompaña con un servicio mensual que incluye soporte técnico, capacitación presencial a los comercios, mesa de ayuda, mantenimiento y mejoras. Funciona como una suscripción: $6,9 millones por mes (USD 4.370) entre los meses 7 y 12, cuando la plataforma se está estabilizando, y $4,5 millones por mes (USD 2.850) desde el año 2, con un equipo más chico. No es un costo adicional: el primer semestre de suscripción ($41,4 millones) ya está dentro de los $109 millones del año 1, y los $54 millones anuales siguientes son casi todo el costo de $55,2 millones por año, junto con $1,2 millones de infraestructura. El Municipio puede darla de baja al cierre de cada etapa.')
-p('Partners estratégicos de reparto. El envío con el cadete del comercio está disponible desde el piloto y no exige logística nueva, pero no todos los locales tienen cadete. Más adelante, la etapa siguiente es integrar terceros que cobren por viaje y no un porcentaje de la venta: cooperativas de cadetes, como la que en Rosario trabaja con más de 100 comercios, o los servicios de envíos por viaje de las plataformas. El comercio conserva el 0% de comisión sobre la venta y elige el reparto que le conviene. Es una hipótesis a validar: depende de las condiciones comerciales de cada servicio.')
+p('Partners estratégicos de reparto. El envío con el cadete del comercio está disponible desde el piloto y no exige logística nueva, pero no todos los locales tienen cadete. Más adelante, la etapa siguiente es integrar terceros que cobren por viaje y no un porcentaje de la venta: cooperativas de cadetes, como Coopexpress en Rosario, o los servicios de envíos por viaje de las plataformas. El comercio conserva el 0% de comisión sobre la venta y elige el reparto que le conviene. Es una hipótesis a validar: depende de las condiciones comerciales de cada servicio.')
 p('Otros municipios. La plataforma se configura por municipio (marca, localidades, rubros y trámites), por lo que el segundo municipio no paga el desarrollo de base: paga la adaptación, la integración con sus sistemas y la licencia. Los candidatos naturales son municipios que ya tienen una tarjeta de beneficios y comercios adheridos. La propuesta se lleva con los resultados medidos en Tigre: comercios activos, plata que quedó en los comercios y recupero.')
 p('Tarjeta física. Soy Tigre hoy envía la tarjeta física al domicilio del vecino, y eso se mantiene. La credencial digital con QR se suma, no la reemplaza: el vecino usa la que prefiera. Recibir la tarjeta en casa es parte del vínculo con el programa y asegura que nadie quede afuera por no tener celular, en línea con la mitigación de la brecha digital.')
 doc.add_heading('Montos principales en pesos y en dólares', 2)
@@ -388,7 +388,7 @@ tabla([
     ['Quién atiende al cliente', 'Un repartidor de la app', 'El cadete del local'],
     ['A dónde va la plata', 'Fuera del distrito', 'Queda en Tigre'],
 ], [6.0, 4.5, 5.5])
-p('El comercio activa el envío en su panel, fija el precio y hasta dónde lleva, y lo puede desactivar cuando quiera. No requiere logística nueva: usa el cadete que muchos locales ya tienen. Como referencia de la etapa siguiente, en Rosario una cooperativa de cadetes trabaja con más de 100 comercios cobrando por hora y no por comisión (La Capital).')
+p('El comercio activa el envío en su panel, fija el precio y hasta dónde lleva, y lo puede desactivar cuando quiera. No requiere logística nueva: usa el cadete que muchos locales ya tienen. Como referencia de la etapa siguiente, en Rosario la cooperativa de cadetes Coopexpress reparte para comercios por fuera de las apps (La Capital).')
 p('Adquisición por redes sociales. No se crean cuentas nuevas: se usan las que el Municipio ya tiene activas (Instagram, TikTok, Facebook), con Tigri como cara de la campaña, videos cortos de comercios del barrio y un botón para que cada comercio comparta su local. Se mide con vecinos nuevos por canal (registros desde cada enlace o QR), costo por vecino registrado (gasto de la campaña ÷ vecinos nuevos) y cuántos de ellos hacen su primer pedido.')
 doc.add_heading('Matriz de riesgos: peligrosidad, vulnerabilidad y nivel', 2)
 tabla([
@@ -468,7 +468,7 @@ for f in [
     'Civic Economics, Indie Impact Study Series; AMIBA, The Local Multiplier Effect: recirculación local de comercios independientes.',
     'Banco de la Nación Argentina, cotización del dólar oficial, tipo vendedor, al 18 de noviembre de 2026 ($1.580), según La Nación.',
     'Fotos ilustrativas: Wikimedia Commons (CC BY y CC BY-SA), con créditos en el repositorio del proyecto.',
-    'La Capital (Rosario), "Unos 150 comercios ya son parte de la plataforma de compras del Banco Municipal" (2023).',
+    'La Capital (Rosario), "Delivery bajo la lupa", y RosarioPlus, notas sobre la cooperativa de cadetes Coopexpress.',
     'Govlaunch, Munimercado de la ciudad de Neuquén.',
     'Sitio Andino, "San Carlos presenta Góndola Sancarlina" (2026).',
     'Aire de Santa Fe y Gobierno de Santa Fe, notas sobre Billetera Santa Fe.',
