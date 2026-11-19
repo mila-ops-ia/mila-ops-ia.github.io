@@ -215,15 +215,15 @@ viñetas([
 ])
 doc.add_heading('Posibles aliados', 2)
 p('Secretaría de Desarrollo Económico del Municipio, cámaras de comercio locales, Mercado Pago y Banco Provincia (Cuenta DNI) como medios de pago, partners de reparto que cobren por viaje, la Universidad Nacional del Delta para investigación y prácticas, y el área de Modernización para la integración con los sistemas existentes.')
-p('', negrita_inicio='Inversión del Municipio, concepto por concepto:').paragraph_format.keep_with_next = True
+p('', negrita_inicio='Inversión del Municipio (precio = costo del equipo × 1,30 de margen):').paragraph_format.keep_with_next = True
 tabla([
-    ['Concepto', 'Monto', 'Cómo se calcula'],
-    ['Piloto (meses 1 a 3)', '$37 millones', 'Lo nuevo de la app y 40 comercios en marcha.'],
-    ['Escalamiento (meses 4 a 6)', '$30 millones', 'Todas las localidades, tasas y reclamos.'],
-    ['Soporte (meses 7 a 12)', '$42 millones', '6 × $6,9 millones + $0,6 de infraestructura.'],
-    ['Total del año 1', '$109 millones', '$37 + $30 + $42. USD 69.000 (dólar a $1.580).'],
-    ['Desde el año 2, por año', '$55 millones', '12 × $4,5 millones + $1,2 de infraestructura.'],
-], [5.2, 2.7, 8.1])
+    ['Concepto', 'Monto', 'Cómo se calcula (meses × costo por mes)'],
+    ['Piloto (meses 1 a 3)', '$37 millones', '3 × $9,5 millones de equipo × 1,30.'],
+    ['Escalamiento (meses 4 a 6)', '$30 millones', '3 × $7,7 millones de equipo × 1,30.'],
+    ['Soporte (meses 7 a 12)', '$42 millones', '6 × $6,9 millones + $0,6 millones de hosting.'],
+    ['Total del año 1', '$109 millones', '$37 + $30 + $42 millones = USD 69.000 al oficial.'],
+    ['Desde el año 2, por año', '$55 millones', '12 × $4,5 millones + $1,2 millones de hosting.'],
+], [4.9, 2.5, 8.6])
 doc.add_heading('Principales desafíos o riesgos', 2)
 tabla([
     ['Riesgo', 'Nivel', 'Mitigación'],
