@@ -239,7 +239,7 @@ tabla([
     ['Desarrollo Económico y Modernización', 'El programa Soy Tigre y la integración con la app oficial.'],
     ['Cámara de comercio de Tigre (CACIT) y CAME', 'Llegada a los comercios para sumarlos y capacitarlos.'],
     ['Mercado Pago, Cuenta DNI y MODO', 'Cobro con QR y cofinanciamiento de los descuentos.'],
-    ['Coopexpress, PedidosYa Envíos y Uber Flash', 'Desde el año 2, reparto por viaje y sin comisión.'],
+    ['Uber Envíos y Cabify Envíos', 'Desde el año 2, reparto por viaje y sin comisión.'],
     ['Universidad Nacional del Delta', 'Pruebas de usabilidad y prácticas de estudiantes.'],
 ], [7.0, 9.0])
 doc.add_heading('Principales desafíos o riesgos', 2)
@@ -367,7 +367,7 @@ tabla([
     ['Otros municipios', 'Año 3 en adelante', 'Resultados auditables en Tigre y un municipio con tarjeta de beneficios propia.'],
 ], [4.0, 3.2, 8.8])
 p('Suscripción de soporte (customer success). El equipo de soporte no entrega la plataforma y se retira: la acompaña con un servicio mensual que incluye soporte técnico, capacitación presencial a los comercios, mesa de ayuda, mantenimiento y mejoras. Funciona como una suscripción: $6,9 millones por mes (USD 4.370) entre los meses 7 y 12, cuando la plataforma se está estabilizando, y $4,5 millones por mes (USD 2.850) desde el año 2, con un equipo más chico. No es un costo adicional: el primer semestre de suscripción ($41,4 millones) ya está dentro de los $109 millones del año 1, y los $54 millones anuales siguientes son casi todo el costo de $55,2 millones por año, junto con $1,2 millones de infraestructura. El Municipio puede darla de baja al cierre de cada etapa.')
-p('Partners estratégicos de reparto. El envío con el cadete del comercio está disponible desde el piloto y no exige logística nueva, pero no todos los locales tienen cadete. Más adelante, la etapa siguiente es integrar terceros que cobren por viaje y no un porcentaje de la venta: cooperativas de cadetes, como Coopexpress en Rosario, o servicios de envíos por viaje como PedidosYa Envíos y Uber Flash (a confirmar cobertura y tarifas en Tigre). El comercio conserva el 0% de comisión sobre la venta y elige el reparto que le conviene. Es una hipótesis a validar: depende de las condiciones comerciales de cada servicio.')
+p('Partners estratégicos de reparto. El envío con el cadete del comercio está disponible desde el piloto y no exige logística nueva, pero no todos los locales tienen cadete. Más adelante, la etapa siguiente es integrar terceros que cobren por viaje y no un porcentaje de la venta: servicios de envíos por viaje como Uber Envíos y Cabify Envíos, que ya operan en Buenos Aires (cobertura y tarifas en Tigre a confirmar en el piloto), o mensajerías de la zona. El comercio conserva el 0% de comisión sobre la venta y elige el reparto que le conviene. Es una hipótesis a validar: depende de las condiciones comerciales de cada servicio.')
 p('Otros municipios. La plataforma se configura por municipio (marca, localidades, rubros y trámites), por lo que el segundo municipio no paga el desarrollo de base: paga la adaptación, la integración con sus sistemas y la licencia. Los candidatos naturales son municipios que ya tienen una tarjeta de beneficios y comercios adheridos. La propuesta se lleva con los resultados medidos en Tigre: comercios activos, plata que quedó en los comercios y recupero.')
 p('Tarjeta física. Soy Tigre hoy envía la tarjeta física al domicilio del vecino, y eso se mantiene. La credencial digital con QR se suma, no la reemplaza: el vecino usa la que prefiera. Recibir la tarjeta en casa es parte del vínculo con el programa y asegura que nadie quede afuera por no tener celular, en línea con la mitigación de la brecha digital.')
 doc.add_heading('Montos principales en pesos y en dólares', 2)
@@ -501,6 +501,8 @@ for f in [
     'Govlaunch, Munimercado de la ciudad de Neuquén.',
     'Sitio Andino, "San Carlos presenta Góndola Sancarlina" (2026).',
     'Aire de Santa Fe y Gobierno de Santa Fe, notas sobre Billetera Santa Fe.',
+    'Uber Argentina, página de Uber Envíos en Buenos Aires; Cabify, Cabify Logistics; El Cronista, notas sobre Cabify Envíos (2021 y 2026).',
+    'Mercado, ronda de negocios de la Cámara de Comercio y Servicios de Tigre (CACIT) con CAME (2026).',
     'BAE Negocios, lanzamiento de BAX en la Ciudad de Buenos Aires; La Voz e Hoy Día Córdoba sobre la App Ciudadana.',
     'Censo Nacional de Población 2022 (INDEC), datos del partido de Tigre publicados por telencuestas.com.',
     'Develop Argentina, "App de delivery propia vs. Rappi en Argentina" (marzo de 2026) y "Cuánto gana un programador en Argentina" (junio de 2026).',
