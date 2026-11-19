@@ -234,19 +234,26 @@ tabla([
     ['Desde el año 2, por año', '$55,2 millones', '12 × $4,5 millones + $1,2 millones de hosting.'],
 ], [5.3, 2.8, 7.9])
 doc.add_heading('Posibles aliados', 2)
-p('Secretaría de Desarrollo Económico del Municipio, cámaras de comercio locales, Mercado Pago y Banco Provincia (Cuenta DNI) como medios de pago, partners de reparto que cobren por viaje, la Universidad Nacional del Delta para investigación y prácticas, y el área de Modernización para la integración con los sistemas existentes.')
+tabla([
+    ['Aliado', 'Qué aporta'],
+    ['Desarrollo Económico y Modernización', 'El programa Soy Tigre y la integración con la app oficial.'],
+    ['Cámara de comercio de Tigre (CACIT) y CAME', 'Llegada a los comercios para sumarlos y capacitarlos.'],
+    ['Mercado Pago, Cuenta DNI y MODO', 'Cobro con QR y cofinanciamiento de los descuentos.'],
+    ['Coopexpress, PedidosYa Envíos y Uber Flash', 'Desde el año 2, reparto por viaje y sin comisión.'],
+    ['Universidad Nacional del Delta', 'Pruebas de usabilidad y prácticas de estudiantes.'],
+], [7.0, 9.0])
 doc.add_heading('Principales desafíos o riesgos', 2)
 tabla([
     ['Riesgo', 'Nivel', 'Mitigación'],
-    ['Baja adopción de los comercios', 'Alto', 'Panel simple y capacitación presencial. Se prueba en el piloto.'],
-    ['Financiamiento del descuento', 'Alto', 'Banco o billetera socia y topes por compra. Se prueba en el piloto.'],
-    ['Logística del envío', 'Medio', 'Retiro y envío a cargo del comercio; partners de reparto desde el año 2.'],
-    ['Competencia de plataformas privadas', 'Medio', 'Competir por precio final y cercanía, no por publicidad.'],
-    ['Protección de datos personales', 'Medio', 'Cumplir la Ley 25.326, usar datos agregados y consentimiento explícito.'],
-    ['Brecha digital', 'Medio', 'Modo accesible, versión web, canal por WhatsApp y tarjeta física.'],
-    ['Problemas con una compra', 'Bajo', 'El comercio responde en 24 horas; si no responde, el pago se devuelve automáticamente al vecino.'],
-    ['Abuso de los Puntos Tigre', 'Bajo', 'Canjes con tope, vencimiento a 12 meses y puntos solo por compras con QR.'],
-], [4.6, 1.6, 9.8])
+    ['Baja adopción de comercios', 'Alto', 'Panel simple y capacitación. Se prueba en el piloto.'],
+    ['Financiar el descuento', 'Alto', 'Banco socio y topes por compra. Se prueba en el piloto.'],
+    ['Logística del envío', 'Medio', 'Retiro o envío del comercio; partners desde el año 2.'],
+    ['Competencia de las apps', 'Medio', 'Competir por precio final y cercanía, no por publicidad.'],
+    ['Datos personales', 'Medio', 'Ley 25.326, datos agregados y consentimiento explícito.'],
+    ['Brecha digital', 'Medio', 'Modo accesible, versión web, WhatsApp y tarjeta física.'],
+    ['Problemas con una compra', 'Bajo', 'Respuesta en 24 horas o reintegro automático.'],
+    ['Abuso de los Puntos Tigre', 'Bajo', 'Canjes con tope y vencimiento a 12 meses.'],
+], [4.8, 1.6, 9.6])
 
 # ---------- 7 ----------
 doc.add_heading('7. Resultados esperados', 1)
@@ -307,7 +314,7 @@ tabla([
     ['Segmentos', 'Vecinos con tarjeta Soy Tigre y comercios de barrio. Early adopters: gastronomía de Tigre Centro.'],
     ['Propuesta de valor única', 'Que el ahorro y la venta se queden en Tigre: el vecino paga menos y el comercio vende sin comisión.'],
     ['Solución', 'App con descuento automático, compra con retiro o envío del comercio, trámites, pagos, puntos y paneles de gestión.'],
-    ['Canales', 'App municipal, comercios adheridos, cámaras de comercio y canales del municipio.'],
+    ['Canales', 'App municipal, comercios adheridos, CACIT (cámara de comercio de Tigre) y canales del municipio.'],
     ['Fuentes de ingreso', 'Gratis para el vecino y 0% de comisión. En el año 2: Plan Destacado ($30 M), publicidad local ($14,4 M), banco que cofinancia descuentos ($50 M) y ahorro en atención ($30 M): $124,4 M. Para el equipo de soporte: suscripción por municipio.'],
     ['Estructura de costos', 'Año 1: $109 M (piloto, escalamiento y seis meses de suscripción de soporte). Desde el año 2: $55,2 M por año (suscripción de soporte $4,5 M por mes e infraestructura $1,2 M). Pasarela 0,6% a 0,8%.'],
     ['Métricas clave', 'Vecinos activos, retención, NPS, comercios activos, comercios con Plan Destacado y comisiones evitadas.'],
@@ -356,11 +363,11 @@ tabla([
     ['Piloto', 'Meses 1 a 3', '40 comercios, 2.000 vecinos, NPS de 40 o más y 95% de pedidos sin incidencias.'],
     ['Todo Tigre', 'Meses 4 a 6', 'Acuerdo con un banco o billetera y adopción sostenida.'],
     ['Mejora continua', 'Meses 7 a 12', '50 comercios activos y 30 con Plan Destacado.'],
-    ['Partners estratégicos', 'Año 2', 'Convenio con una cooperativa o un servicio de envíos, y demanda medida en la app.'],
+    ['Partners estratégicos', 'Año 2', 'Convenio con una cooperativa o un servicio de envíos por viaje, y demanda medida en la app.'],
     ['Otros municipios', 'Año 3 en adelante', 'Resultados auditables en Tigre y un municipio con tarjeta de beneficios propia.'],
 ], [4.0, 3.2, 8.8])
 p('Suscripción de soporte (customer success). El equipo de soporte no entrega la plataforma y se retira: la acompaña con un servicio mensual que incluye soporte técnico, capacitación presencial a los comercios, mesa de ayuda, mantenimiento y mejoras. Funciona como una suscripción: $6,9 millones por mes (USD 4.370) entre los meses 7 y 12, cuando la plataforma se está estabilizando, y $4,5 millones por mes (USD 2.850) desde el año 2, con un equipo más chico. No es un costo adicional: el primer semestre de suscripción ($41,4 millones) ya está dentro de los $109 millones del año 1, y los $54 millones anuales siguientes son casi todo el costo de $55,2 millones por año, junto con $1,2 millones de infraestructura. El Municipio puede darla de baja al cierre de cada etapa.')
-p('Partners estratégicos de reparto. El envío con el cadete del comercio está disponible desde el piloto y no exige logística nueva, pero no todos los locales tienen cadete. Más adelante, la etapa siguiente es integrar terceros que cobren por viaje y no un porcentaje de la venta: cooperativas de cadetes, como Coopexpress en Rosario, o los servicios de envíos por viaje de las plataformas. El comercio conserva el 0% de comisión sobre la venta y elige el reparto que le conviene. Es una hipótesis a validar: depende de las condiciones comerciales de cada servicio.')
+p('Partners estratégicos de reparto. El envío con el cadete del comercio está disponible desde el piloto y no exige logística nueva, pero no todos los locales tienen cadete. Más adelante, la etapa siguiente es integrar terceros que cobren por viaje y no un porcentaje de la venta: cooperativas de cadetes, como Coopexpress en Rosario, o servicios de envíos por viaje como PedidosYa Envíos y Uber Flash (a confirmar cobertura y tarifas en Tigre). El comercio conserva el 0% de comisión sobre la venta y elige el reparto que le conviene. Es una hipótesis a validar: depende de las condiciones comerciales de cada servicio.')
 p('Otros municipios. La plataforma se configura por municipio (marca, localidades, rubros y trámites), por lo que el segundo municipio no paga el desarrollo de base: paga la adaptación, la integración con sus sistemas y la licencia. Los candidatos naturales son municipios que ya tienen una tarjeta de beneficios y comercios adheridos. La propuesta se lleva con los resultados medidos en Tigre: comercios activos, plata que quedó en los comercios y recupero.')
 p('Tarjeta física. Soy Tigre hoy envía la tarjeta física al domicilio del vecino, y eso se mantiene. La credencial digital con QR se suma, no la reemplaza: el vecino usa la que prefiera. Recibir la tarjeta en casa es parte del vínculo con el programa y asegura que nadie quede afuera por no tener celular, en línea con la mitigación de la brecha digital.')
 doc.add_heading('Montos principales en pesos y en dólares', 2)
