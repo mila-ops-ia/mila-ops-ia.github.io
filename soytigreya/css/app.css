@@ -1353,3 +1353,14 @@ button.crm-etapa:hover { background: #ECEDF1; }
   .crm-etapa, .crm-etapa:first-child { clip-path: none; margin: 0; border-radius: 10px; padding: 10px 12px; }
   .crm-tabs button { padding: 10px 12px; font-size: .85rem; }
 }
+
+/* v32 · Panel del comercio estilo CRM */
+.pc-cab { align-items: center; }
+.pc-quien { display: flex; gap: 14px; align-items: center; min-width: 0; }
+.pc-quien .avatar { flex: none; }
+.pc-quien .titulo { margin: 0; }
+.pc-quien .sub { margin: 2px 0 0; }
+.crm-card .h2-fila { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.crm-card .h2-fila p { margin: 0; }
+.crm-t .validar { display: inline-flex; gap: 6px; align-items: center; }
+.crm-t .validar input { width: 78px; padding: 6px 8px; }

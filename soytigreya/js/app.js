@@ -1177,34 +1177,107 @@ function chatEnviar(txt) {
 }
 
 // ---------- comercio ----------
+const CLIENTES_DEMO = ['Marta G.', 'Jorge P.', 'Carla S.', 'Diego R.', 'Ana L.', 'Pablo M.', 'Sofía T.', 'Raúl B.', 'Vero C.', 'Nico F.', 'Laura D.', 'Tomás A.', 'Gabi V.', 'Elena R.', 'Hugo N.', 'Mica O.', 'Dani K.', 'Flor I.', 'Seba Z.', 'Pau E.', 'Lucas H.', 'Romi J.', 'Fede U.', 'Caro Q.'];
+function clienteDe(p) {
+  if (p.mio) { const n = S.usuario.nombre.split(' '); return n[0] + (n[1] ? ' ' + n[1][0] + '.' : ''); }
+  const k = ((Number(p.id.slice(1)) * 37) % 97) / 97; // reparto desparejo: algunos clientes compran mucho más que otros
+  return CLIENTES_DEMO[Math.floor(k * k * CLIENTES_DEMO.length)];
+}
+function clientesDe(c) {
+  const mapa = {};
+  S.pedidos.filter((p) => p.cid === c.id && p.estado !== 'rechazado').forEach((p) => {
+    const n = clienteDe(p); const x = mapa[n] || (mapa[n] = { n, ped: 0, total: 0, ult: 0, items: {}, envio: 0, mio: false });
+    x.ped++; x.total += p.total; x.ult = Math.max(x.ult, p.creado); if (p.entrega === 'envio') x.envio++; if (p.mio) x.mio = true;
+    p.items.forEach((it) => { x.items[it.nombre] = (x.items[it.nombre] || 0) + it.qty; });
+  });
+  return Object.values(mapa).sort((a, b) => b.total - a.total);
+}
+
 function panelComercio() {
   const c = comercio((perfilActual() && perfilActual().cid) || S.panelCid);
   S.panelCid = c.id;
   const nRP = (S.reclamosPed || []).filter((r) => r.cid === c.id && estadoRP(r) === 'abierto').length;
-  const tabs = [['pedidos', '🧾 Pedidos'], ['reclamos', `⚠️ Reclamos${nRP ? ` (${nRP})` : ''}`], ['productos', '📦 Productos'], ['local', '🏪 Mi local'], ['resumen', '📈 Resumen']];
-  const cuerpo = S.panelTab === 'productos' ? pcProductos(c) : S.panelTab === 'resumen' ? pcResumen(c) : S.panelTab === 'reclamos' ? pcReclamos(c) : S.panelTab === 'local' ? pcLocal(c) : pcPedidos(c);
+  const ped = S.pedidos.filter((p) => p.cid === c.id);
+  const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
+  const deHoy = ped.filter((p) => p.creado >= hoy.getTime() && p.estado !== 'rechazado');
+  const curso = ped.filter((p) => ['recibido', 'preparacion', 'listo'].includes(p.estado));
+  const prox = curso.slice().sort((a, b) => a.creado - b.creado)[0];
+  const ventasMes = ped.filter((p) => p.estado === 'retirado' && p.creado >= inicioMes()).reduce((a, p) => a + p.total, 0);
+  const tab = S.panelTab;
+  const cuerpo = tab === 'productos' ? pcProductos(c) : tab === 'resumen' ? pcResumen(c) : tab === 'reclamos' ? pcReclamos(c) : tab === 'local' ? pcLocal(c) : tab === 'clientes' ? pcClientes(c) : pcPedidos(c);
   return `
-  <div class="panel-cab">
-    <div class="avatar" style="background:${c.color}">${c.emoji}</div>
-    <div class="grow"><b class="panel-nombre">${esc(c.nombre)}</b>
-      <span class="muted">${esc(c.dir)} · ${c.loc} · ${MARCA.tarjeta} -${c.desc}%</span></div>
+  <div class="crm-cab pc-cab">
+    <div class="pc-quien"><div class="avatar" style="background:${c.color}">${c.emoji}</div>
+      <div><h1 class="titulo">${esc(c.nombre)}</h1><p class="muted sub">${esc(c.dir)} · ${c.loc} · ${MARCA.tarjeta} -${c.desc}% · ${horarioTxt(c)}</p></div></div>
     <button class="switch ${c.abierto ? 'on' : ''}" data-a="toggleAbierto">${c.abierto ? '🟢 Abierto' : '⚪ Cerrado'}</button>
   </div>
-  ${hoyComercio(c)}
-  <div class="seg">${tabs.map(([id, t]) => `<button class="${S.panelTab === id ? 'on' : ''}" data-a="panelTab" data-v="${id}">${t}</button>`).join('')}</div>
+  <div class="kpis pc-kpis">
+    ${kpi('Ventas de hoy', plata(deHoy.reduce((a, p) => a + p.total, 0)))}
+    ${kpi('Pedidos en curso', curso.length)}
+    ${kpi('Próxima entrega', prox ? esc(prox.retiro).replace('a las ', '') : '—', '', prox ? `Código ${prox.codigo}` : 'Sin pedidos en curso')}
+    ${kpi('Ventas del mes', plata(ventasMes))}
+  </div>
+  ${crmTabs(tab, [['pedidos', 'receipt', 'Pedidos', curso.length || null], ['clientes', 'users', 'Clientes', clientesDe(c).length], ['reclamos', 'flag', 'Reclamos', nRP || null], ['productos', 'package', 'Productos', c.productos.length], ['local', 'store', 'Mi local'], ['resumen', 'trending-up', 'Ventas']], 'panelTab')}
   ${cuerpo}`;
 }
 
 function pcPedidos(c) {
   const ped = S.pedidos.filter((p) => p.cid === c.id);
-  const col = (estado, titulo) => {
-    const lista = ped.filter((p) => p.estado === estado).sort((a, b) => a.creado - b.creado);
-    return `<div class="col"><h3>${titulo} <span>${lista.length}</span></h3>${lista.map((p) => tarjetaPedido(p)).join('') || '<p class="muted vacio-col">Nada por acá</p>'}</div>`;
-  };
+  const n = (e) => ped.filter((p) => p.estado === e).length;
   const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
-  const entregadosHoy = ped.filter((p) => p.estado === 'retirado' && p.creado >= hoy.getTime()).length;
-  return `<div class="kanban">${col('recibido', '🆕 Nuevos')}${col('preparacion', '👩‍🍳 En preparación · máx. 5')}${col('listo', '✅ Listos para retirar o llevar')}</div>
-  <p class="muted">Entregados hoy: ${entregadosHoy}. Los pedidos nuevos llegan cuando un vecino compra desde la app. Sin comisión por venta.</p>`;
+  const entregados = ped.filter((p) => p.estado === 'retirado' && p.creado >= hoy.getTime());
+  const lista = S.pVista === 'lista';
+  const col = (estado, titulo) => {
+    const l = ped.filter((p) => p.estado === estado).sort((a, b) => a.creado - b.creado);
+    return `<div class="col"><h3>${titulo} <span>${l.length}</span></h3>${l.map((p) => tarjetaPedido(p)).join('') || '<p class="muted vacio-col">Nada por acá</p>'}</div>`;
+  };
+  const EST = { recibido: ['recibido', 'Nuevo'], preparacion: ['preparacion', 'En preparación'], listo: ['listo', 'Listo'], retirado: ['resuelto', 'Entregado'] };
+  const fila = (p) => {
+    const pago = PAGOS.find((x) => x.id === p.pago);
+    const acc = p.estado === 'recibido' ? `<button class="btn mini-btn" data-a="avanzar" data-v="${p.id}">Preparar</button>`
+      : p.estado === 'preparacion' ? `<button class="btn mini-btn" data-a="avanzar" data-v="${p.id}">Marcar listo</button>`
+        : p.estado === 'listo' ? `<div class="validar"><input inputmode="numeric" maxlength="4" placeholder="Código" id="cod-${p.id}"><button class="btn mini-btn" data-a="entregar" data-v="${p.id}">Entregar</button></div>` : '';
+    return `<tr class="${p.mio ? 'de-app' : ''}">
+      <td><b>#${p.id}</b><small>${new Date(p.creado).toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit', hour12: false })} h</small></td>
+      <td>${esc(clienteDe(p))}</td>
+      <td>${p.items.map((it) => `${it.qty} × ${esc(it.nombre)}`).join(', ')}</td>
+      <td>${p.entrega === 'envio' ? `Envío<small>${esc(p.dir || '')}</small>` : `Retira<small>${esc(p.retiro)}</small>`}</td>
+      <td>${pago.nombre}<small>${p.pago === 'efectivo' ? 'Cobrar al entregar' : 'Ya pagado'}</small></td>
+      <td class="num"><b>${plata(p.total)}</b></td>
+      <td><span class="pill ${EST[p.estado][0]}">${EST[p.estado][1]}</span></td>
+      <td class="acc">${acc}</td></tr>`;
+  };
+  const filas = [...ped.filter((p) => ['recibido', 'preparacion', 'listo'].includes(p.estado)).sort((a, b) => a.creado - b.creado), ...entregados.sort((a, b) => b.creado - a.creado)].slice(0, 14);
+  return `<div class="card crm-card">
+    ${crmPipe([['recibido', 'Nuevos', n('recibido')], ['preparacion', 'En preparación', n('preparacion')], ['listo', 'Listos para entregar', n('listo')], ['hoy', 'Entregados hoy', entregados.length, 'ok']])}
+    <div class="h2-fila"><p class="muted chico">Los pedidos llegan cuando un vecino compra desde la app. Sin comisión por venta.</p>
+      <div class="seg mini-seg"><button class="${lista ? '' : 'on'}" data-a="pVista" data-v="tablero">Tablero</button><button class="${lista ? 'on' : ''}" data-a="pVista" data-v="lista">Lista</button></div></div>
+    ${lista ? `<div class="crm-scroll"><table class="crm-t">
+      <thead><tr><th>Pedido</th><th>Cliente</th><th>Detalle</th><th>Entrega</th><th>Pago</th><th class="num">Total</th><th>Estado</th><th></th></tr></thead>
+      <tbody>${filas.map(fila).join('') || '<tr><td colspan="8" class="muted">Todavía no hay pedidos hoy.</td></tr>'}</tbody></table></div>` : ''}
+  </div>
+  ${lista ? '' : `<div class="kanban">${col('recibido', '🆕 Nuevos')}${col('preparacion', '👩‍🍳 En preparación · máx. 5')}${col('listo', '✅ Listos para retirar o llevar')}</div>`}`;
+}
+
+function pcClientes(c) {
+  const cl = clientesDe(c);
+  const mes = cl.filter((x) => x.ult >= inicioMes()).length;
+  const tipo = (x) => x.ped >= 4 ? ['resuelto', 'Frecuente'] : x.ped >= 2 ? ['recibido', 'Repite'] : ['asignado', 'Nuevo'];
+  return `<div class="card crm-card">
+    ${crmPipe([['t', 'Clientes', cl.length], ['m', 'Compraron este mes', mes], ['r', 'Repiten', cl.filter((x) => x.ped >= 2).length], ['f', 'Frecuentes', cl.filter((x) => x.ped >= 4).length, 'ok']])}
+    <p class="muted chico">Tus clientes son tuyos: los ves acá, no quedan en manos de otra app. Nombres de demostración.</p>
+    <div class="crm-scroll"><table class="crm-t">
+      <thead><tr><th>Cliente</th><th class="num">Pedidos</th><th class="num">Total comprado</th><th class="num">Ticket promedio</th><th>Lo que más pide</th><th>Última compra</th><th>Tipo</th></tr></thead>
+      <tbody>${cl.slice(0, 15).map((x) => { const top = Object.entries(x.items).sort((a, b) => b[1] - a[1])[0]; const t = tipo(x);
+        return `<tr class="${x.mio ? 'de-app' : ''}">
+        <td><b>${esc(x.n)}</b><small>${x.envio > x.ped / 2 ? 'Suele pedir con envío' : 'Suele retirar'}</small></td>
+        <td class="num">${x.ped}</td><td class="num"><b>${plata(x.total)}</b></td><td class="num">${plata(x.total / x.ped)}</td>
+        <td>${top ? esc(top[0]) : ''}</td>
+        <td>${new Date(x.ult).toLocaleDateString('es-AR', { day: 'numeric', month: 'short' })}</td>
+        <td><span class="pill ${t[0]}">${t[1]}</span></td></tr>`; }).join('') || '<tr><td colspan="7" class="muted">Todavía sin clientes.</td></tr>'}</tbody>
+    </table></div>
+    <p class="muted chico">Mostrando ${Math.min(15, cl.length)} de ${cl.length}, ordenados por lo que compraron.</p>
+  </div>`;
 }
 
 function tarjetaPedido(p) {
@@ -1319,8 +1392,8 @@ function pcResumen(c) {
   mes.forEach((p) => p.items.forEach((it) => { top[it.nombre] = (top[it.nombre] || 0) + it.qty; }));
   const ranking = Object.entries(top).sort((a, b) => b[1] - a[1]).slice(0, 5);
   return `<div class="kpis">
-    ${kpi('Ventas del mes', plata(ventas))}${kpi('Pedidos retirados', mes.length)}
-    ${kpi('Ticket promedio', plata(mes.length ? ventas / mes.length : 0))}${kpi('Comisión que no pagaste', plata(comision), 'verde', `vs. ${MARCA.comisionApps * 100}% en apps privadas`)}
+    ${kpi('Pedidos entregados', mes.length, '', 'este mes')}${kpi('Ticket promedio', plata(mes.length ? ventas / mes.length : 0))}
+    ${kpi('Envíos con tu cadete', mes.filter((p) => p.entrega === 'envio').length, '', 'este mes')}${kpi('Comisión que no pagaste', plata(comision), 'verde', `vs. ${MARCA.comisionApps * 100}% en apps privadas`)}
   </div>
   ${cobrosHtml(c)}
   <h2>Plan Destacado</h2>
@@ -2474,6 +2547,7 @@ const ACT = {
   },
   // comercio
   panelTab(v) { S.panelTab = v; },
+  pVista(v) { S.pVista = v; },
   toggleAbierto() { const c = comercio(S.panelCid); c.abierto = !c.abierto; },
   avanzar(id) {
     const p = S.pedidos.find((x) => x.id === id);
@@ -2607,7 +2681,7 @@ render();
 (() => {
   const q = new URLSearchParams(location.search);
   const perf = q.get('perfil');
-  const pan = q.get('panel'); if (pan) { S.cTab = pan; S.mTab = pan; }
+  const pan = q.get('panel'); if (pan) { S.cTab = pan; S.mTab = pan; if (['pedidos', 'clientes', 'reclamos', 'productos', 'local', 'resumen'].includes(pan)) S.panelTab = pan; }
   if (perf && PERFILES.some((x) => x.id === perf)) { S.perfil = perf; S.onboard = true; S.sheet = null; render(); }
   if (q.get('tour')) { ACT.tourIniciar(q.get('tour') === '1' ? 'compra' : q.get('tour')); render(); }
 })();
