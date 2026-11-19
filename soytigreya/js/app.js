@@ -958,7 +958,7 @@ function sheet() {
       </div>
       ${env ? `<p class="muted">¿Cómo lo recibís?</p>
       <div class="chips"><button class="chip ${!porEnvio ? 'on' : ''}" data-a="entrega" data-v="retiro">🏪 Lo retiro</button><button class="chip ${porEnvio ? 'on' : ''}" data-a="entrega" data-v="envio">🛵 Me lo traen${env.costo ? ' · ' + plata(env.costo) : ' · gratis'}</button></div>
-      ${porEnvio ? `<label class="env-dir">¿A dónde?<input data-f="envDir" placeholder="Calle y altura" value="${esc(S.envDir || '')}"></label>
+      ${porEnvio ? `${envUbicHtml(t.c)}
       <p class="muted chico">Lo lleva el cadete de ${esc(t.c.nombre)}, hasta ${env.radio} km del local. El envío lo cobra el comercio: la app no se queda con nada.</p>` : ''}` : ''}
       <p class="muted">${t.c.servicio ? '¿Cuándo es tu turno?' : porEnvio ? '¿Para cuándo?' : '¿Cuándo lo retirás?'}</p>
       <div class="chips">${horarios(t.c).map((h) => `<button class="chip ${S.retiro === h.i ? 'on' : ''}" data-a="retiro" data-v="${h.i}">${h.txt}</button>`).join('')}</div>
@@ -1331,6 +1331,15 @@ function hoyComercio(c) {
     <div><small>Próximo retiro</small><b>${prox ? `${esc(prox.retiro)} · ${prox.codigo}` : '—'}</b></div>
     <div><small>Horario</small><b>${horarioTxt(c)}</b></div>
   </div>`;
+}
+function envUbicHtml(c) {
+  const e = S.envPos;
+  if (!e) return `<div class="env-ubi"><button class="btn claro env-btn" data-a="envUbic">📍 Usar mi ubicación</button>
+    <p class="muted chico">Tu celular nos dice dónde estás: no hace falta escribir la dirección.</p></div>`;
+  return `<div class="env-ubi"><div class="env-ok"><span class="env-pin">📍</span>
+      <div class="grow"><b>${e.tipo === 'gps' ? 'Tu ubicación actual' : `Punto de demostración en ${esc(S.usuario.loc)}`}</b><small>A ${kmTxt(distKm(e.pos, c.pos))} de ${esc(c.nombre)}</small></div>
+      <button class="link" data-a="envUbic">Actualizar</button></div>
+    <label class="env-dir">Piso, depto o referencia (opcional)<input data-f="envRef" placeholder="Ej.: timbre 2, portón verde" value="${esc(S.envRef || '')}"></label></div>`;
 }
 function envioCard(c) {
   const e = envioDe(c);
@@ -1934,7 +1943,7 @@ function crearPedido(t, retiro) {
     items: t.items.map(({ pid, nombre, precio, qty }) => ({ pid, nombre, precio, qty })),
     desc: t.c.desc + (t.extra || 0), pago: S.pago, creado: Date.now(), estado: 'recibido', mio: true, loc: t.c.loc, servicio: !!t.c.servicio, retiro: t.c.servicio ? retiro.toLowerCase() : `a las ${retiro}`,
   });
-  if (conEnvio(t.c) && S.entrega === 'envio') { p.entrega = 'envio'; p.envio = envioDe(t.c).costo; p.dir = (S.envDir || '').trim(); p.total += p.envio; }
+  if (conEnvio(t.c) && S.entrega === 'envio') { p.entrega = 'envio'; p.envio = envioDe(t.c).costo; const ref = (S.envRef || '').trim(); p.pos = S.envPos.pos; p.dir = `la ubicación ${S.envPos.tipo === 'gps' ? 'compartida' : 'de demostración'} (a ${kmTxt(distKm(S.envPos.pos, t.c.pos))})${ref ? ' · ' + ref : ''}`; p.total += p.envio; }
   S.entrega = 'retiro';
   if (t.cupon) { p.cupon = t.cupon; p.total -= t.cupon; S.puntos.cupones.splice(S.puntos.cupones.findIndex((c) => c.tipo === 'cupon'), 1); }
   S.pedidos.push(p);
@@ -2454,9 +2463,21 @@ const ACT = {
   },
   envioToggle() { const c = comercio(S.panelCid); c.envio = { ...envioDe(c), activo: !envioDe(c).activo }; toast(c.envio.activo ? 'Envíos activados: los vecinos ya pueden pedir que se lo lleves.' : 'Envíos desactivados. Seguís vendiendo con retiro en el local.'); },
   pago(v) { S.pago = v; },
+  envUbic() {
+    const t = totalesCarrito(); const radio = envioDe(t.c).radio;
+    const demo = (txt) => { S.envPos = { pos: cerca(S.usuario.loc, 3), tipo: 'demo' }; save(); render(); toast(`${txt} Para la demo usamos un punto en ${S.usuario.loc}.`); };
+    if (!navigator.geolocation) { demo('Tu navegador no comparte la ubicación.'); return false; }
+    toast('Buscando tu ubicación…');
+    navigator.geolocation.getCurrentPosition((p) => {
+      const pos = [p.coords.latitude, p.coords.longitude]; const d = distKm(pos, t.c.pos);
+      if (d > radio) { demo(`Estás a ${kmTxt(d)} del local, fuera de su zona de envío (${radio} km).`); return; }
+      S.envPos = { pos, tipo: 'gps' }; UBIC = { pos, tipo: 'gps' }; save(); render(); toast('📍 Listo: te lo llevan a donde estás.');
+    }, () => demo('No pudimos obtener tu ubicación.'), { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 });
+    return false;
+  },
   pagar() {
     const t = totalesCarrito();
-    if (conEnvio(t.c) && S.entrega === 'envio' && !(S.envDir || '').trim()) { toast('Decinos a qué dirección te lo llevan.'); return false; }
+    if (conEnvio(t.c) && S.entrega === 'envio' && !S.envPos) { toast('Tocá "Usar mi ubicación" para que sepan a dónde llevarlo.'); return false; }
     const retiro = horarios(t.c)[S.retiro].txt.replace(/Lo antes posible \((.*)\)/, '$1');
     procesando(S.pago === 'efectivo' ? 'Enviando tu pedido…' : `Procesando el pago con ${PAGOS.find((p) => p.id === S.pago).nombre}…`, () => crearPedido(t, retiro));
   },
@@ -2642,7 +2663,7 @@ document.addEventListener('input', (e) => {
   if (f === 'busca') { S.busca = e.target.value; $('#resBusca').innerHTML = resultadosBusca(); save(); }
   if (f === 'nombre') { S.usuario.nombre = e.target.value; save(); }
   if (f === 'recDir') { S.recForm.dir = e.target.value; save(); }
-  if (f === 'envDir') { S.envDir = e.target.value; save(); }
+  if (f === 'envRef') { S.envRef = e.target.value; save(); }
   if (f === 'recTxt') { S.recForm.texto = e.target.value; save(); }
   if (f === 'descLocal') { comercio(S.panelCid).descLocal = e.target.value; save(); }
   if (f === 'rpTxt' && S.rpForm) { S.rpForm.texto = e.target.value; save(); }

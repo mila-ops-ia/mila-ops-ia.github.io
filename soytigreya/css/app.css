@@ -1364,3 +1364,12 @@ button.crm-etapa:hover { background: #ECEDF1; }
 .crm-card .h2-fila p { margin: 0; }
 .crm-t .validar { display: inline-flex; gap: 6px; align-items: center; }
 .crm-t .validar input { width: 78px; padding: 6px 8px; }
+
+/* v33 · Envío: la dirección sale de la ubicación del celular */
+.env-ubi { margin: 10px 0 6px; }
+.env-btn { width: 100%; }
+.env-ubi > .chico { margin: 6px 0 0; }
+.env-ok { display: flex; align-items: center; gap: 10px; background: #F1F8F4; border-radius: 12px; padding: 10px 12px; }
+.env-ok .grow { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.env-ok small { color: var(--muted, #5F6370); font-size: .78rem; }
+.env-pin { font-size: 1.2rem; }

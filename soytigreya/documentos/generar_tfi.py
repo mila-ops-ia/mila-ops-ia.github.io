@@ -155,7 +155,7 @@ doc.add_heading('Cómo funcionaría', 2)
 viñetas([
     ('Credencial digital: ', 'un QR que cambia cada 30 segundos y el historial del ahorro de cada mes. La tarjeta física se sigue enviando al domicilio: la digital se suma, no la reemplaza.'),
     ('Beneficios reales: ', 'los comercios adheridos con los descuentos publicados por el Municipio, en lista y mapa, ordenados por cercanía.'),
-    ('Compras con retiro o con envío del comercio: ', 'el descuento se aplica solo y se paga desde la app. El vecino elige retirar o que lo lleve el cadete del propio comercio, que cobra el envío completo. Si algo sale mal, el comercio tiene 24 horas para resolver y, si no hay acuerdo, media el municipio.'),
+    ('Compras con retiro o con envío del comercio: ', 'el descuento se aplica solo y se paga desde la app. El vecino elige retirar o que lo lleve el cadete del propio comercio a su ubicación, que toma el celular sin escribir la dirección. Si algo sale mal, el comercio tiene 24 horas para resolver y, si no hay acuerdo, media el municipio.'),
     ('Trámites y pagos: ', 'turnos municipales, reclamos con foto, mapa y seguimiento por etapas, pago de tasas y multas, y estacionamiento medido con mapa de zonas.'),
     ('Salud, deporte y trabajo: ', 'turnos médicos en la red municipal (hospitales de diagnóstico inmediato, Materno Infantil y centros de atención), con guardias visibles; inscripción a escuelas deportivas de los 18 polideportivos y a la colonia de verano; búsquedas laborales con CV guardado y cursos gratuitos.'),
     ('Lo propio de Tigre: ', 'altura del río Luján con pronóstico a 24 horas y aviso al celular cuando supera el nivel de alerta por crecida; botón de alerta en todas las pantallas, que envía la ubicación al Centro de Operaciones; colectivos, farmacias de turno, agenda cultural y puntos verdes para reciclar.'),
@@ -442,7 +442,7 @@ tabla([
     ['Función', 'Qué hace', 'Quién la usa'],
     ['Credencial digital', 'QR que cambia cada 30 segundos e historial del ahorro de cada mes. La tarjeta física sigue vigente.', 'Lucía'],
     ['Beneficios', 'Comercios adheridos con sus descuentos, en lista y mapa, ordenados por cercanía.', 'Lucía'],
-    ['Comprar', 'Pedido con descuento automático, pago desde la app, retiro en el local o envío con el cadete del comercio y código de entrega.', 'Lucía y Rosa'],
+    ['Comprar', 'Pedido con descuento automático, pago desde la app, retiro en el local o envío con el cadete del comercio a la ubicación que comparte el celular (sin escribir la dirección) y código de entrega.', 'Lucía y Rosa'],
     ['Problemas con una compra', 'El vecino reclama con foto; el comercio tiene 24 horas para devolver o reponer; si no hay acuerdo, media el municipio.', 'Lucía, Rosa y Carlos'],
     ['Turnos municipales', 'Licencia de conducir, zoonosis y otros trámites, con recordatorio.', 'Lucía y Carlos'],
     ['Reclamos', 'Alumbrado, bacheo, poda y residuos, con foto, ubicación en el mapa y seguimiento por etapas.', 'Lucía y Carlos'],
