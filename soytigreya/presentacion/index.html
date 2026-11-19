@@ -301,6 +301,23 @@ svg.lucide { width: 1em; height: 1em; stroke-width: 2; vertical-align: -0.12em; 
 .cl-x { align-self: center; display: flex; flex-direction: column; align-items: center; gap: 2px; color: var(--piz); }
 .cl-x span { font-size: 64px; font-weight: 800; white-space: nowrap; }
 .cl-x small { font-size: 26px; font-weight: 600; color: var(--muted); }
+/* hoy vs. SoyTigreYa */
+.vs { display: grid; grid-template-columns: 1fr auto 1fr; gap: 26px; align-items: stretch; flex: 1; }
+.vs-c { border-radius: 28px; padding: 34px 40px; display: flex; flex-direction: column; justify-content: center; gap: 16px; min-width: 0; }
+.vs-hoy { background: var(--papel); border: 1px solid var(--linea); color: var(--piz); }
+.vs-ya { background: var(--rojo); color: #fff; }
+.vs-t { font-size: 26px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; }
+.vs-hoy .vs-t { color: var(--muted); }
+.vs-b { display: flex; height: 74px; border-radius: 16px; overflow: hidden; }
+.vs-b i { font-style: normal; display: grid; place-items: center; font-size: 28px; font-weight: 800; color: #fff; background: var(--verde); white-space: nowrap; }
+.vs-b i.app { background: var(--piz); }
+.vs-ya .vs-b i { background: #fff; color: var(--rojo); }
+.vs-n { font-size: 150px; font-weight: 800; letter-spacing: -5px; line-height: .95; white-space: nowrap; }
+.vs-n small { font-size: 46px; font-weight: 800; letter-spacing: 0; }
+.vs-hoy .vs-n { color: var(--piz); }
+.vs-s { font-size: 32px; font-weight: 500; }
+.vs-hoy .vs-s { color: var(--muted); }
+.vs-f { align-self: center; font-size: 72px; font-weight: 800; color: var(--rojo); }
 /* riesgos */
 .riesgos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; flex: 1; }
 .riesgo { background: var(--papel); border: 1px solid var(--linea); border-radius: 26px; padding: 36px 34px; display: flex; flex-direction: column; gap: 16px; }
@@ -453,15 +470,25 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
 </section>
 
 <!-- 2 · PITCH Y PROBLEMA -->
-<section class="slide" data-notas="[0:00 a 1:00] De cada 100 pesos que un comercio de Tigre vende por una app de delivery, 25 se van en comisión. Y hasta 35 si usa su reparto. Esa plata se va de Tigre. ¿Por qué ahora? Porque las comisiones llegaron al 35% este año, y la gente ya se acostumbró a comprar con billeteras. Y Tigre ya tiene la mitad de la solución: la tarjeta Soy Tigre, con más de 500 comercios adheridos. Lo que le falta es que esos comercios puedan vender desde ahí. (Tocar Con el upgrade: SoyTigreYa.) SoyTigreYa es ese upgrade: los 100 pesos son del comercio. Y si reparte con su propio cadete, el envío también lo cobra él.">
-  <div class="cab"><p class="ceja">El problema · Pain point <span class="mod">M1 · Research e hipótesis de oportunidad</span></p><h2>El upgrade de Soy Tigre: que el comercio también pueda vender</h2><p class="bajada">Para vender online, hoy los comercios dependen de <b>apps de delivery</b>:</p></div>
+<section class="slide" data-notas="[0:00 a 1:00] De cada 100 pesos que un comercio de Tigre vende por una app de delivery, 25 se van en comisión. Y hasta 35 si usa su reparto. Esa plata se va de Tigre. ¿Por qué ahora? Porque las comisiones llegaron al 35% este año, y la gente ya se acostumbró a comprar con billeteras. Y Tigre ya tiene la mitad de la solución: la tarjeta Soy Tigre, con más de 500 comercios adheridos. Lo que le falta es que esos comercios puedan vender desde ahí. SoyTigreYa es ese upgrade: los 100 pesos son del comercio. Y si reparte con su propio cadete, el envío también lo cobra él.">
+  <div class="cab"><p class="ceja">El problema · Pain point <span class="mod">M1 · Research e hipótesis de oportunidad</span></p><h2>El upgrade de Soy Tigre: que el comercio también pueda vender</h2><p class="bajada">De cada <b>$100</b> que vende un comercio por internet:</p></div>
   <div class="fila" style="flex:1; gap:64px; align-items:center;">
     <div class="col" style="flex:1; gap:28px;">
             <div class="mercado"><span><b>446.925</b> habitantes</span><span><b>+500</b> comercios adheridos</span><span>Comisiones de <b>hasta 35%</b> en 2026</span></div>
-      <div class="cien">
-        <div class="toggle" id="t100"><button class="on" data-v="hoy">Hoy, con apps de delivery</button><button data-v="sty">Con el upgrade: SoyTigreYa</button></div>
-        <div class="cien-barra"><div class="b-com" id="b-com" style="flex-basis:75%">$75 al comercio</div><div class="b-app" id="b-app" style="flex-basis:25%">$25 de comisión</div></div>
-        <p class="muted" id="t100-txt" style="font-size:30px;">La app de delivery se queda con $25 de cada $100. Esa plata se va de Tigre.</p>
+      <div class="vs">
+        <div class="vs-c vs-hoy">
+          <span class="vs-t">Hoy, con apps de delivery</span>
+          <div class="vs-b"><i style="flex:75">$75 al comercio</i><i class="app" style="flex:25">$25</i></div>
+          <p class="vs-n">$25 <small>de comisión</small></p>
+          <p class="vs-s">de cada $100 se van de Tigre</p>
+        </div>
+        <div class="vs-f">→</div>
+        <div class="vs-c vs-ya">
+          <span class="vs-t">Con SoyTigreYa</span>
+          <div class="vs-b"><i style="flex:100">$100 al comercio</i></div>
+          <p class="vs-n">$0 <small>de comisión</small></p>
+          <p class="vs-s">los $100 quedan en el comercio</p>
+        </div>
       </div>
     </div>
   </div>
