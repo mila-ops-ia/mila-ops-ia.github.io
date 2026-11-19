@@ -41,6 +41,20 @@ a { color: inherit; text-decoration: none; }
 .mas { text-align: center; font-size: 13px; color: var(--muted); padding: 18px 18px 0; line-height: 1.9; }
 .mas a { color: var(--tinta); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
 .pie { text-align: center; font-size: 12px; color: var(--muted); padding: 16px 18px 0; line-height: 1.5; }
+@media screen and (min-width: 900px) {
+  body { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+  .hoja { max-width: 1080px; width: 100%; padding: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 0 26px; align-items: stretch; }
+  .cab { grid-column: 1; grid-row: 1 / span 3; border-radius: 28px; display: flex; flex-direction: column; justify-content: center; padding: 48px 40px; text-align: left; }
+  .cab .foto { width: 150px; height: 150px; margin: 0 0 22px; }
+  .cab h1 { font-size: 40px; line-height: 1.1; }
+  .cab p { margin: 14px 0 0; font-size: 18px; max-width: 400px; line-height: 1.45; }
+  .entrega { grid-column: 2; margin: 0; padding: 20px 22px; }
+  .entrega b { font-size: 18px; }
+  .entrega p { font-size: 14.5px; }
+  .lista { grid-column: 2; padding: 12px 0 0; }
+  .mas { grid-column: 2; padding: 14px 0 0; text-align: left; }
+  .pie { grid-column: 1 / -1; padding-top: 18px; }
+}
 @page { size: A4; margin: 0; }
 @media print { .hoja { max-width: 150mm; padding-top: 14mm; } .cab { border-radius: 28px; } }
 </style>
