@@ -102,6 +102,32 @@ p, h1, h2, h3 { margin: 0; }
 .inv small { display: block; font-size: 8pt; opacity: .75; font-weight: 600; }
 .inv b { display: block; font-size: 16pt; font-weight: 900; line-height: 1.1; }
 .inv b em { font-style: normal; font-size: 8.6pt; } .inv b.v { color: #6FD39B; }
+/* ===== más llamativo: contraste oscuro / rojo / claro ===== */
+.int.izq { background: var(--tinta); color: #fff; }
+.int.izq .ceja { color: #FF8F84; }
+.int.izq .s { background: #24262E; }
+.int.izq .s span { color: #fff; opacity: .72; }
+.int.izq .s i { background: var(--rojo); color: #fff; }
+.int.izq .s.r { background: var(--rojo); } .int.izq .s.r i { background: #fff; color: var(--rojo); } .int.izq .s.r span { opacity: .95; }
+.s b { font-size: 10.4pt; } .s span { font-size: 8.2pt; }
+.s i { width: 9.4mm; height: 9.4mm; } .s i svg { width: 5.4mm; height: 5.4mm; }
+.der .t { background: #fff; border: .5mm solid var(--linea); }
+.der .t i { background: var(--rojo); color: #fff; width: 11mm; height: 11mm; }
+.der .t b { font-size: 11pt; }
+.der { background: var(--fondo); }
+.inv { grid-template-columns: 1fr 1fr 1.25fr; background: var(--rojo); padding: 5mm 4.5mm; gap: 2.5mm; }
+.inv small { font-size: 7.4pt; opacity: .92; }
+.inv b { font-size: 15pt; } .inv b.v { color: #fff; }
+.inv b em { display: block; font-size: 7.6pt; font-weight: 700; opacity: .92; margin-top: .4mm; }
+.sticker { position: absolute !important; z-index: 3 !important; right: 6mm; top: 60mm; width: 30mm; height: 30mm; border-radius: 50%; background: #fff; color: var(--rojo); display: flex; flex-direction: column; align-items: center; justify-content: center; transform: rotate(-11deg); border: 1mm solid var(--tinta); text-align: center; }
+.sticker b { font-size: 21pt; font-weight: 900; line-height: .95; letter-spacing: -.03em; }
+.sticker span { font-size: 6.2pt; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--tinta); line-height: 1.15; margin-top: .6mm; }
+.tapa .cel { margin-left: auto; margin-right: auto; }
+.tapa .sub { max-width: 46mm; }
+.tapa h1 { font-size: 25pt; }
+.vs b { font-size: 40pt; }
+.medio h2 { font-size: 21pt; }
+.contra .qr { border: 1.2mm solid var(--rojo); }
 </style>
 </head>
 <body>
@@ -137,12 +163,13 @@ p, h1, h2, h3 { margin: 0; }
     <p class="marca"><i><svg class="tg" viewBox="0 0 100 100" aria-hidden="true"><circle cx="23" cy="27" r="14" fill="#E2701A"/><circle cx="77" cy="27" r="14" fill="#E2701A"/><circle cx="23" cy="28" r="7.5" fill="#FFC6B3"/><circle cx="77" cy="28" r="7.5" fill="#FFC6B3"/><ellipse cx="50" cy="57" rx="41" ry="36" fill="#F28C28"/><path d="M50 21 l-5 11 h10z M38 24 l-1 10 l-5 -7z M62 24 l1 10 l5 -7z" fill="#3A2414"/><ellipse cx="50" cy="72" rx="21" ry="15" fill="#FFF4E6"/><ellipse cx="35" cy="54" rx="6.5" ry="7.5" fill="#2B1A10"/><ellipse cx="65" cy="54" rx="6.5" ry="7.5" fill="#2B1A10"/><circle cx="37.5" cy="51" r="2.4" fill="#fff"/><circle cx="67.5" cy="51" r="2.4" fill="#fff"/><path d="M44.5 64.5 q5.5 -3.5 11 0 q-1.5 5 -5.5 6 q-4 -1 -5.5 -6z" fill="#C2456A"/><path d="M50 70.5 v3 M50 73.5 q-5 4.5 -9 0.5 M50 73.5 q5 4.5 9 0.5" stroke="#3A2414" stroke-width="2" fill="none" stroke-linecap="round"/></svg></i><span style="opacity:1;font-weight:800">SOYTIGRE<span>YA</span></span></p>
     <h1>Que el ahorro y la venta se queden en Tigre.</h1>
     <p class="sub">El upgrade digital de la app Soy Tigre.</p>
+    <div class="sticker"><b>0%</b><span>de comisión<br>para el comercio</span></div>
     <div class="cel"><img src="capturas/inicio-hd.jpg" alt="La app en el celular"></div>
   </section>
 </div>
 <p class="guia">Cara de adentro · se imprime al dorso</p>
 <div class="cara">
-  <section class="panel int">
+  <section class="panel int izq">
     <p class="ceja">Todo Tigre en una app</p>
     <h2>Lo de todos los días, a un toque.</h2>
     <div class="serv">
@@ -174,7 +201,7 @@ p, h1, h2, h3 { margin: 0; }
       <div class="t"><i><i data-lucide="message-circle"></i></i><div><b>Tigri, tu asistente</b><span>Le escribís "quiero pizza" o "hay un bache" y te lleva.</span></div></div>
       <div class="t"><i><i data-lucide="layout-dashboard"></i></i><div><b>Paneles estilo CRM</b><span>Para el comercio y para el Municipio, con datos al día.</span></div></div>
     </div>
-    <div class="inv"><div><small>La inversión</small><b>$109 <em>millones</em></b></div><div><small>Se recupera en</small><b class="v">2 años</b></div></div>
+    <div class="inv"><div><small>Inversión</small><b>$109<em>millones</em></b></div><div><small>Se recupera en</small><b class="v">2<em>años</em></b></div><div><small>Queda en Tigre</small><b>$360<em>millones por año</em></b></div></div>
   </section>
 </div>
 <script>lucide.createIcons();</script>
