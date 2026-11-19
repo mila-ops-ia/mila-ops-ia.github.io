@@ -255,7 +255,7 @@ p('Por eso creo que SoyTigreYa es viable en Tigre y en Argentina. No parte de ce
 p('La Diplomatura me dio el orden para llegar hasta acá: mirar primero a las personas y después a la tecnología, convertir una idea en algo que se puede probar y ponerle números que se puedan explicar. Me llevo, sobre todo, la convicción de que lo digital puede ser una herramienta de equidad: cuando la infraestructura es pública, el comercio chico compite con las mismas herramientas que el grande.')
 p('Por ahora no tengo la oportunidad de llevar este proyecto adelante, pero estoy contenta con lo que pude crear: una app que logré materializar, aunque sea en un ambiente de prueba. No soy desarrolladora; para construirla me apoyé mucho en Claude Code. Aprendí que hoy se puede pasar de una idea a un prototipo sin saber programar, y que lo que no se puede delegar es entender el problema.')
 if MODO == 'tfi':
-    p('por iniciativa propia sumé el prototipo funcional, la presentación, un folleto, un pitch, instructivos de uso y anexos. Todo está en mila-ops-ia.github.io/soytigreya/enlaces.html.', negrita_inicio='Material adicional: ')
+    p('además del trabajo, la app y la presentación, por iniciativa propia sumé un folleto, un pitch, instructivos de uso y anexos. Todo está en mila-ops-ia.github.io/soytigreya/enlaces.html.', negrita_inicio='Material adicional: ')
     _pg = OxmlElement('w:pgNumType'); _pg.set(qn('w:start'), '0'); sec._sectPr.append(_pg)
     doc.save(SALIDA)
     print('ok')
