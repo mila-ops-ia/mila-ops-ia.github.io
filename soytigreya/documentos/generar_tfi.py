@@ -139,7 +139,7 @@ viñetas([
     ('Municipio: ', 'no puede medir el impacto real de la tarjeta ni el consumo por localidad, y gestiona reclamos con poca trazabilidad para el vecino.'),
 ])
 doc.add_heading('Oportunidades de mejora', 2)
-p('Existe una base instalada que reduce el costo de adopción: miles de vecinos ya tienen la tarjeta y la app municipal. Y hay antecedentes en Argentina: Billetera Santa Fe, con reintegros compartidos entre el Estado y el comercio; Cuenta DNI, la billetera del Banco Provincia; y Coopexpress, una cooperativa de cadetes de Rosario que reparte para comercios por fuera de las apps. Lo nuevo es reunirlo en la app que Tigre ya tiene.')
+p('Existe una base instalada que reduce el costo de adopción: miles de vecinos ya tienen la tarjeta y la app municipal, y más de 500 comercios ya están adheridos. Hay dos antecedentes en Rosario: MuniShop, la tienda online sin comisión que el Banco Municipal lanzó en 2023, sumó unos 150 comercios y quedó inactiva al año; y Coopexpress, una cooperativa de cadetes que reparte para comercios por fuera de las apps. A diferencia de MuniShop, SoyTigreYa no crea un sitio nuevo: se monta sobre la tarjeta y la app que el vecino ya usa.')
 doc.add_heading('Cambios posibles mediante herramientas digitales', 2)
 viñetas([
     'Aplicar el descuento automáticamente al comprar por la app, sin cupones.',
@@ -220,7 +220,7 @@ doc.add_heading('Principales desafíos o riesgos', 2)
 tabla([
     ['Riesgo', 'Nivel', 'Mitigación'],
     ['Baja adopción de los comercios', 'Alto', 'Panel muy simple, capacitación presencial y acompañamiento en el alta.'],
-    ['Financiamiento del descuento', 'Alto', 'Cofinanciamiento con un banco o billetera (como Cuenta DNI o Billetera Santa Fe) y topes por compra.'],
+    ['Financiamiento del descuento', 'Alto', 'Cofinanciamiento con un banco o billetera y topes por compra.'],
     ['Logística del envío', 'Medio', 'Retiro y envío a cargo del comercio; partners de reparto desde el año 2.'],
     ['Competencia de plataformas privadas', 'Medio', 'Competir por precio final y cercanía, no por publicidad.'],
     ['Protección de datos personales', 'Medio', 'Cumplir la Ley 25.326, usar datos agregados y consentimiento explícito.'],
@@ -251,7 +251,7 @@ tabla([
 # ---------- 8 ----------
 doc.add_heading('8. Conclusiones', 1)
 p('Empecé este trabajo con una pregunta: ¿por qué un comercio de mi barrio tiene que entregar hasta un tercio de cada venta para llegar al celular de sus vecinos, si el Municipio ya tiene una tarjeta y una app que los conectan? La respuesta que encontré es que no hace falta inventar nada nuevo: hace falta unir lo que ya existe.')
-p('Por eso creo que SoyTigreYa es viable en Tigre y en Argentina. No parte de cero, porque la tarjeta, los comercios adheridos y la app municipal ya están. Tiene antecedentes que funcionan, como Billetera Santa Fe y Cuenta DNI. Y se puede probar con poco riesgo: un piloto de tres meses con 40 comercios, que crece solo si cumple sus metas.')
+p('Por eso creo que SoyTigreYa es viable en Tigre y en Argentina. No parte de cero, porque la tarjeta, los comercios adheridos y la app municipal ya están. Y se puede probar con poco riesgo: un piloto de tres meses con 40 comercios, que crece solo si cumple sus metas.')
 p('La Diplomatura me dio el orden para llegar hasta acá: mirar primero a las personas y después a la tecnología, convertir una idea en algo que se puede probar y ponerle números que se puedan explicar. Me llevo, sobre todo, la convicción de que lo digital puede ser una herramienta de equidad: cuando la infraestructura es pública, el comercio chico compite con las mismas herramientas que el grande.')
 p('Por ahora no tengo la oportunidad de llevar este proyecto adelante, pero estoy contenta con lo que pude crear: una app que logré materializar, aunque sea en un ambiente de prueba. No soy desarrolladora; para construirla me apoyé mucho en Claude Code. Aprendí que hoy se puede pasar de una idea a un prototipo sin saber programar, y que lo que no se puede delegar es entender el problema.')
 if MODO == 'tfi':
@@ -403,6 +403,8 @@ tabla([
     ['Brecha digital', 'Media', 'Baja: modo accesible, versión web y WhatsApp', 'Bajo'],
 ], [4.4, 2.9, 6.7, 2.0])
 p('Peligrosidad es la probabilidad de que el riesgo ocurra; vulnerabilidad, cuánto afectaría al proyecto con las mitigaciones ya previstas en la sección 6. El nivel combina las dos. Es una valoración cualitativa de la autora, a revisar con los datos del piloto. Los dos riesgos altos son los que se validan primero: la meta de 40 comercios en tres meses y el acuerdo con un banco o billetera.')
+doc.add_heading('Antecedente histórico: MuniShop (Rosario)', 2)
+p('En junio de 2023 el Banco Municipal de Rosario lanzó MuniShop, una plataforma de venta online gratuita para los comercios de la ciudad y sin comisión por transacción, heredera de Vidrieras en Red (2020). Ese año sumó unos 150 comercios (La Capital, 2023). En agosto de 2024, Punto Biz informó que el sitio llevaba meses inactivo y que se preparaba un relanzamiento; a noviembre de 2026 no se pudo confirmar que esté activo. Por eso se toma como aprendizaje y no como modelo vigente: SoyTigreYa no crea un sitio nuevo, se monta sobre la tarjeta y la app que el vecino ya usa.')
 doc.add_heading('Comparación con otras contrataciones', 2)
 tabla([
     ['Caso', 'Qué incluye', 'Monto'],
@@ -469,6 +471,7 @@ for f in [
     'Banco de la Nación Argentina, cotización del dólar oficial, tipo vendedor, al 18 de noviembre de 2026 ($1.580), según La Nación.',
     'Fotos ilustrativas: Wikimedia Commons (CC BY y CC BY-SA), con créditos en el repositorio del proyecto.',
     'La Capital (Rosario), "Delivery bajo la lupa", y RosarioPlus, notas sobre la cooperativa de cadetes Coopexpress.',
+    'Municipalidad de Rosario, "El Banco Municipal lanzó MuniShop" (2023); La Capital, "Unos 150 comercios ya son parte de la plataforma de compras del Banco Municipal" (2023); Punto Biz, "A un año de su lanzamiento, el sitio de ventas Munishop fue a boxes" (2024).',
     'Govlaunch, Munimercado de la ciudad de Neuquén.',
     'Sitio Andino, "San Carlos presenta Góndola Sancarlina" (2026).',
     'Aire de Santa Fe y Gobierno de Santa Fe, notas sobre Billetera Santa Fe.',

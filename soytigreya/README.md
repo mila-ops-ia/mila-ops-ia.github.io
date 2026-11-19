@@ -88,7 +88,7 @@ y abrí http://localhost:8450.
 
 - Población de Tigre: Censo Nacional 2022 (446.925 habitantes)
 - Comisiones de apps de delivery: Develop Argentina (marzo de 2026) e iProfesional (julio de 2026)
-- Antecedentes: Billetera Santa Fe, Cuenta DNI (Banco Provincia), Coopexpress (cooperativa de cadetes de Rosario), Boti y BAX (CABA), App Ciudadana (Córdoba)
+- Antecedentes en Rosario: MuniShop (tienda online sin comisión del Banco Municipal, 2023, hoy inactiva) y Coopexpress (cooperativa de cadetes)
 - Costos de referencia: tarifas publicadas de Supabase y Mercado Pago (2026) y sueldos IT de Develop Argentina (junio de 2026)
 
 ## Créditos de fotos
