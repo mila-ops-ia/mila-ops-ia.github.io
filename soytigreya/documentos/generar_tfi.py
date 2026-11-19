@@ -85,6 +85,18 @@ def tabla(filas, anchos):
     doc.add_paragraph().paragraph_format.space_after = Pt(0)
     return t
 
+def enlace(par, url, texto=None, tam=None):
+    """Agrega un hipervínculo real (clickeable en el PDF)."""
+    rid = par.part.relate_to(url, 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink', is_external=True)
+    h = OxmlElement('w:hyperlink'); h.set(qn('r:id'), rid)
+    r = OxmlElement('w:r'); rpr = OxmlElement('w:rPr')
+    f = OxmlElement('w:rFonts'); f.set(qn('w:ascii'), 'Arial'); f.set(qn('w:hAnsi'), 'Arial'); rpr.append(f)
+    c = OxmlElement('w:color'); c.set(qn('w:val'), 'D02013'); rpr.append(c)
+    u = OxmlElement('w:u'); u.set(qn('w:val'), 'single'); rpr.append(u)
+    if tam:
+        z = OxmlElement('w:sz'); z.set(qn('w:val'), str(int(tam * 2))); rpr.append(z)
+    r.append(rpr); t = OxmlElement('w:t'); t.text = texto or url.replace('https://', ''); r.append(t); h.append(r); par._p.append(h)
+
 def numero_pagina(par):
     r = par.add_run()
     for tipo, txt in (('begin', None), (None, 'PAGE'), ('end', None)):
@@ -115,8 +127,8 @@ centrado('El upgrade de la app Soy Tigre: beneficios, comercio de cercanía y se
 centrado('Propuesta de innovación digital para el Municipio de Tigre', 12, despues=46)
 _q = doc.add_paragraph(); _q.alignment = WD_ALIGN_PARAGRAPH.CENTER; _q.paragraph_format.space_after = Pt(2)
 _q.add_run().add_picture(CAPT.rsplit('/', 1)[0] + '/img/qr-soytigreya.png', width=Cm(3.4))
-centrado('Prototipo funcional: mila-ops-ia.github.io/soytigreya', 10, color=AZUL, despues=2)
-centrado('Todo el material: mila-ops-ia.github.io/soytigreya/enlaces.html', 10, color=AZUL, despues=58)
+_l1 = centrado('Prototipo funcional: ', 10, color=AZUL, despues=2); enlace(_l1, 'https://mila-ops-ia.github.io/soytigreya/', tam=10)
+_l2 = centrado('Todo el material: ', 10, color=AZUL, despues=58); enlace(_l2, 'https://mila-ops-ia.github.io/soytigreya/enlaces.html', tam=10)
 for etiqueta, valor in (('Alumna: ', 'Milagros Sanabria'), ('Docente: ', 'Mg. Mauro Matías Alberti'), ('Modalidad: ', 'Individual'), ('Fecha: ', 'Noviembre de 2026')):
     par = doc.add_paragraph(); par.alignment = WD_ALIGN_PARAGRAPH.CENTER; par.paragraph_format.space_after = Pt(2)
     r = par.add_run(etiqueta); r.bold = True
@@ -261,7 +273,8 @@ p('Por eso creo que SoyTigreYa es viable en Tigre y en Argentina. No parte de ce
 p('La Diplomatura me dio el orden para llegar hasta acá: mirar primero a las personas y después a la tecnología, convertir una idea en algo que se puede probar y ponerle números que se puedan explicar. Confirmé que lo digital puede ser una herramienta de equidad: con infraestructura pública, el comercio chico compite de igual a igual.')
 p('Por ahora no tengo la oportunidad de llevar este proyecto adelante, pero estoy contenta con lo que pude crear: una app que logré materializar, aunque sea en un ambiente de prueba. No soy desarrolladora; para construirla me apoyé mucho en Claude Code. Aprendí que hoy se puede pasar de una idea a un prototipo sin saber programar, y que lo que no se puede delegar es entender el problema.')
 if MODO == 'tfi':
-    p('además del trabajo, la app y la presentación, por iniciativa propia sumé un folleto, un pitch, instructivos de uso y anexos. Todo está en mila-ops-ia.github.io/soytigreya/enlaces.html.', negrita_inicio='Material adicional: ')
+    p('además del trabajo, la app y la presentación, por iniciativa propia sumé un folleto, un pitch, instructivos de uso y anexos. Todo está en este enlace:', negrita_inicio='Material adicional: ')
+    _le = doc.add_paragraph(); enlace(_le, 'https://mila-ops-ia.github.io/soytigreya/enlaces.html')
     _pg = OxmlElement('w:pgNumType'); _pg.set(qn('w:start'), '0'); sec._sectPr.append(_pg)
     doc.save(SALIDA)
     print('ok')
