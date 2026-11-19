@@ -75,25 +75,57 @@ p { margin: 0; }
 .oscuro b.v { color: #6FD39B; }
 .chips { display: flex; flex-wrap: wrap; gap: 1.8mm; }
 .chips span { background: #fff; border-radius: 10mm; padding: 1.5mm 3.6mm; font-size: 8.6pt; font-weight: 700; }
+
+/* ===== v2: sin huecos, capturas grandes ===== */
+.panel { padding: 10mm 8mm 8mm; gap: 4mm; }
+/* interior: la captura ocupa todo lo que sobra de la tarjeta */
+.gn { padding: 5.5mm 5mm 0; gap: 1.8mm; overflow: hidden; }
+.gn .n { font-size: 22pt; }
+.gn ul { gap: 2.2mm; margin-bottom: 3mm; }
+.shot { flex: 1; min-height: 0; margin: 0 -5mm; border: 0; border-top: .3mm solid #E3E5EA; border-radius: 0; background: var(--fondo); position: relative; overflow: hidden; }
+.shot img { position: absolute; left: -23%; top: -3mm; width: 195%; height: auto; max-width: none; object-fit: unset; }
+.shot.cel { display: block; padding: 0; background: var(--fondo); }
+.shot.cel img { position: absolute; left: 50%; top: 5mm; transform: translateX(-50%); width: 62mm; height: auto; border-radius: 5mm 5mm 0 0; border: 1.1mm solid var(--tinta); border-bottom: 0; }
+.shot small { position: absolute; left: 0; right: 0; bottom: 0; background: rgba(23,24,28,.88); color: #fff; font-weight: 600; font-size: 8pt; padding: 1.8mm 5mm; }
+.oscuro { padding: 4mm 5mm; }
+/* exterior */
+.solapa, .contra { justify-content: space-between; }
+.solapa .frase { font-size: 13.5pt; font-weight: 800; line-height: 1.25; }
+.solapa .frase b { color: var(--rojo); }
+.gh { padding: 6mm 5.5mm; gap: 1.2mm; }
+.gh b { font-size: 44pt; } .gh b em { font-size: 12pt; } .gh span { font-size: 11pt; } .gh small { font-size: 8.4pt; }
+.chips span { font-size: 9.4pt; padding: 1.8mm 4mm; } .chips { gap: 2.2mm; }
+.bloque { display: flex; flex-direction: column; gap: 4mm; }
+.qr { width: 74mm; padding: 5mm; }
+.contra h2 { font-size: 22pt; }
+.contra .url { font-size: 10.5pt; }
+.duo img, .duo i { width: 24mm; height: 24mm; }
+.contra .firma { font-size: 12.5pt; }
+.tapa { justify-content: flex-start; padding-top: 14mm; gap: 5.5mm; }
+.tapa h1 { font-size: 27pt; }
+.tapa::after { display: none; }
+.tapa .cel { flex: 1; min-height: 0; position: relative; margin: 2mm -8mm -8mm; overflow: hidden; }
+.tapa .cel img { position: absolute; left: 50%; top: 2mm; transform: translateX(-50%); width: 60mm; border-radius: 6mm 6mm 0 0; border: 1.2mm solid var(--tinta); border-bottom: 0; box-shadow: 0 0 0 1.4mm rgba(255,255,255,.18); }
 </style>
 </head>
 <body>
 <p class="guia">Cara de afuera · al doblar: solapa (izquierda) · contratapa (centro) · tapa (derecha)</p>
 <div class="cara">
   <section class="panel solapa">
-    <p class="ceja">Vender por internet</p>
+    <div class="bloque"><p class="ceja">Vender por internet</p>
     <div class="gh hoy"><small>Hoy, con apps de delivery</small><b>25%<em>de comisión</em></b><span>La cuarta parte de cada venta se va de Tigre.</span></div>
     <p class="flecha">↓</p>
-    <div class="gh ya"><small>Con SoyTigreYa</small><b>0%</b><span>La venta entera queda en el barrio.</span></div>
-    <p class="ceja" style="margin-top:3mm">Todo en una sola app</p>
-    <div class="chips"><span>Comprar</span><span>Beneficios</span><span>Envío del local</span><span>Trámites</span><span>Salud</span><span>Deporte</span><span>Eventos</span><span>Altura del río</span><span>Botón de alerta</span><span>Puntos Tigre</span></div>
+    <div class="gh ya"><small>Con SoyTigreYa</small><b>0%</b><span>La venta entera queda en el barrio.</span></div></div>
+    <p class="frase">Tigre ya tiene la tarjeta, la app y más de 500 locales con descuento. <b>Falta unirlos.</b></p>
+    <div class="bloque"><p class="ceja">Todo en una sola app</p>
+    <div class="chips"><span>Comprar</span><span>Beneficios</span><span>Envío del local</span><span>Trámites</span><span>Salud</span><span>Deporte</span><span>Eventos</span><span>Altura del río</span><span>Botón de alerta</span><span>Puntos Tigre</span><span>Tigri, tu asistente</span></div></div>
   </section>
   <section class="panel contra">
-    <h2>Escaneá y probala</h2>
+    <div class="bloque" style="align-items:center"><h2>Escaneá y probala</h2>
     <div class="qr"><img src="img/qr-soytigreya.png" alt="QR para abrir la app"></div>
-    <p class="url">mila-ops-ia.github.io/soytigreya</p>
-    <div class="duo"><img src="img/mila.jpg" alt="Milagros Sanabria"><i><svg class="tg" viewBox="0 0 100 100" aria-hidden="true"><circle cx="23" cy="27" r="14" fill="#E2701A"/><circle cx="77" cy="27" r="14" fill="#E2701A"/><circle cx="23" cy="28" r="7.5" fill="#FFC6B3"/><circle cx="77" cy="28" r="7.5" fill="#FFC6B3"/><ellipse cx="50" cy="57" rx="41" ry="36" fill="#F28C28"/><path d="M50 21 l-5 11 h10z M38 24 l-1 10 l-5 -7z M62 24 l1 10 l5 -7z" fill="#3A2414"/><ellipse cx="50" cy="72" rx="21" ry="15" fill="#FFF4E6"/><ellipse cx="35" cy="54" rx="6.5" ry="7.5" fill="#2B1A10"/><ellipse cx="65" cy="54" rx="6.5" ry="7.5" fill="#2B1A10"/><circle cx="37.5" cy="51" r="2.4" fill="#fff"/><circle cx="67.5" cy="51" r="2.4" fill="#fff"/><path d="M44.5 64.5 q5.5 -3.5 11 0 q-1.5 5 -5.5 6 q-4 -1 -5.5 -6z" fill="#C2456A"/><path d="M50 70.5 v3 M50 73.5 q-5 4.5 -9 0.5 M50 73.5 q5 4.5 9 0.5" stroke="#3A2414" stroke-width="2" fill="none" stroke-linecap="round"/></svg></i></div>
-    <p class="firma">Milagros y Tigri te esperan<br>para hacerlo realidad.</p>
+    <p class="url">mila-ops-ia.github.io/soytigreya</p></div>
+    <div class="bloque" style="align-items:center">    <div class="duo"><img src="img/mila.jpg" alt="Milagros Sanabria"><i><svg class="tg" viewBox="0 0 100 100" aria-hidden="true"><circle cx="23" cy="27" r="14" fill="#E2701A"/><circle cx="77" cy="27" r="14" fill="#E2701A"/><circle cx="23" cy="28" r="7.5" fill="#FFC6B3"/><circle cx="77" cy="28" r="7.5" fill="#FFC6B3"/><ellipse cx="50" cy="57" rx="41" ry="36" fill="#F28C28"/><path d="M50 21 l-5 11 h10z M38 24 l-1 10 l-5 -7z M62 24 l1 10 l5 -7z" fill="#3A2414"/><ellipse cx="50" cy="72" rx="21" ry="15" fill="#FFF4E6"/><ellipse cx="35" cy="54" rx="6.5" ry="7.5" fill="#2B1A10"/><ellipse cx="65" cy="54" rx="6.5" ry="7.5" fill="#2B1A10"/><circle cx="37.5" cy="51" r="2.4" fill="#fff"/><circle cx="67.5" cy="51" r="2.4" fill="#fff"/><path d="M44.5 64.5 q5.5 -3.5 11 0 q-1.5 5 -5.5 6 q-4 -1 -5.5 -6z" fill="#C2456A"/><path d="M50 70.5 v3 M50 73.5 q-5 4.5 -9 0.5 M50 73.5 q5 4.5 9 0.5" stroke="#3A2414" stroke-width="2" fill="none" stroke-linecap="round"/></svg></i></div>
+    <p class="firma">Milagros y Tigri te esperan<br>para hacerlo realidad.</p></div>
     <small>Milagros Sanabria · Trabajo Final Integrador, UNDelta · 2026<br>Prototipo académico · No es una app oficial del Municipio de Tigre</small>
   </section>
   <section class="panel tapa">
@@ -101,6 +133,7 @@ p { margin: 0; }
     <h1>Que el ahorro y la venta se queden en Tigre.</h1>
     <p class="sub">La app Soy Tigre que ya conocés, ahora también para comprar cerca de tu casa.</p>
     <span class="abrir">Abrilo y mirá qué ganás →</span>
+    <div class="cel"><img src="capturas/inicio.jpg" alt="La app en el celular"></div>
   </section>
 </div>
 <p class="guia">Cara de adentro · se imprime al dorso</p>
@@ -109,7 +142,7 @@ p { margin: 0; }
     <p class="ceja">¿Qué ganás vos?</p>
     <div class="gn"><span class="q">Si sos vecino</span><span class="n">Ahorrás en cada compra</span><p class="d">El descuento de tu tarjeta se aplica solo.</p>
       <ul><li>Pedís a un local y te lo lleva su cadete.</li><li>Turnos médicos y pagos desde el celu.</li><li>Sumás puntos y los canjeás.</li></ul>
-      <div class="shot cel"><img src="capturas/inicio.jpg" alt="La app en el celular"></div></div>
+      <div class="shot cel"><img src="capturas/checkout.jpg" alt="Un pedido en la app"><small>Tu pedido, con el descuento ya aplicado.</small></div></div>
   </section>
   <section class="panel">
     <p class="ceja">&nbsp;</p>
@@ -121,7 +154,7 @@ p { margin: 0; }
     <p class="ceja">&nbsp;</p>
     <div class="gn c3"><span class="q">Si sos el Municipio</span><span class="n">$360 millones por año</span><p class="d">Quedan en Tigre, con 100 locales adheridos.</p>
       <ul><li>Sabés qué se compra y dónde.</li><li>Reclamos ordenados por urgencia.</li></ul>
-      <div class="shot"><img src="capturas/marina.jpg" alt="Panel del Municipio" style="height:44mm"><small>El panel con los resultados.</small></div></div>
+      <div class="shot"><img src="capturas/marina.jpg" alt="Panel del Municipio"><small>El panel con los resultados.</small></div></div>
     <div class="oscuro"><div><small>La inversión</small><b>$109 <em>millones</em></b></div><div><small>Se recupera en</small><b class="v">2 años</b></div></div>
     <p class="pie-int">La cuenta: 60 pedidos por mes × $20.000 × 25% = $300.000 · × 100 locales × 12 meses = $360 millones.</p>
   </section>
