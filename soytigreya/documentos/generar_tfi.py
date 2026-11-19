@@ -1,3 +1,4 @@
+import re
 import sys
 from docx import Document
 from docx.shared import Pt, Cm, RGBColor
@@ -38,7 +39,23 @@ for nombre, tam in (('Heading 1', 14), ('Heading 2', 12)):
     h.paragraph_format.line_spacing = 1.15
     h.font.italic = False
 
+# ---------- dólares entre paréntesis (dólar oficial $1.580 del 18/11/2026) ----------
+EN_ANEXO = False
+DOLAR = 1580
+def usd(millones):
+    x = abs(millones) * 1e6 / DOLAR
+    if x >= 1e6: return ('USD %.2f millones' % (x / 1e6)).replace('.', ',')
+    paso = 1000 if x >= 100000 else 100 if x >= 10000 else 10
+    return 'USD ' + f'{int(round(x / paso) * paso):,}'.replace(',', '.')
+_PAT = re.compile(r'([+−]?\$)(\d[\d.]*(?:,\d+)?) (millones|M)\b(?! \(USD)(?! de equipo)(?! de hosting)(?! \+)')
+def con_usd(txt):
+    if 'USD' in txt and '(USD' not in txt: return txt
+    def r(m):
+        v = float(m.group(2).replace('.', '').replace(',', '.'))
+        return f'{m.group(0)} ({usd(v)})'
+    return re.sub(r' \((USD [^()]*)\)\)', r'; \1)', _PAT.sub(r, txt))
 def p(texto, just=True, negrita_inicio=None):
+    if EN_ANEXO: texto = con_usd(texto)
     par = doc.add_paragraph()
     if negrita_inicio:
         r = par.add_run(negrita_inicio); r.bold = True
@@ -71,6 +88,7 @@ def tabla(filas, anchos):
     for j, a in enumerate(anchos): t.columns[j].width = Cm(a)
     for i, fila in enumerate(filas):
         for j, txt in enumerate(fila):
+            if EN_ANEXO: txt = con_usd(txt)
             c = t.cell(i, j)
             c.width = Cm(anchos[j])
             c.text = ''
@@ -213,35 +231,35 @@ tabla([
 # ---------- 6 ----------
 doc.add_heading('6. Plan de implementación', 1)
 viñetas([
-    ('Etapa 1 · Piloto (meses 1 a 3), qué se hace primero: ', 'Tigre Centro con 40 comercios: credencial, beneficios y compra con retiro o con envío del cadete del comercio. Metas para pasar de etapa: 40 comercios vendiendo, 2.000 vecinos que compraron, NPS de 40 o más y 95% de pedidos sin incidencias.'),
+    ('Etapa 1 · Piloto (meses 1 a 3), qué se hace primero: ', 'Tigre Centro con 40 comercios (el 8% de los más de 500 adheridos): credencial, beneficios y compra con retiro o envío del comercio. Metas para pasar de etapa: 2.000 vecinos que compraron, NPS de 40 o más y 95% de pedidos sin incidencias.'),
     ('Etapa 2 · Todo Tigre (meses 4 a 6), qué hace falta: ', 'solo si el piloto cumple sus metas: todas las localidades y comercios no gastronómicos, pago de tasas y estacionamiento, y reclamos con foto y mapa.'),
     ('Etapa 3 · Mejora continua (meses 7 a 12), cómo queda funcionando: ', 'turnero completo, Tigri con inteligencia artificial conectada a los sistemas municipales, Puntos Tigre y canal por WhatsApp.'),
 ])
 doc.add_heading('Recursos necesarios', 2)
 viñetas([
     ('Equipo: ', 'líder de producto, diseñador UX/UI, dos desarrolladores y un referente de la Secretaría de Desarrollo Económico.'),
-    ('Soporte por suscripción: ', 'el equipo de soporte acompaña todas las etapas con capacitación, mesa de ayuda y mejoras.'),
-    ('Tecnología: ', 'aplicación web progresiva, base de datos en la nube, pasarela de pagos, validación de identidad (Mi Argentina o RENAPER) y servicios de mapas.'),
-    ('Comunicación: ', 'las redes que el Municipio ya tiene activas, con Tigri como cara y los comercios como difusores.'),
+    ('Soporte por suscripción: ', 'capacitación, mesa de ayuda y mejoras en todas las etapas.'),
+    ('Tecnología: ', 'aplicación web progresiva, base de datos en la nube, pasarela de pagos, validación de identidad y mapas.'),
+    ('Comunicación: ', 'las redes del Municipio, con Tigri como cara y los comercios como difusores.'),
 ])
 p('', negrita_inicio='Inversión del Municipio por etapa (precio = costo del equipo × 1,30):').paragraph_format.keep_with_next = True
 tabla([
-    ['Concepto', 'Monto', 'Cómo se calcula (meses × costo por mes)'],
-    ['Piloto (meses 1 a 3)', '$37 millones', '3 × $9,5 millones de equipo × 1,30.'],
-    ['Todo Tigre (meses 4 a 6)', '$30 millones', '3 × $7,7 millones de equipo × 1,30.'],
-    ['Mejora continua (meses 7 a 12)', '$42 millones', '6 × $6,9 millones + $0,6 millones de hosting.'],
-    ['Total del año 1', '$109 millones', '$37 + $30 + $42 millones (USD 69.000).'],
-    ['Desde el año 2, por año', '$55,2 millones', '12 × $4,5 millones + $1,2 millones de hosting.'],
-], [5.3, 2.8, 7.9])
+    ['Concepto', 'Monto', 'En dólares', 'Cómo se calcula'],
+    ['Piloto (meses 1 a 3)', '$37 millones', '(USD 23.400)', '3 × $9,5 millones de equipo × 1,30.'],
+    ['Todo Tigre (meses 4 a 6)', '$30 millones', '(USD 19.000)', '3 × $7,7 millones de equipo × 1,30.'],
+    ['Mejora (meses 7 a 12)', '$42 millones', '(USD 26.600)', '6 × $6,9 millones + $0,6 de hosting.'],
+    ['Total del año 1', '$109 millones', '(USD 69.000)', '$37 + $30 + $42 millones.'],
+    ['Desde el año 2, por año', '$55,2 millones', '(USD 34.900)', '12 × $4,5 millones + $1,2 de hosting.'],
+], [4.4, 2.6, 2.5, 6.5])
 doc.add_heading('Posibles aliados', 2)
 tabla([
     ['Aliado', 'Qué aporta'],
-    ['Desarrollo Económico y Modernización', 'El programa Soy Tigre y la integración con la app oficial.'],
+    ['Desarrollo Económico y Modernización', 'El programa Soy Tigre y la integración con su app.'],
     ['Cámara de comercio de Tigre (CACIT) y CAME', 'Llegada a los comercios para sumarlos y capacitarlos.'],
     ['Mercado Pago, Cuenta DNI y MODO', 'Cobro con QR y cofinanciamiento de los descuentos.'],
     ['Uber Envíos y Cabify Envíos', 'Desde el año 2, reparto por viaje y sin comisión.'],
     ['Universidad Nacional del Delta', 'Pruebas de usabilidad y prácticas de estudiantes.'],
-], [7.0, 9.0])
+], [7.8, 8.2])
 doc.add_heading('Principales desafíos o riesgos', 2)
 tabla([
     ['Riesgo', 'Nivel', 'Mitigación'],
@@ -259,21 +277,21 @@ tabla([
 doc.add_heading('7. Resultados esperados', 1)
 viñetas([
     ('Para los usuarios: ', 'ahorro visible cada mes, menos filas y trámites, y seguimiento de pedidos y reclamos en una sola app.'),
-    ('Para los comercios y el municipio: ', 'más ventas sin comisión y un canal digital propio; datos de consumo por localidad, mejor gestión de reclamos y más recaudación digital.'),
-    ('Impacto en la comunidad: ', 'un comercio con 60 pedidos de $20.000 por mes deja de pagar $300.000 mensuales de comisión (60 × $20.000 × 25%). Con 100 comercios, desde el año 2, son $360 millones por año que quedan en Tigre ($300.000 × 100 × 12); parte vuelve al barrio en sueldos y proveedores (unos $173 millones) y al Municipio por tasa (hasta $11,5 millones).'),
+    ('Para los comercios y el municipio: ', 'más ventas sin comisión; datos de consumo, mejor gestión de reclamos y más recaudación digital.'),
+    ('Impacto en la comunidad: ', 'un comercio con 60 pedidos de $20.000 por mes deja de pagar $300.000 mensuales de comisión (USD 190). Con 100 comercios (el 20% de los adheridos), desde el año 2, son $360 millones por año (USD 228.000) que quedan en Tigre; parte vuelve al barrio en sueldos y proveedores, y al Municipio por tasa.'),
     ('Crecimiento futuro: ', 'desde el año 2, partners de reparto que cobren por viaje y no por comisión y, como opción, la misma plataforma para otros municipios.'),
 ])
-p('además de dejar plata en los comercios, la app genera ingresos y ahorros propios para el Municipio por cuatro vías (en millones de pesos):', negrita_inicio='Cómo se paga sola: ').paragraph_format.keep_with_next = True
+p('la app genera ingresos y ahorros propios para el Municipio (en millones de pesos y, entre paréntesis, en dólares a $1.580):', negrita_inicio='Cómo se paga sola: ').paragraph_format.keep_with_next = True
 tabla([
-    ['Vía de ingreso o ahorro', 'Año 1', 'Año 2', 'Cómo se calcula (año 2)'],
-    ['Plan Destacado para comercios', '$4,5', '$30', '100 comercios × $25.000 × 12 meses.'],
-    ['Publicidad local en la app', '$3,6', '$14,4', '4 espacios × $300.000 × 12 meses.'],
-    ['Banco o billetera socia', '$25', '$50', 'Aporte para cofinanciar descuentos.'],
-    ['Trámites hechos por la app', '$7,5', '$30', '20.000 trámites × $1.500 de ahorro.'],
-    ['Vuelve a la caja del Municipio', '$40,6', '$124,4', 'Suma de las cuatro vías.'],
-    ['Resultado, descontada la inversión', '−$68,4', '+$69,2', 'Se recupera en 2 años.'],
-], [6.0, 1.8, 1.8, 6.4])
-p('A 5 años se proyectaron tres escenarios: conservador (175 comercios), recupera en 3 años y 3 meses; esperado (250), en 2 años; optimista (500), en 1 año y 8 meses. Indicadores de éxito: vecinos activos y retención a 90 días, comercios activos, comisiones evitadas, tiempo de resolución de reclamos y NPS. Metas del primer año: 30 comercios con Plan Destacado, 5.000 trámites por la app y 50 comercios vendiendo.')
+    ['Vía', 'Año 1', 'Año 2', 'Cómo se calcula (año 2)'],
+    ['Plan Destacado', '$4,5 (USD 2.850)', '$30 (USD 19.000)', '100 × $25.000 × 12 meses.'],
+    ['Publicidad local', '$3,6 (USD 2.280)', '$14,4 (USD 9.110)', '4 × $300.000 × 12 meses.'],
+    ['Banco o billetera', '$25 (USD 15.800)', '$50 (USD 31.600)', 'Cofinancia los descuentos.'],
+    ['Trámites por app', '$7,5 (USD 4.750)', '$30 (USD 19.000)', '20.000 × $1.500 de ahorro.'],
+    ['Total que vuelve', '$40,6 (USD 25.700)', '$124,4 (USD 78.700)', 'Suma de las cuatro vías.'],
+    ['Resultado del año', '−$68,4 (USD 43.300)', '+$69,2 (USD 43.800)', 'Se recupera en 2 años.'],
+], [3.2, 3.9, 4.0, 4.9])
+p('A 5 años se proyectaron tres escenarios: conservador (175 comercios, el 35% de los adheridos), recupera en 3 años y 3 meses; esperado (250, la mitad), en 2 años; optimista (los 500), en 1 año y 8 meses. Indicadores de éxito: vecinos y comercios activos, comisiones evitadas y NPS.')
 
 # ---------- 8 ----------
 doc.add_heading('8. Conclusiones', 1)
@@ -291,6 +309,7 @@ if MODO == 'tfi':
 
 # ---------- anexo ----------
 doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
+EN_ANEXO = True
 doc.add_heading('Anexo A: herramientas aplicadas', 1)
 p('Estos anexos amplían el trabajo sin repetirlo: herramientas, cálculos, inventario de funciones y fuentes. En las tablas, "M" significa millones de pesos.').runs[0].italic = True
 doc.add_heading('Mapa de empatía de Lucía (proto-persona)', 2)
@@ -333,7 +352,7 @@ tabla([
     ['Vuelve a la caja del Municipio', '$40,6 M', '$124,4 M', '$152,6 M'],
     ['Resultado del año', '−$68,4 M', '+$69,2 M', '+$97,4 M'],
     ['Acumulado', '−$68,4 M', '+$0,8 M', '+$98,2 M'],
-], [7.0, 3.0, 3.0, 3.0])
+], [4.0, 4.0, 4.0, 4.0])
 p('Cómo se calcula cada vía. Plan Destacado: comercios × $25.000 por mes (año 1: 30 comercios × 6 meses = $4,5 M); es opcional y da prioridad en las búsquedas, ofertas flash ilimitadas y un informe de clientes. Publicidad local: espacios en el inicio de la app, siempre identificados como publicidad, a $300.000 por mes cada uno (año 1: 2 espacios × 6 meses = $3,6 M). Banco o billetera socia: aporte anual para cofinanciar los descuentos (año 1: medio año, $25 M). Ahorro en trámites: trámites hechos por la app × $1.500 que cuesta atenderlos en persona (año 1: 5.000 trámites = $7,5 M). Cuando el trabajo dice que SoyTigreYa "no compite por publicidad" se refiere a que no gasta en publicitarse como las apps de delivery; vender espacios a comercios locales es otra cosa, y es la vía que menos pesa: $14,4 M sobre $124,4 M en el año 2.')
 p('Recupero de la inversión: 2 años. Sin las palancas (suscripción de $6,9 millones por mes desde el año 2 y aporte bancario de $30 millones), 3 años y 4 meses. El año 1 incluye solo seis meses de ingresos, porque la plataforma está en piloto. Supuestos a validar en el piloto; el panel de Desarrollo Económico permite simular las palancas.')
 doc.add_heading('Proyección a 5 años en tres escenarios', 2)
@@ -349,7 +368,7 @@ tabla([
     ['Queda en los comercios en 5 años', '$1.370,2 M', '$2.587,5 M', '$4.581,0 M'],
     ['Vuelve al barrio en 5 años (48%)', '$657,7 M', '$1.242,0 M', '$2.198,9 M'],
     ['Tasa municipal sobre esas ventas, tope (0,80%)', '$43,8 M', '$82,8 M', '$146,6 M'],
-], [7.0, 3.0, 3.0, 3.0])
+], [4.0, 4.0, 4.0, 4.0])
 p('Los tres escenarios usan las mismas fórmulas y el mismo costo; cambia la adopción. Resultado acumulado, año por año: conservador −$82,2 millones, −$57,5 millones, −$12,8 millones, +$48,4 millones y +$129,7 millones; esperado −$68,4 millones, +$0,8 millones, +$98,2 millones, +$219,6 millones y +$372,2 millones; optimista −$65,4 millones, +$29,0 millones, +$169,6 millones, +$350,7 millones y +$585,5 millones. El escenario esperado coincide con la proyección a tres años y crece 50 comercios por año; el conservador supone 30% menos comercios, menos pedidos y un aporte bancario menor; el optimista llega a los 500 comercios ya adheridos a Soy Tigre. Comercios con Plan Destacado al año 5: 120, 180 y 330; trámites por la app: 35.000, 50.000 y 70.000. Son supuestos propios, a validar en el piloto.')
 def fig_anexo(letra, archivo, txt):
     par = doc.add_paragraph(); par.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -373,28 +392,14 @@ p('Suscripción de soporte (customer success). El equipo de soporte no entrega l
 p('Partners estratégicos de reparto. El envío con el cadete del comercio está disponible desde el piloto y no exige logística nueva, pero no todos los locales tienen cadete. Más adelante, la etapa siguiente es integrar terceros que cobren por viaje y no un porcentaje de la venta: servicios de envíos por viaje como Uber Envíos y Cabify Envíos, que ya operan en Buenos Aires (cobertura y tarifas en Tigre a confirmar en el piloto), o mensajerías de la zona. El comercio conserva el 0% de comisión sobre la venta y elige el reparto que le conviene. Es una hipótesis a validar: depende de las condiciones comerciales de cada servicio.')
 p('Otros municipios. La plataforma se configura por municipio (marca, localidades, rubros y trámites), por lo que el segundo municipio no paga el desarrollo de base: paga la adaptación, la integración con sus sistemas y la licencia. Los candidatos naturales son municipios que ya tienen una tarjeta de beneficios y comercios adheridos. La propuesta se lleva con los resultados medidos en Tigre: comercios activos, plata que quedó en los comercios y recupero.')
 p('Tarjeta física. Soy Tigre hoy envía la tarjeta física al domicilio del vecino, y eso se mantiene. La credencial digital con QR se suma, no la reemplaza: el vecino usa la que prefiera. Recibir la tarjeta en casa es parte del vínculo con el programa y asegura que nadie quede afuera por no tener celular, en línea con la mitigación de la brecha digital.')
-doc.add_heading('Montos principales en pesos y en dólares', 2)
-tabla([
-    ['Concepto', 'Pesos', 'Dólares'],
-    ['Costo del upgrade, año 1', '$109,0 M', 'USD 69.000'],
-    ['Costo por año desde el año 2', '$55,2 M', 'USD 35.000'],
-    ['Costo total en 5 años', '$329,8 M', 'USD 209.000'],
-    ['Queda en los comercios, año 2', '$360,0 M', 'USD 228.000'],
-    ['Vuelve al barrio, año 2', '$172,8 M', 'USD 109.000'],
-    ['Vuelve al Municipio por tasa, año 2 (tope)', '$11,5 M', 'USD 7.300'],
-    ['Resultado acumulado al año 5: conservador', '+$129,7 M', 'USD 82.000'],
-    ['Resultado acumulado al año 5: esperado', '+$372,2 M', 'USD 236.000'],
-    ['Resultado acumulado al año 5: optimista', '+$585,5 M', 'USD 371.000'],
-    ['Queda en los comercios en 5 años: esperado', '$2.587,5 M', 'USD 1,64 M'],
-], [9.0, 3.5, 3.5])
-p('Conversión al dólar oficial del Banco Nación, tipo vendedor, del 18 de noviembre de 2026: $1.580 por dólar. Los montos en dólares están redondeados y son una referencia: el modelo se calcula en pesos de hoy, sin ajuste por inflación ni por variación futura del tipo de cambio.')
+p('Montos en dólares. Entre paréntesis, cada monto en pesos se convierte al dólar oficial del Banco Nación, tipo vendedor, del 18 de noviembre de 2026: $1.580 por dólar. Los montos en dólares están redondeados y son una referencia: el modelo se calcula en pesos de hoy, sin ajuste por inflación ni por variación futura del tipo de cambio.')
 doc.add_heading('Efecto en la economía local: la plata que se queda trabaja tres veces', 2)
 tabla([
     ['Vuelta', 'Año 1', 'Año 2', 'Año 3'],
     ['1 · Se queda en el comercio: comisiones que no se pagan a las apps (25% de las ventas)', '$67,5 M', '$360,0 M', '$540,0 M'],
     ['2 · Vuelve a circular en el barrio: sueldos, proveedores y mejoras (48% de la vuelta 1)', '$32,4 M', '$172,8 M', '$259,2 M'],
     ['3 · Vuelve al Municipio: tasa a comercios, 0,80% de las ventas (tope)', '$2,2 M', '$11,5 M', '$17,3 M'],
-], [8.5, 2.5, 2.5, 2.5])
+], [5.5, 3.5, 3.5, 3.5])
 p('Son tres beneficiarios distintos y no se suman. La recirculación del 48% surge de estudios de comercios independientes en Estados Unidos (Civic Economics y AMIBA) y es un supuesto a validar en el piloto. La tasa es la alícuota general de la tasa por verificación de industrias y comercios de Tigre (Ordenanza Impositiva 2026, N.º 4336/25); solo es recaudación nueva sobre ventas nuevas o formalizadas. En la app, el vecino ve este efecto con sus propias compras ("Tu compra trabaja 3 veces en Tigre").')
 doc.add_heading('Metas del piloto: cómo se miden y dónde se comprueban', 2)
 tabla([
@@ -442,8 +447,7 @@ tabla([
     ['Ciudad de Buenos Aires', 'Plataforma de diseño y trámites digitales (adjudicado)', '$483,6 M'],
     ['San Cayetano, PBA (2026)', 'Municipio chico: gestión georreferenciada y app con turnos de salud (adjudicado)', '$85,7 M'],
     ['Agencias privadas (2026)', 'App enfocada, sin integraciones municipales ni soporte anual', 'USD 12.000 a 40.000'],
-], [4.2, 9.0, 2.8])
-p('Billetera Santa Fe, por su parte, financia hoy los reintegros mitad el comercio y mitad el banco, sin fondos del Estado: el mismo esquema que propone SoyTigreYa con el aporte bancario.')
+], [4.0, 8.2, 3.8])
 doc.add_heading('Product Vision Board', 2)
 tabla([
     ['Visión', 'Grupo objetivo', 'Necesidades', 'Producto', 'Objetivos'],
