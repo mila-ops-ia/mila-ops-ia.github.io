@@ -47,7 +47,7 @@ def usd(millones):
     if x >= 1e6: return ('USD %.2f millones' % (x / 1e6)).replace('.', ',')
     paso = 1000 if x >= 100000 else 100 if x >= 10000 else 10
     return 'USD ' + f'{int(round(x / paso) * paso):,}'.replace(',', '.')
-_PAT = re.compile(r'([+−]?\$)(\d[\d.]*(?:,\d+)?) (millones|M)\b(?! \(USD)(?! de equipo)(?! de hosting)(?! \+)')
+_PAT = re.compile(r'([+−]?\$)(\d[\d.]*(?:,\d+)?) (millones|M)\b(?! \(USD)(?! por mes \(USD)(?! de equipo)(?! de hosting)(?! \+)')
 def con_usd(txt):
     if 'USD' in txt and '(USD' not in txt: return txt
     def r(m):
@@ -232,7 +232,7 @@ tabla([
 doc.add_heading('6. Plan de implementación', 1)
 viñetas([
     ('Etapa 1 · Piloto (meses 1 a 3), qué se hace primero: ', 'Tigre Centro con 40 comercios (el 8% de los más de 500 adheridos): credencial, beneficios y compra con retiro o envío del comercio. Metas para pasar de etapa: 2.000 vecinos que compraron, NPS de 40 o más y 95% de pedidos sin incidencias.'),
-    ('Etapa 2 · Todo Tigre (meses 4 a 6), qué hace falta: ', 'solo si el piloto cumple sus metas: todas las localidades y comercios no gastronómicos, pago de tasas y estacionamiento, y reclamos con foto y mapa.'),
+    ('Etapa 2 · Expansión (meses 4 a 6), qué hace falta: ', 'solo si el piloto cumple sus metas: todas las localidades y comercios no gastronómicos, pago de tasas y estacionamiento, y reclamos con foto y mapa.'),
     ('Etapa 3 · Mejora continua (meses 7 a 12), cómo queda funcionando: ', 'turnero completo, Tigri con inteligencia artificial conectada a los sistemas municipales, Puntos Tigre y canal por WhatsApp.'),
 ])
 doc.add_heading('Recursos necesarios', 2)
@@ -246,7 +246,7 @@ p('', negrita_inicio='Inversión del Municipio por etapa (precio = costo del equ
 tabla([
     ['Concepto', 'Monto', 'En dólares', 'Cómo se calcula'],
     ['Piloto (meses 1 a 3)', '$37 millones', '(USD 23.400)', '3 × $9,5 millones de equipo × 1,30.'],
-    ['Todo Tigre (meses 4 a 6)', '$30 millones', '(USD 19.000)', '3 × $7,7 millones de equipo × 1,30.'],
+    ['Expansión (meses 4 a 6)', '$30 millones', '(USD 19.000)', '3 × $7,7 millones de equipo × 1,30.'],
     ['Mejora (meses 7 a 12)', '$42 millones', '(USD 26.600)', '6 × $6,9 millones + $0,6 de hosting.'],
     ['Total del año 1', '$109 millones', '(USD 69.000)', '$37 + $30 + $42 millones.'],
     ['Desde el año 2, por año', '$55,2 millones', '(USD 34.900)', '12 × $4,5 millones + $1,2 de hosting.'],
@@ -383,7 +383,7 @@ fig_anexo('B', 'fig-hoja-de-ruta.png', 'Hoja de ruta: del piloto en Tigre Centro
 tabla([
     ['Etapa', 'Cuándo', 'Condición para avanzar'],
     ['Piloto', 'Meses 1 a 3', '40 comercios, 2.000 vecinos, NPS de 40 o más y 95% de pedidos sin incidencias.'],
-    ['Todo Tigre', 'Meses 4 a 6', 'Acuerdo con un banco o billetera y adopción sostenida.'],
+    ['Expansión', 'Meses 4 a 6', 'Acuerdo con un banco o billetera y adopción sostenida.'],
     ['Mejora continua', 'Meses 7 a 12', '50 comercios activos y 30 con Plan Destacado.'],
     ['Partners estratégicos', 'Año 2', 'Convenio con una cooperativa o un servicio de envíos por viaje, y demanda medida en la app.'],
     ['Otros municipios', 'Año 3 en adelante', 'Resultados auditables en Tigre y un municipio con tarjeta de beneficios propia.'],
