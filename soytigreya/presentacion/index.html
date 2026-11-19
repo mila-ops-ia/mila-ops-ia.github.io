@@ -486,6 +486,11 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
 .tope { font-size: 25px; margin-top: 8px; padding-top: 10px; border-top: 2px solid rgba(255,255,255,.35); }
 .vias { flex: 1; min-height: 0; background: #17181C; color: #fff; border-radius: 28px; padding: 22px 26px 24px; display: flex; flex-direction: column; gap: 14px; }
 .vias .t-tit { color: #FF8F84; }
+.vias.uno { flex: none; align-items: center; text-align: center; gap: 6px; padding: 26px 34px; }
+.vias.uno p { font-size: 40px; font-weight: 600; }
+.vias.uno b { font-weight: 800; color: #FF8F84; }
+.vias.uno small { font-size: 25px; color: #C9CCD4; }
+.slide.s4 .claro { flex: 1 !important; }
 .vias-g { display: grid; grid-template-columns: repeat(4, 1fr) 1.35fr; gap: 12px; flex: 1; min-height: 0; }
 .via { background: #24262E; border-radius: 18px; padding: 14px 18px; display: flex; flex-direction: column; justify-content: center; gap: 2px; }
 .via span { font-size: 21px; font-weight: 700; color: #C9CCD4; }
@@ -591,17 +596,9 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
   <div class="claro">
     <div class="cl cl-a"><span class="cl-t">Cada uno</span><p class="cl-n">$300.000</p><p class="usd">(USD 190)</p><p class="cl-s">más por mes, que hoy paga en comisiones</p></div>
     <div class="cl-x"><span>× 100</span><small>comercios</small><small class="pc">el 20% de los<br>500 adheridos</small></div>
-    <div class="cl cl-b"><span class="cl-t">Entre todos</span><p class="cl-n">$360 <small>millones</small></p><p class="usd">(USD 228.000)</p><p class="cl-s">por año, en vez de irse a las apps</p><p class="tope">Con los 500: <b>$1.800 millones</b> (USD 1,14 millones)</p></div>
+    <div class="cl cl-b"><span class="cl-t">Entre todos</span><p class="cl-n">$360 <small>millones</small></p><p class="usd">(USD 228.000)</p><p class="cl-s">por año, en vez de irse a las apps</p></div>
   </div>
-  <div class="vias"><p class="t-tit">Y el Municipio recupera lo que invierte por cuatro vías · año 2</p>
-    <div class="vias-g">
-      <div class="via"><span>Plan Destacado</span><b>$30 <small>millones</small></b><em>100 comercios × $25.000 × 12</em></div>
-      <div class="via"><span>Publicidad local</span><b>$14,4 <small>millones</small></b><em>4 espacios × $300.000 × 12</em></div>
-      <div class="via"><span>Banco o billetera socia</span><b>$50 <small>millones</small></b><em>cofinancia los descuentos</em></div>
-      <div class="via"><span>Trámites por la app</span><b>$30 <small>millones</small></b><em>20.000 × $1.500 de ahorro</em></div>
-      <div class="via tot"><span>Vuelve a la caja municipal</span><b>$124,4 <small>millones</small></b><em>(USD 78.700) por año</em></div>
-    </div>
-  </div>
+  <div class="vias uno"><p>Y al Municipio le vuelven <b>$124,4 millones</b> (USD 78.700) por año</p><small>Plan Destacado · publicidad local · banco socio · trámites por la app</small></div>
   <div class="pie"><span>La cuenta: 60 pedidos por mes × $20.000 × 25% de comisión = $300.000 · × 100 comercios × 12 meses = $360 millones · Dólar oficial: $1.580 (18/11/2026)</span><span>4</span></div>
 </section>
 
@@ -610,18 +607,13 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
   <div class="cab"><div class="rot"><i><svg class="tigri" viewBox="0 0 100 100" aria-hidden="true"><circle cx="23" cy="27" r="14" fill="#E2701A"/><circle cx="77" cy="27" r="14" fill="#E2701A"/><circle cx="23" cy="28" r="7.5" fill="#FFC6B3"/><circle cx="77" cy="28" r="7.5" fill="#FFC6B3"/><ellipse cx="50" cy="57" rx="41" ry="36" fill="#F28C28"/><path d="M50 21 l-5 11 h10z M38 24 l-1 10 l-5 -7z M62 24 l1 10 l5 -7z" fill="#3A2414"/><ellipse cx="50" cy="72" rx="21" ry="15" fill="#FFF4E6"/><ellipse cx="35" cy="54" rx="6.5" ry="7.5" fill="#2B1A10"/><ellipse cx="65" cy="54" rx="6.5" ry="7.5" fill="#2B1A10"/><circle cx="37.5" cy="51" r="2.4" fill="#fff"/><circle cx="67.5" cy="51" r="2.4" fill="#fff"/><path d="M44.5 64.5 q5.5 -3.5 11 0 q-1.5 5 -5.5 6 q-4 -1 -5.5 -6z" fill="#C2456A"/><path d="M50 70.5 v3 M50 73.5 q-5 4.5 -9 0.5 M50 73.5 q5 4.5 9 0.5" stroke="#3A2414" stroke-width="2" fill="none" stroke-linecap="round"/></svg></i><span class="dice">Esta es la propuesta</span><span class="mod">M2 · M3 · MVP por etapas</span></div><h2>Empezar chico, crecer con resultados</h2></div>
   <div class="pide">
     <div class="pd pd-a"><span class="pd-t">Inversión del Municipio</span><p class="pd-n">$109 <small>millones</small></p><p class="usd">(USD 69.000)</p><p class="pd-s">el primer año</p></div>
-    <div class="pd pd-b"><span class="pd-t">La recupera en</span><p class="pd-n">2 años</p><p class="pd-s">con 250 comercios, la mitad</p><p class="pd-s" style="font-size:23px;">Con 175 (35%): 3 años y 3 meses<br>Con los 500: 1 año y 8 meses</p></div>
+    <div class="pd pd-b"><span class="pd-t">La recupera en</span><p class="pd-n">2 años</p><p class="pd-s">con ingresos propios del Municipio</p></div>
     <div class="pd pd-c"><span class="pd-t">Equipo de soporte</span><p class="pd-n">$4,5 <small>millones</small></p><p class="usd">(USD 2.850)</p><p class="pd-s">por mes, desde el año 2</p></div>
-  </div>
-  <div class="res3"><p>Resultado para el Municipio, año por año</p>
-    <div><span>Año 1</span><b>−$68,4 millones</b><span>(USD 43.300)</span></div>
-    <div class="mas"><span>Año 2</span><b>+$69,2 millones</b><span>(USD 43.800)</span></div>
-    <div class="mas"><span>Año 3</span><b>+$97,4 millones</b><span>(USD 61.600)</span></div>
   </div>
   <div class="pasos3">
     <div class="ps"><span>1</span><div><b>Piloto</b><p>40 comercios · el 8% de los 500</p></div></div>
     <div class="ps"><span>2</span><div><b>Todo Tigre</b><p>100 comercios · el 20%</p></div></div>
-    <div class="ps opc"><span>3</span><div><b>Scale-up</b><p>hasta los 500 · y otros municipios</p></div></div>
+    <div class="ps opc"><span>3</span><div><b>Scale-up</b><p>los 500 · otros municipios</p></div></div>
   </div>
   <div class="pie"><span>$109 millones es lo que 100 comercios pagan hoy en comisiones en menos de 4 meses · Dólar oficial: $1.580 (18/11/2026)</span><span>5</span></div>
 </section>
