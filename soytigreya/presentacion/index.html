@@ -283,7 +283,7 @@ svg.lucide { width: 1em; height: 1em; stroke-width: 2; vertical-align: -0.12em; 
 .prueba span { font-size: 32px; opacity: .9; }
 .prueba { padding: 14px 34px 14px 14px; gap: 30px; }
 .prueba img { border-radius: 16px; padding: 10px; }
-.portada .qr { width: 330px; height: 330px; padding: 18px; border-radius: 22px; }
+.portada .qr { width: 250px; height: 250px; padding: 14px; border-radius: 20px; }
 /* un número claro */
 .claro { display: grid; grid-template-columns: 1fr auto 1fr; gap: 26px; flex: 1; align-items: stretch; }
 .cl { border-radius: 28px; padding: 36px 44px; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
@@ -318,6 +318,11 @@ svg.lucide { width: 1em; height: 1em; stroke-width: 2; vertical-align: -0.12em; 
 .vs-s { font-size: 32px; font-weight: 500; }
 .vs-hoy .vs-s { color: var(--muted); }
 .vs-f { align-self: center; font-size: 72px; font-weight: 800; color: var(--rojo); }
+.autora { display: flex; align-items: center; gap: 22px; }
+.autora img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 5px solid #fff; flex: none; }
+.autora div { display: flex; flex-direction: column; gap: 2px; }
+.autora b { font-size: 40px; font-weight: 800; line-height: 1.1; }
+.autora span { font-size: 26px; opacity: .92; }
 /* riesgos */
 .riesgos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; flex: 1; }
 .riesgo { background: var(--papel); border: 1px solid var(--linea); border-radius: 26px; padding: 36px 34px; display: flex; flex-direction: column; gap: 16px; }
@@ -456,12 +461,13 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
 <section class="slide roja on" data-notas="Hola, soy Milagros Sanabria. Les presento SoyTigreYa, el upgrade de la app Soy Tigre. Pueden escanear el QR y probarla mientras hablo. Es un prototipo académico, no la app oficial.">
   <div class="portada">
     <div class="col" style="gap:34px;">
-      <p class="ceja">Trabajo Final Integrador · Diplomatura en Negocios Digitales e Innovación</p>
+      <p class="ceja">Trabajo Final Integrador</p>
       <h1>SOYTIGRE<span>YA</span></h1>
       <p style="font-size:40px; font-weight:600; max-width:860px;">El upgrade de la app Soy Tigre: a los descuentos de hoy les suma comprar en el barrio, trámites, salud, deporte y empleo.</p>
+      <div class="autora"><img src="../img/mila.jpg" alt="Milagros Sanabria"><div><b style="font-size:32px">Milagros Belén Sanabria</b><span>Diplomatura en Negocios Digitales e Innovación · UNDelta · 2026</span></div></div>
       <div class="fila" style="align-items:center; gap:30px;">
         <div class="qr"><img src="../img/qr-soytigreya.png" alt="QR para abrir la app"></div>
-        <div class="col" style="gap:8px;"><p style="font-size:34px; font-weight:800;">Escaneá y probala</p><p style="font-size:26px;">mila-ops-ia.github.io/soytigreya</p><p style="font-size:24px; opacity:.85;">Milagros Belén Sanabria · mila·ops · UNDelta · 2026</p></div>
+        <div class="col" style="gap:8px;"><p style="font-size:34px; font-weight:800;">Escaneá y probala</p><p style="font-size:26px;">mila-ops-ia.github.io/soytigreya</p></div>
       </div>
     </div>
     <div class="tel"><img src="../capturas/inicio.jpg" alt="Inicio de la app"></div>
@@ -542,7 +548,7 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
   <div class="cierre">
     <div class="col" style="gap:34px;">
       <h2 style="font-size:92px; line-height:1.05;">Que el ahorro y la venta se queden en Tigre.</h2>
-      <p style="font-size:44px; font-weight:800;">¡Gracias!</p>
+      <div class="autora"><img src="../img/mila.jpg" alt="Milagros Sanabria"><div><b>¡Gracias!</b><span>Milagros Belén Sanabria</span></div></div>
     </div>
     <div class="fila" style="gap:28px; align-items:flex-start; flex:none;">
       <a class="col" href="https://docs.google.com/forms/d/e/1FAIpQLSdKRXBPEiUi4mCrS9Q42NO-v4DuR-QqupuJ9cMIeXA5iHMqNg/viewform" target="_blank" rel="noopener" style="align-items:center; gap:14px; color:inherit; text-decoration:none;">
