@@ -264,7 +264,7 @@ if MODO == 'tfi':
 # ---------- anexo ----------
 doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
 doc.add_heading('Anexo A: herramientas aplicadas', 1)
-p('En las tablas de estos anexos, "M" significa millones de pesos.').runs[0].italic = True
+p('Estos anexos amplían el trabajo sin repetirlo: herramientas, cálculos, inventario de funciones y fuentes. En las tablas, "M" significa millones de pesos.').runs[0].italic = True
 doc.add_heading('Mapa de empatía de Lucía (proto-persona)', 2)
 tabla([
     ['Piensa y siente', 'Ve'],
@@ -333,13 +333,13 @@ fig_anexo('A', 'fig-escenarios.png', 'Resultado acumulado para el Municipio a 5 
 doc.add_heading('Hoja de ruta y próximos pasos', 2)
 fig_anexo('B', 'fig-hoja-de-ruta.png', 'Hoja de ruta: del piloto en Tigre Centro a otros municipios')
 tabla([
-    ['Etapa', 'Cuándo', 'Qué se hace', 'Condición para avanzar'],
-    ['Piloto', 'Meses 1 a 3', 'Tigre Centro: credencial, beneficios y compra con retiro o con envío del cadete del comercio, desde el primer día.', '40 comercios, 2.000 vecinos, NPS de 40 o más y 95% de pedidos sin incidencias.'],
-    ['Todo Tigre', 'Meses 4 a 6', 'Todas las localidades; tasas, estacionamiento y reclamos.', 'Acuerdo con un banco o billetera y adopción sostenida.'],
-    ['Mejora continua', 'Meses 7 a 12', 'Asistente, Puntos Tigre, campañas en redes y Plan Destacado.', '50 comercios activos y 30 con Plan Destacado.'],
-    ['Partners estratégicos', 'Año 2', 'Al cadete del comercio, que funciona desde el piloto, se suman servicios de reparto que cobran por viaje y no por comisión.', 'Convenio con una cooperativa o un servicio de envíos, y demanda medida en la app.'],
-    ['Otros municipios', 'Año 3 en adelante', 'La misma plataforma con la marca, las localidades y los comercios de cada municipio.', 'Resultados auditables en Tigre y un municipio con tarjeta de beneficios propia.'],
-], [2.6, 2.6, 6.0, 4.8])
+    ['Etapa', 'Cuándo', 'Condición para avanzar'],
+    ['Piloto', 'Meses 1 a 3', '40 comercios, 2.000 vecinos, NPS de 40 o más y 95% de pedidos sin incidencias.'],
+    ['Todo Tigre', 'Meses 4 a 6', 'Acuerdo con un banco o billetera y adopción sostenida.'],
+    ['Mejora continua', 'Meses 7 a 12', '50 comercios activos y 30 con Plan Destacado.'],
+    ['Partners estratégicos', 'Año 2', 'Convenio con una cooperativa o un servicio de envíos, y demanda medida en la app.'],
+    ['Otros municipios', 'Año 3 en adelante', 'Resultados auditables en Tigre y un municipio con tarjeta de beneficios propia.'],
+], [4.0, 3.2, 8.8])
 p('Suscripción de soporte (customer success). El equipo de soporte no entrega la plataforma y se retira: la acompaña con un servicio mensual que incluye soporte técnico, capacitación presencial a los comercios, mesa de ayuda, mantenimiento y mejoras. Funciona como una suscripción: $6,9 millones por mes (USD 4.370) entre los meses 7 y 12, cuando la plataforma se está estabilizando, y $4,5 millones por mes (USD 2.850) desde el año 2, con un equipo más chico. No es un costo adicional: el primer semestre de suscripción ($41,4 millones) ya está dentro de los $109 millones del año 1, y los $54 millones anuales siguientes son casi todo el costo de $55,2 millones por año, junto con $1,2 millones de infraestructura. El Municipio puede darla de baja al cierre de cada etapa.')
 p('Partners estratégicos de reparto. El envío con el cadete del comercio está disponible desde el piloto y no exige logística nueva, pero no todos los locales tienen cadete. Más adelante, la etapa siguiente es integrar terceros que cobren por viaje y no un porcentaje de la venta: cooperativas de cadetes, como la que en Rosario trabaja con más de 100 comercios, o los servicios de envíos por viaje de las plataformas. El comercio conserva el 0% de comisión sobre la venta y elige el reparto que le conviene. Es una hipótesis a validar: depende de las condiciones comerciales de cada servicio.')
 p('Otros municipios. La plataforma se configura por municipio (marca, localidades, rubros y trámites), por lo que el segundo municipio no paga el desarrollo de base: paga la adaptación, la integración con sus sistemas y la licencia. Los candidatos naturales son municipios que ya tienen una tarjeta de beneficios y comercios adheridos. La propuesta se lleva con los resultados medidos en Tigre: comercios activos, plata que quedó en los comercios y recupero.')
@@ -367,7 +367,7 @@ tabla([
     ['3 · Vuelve al Municipio: tasa a comercios, 0,80% de las ventas (tope)', '$2,2 M', '$11,5 M', '$17,3 M'],
 ], [8.5, 2.5, 2.5, 2.5])
 p('Son tres beneficiarios distintos y no se suman. La recirculación del 48% surge de estudios de comercios independientes en Estados Unidos (Civic Economics y AMIBA) y es un supuesto a validar en el piloto. La tasa es la alícuota general de la tasa por verificación de industrias y comercios de Tigre (Ordenanza Impositiva 2026, N.º 4336/25); solo es recaudación nueva sobre ventas nuevas o formalizadas. En la app, el vecino ve este efecto con sus propias compras ("Tu compra trabaja 3 veces en Tigre").')
-doc.add_heading('Objetivos del primer año: metas, fórmulas y dónde se comprueban', 2)
+doc.add_heading('Metas del piloto: cómo se miden y dónde se comprueban', 2)
 tabla([
     ['Objetivo', 'Meta', 'Cómo se calcula', 'Dónde se comprueba'],
     ['Comercios vendiendo (mes 3)', '40', 'Comercios con al menos un pedido entregado en el mes', 'Panel de Desarrollo Económico'],
@@ -375,12 +375,8 @@ tabla([
     ['Recomendación (NPS)', '40 o más', '% que responde 9 o 10 − % que responde 0 a 6', 'Encuesta dentro de la app'],
     ['Pedidos sin incidencias', '95%', '(pedidos − pedidos con reclamo) ÷ pedidos × 100', 'Panel de Atención al Vecino'],
     ['Comercios activos (mes 12)', '50', 'Comercios con pedidos en el mes', 'Panel de Desarrollo Económico'],
-    ['Comercios con Plan Destacado', '30', 'Planes activos. Ingreso: 30 × $25.000 × 6 meses = $4,5 M', 'Cobros del plan'],
-    ['Trámites hechos por la app', '5.000', 'Trámites iniciados en la app. Ahorro: 5.000 × $1.500 = $7,5 M', 'Panel de Atención al Vecino'],
-    ['Plata que queda en los comercios', '$67,5 M', '50 comercios × 30 pedidos por mes × $20.000 × 25% × 9 meses', 'Ventas registradas en la app'],
-    ['Vuelve a la caja del Municipio', '$40,6 M', 'Plan $4,5 M + publicidad $3,6 M + banco $25 M + ahorro $7,5 M', 'Cobros y convenio con el banco'],
 ], [4.0, 2.0, 6.5, 3.5])
-p('El número base. Un comercio que vende 60 pedidos por mes de $20.000 factura $1.200.000 por la app; el 25% que cobraría una plataforma de delivery son $300.000 por mes, o $3,6 millones por año. Con 100 comercios son $360 millones por año. La inversión del año 1 ($109 millones) equivale a lo que esos 100 comercios pagan hoy en comisiones en menos de cuatro meses ($30 millones por mes). Es una comparación de escala; el recupero del Municipio se calcula aparte, con sus propios ingresos.')
+p('Comparación de escala. La inversión del año 1 ($109 millones) equivale a lo que 100 comercios pagan hoy en comisiones en menos de cuatro meses ($30 millones por mes). No es el recupero: ese se calcula aparte, con los ingresos propios del Municipio.')
 p('Fórmulas del modelo. Plata que queda en los comercios = comercios × pedidos por mes × ticket × 25% × meses; en el año 2: 100 × 60 × $20.000 × 25% × 12 = $360 millones (sobre $1.440 millones de ventas). Vuelve al barrio = lo anterior × 48%. Vuelve al Municipio = ventas × 0,80%. Recupero = momento en que el resultado acumulado deja de ser negativo: −$68,4 millones (año 1) + $69,2 millones (año 2) = +$0,8 millones, es decir, al cierre del año 2. Todas las metas se leen en los paneles de la app, por lo que se pueden auditar mes a mes.')
 doc.add_heading('Ventaja competitiva: el envío a cargo del comercio', 2)
 tabla([
@@ -422,13 +418,8 @@ tabla([
     ['Visión', 'Grupo objetivo', 'Necesidades', 'Producto', 'Objetivos'],
     ['Que el ahorro y la venta se queden en Tigre.', 'Vecinos, comercios y áreas del municipio.', 'Comprar y resolver sin intermediarios; vender sin comisión; medir.', 'Upgrade de Soy Tigre con cuatro perfiles conectados.', 'Consumo local, formalización y cobro en término.'],
 ], [3.2, 3.2, 3.4, 3.2, 3.0])
-doc.add_heading('Objetivos SMART del piloto y embudo AARRR', 2)
-viñetas([
-    '40 comercios con catálogo activo en Tigre Centro al cierre de la semana 12.',
-    '2.000 vecinos con al menos un pedido en las primeras 12 semanas.',
-    'NPS de 40 o más y 95% de pedidos entregados sin incidencias al cierre del piloto.',
-    'Embudo AARRR: adquisición (registro), activación (primer pedido), retención (repite en 30 días), referidos (invitaciones) e ingresos (tres compras o más).',
-])
+doc.add_heading('Embudo AARRR', 2)
+p('Adquisición (registro), activación (primer pedido), retención (repite en 30 días), referidos (invitaciones) e ingresos (tres compras o más). Se lee en el panel de Desarrollo Económico.')
 doc.add_heading('Plan de prueba de usabilidad', 2)
 viñetas([
     'Cinco participantes por perfil, porque cinco usuarios detectan cerca del 85% de los problemas de usabilidad.',
