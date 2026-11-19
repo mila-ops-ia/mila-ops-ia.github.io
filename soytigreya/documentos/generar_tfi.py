@@ -433,8 +433,8 @@ for k, (f, txt) in enumerate(imgs):
     par.add_run().add_picture(f'{CAPT}/{f}', width=Cm(4.3))
     leyenda = t.cell(fila + 1, col).paragraphs[0]; leyenda.alignment = WD_ALIGN_PARAGRAPH.CENTER
     r = leyenda.add_run(f'Figura {k + 2}. {txt}'); r.font.size = Pt(9); r.italic = True
-figura_ancha(8, 'carlos.jpg', 'Panel de Atención al Vecino (Carlos): reclamos en el mapa')
-figura_ancha(9, 'marina.jpg', 'Panel de Desarrollo Económico (Marina): impacto en el distrito')
+figura_ancha(8, 'carlos.jpg', 'Panel de Atención al Vecino (Carlos), con estilo de CRM: casos por estado, plazo y cuadrilla')
+figura_ancha(9, 'marina.jpg', 'Panel de Desarrollo Económico (Marina): comercios como cuentas, con su embudo de adhesión')
 
 doc.add_heading('Fuentes consultadas', 2)
 for f in [

@@ -1351,6 +1351,48 @@ function cuadrillasHtml() {
     ${CUADRILLAS.map((c) => { const n = cargaCuadrilla(c.id); return `<div class="hbar"><span class="hbar-t">${c.nombre}</span><div class="hbar-b"><i style="width:${(n / max) * 100}%"></i></div><b>${plural(n, 'reclamo', 'reclamos')}</b></div>`; }).join('')}</div>`;
 }
 
+// ---------- CRM: pestañas, embudo y tablas ----------
+function crmTabs(act, tabs, accion) {
+  return `<nav class="crm-tabs">${tabs.map(([id, ico, nom, n]) => `<button class="${act === id ? 'on' : ''}" data-a="${accion}" data-v="${id}"><i data-lucide="${ico}"></i><span>${nom}</span>${n != null ? `<em>${n}</em>` : ''}</button>`).join('')}</nav>`;
+}
+function crmPipe(etapas, act, accion) {
+  return `<div class="crm-pipe">${etapas.map(([id, nom, n, cls]) => `<${accion ? 'button' : 'div'} class="crm-etapa ${cls || ''} ${act === id ? 'on' : ''}" ${accion ? `data-a="${accion}" data-v="${id}"` : ''}><b>${n}</b><span>${nom}</span></${accion ? 'button' : 'div'}>`).join('')}</div>`;
+}
+
+function casosHtml() {
+  const F = S.cFiltro;
+  const base = reclamosFiltrados();
+  const cuenta = (e) => base.filter((r) => r.estado === e).length;
+  const lista = base.filter((r) => (F.estado ? r.estado === F.estado : r.estado !== 'resuelto')).sort((a, b) => (a.estado === 'resuelto') - (b.estado === 'resuelto') || plazo(a).resta - plazo(b).resta);
+  const ver = lista.slice(0, 12);
+  const fila = (r) => {
+    const tp = TIPOS_RECLAMO.find((x) => x.id === r.tipo);
+    const sig = ESTADOS_RECLAMO[ESTADOS_RECLAMO.indexOf(r.estado) + 1];
+    const cu = r.cuadrilla ? CUADRILLAS.find((c) => c.id === r.cuadrilla).nombre : '';
+    return `<tr class="${r.mio ? 'de-app' : ''}">
+      <td><b>${r.id}</b><small>${tp.emoji} ${tp.nombre}</small></td>
+      <td>${r.loc}${r.dir ? `<small>${esc(r.dir)}</small>` : ''}</td>
+      <td><span class="pill ${r.estado.replace(' ', '-')}">${RECLAMO_TXT[r.estado]}</span></td>
+      <td>${r.estado === 'resuelto' ? '<span class="muted">Cerrado</span>' : plazoTag(r)}</td>
+      <td>${cu || '<span class="muted">Sin asignar</span>'}</td>
+      <td>${r.mio ? '<span class="pill recibido">Desde la app</span>' : '<span class="muted">Otro canal</span>'}</td>
+      <td class="acc">${sig ? `<button class="btn mini-btn" data-a="avanzarReclamo" data-v="${r.id}">${sig === 'resuelto' ? 'Resolver' : sig === 'asignado' ? 'Asignar' : 'Iniciar'}</button>` : ''}</td>
+    </tr>`;
+  };
+  return `<div class="card crm-card">
+    ${crmPipe(ESTADOS_RECLAMO.map((e) => [e, RECLAMO_TXT[e].replace(' a una cuadrilla', ''), cuenta(e), e === 'resuelto' ? 'ok' : '']), F.estado, 'cEstado')}
+    <div class="c-filtros">
+      <div class="chips">${[{ id: 'todos', nombre: 'Todos', emoji: '✨' }, ...TIPOS_RECLAMO].map((x) => `<button class="chip ${F.tipo === x.id ? 'on' : ''}" data-a="cTipo" data-v="${x.id}">${x.emoji} ${x.nombre}</button>`).join('')}</div>
+      <label class="sel">📍 <select data-f="cLoc"><option value="todas">Todo el distrito</option>${LOCALIDADES.map((l) => `<option ${F.loc === l ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
+    </div>
+    <div class="crm-scroll"><table class="crm-t">
+      <thead><tr><th>Caso</th><th>Dónde</th><th>Estado</th><th>Plazo</th><th>Cuadrilla</th><th>Origen</th><th></th></tr></thead>
+      <tbody>${ver.map(fila).join('') || '<tr><td colspan="7" class="muted">No hay casos con ese filtro.</td></tr>'}</tbody>
+    </table></div>
+    <p class="muted chico">${F.estado ? `Casos en estado "${RECLAMO_TXT[F.estado]}"` : 'Casos abiertos'}, primero los más urgentes. Mostrando ${ver.length} de ${lista.length}. Tocá una etapa de arriba para filtrar.</p>
+  </div>`;
+}
+
 function vAtencion() {
   const abiertos = S.reclamos.filter((r) => r.estado !== 'resuelto');
   const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
@@ -1359,37 +1401,33 @@ function vAtencion() {
   S.reclamos.forEach((r, i) => { if (['asignado', 'en curso'].includes(r.estado) && !r.cuadrilla) r.cuadrilla = CUADRILLAS[i % CUADRILLAS.length].id; });
   const F = S.cFiltro || (S.cFiltro = { tipo: 'todos', loc: 'todas' });
   const vencidos = abiertos.filter((r) => plazo(r).vencido).length;
-  const gestion = reclamosFiltrados().filter((r) => r.estado !== 'resuelto').sort((a, b) => plazo(a).resta - plazo(b).resta).slice(0, 8);
   const turnosHoy = [...TURNOS_DEMO, ...S.turnos.map((t) => ({ hora: t.hora, nombre: S.usuario.nombre.split(' ')[0] + ' ' + S.usuario.nombre.split(' ')[1][0] + '.', tramite: t.tramite, app: true }))].sort((a, b) => a.hora.localeCompare(b.hora));
+  if (!F.estado) F.estado = null;
+  const tab = S.cTab || 'casos';
+  const med = (S.reclamosPed || []).filter((x) => estadoRP(x) === 'mediacion').length;
+  const cuerpo = tab === 'mapa'
+    ? `<div class="card"><div class="h2-fila"><h3>Mapa de reclamos</h3><div class="seg mini-seg"><button class="${!S.cCalor ? 'on' : ''}" data-a="cCalor" data-v="0">Puntos</button><button class="${S.cCalor ? 'on' : ''}" data-a="cCalor" data-v="1">Calor</button></div></div><div class="mapa" data-map="municipio"></div>
+      <p class="muted chico">${S.cCalor ? 'Cuanto más grande y rojo el círculo, más reclamos abiertos en la zona.' : '🔴 recibido · 🟡 asignado o en curso · 🟢 resuelto · los puntos grandes llegaron desde la app'}</p></div>`
+    : tab === 'cuadrillas'
+      ? `<div class="dos">${cuadrillasHtml()}<div class="card"><h3>Reclamos por tipo</h3>
+        ${TIPOS_RECLAMO.map((x) => `<p class="linea"><span>${x.emoji} ${x.nombre}</span><span><b class="rojo">${S.reclamos.filter((r) => r.tipo === x.id && r.estado !== 'resuelto').length} abiertos</b> · <span class="verde">${S.reclamos.filter((r) => r.tipo === x.id && r.estado === 'resuelto').length} resueltos</span></span></p>`).join('')}</div></div>`
+      : tab === 'mediacion'
+        ? `<div class="card"><h3>Mediación de compras · Defensa del Consumidor</h3><p class="muted chico">Casos que el comercio no respondió en 24 horas o que el vecino no aceptó.</p>${mediacionesHtml()}</div>`
+        : tab === 'turnos'
+          ? `<div class="card"><h3>Turnos de hoy</h3>
+            ${turnosHoy.map((x) => { const tr = TRAMITES.find((y) => y.id === x.tramite); return `<p class="linea"><span><b>${x.hora}</b> · ${esc(x.nombre)}${x.app ? ' <span class="pill recibido">desde la app</span>' : ''}</span><span class="muted">${tr.emoji} ${tr.nombre}</span></p>`; }).join('')}</div>`
+          : casosHtml();
   return `
-  <h1 class="titulo">Atención al Vecino</h1>
-  <p class="muted sub">Reclamos y turnos del distrito, en tiempo real. Datos de demostración.</p>
+  <div class="crm-cab"><div><h1 class="titulo">Atención al Vecino</h1><p class="muted sub">Casos, cuadrillas y turnos del distrito. Datos de demostración.</p></div></div>
   <div class="kpis">
-    ${kpi('Reclamos abiertos', abiertos.length, abiertos.length > 30 ? 'rojo-kpi' : '')}
+    ${kpi('Casos abiertos', abiertos.length, abiertos.length > 30 ? 'rojo-kpi' : '')}
     ${kpi('Fuera de plazo', vencidos, vencidos ? 'rojo-kpi' : '')}
     ${kpi('Nuevos hoy', nuevosHoy)}
     ${kpi('Resueltos esta semana', resueltosSemana, 'verde')}
     ${kpi('Turnos de hoy', turnosHoy.length)}
   </div>
-  <div class="c-filtros">
-    <div class="chips">${[{ id: 'todos', nombre: 'Todos', emoji: '✨' }, ...TIPOS_RECLAMO].map((x) => `<button class="chip ${F.tipo === x.id ? 'on' : ''}" data-a="cTipo" data-v="${x.id}">${x.emoji} ${x.nombre}</button>`).join('')}</div>
-    <label class="sel">📍 <select data-f="cLoc"><option value="todas">Todo el distrito</option>${LOCALIDADES.map((l) => `<option ${F.loc === l ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
-  </div>
-  <div class="dos">
-    <div class="card"><div class="h2-fila"><h3>Mapa de reclamos</h3><div class="seg mini-seg"><button class="${!S.cCalor ? 'on' : ''}" data-a="cCalor" data-v="0">Puntos</button><button class="${S.cCalor ? 'on' : ''}" data-a="cCalor" data-v="1">Calor</button></div></div><div class="mapa" data-map="municipio"></div>
-      <p class="muted chico">${S.cCalor ? 'Cuanto más grande y rojo el círculo, más reclamos abiertos en la zona.' : '🔴 recibido · 🟡 asignado o en curso · 🟢 resuelto · los puntos grandes llegaron desde la app'}</p></div>
-    <div class="card"><h3>Para gestionar <small class="muted">· primero los más urgentes</small></h3>
-      ${gestion.map((r) => { const t = TIPOS_RECLAMO.find((x) => x.id === r.tipo); const sig = ESTADOS_RECLAMO[ESTADOS_RECLAMO.indexOf(r.estado) + 1]; return `<div class="gest ${r.mio ? 'de-app' : ''}">${r.foto ? `<img src="${r.foto}" alt="Foto del reclamo">` : `<span class="ico">${t.emoji}</span>`}<div class="grow"><b>${t.nombre} · ${r.id}</b>${r.mio ? ' <span class="pill recibido">desde la app</span>' : ''}<p class="muted chico">${esc(r.dir || '')} ${r.loc} · ${RECLAMO_TXT[r.estado]}${r.cuadrilla ? ` · ${CUADRILLAS.find((c) => c.id === r.cuadrilla).nombre}` : ''}</p>${plazoTag(r)}${r.texto ? `<p class="chico">${esc(r.texto)}</p>` : ''}</div><button class="btn mini-btn" data-a="avanzarReclamo" data-v="${r.id}">${sig === 'resuelto' ? 'Resolver' : sig === 'asignado' ? 'Asignar cuadrilla' : 'Iniciar'}</button></div>`; }).join('')}
-    </div>
-    ${cuadrillasHtml()}
-    <div class="card"><h3>Mediación de compras · Defensa del Consumidor</h3><p class="muted chico">Casos que el comercio no respondió en 24 horas o que el vecino no aceptó.</p>${mediacionesHtml()}</div>
-    <div class="card"><h3>Turnos de hoy</h3>
-      ${turnosHoy.map((t) => { const tr = TRAMITES.find((x) => x.id === t.tramite); return `<p class="linea"><span><b>${t.hora}</b> · ${esc(t.nombre)}${t.app ? ' <span class="pill recibido">desde la app</span>' : ''}</span><span class="muted">${tr.emoji} ${tr.nombre}</span></p>`; }).join('')}
-    </div>
-    <div class="card"><h3>Reclamos por tipo</h3>
-      ${TIPOS_RECLAMO.map((t) => `<p class="linea"><span>${t.emoji} ${t.nombre}</span><span><b class="rojo">${S.reclamos.filter((r) => r.tipo === t.id && r.estado !== 'resuelto').length} abiertos</b> · <span class="verde">${S.reclamos.filter((r) => r.tipo === t.id && r.estado === 'resuelto').length} resueltos</span></span></p>`).join('')}
-    </div>
-  </div>`;
+  ${crmTabs(tab, [['casos', 'inbox', 'Casos', abiertos.length], ['mapa', 'map', 'Mapa'], ['cuadrillas', 'hard-hat', 'Cuadrillas'], ['mediacion', 'scale', 'Mediación', med || null], ['turnos', 'calendar', 'Turnos', turnosHoy.length]], 'cTab')}
+  ${cuerpo}`;
 }
 
 // ---------- municipio: Desarrollo Económico (Marina) ----------
@@ -1488,6 +1526,29 @@ function altasHtml() {
   </div>`;
 }
 
+function cuentasHtml(mes) {
+  const filas = S.comercios.map((c) => { const ps = mes.filter((p) => p.cid === c.id); return { c, v: ps.reduce((a, p) => a + p.total, 0), n: ps.length }; }).sort((a, b) => b.v - a.v);
+  const activos = filas.filter((x) => x.n).length;
+  return `<div class="card crm-card">
+    ${crmPipe([['p', 'Prospectos', 28], ['c', 'Contactados', 16], ['a', 'Adheridos este mes', 12], ['v', 'Vendiendo', activos, 'ok']])}
+    <p class="muted chico">Embudo de adhesión de comercios. Prospectos, contactados y adheridos son datos de demostración; "Vendiendo" sale de los pedidos del período.</p>
+    <div class="crm-scroll"><table class="crm-t">
+      <thead><tr><th>Comercio</th><th>Rubro</th><th>Localidad</th><th class="num">Ventas</th><th class="num">Pedidos</th><th>Plan</th><th>Envío</th><th>Estado</th></tr></thead>
+      <tbody>${filas.map((x) => `<tr>
+        <td><b>${x.c.emoji} ${esc(x.c.nombre)}</b><small>Soy Tigre -${x.c.desc}%</small></td>
+        <td>${rubro(x.c.cat).nombre}</td>
+        <td>${x.c.loc}</td>
+        <td class="num"><b>${plata(x.v)}</b></td>
+        <td class="num">${x.n}</td>
+        <td>${x.c.destacado ? '<span class="pill recibido">Destacado</span>' : '<span class="muted">Gratis</span>'}</td>
+        <td>${conEnvio(x.c) ? 'Cadete propio' : '<span class="muted">Retiro</span>'}</td>
+        <td><span class="pill ${x.n ? 'resuelto' : 'asignado'}">${x.n ? 'Vendiendo' : 'Sin ventas'}</span></td>
+      </tr>`).join('')}</tbody>
+    </table></div>
+    <p class="muted chico">${filas.length} comercios con venta por la app, ordenados por ventas del período. Además hay ${BENEFICIOS.length} comercios con beneficio Soy Tigre.</p>
+  </div>`;
+}
+
 function vEconomia() {
   const F = S.mFiltro || (S.mFiltro = { periodo: 'mes', loc: 'todas' });
   const ini = inicioMes(), iniAnt = inicioMes(new Date(new Date().getFullYear(), new Date().getMonth() - 1, 1));
@@ -1503,6 +1564,7 @@ function vEconomia() {
   const porCat = CATS.map((c) => ({ c, v: mes.filter((p) => comercio(p.cid).cat === c.id).reduce((a, p) => a + p.total, 0) })).filter((x) => x.v).sort((a, b) => b.v - a.v);
   const maxCat = Math.max(...porCat.map((x) => x.v), 1);
   const topCom = S.comercios.map((c) => ({ c, v: mes.filter((p) => p.cid === c.id).reduce((a, p) => a + p.total, 0) })).sort((a, b) => b.v - a.v).slice(0, 5);
+  const tab = S.mTab || 'resumen';
   return `
   <h1 class="titulo">Desarrollo Económico</h1>
   <p class="muted sub">Impacto de SoyTigreYa. Datos de demostración.</p>
@@ -1517,18 +1579,10 @@ function vEconomia() {
     ${kpi('Ahorro de los vecinos', plata(ahorroVecinos), 'verde')}
     ${kpi('Comercios adheridos', S.comercios.length + BENEFICIOS.length)}
   </div>
-  <div class="kpi-mas">
-    <div><span>Pedidos retirados</span><b>${mes.length.toLocaleString('es-AR')}</b></div>
-    <div><span>Puntos Tigre canjeados</span><b>${(184200 + S.puntos.canjeados).toLocaleString('es-AR')}</b></div>
-    <div><span>Tasas pagadas en término <small>meta 80%</small></span><b>71%</b></div>
-    <div><span>Reclamos de compras <small>${indicadoresRP().sinMed}% sin mediación</small></span><b>${indicadoresRP().tasa} c/100</b></div>
-    <div><span>Pagos hechos por la app</span><b>${(1840 + S.pagosApp).toLocaleString('es-AR')}</b></div>
-  </div>
-  ${finanzasHtml()}
-  <div class="dos">
-    ${altasHtml()}
-    <div class="card"><h3>Embudo del producto (AARRR)</h3>${embudo()}</div>
-    <div class="card"><h3>Objetivos SMART del piloto</h3>${objetivosSmart()}</div>
+  ${crmTabs(tab, [['resumen', 'layout-dashboard', 'Resumen'], ['comercios', 'store', 'Comercios', S.comercios.length], ['finanzas', 'banknote', 'Finanzas'], ['territorio', 'map-pin', 'Territorio']], 'mTab')}
+  ${tab === 'comercios' ? cuentasHtml(mes)
+    : tab === 'finanzas' ? finanzasHtml()
+      : tab === 'territorio' ? `<div class="dos">
     <div class="card"><h3>Consumo por localidad</h3>
       ${porLoc.map((x) => `<div class="hbar"><span class="hbar-t">${x.l}<small>${x.n} comercios</small></span><div class="hbar-b"><i style="width:${(x.v / maxLoc) * 100}%;opacity:${0.35 + 0.65 * (x.v / maxLoc)}"></i></div><b>${plata(x.v)}</b></div>`).join('')}
     </div>
@@ -1538,10 +1592,21 @@ function vEconomia() {
     <div class="card"><h3>Comercios con más ventas</h3>
       ${topCom.map((x, i) => `<p class="linea"><span>${i + 1}. ${x.c.emoji} ${esc(x.c.nombre)} <small class="muted">${x.c.loc}</small></span><b>${plata(x.v)}</b></p>`).join('')}
     </div>
+  </div>` : `<div class="kpi-mas">
+    <div><span>Pedidos retirados</span><b>${mes.length.toLocaleString('es-AR')}</b></div>
+    <div><span>Puntos Tigre canjeados</span><b>${(184200 + S.puntos.canjeados).toLocaleString('es-AR')}</b></div>
+    <div><span>Tasas pagadas en término <small>meta 80%</small></span><b>71%</b></div>
+    <div><span>Reclamos de compras <small>${indicadoresRP().sinMed}% sin mediación</small></span><b>${indicadoresRP().tasa} c/100</b></div>
+    <div><span>Pagos hechos por la app</span><b>${(1840 + S.pagosApp).toLocaleString('es-AR')}</b></div>
+  </div>
+  <div class="dos">
+    ${altasHtml()}
+    <div class="card"><h3>Embudo del producto (AARRR)</h3>${embudo()}</div>
+    <div class="card"><h3>Objetivos SMART del piloto</h3>${objetivosSmart()}</div>
     <div class="card"><h3>Último movimiento</h3>
       ${S.pedidos.slice().sort((a, b) => b.creado - a.creado).slice(0, 5).map((p) => `<p class="linea"><span>${comercio(p.cid).emoji} ${esc(comercio(p.cid).nombre)} <small class="muted">${hora(p.creado)} · ${fecha(p.creado)}</small></span><b>${plata(p.total)}</b></p>`).join('')}
     </div>
-  </div>`;
+  </div>`}`;
 }
 
 // ---------- Lugares cercanos: un solo componente de mapa + lista por distancia ----------
@@ -2010,11 +2075,13 @@ const TOUR_COMPRA = [
   { perfil: 'lucia', titulo: 'Lucía reporta un bache', texto: 'Volviendo a casa ve un pozo. Lo reporta con la dirección y el lugar exacto en el mapa (también puede sumar una foto).',
     prep() { S.tab = 'servicios'; S.servTab = 'reclamos'; S.sheet = null; S.recForm = { tipo: 'bacheo', loc: 'Tigre Centro', dir: 'Mitre 120', texto: 'Pozo grande en la esquina, ya se cayó una moto.', foto: null, pos: null }; },
     accion() { ACT.enviarReclamo(); S.tour.reclamo = S.reclamos[S.reclamos.length - 1].id; } },
-  { perfil: 'carlos', titulo: 'Carlos lo ve en el mapa', texto: 'En Atención al Vecino el reclamo aparece en el mapa y en la lista, marcado "desde la app". Lo asigna a una cuadrilla y lo resuelve.',
+  { perfil: 'carlos', titulo: 'Carlos lo ve en el mapa', texto: 'En Atención al Vecino el reclamo entra como un caso nuevo, marcado "Desde la app". Carlos lo asigna a una cuadrilla y lo resuelve.',
+    prep() { S.cTab = 'casos'; S.cFiltro = { tipo: 'todos', loc: 'todas', estado: null }; },
     accion() { const r = S.reclamos.find((x) => x.id === S.tour.reclamo); while (r && r.estado !== 'resuelto') ACT.avanzarReclamo(r.id); } },
   { perfil: 'lucia', titulo: 'Resuelto, y con premio', texto: 'Lucía recibe el aviso de que se resolvió y suma 100 Puntos Tigre, que puede canjear por cupones o un descuento en la tasa.',
     prep() { S.tab = 'credencial'; S.sub = 'puntos'; S.sheet = null; S.notifs.forEach((n) => { n.leida = true; }); } },
-  { perfil: 'marina', titulo: 'Marina mide el impacto', texto: 'En Desarrollo Económico se ven las ventas en comercios locales, las comisiones que quedaron en Tigre y el ahorro de los vecinos.' },
+  { perfil: 'marina', titulo: 'Marina mide el impacto', texto: 'En Desarrollo Económico se ven las ventas en comercios locales, las comisiones que quedaron en Tigre y el ahorro de los vecinos.',
+    prep() { S.mTab = 'resumen'; } },
 ];
 
 const TOUR_VIDA = [
@@ -2053,7 +2120,7 @@ const TOUR_NEGOCIO = [
   { perfil: 'lucia', titulo: 'Publicidad rotulada', texto: 'En el inicio hay espacios de publicidad local y campañas del municipio, siempre identificados. Es otra fuente de ingresos.',
     prep() { S.tab = 'inicio'; }, scroll: '.pub-fila' },
   { perfil: 'marina', titulo: 'Las cuentas cierran', texto: 'Plan Destacado, publicidad, un banco que cofinancia los descuentos y el ahorro en atención suman más que el costo: desde el año 2 se paga sola.',
-    scroll: '.sost' },
+    prep() { S.mTab = 'finanzas'; }, scroll: '.sost' },
   { perfil: 'marina', titulo: 'Y se puede replicar', texto: 'La plataforma se configura con otra marca y otras localidades. mila·ops la ofrece como licencia a otros municipios.' },
 ];
 
@@ -2243,6 +2310,9 @@ const ACT = {
   planToggle() { const c = comercio(perfilActual().cid); c.destacado = !c.destacado; toast(c.destacado ? 'Plan Destacado activo: tu local aparece primero para los vecinos.' : 'Cancelaste el Plan Destacado. Seguís vendiendo con 0% de comisión.'); },
   mPeriodo(v) { S.mFiltro.periodo = v; },
   cTipo(v) { S.cFiltro.tipo = v; },
+  cTab(v) { S.cTab = v; },
+  cEstado(v) { S.cFiltro.estado = S.cFiltro.estado === v ? null : v; },
+  mTab(v) { S.mTab = v; },
   cCalor(v) { S.cCalor = v === '1'; },
   simReset() { S.sim = null; },
   exportar() {
@@ -2533,10 +2603,11 @@ document.addEventListener('change', (e) => {
 
 render();
 
-// Enlaces directos: ?perfil=lucia|rosa|carlos|marina y ?tour=1 (los usa la presentación)
+// Enlaces directos: ?perfil=lucia|rosa|carlos|marina, ?panel=<pestaña del panel municipal> y ?tour=1
 (() => {
   const q = new URLSearchParams(location.search);
   const perf = q.get('perfil');
+  const pan = q.get('panel'); if (pan) { S.cTab = pan; S.mTab = pan; }
   if (perf && PERFILES.some((x) => x.id === perf)) { S.perfil = perf; S.onboard = true; S.sheet = null; render(); }
   if (q.get('tour')) { ACT.tourIniciar(q.get('tour') === '1' ? 'compra' : q.get('tour')); render(); }
 })();
