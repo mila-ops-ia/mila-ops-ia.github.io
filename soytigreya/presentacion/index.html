@@ -14,7 +14,10 @@
 html, body { margin: 0; height: 100%; background: #1E2129; font-family: 'Montserrat', Arial, sans-serif; color: var(--txt); overflow: hidden; }
 button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
 #marco-escena { position: fixed; inset: 0; overflow: hidden; }
-#escena { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; transform-origin: center center; }
+#marco-escena.zoom { overflow: auto; -webkit-overflow-scrolling: touch; }
+#lienzo { position: relative; }
+#escena { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; overflow: hidden; }
+#nav #b-zoom, #nav #b-not { display: none; } body.tactil #nav #b-zoom { display: grid; } body.orador #nav #b-not { display: grid; }
 #gira { display: none; position: fixed; left: 50%; bottom: 76px; transform: translateX(-50%); width: max-content; max-width: 92vw; color: #fff; background: rgba(30,33,41,.85); padding: 10px 14px; border-radius: 12px; font-size: 13px; font-weight: 600; z-index: 21; text-align: center; line-height: 1.4; }
 @media (orientation: portrait) and (max-width: 760px) { #gira { display: block; } }
 .slide { position: absolute; inset: 0; background: var(--fondo); padding: 96px 120px 120px; display: flex; flex-direction: column; gap: 36px; opacity: 0; visibility: hidden; transition: opacity .45s ease, transform .45s ease; transform: translateX(40px); overflow: hidden; }
@@ -400,6 +403,7 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
   @page { size: 1920px 1080px; margin: 0; }
   html, body { overflow: visible; height: auto; background: #fff; }
   #marco-escena { position: static; overflow: visible; }
+  #lienzo { width: auto !important; height: auto !important; margin: 0 !important; }
   #escena { position: static; transform: none !important; width: 1920px; height: auto; }
   .slide { position: relative; opacity: 1; visibility: visible; transform: none; height: 1080px; page-break-after: always; break-after: page; }
   #barra, #nav, #cont, #notas, #gira, .ayuda, .toque { display: none !important; }
@@ -409,7 +413,7 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
 </style>
 </head>
 <body>
-<div id="marco-escena"><div id="escena">
+<div id="marco-escena"><div id="lienzo"><div id="escena">
 
 <!-- 1 · PORTADA -->
 <section class="slide roja on" data-notas="Hola, soy Milagros Sanabria. Les presento SoyTigreYa, el upgrade de la app Soy Tigre. Pueden escanear el QR y probarla mientras hablo. Es un prototipo académico, no la app oficial.">
@@ -515,26 +519,31 @@ input[type=range] { width: 100%; accent-color: #FF8F84; height: 30px; }
   <div class="demo-marco" id="demo-marco"></div>
   <p class="demo-pie">App real publicada en mila-ops-ia.github.io/soytigreya · prototipo académico con datos de demostración</p>
 </div>
-</div>
-<div id="gira">📱 Girá el celu para verla más grande · deslizá para pasar de diapositiva</div>
+</div></div>
+<div id="gira">📱 Girá el celu para verla más grande · deslizá para pasar · 🔍 para agrandar</div>
 <div id="barra"><i></i></div>
 <div id="cont">1 / 6</div>
-<div id="nav"><button id="b-not" title="Notas del orador (N)"><i data-lucide="message-square-text"></i></button><button id="b-full" title="Pantalla completa (F)"><i data-lucide="maximize"></i></button><button id="b-ant" title="Anterior (←)"><i data-lucide="chevron-left"></i></button><button id="b-sig" title="Siguiente (→)"><i data-lucide="chevron-right"></i></button></div>
+<div id="nav"><button id="b-not" title="Notas del orador (N)"><i data-lucide="message-square-text"></i></button><button id="b-zoom" title="Agrandar"><i data-lucide="zoom-in"></i></button><button id="b-full" title="Pantalla completa (F)"><i data-lucide="maximize"></i></button><button id="b-ant" title="Anterior (←)"><i data-lucide="chevron-left"></i></button><button id="b-sig" title="Siguiente (→)"><i data-lucide="chevron-right"></i></button></div>
 <div id="notas"></div>
-<div class="ayuda" id="ayuda">← → para avanzar · N notas · F pantalla completa</div>
+<div class="ayuda" id="ayuda">← → para avanzar · F pantalla completa</div>
 
 <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
 <script>
 const slides = [...document.querySelectorAll('.slide')];
 let i = 0;
 const escena = document.getElementById('escena');
-function ajustar() { const de = document.documentElement; const w = de.clientWidth || innerWidth, h = de.clientHeight || innerHeight; const k = Math.min(w / 1920, h / 1080); escena.style.transform = `translate(-50%, -50%) scale(${k})`; }
+const marcoEsc = document.getElementById('marco-escena'), lienzo = document.getElementById('lienzo');
+let zoom = 1;
+function ajustar() { const de = document.documentElement; const w = de.clientWidth || innerWidth, h = de.clientHeight || innerHeight; const k = Math.min(w / 1920, h / 1080) * zoom; const W = 1920 * k, H = 1080 * k; lienzo.style.width = W + 'px'; lienzo.style.height = H + 'px'; lienzo.style.margin = `${Math.max(0, (h - H) / 2)}px ${Math.max(0, (w - W) / 2)}px`; escena.style.transform = `scale(${k})`; marcoEsc.classList.toggle('zoom', zoom > 1); }
+document.getElementById('b-zoom').onclick = () => { zoom = zoom > 1 ? 1 : 2; ajustar(); if (zoom > 1) { marcoEsc.scrollLeft = (marcoEsc.scrollWidth - marcoEsc.clientWidth) / 2; marcoEsc.scrollTop = 0; } document.querySelector('#b-zoom i, #b-zoom svg').outerHTML = `<i data-lucide="${zoom > 1 ? 'zoom-out' : 'zoom-in'}"></i>`; if (window.lucide) lucide.createIcons(); };
 addEventListener('resize', ajustar); addEventListener('orientationchange', () => setTimeout(ajustar, 250)); ajustar();
 // deslizar con el dedo para pasar de diapositiva
 let tx = null, ty = null;
 addEventListener('touchstart', (e) => { if (e.touches.length !== 1) { tx = null; return; } tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
-addEventListener('touchend', (e) => { if (tx === null || document.getElementById('demo-capa')?.classList.contains('on')) return; const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty; tx = null; if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) ir(i + (dx < 0 ? 1 : -1)); }, { passive: true });
-if (matchMedia('(pointer: coarse)').matches) document.getElementById('ayuda').textContent = 'Deslizá o tocá las flechas para avanzar';
+addEventListener('touchend', (e) => { if (tx === null || zoom > 1 || document.getElementById('demo-capa')?.classList.contains('on')) return; const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty; tx = null; if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) ir(i + (dx < 0 ? 1 : -1)); }, { passive: true });
+if (matchMedia('(pointer: coarse)').matches) { document.body.classList.add('tactil'); document.getElementById('ayuda').textContent = 'Deslizá o tocá las flechas para avanzar'; }
+const orador = new URLSearchParams(location.search).has('orador');
+if (orador) document.body.classList.add('orador');
 function ir(n) {
   n = Math.max(0, Math.min(slides.length - 1, n));
   slides.forEach((s, k) => { s.classList.toggle('on', k === n); s.classList.toggle('prev', k < n); });
@@ -554,7 +563,7 @@ addEventListener('keydown', (e) => {
   if (e.target.tagName === 'INPUT') return;
   if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(i + 1); }
   if (['ArrowLeft', 'PageUp'].includes(e.key)) ir(i - 1);
-  if (e.key.toLowerCase() === 'n') document.getElementById('notas').classList.toggle('on');
+  if (e.key.toLowerCase() === 'n' && orador) document.getElementById('notas').classList.toggle('on');
   if (e.key.toLowerCase() === 'f') document.getElementById('b-full').click();
   if (e.key === 'Home') ir(0); if (e.key === 'End') ir(slides.length - 1);
 });
