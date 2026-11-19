@@ -1373,3 +1373,9 @@ button.crm-etapa:hover { background: #ECEDF1; }
 .env-ok .grow { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
 .env-ok small { color: var(--muted, #5F6370); font-size: .78rem; }
 .env-pin { font-size: 1.2rem; }
+
+/* v34 · Envío: hora de llegada y aviso de demora */
+.llega { background: #F1F8F4; border-radius: 12px; padding: 10px 12px; font-size: .86rem; margin: 6px 0 8px; }
+.ped-llega { background: #F1F8F4; border-radius: 12px; padding: 10px 12px; font-size: .88rem; margin: 10px 0 4px; }
+.ped-llega.dem { background: #FFF4E5; }
+.tped-dem { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; margin: 4px 0; }

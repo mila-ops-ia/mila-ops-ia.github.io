@@ -155,10 +155,10 @@ doc.add_heading('Cómo funcionaría', 2)
 viñetas([
     ('Credencial digital: ', 'un QR que cambia cada 30 segundos y el historial del ahorro de cada mes. La tarjeta física se sigue enviando al domicilio: la digital se suma, no la reemplaza.'),
     ('Beneficios reales: ', 'los comercios adheridos con los descuentos publicados por el Municipio, en lista y mapa, ordenados por cercanía.'),
-    ('Compras con retiro o con envío del comercio: ', 'el descuento se aplica solo y se paga desde la app. El vecino elige retirar o que lo lleve el cadete del propio comercio a su ubicación, que toma el celular sin escribir la dirección. Si algo sale mal, el comercio tiene 24 horas para resolver y, si no hay acuerdo, media el municipio.'),
+    ('Compras con retiro o con envío del comercio: ', 'el descuento se aplica solo y se paga desde la app. El vecino elige retirar o que lo lleve el cadete del propio comercio a su ubicación, que toma el celular sin escribir la dirección. Ve la hora de llegada y, si hay demora, el comercio le avisa. Si algo sale mal, el comercio tiene 24 horas para resolver; si no responde, se devuelve el pago.'),
     ('Trámites y pagos: ', 'turnos municipales, reclamos con foto, mapa y seguimiento por etapas, pago de tasas y multas, y estacionamiento medido con mapa de zonas.'),
     ('Salud, deporte y trabajo: ', 'turnos médicos en la red municipal (hospitales de diagnóstico inmediato, Materno Infantil y centros de atención), con guardias visibles; inscripción a escuelas deportivas de los 18 polideportivos y a la colonia de verano; búsquedas laborales con CV guardado y cursos gratuitos.'),
-    ('Lo propio de Tigre: ', 'altura del río Luján con pronóstico a 24 horas y aviso al celular cuando supera el nivel de alerta por crecida; botón de alerta en todas las pantallas, que envía la ubicación al Centro de Operaciones; colectivos, farmacias de turno, agenda cultural y puntos verdes para reciclar.'),
+    ('Lo propio de Tigre: ', 'altura del río Luján con pronóstico a 24 horas y aviso al celular cuando supera el nivel de alerta por crecida; botón de alerta en todas las pantallas, que envía la ubicación al Centro de Operaciones; colectivos, farmacias de turno, eventos culturales y puntos verdes para reciclar.'),
     ('Tigri: ', 'un asistente que entiende lenguaje cotidiano ("quiero pizza", "hay un bache") y lleva a la acción.'),
     ('Puntos Tigre: ', 'se suman al comprar en el barrio (1 punto cada $1.000), pagar la tasa en término, reciclar en un punto verde escaneando su QR, ir a un turno o tener un reclamo resuelto. Se canjean por cupones, descuento en la tasa, saldo de estacionamiento o entradas culturales, y dan nivel: Cachorro, Tigre y Tigre de Oro.'),
     ('Panel del comercio, con formato de CRM: ', 'indicadores del día, pedidos en tablero o en lista, clientes (quién compra, cuánto y quiénes repiten), reclamos, productos y Mi local, con fotos, horarios y envío propio.'),
@@ -225,7 +225,7 @@ tabla([
     ['Competencia de plataformas privadas', 'Medio', 'Competir por precio final y cercanía, no por publicidad.'],
     ['Protección de datos personales', 'Medio', 'Cumplir la Ley 25.326, usar datos agregados y consentimiento explícito.'],
     ['Brecha digital', 'Medio', 'Modo accesible, versión web, canal por WhatsApp y tarjeta física.'],
-    ['Problemas con una compra', 'Bajo', 'El comercio responde en 24 horas; si no hay acuerdo, media la oficina municipal de defensa del consumidor (Ley 13.133).'],
+    ['Problemas con una compra', 'Bajo', 'El comercio responde en 24 horas; si no responde, el pago se devuelve automáticamente al vecino.'],
     ['Abuso de los Puntos Tigre', 'Bajo', 'Canjes con tope, vencimiento a 12 meses y puntos solo por compras con QR.'],
 ], [4.6, 1.6, 9.8])
 p('Nivel = peligrosidad × vulnerabilidad (matriz en los Anexos). Los dos riesgos altos se prueban primero, en el piloto.')
@@ -402,7 +402,7 @@ tabla([
     ['Logística del delivery', 'Media', 'Media: hay retiro y envío del comercio; no todos tienen cadete', 'Medio'],
     ['Protección de datos personales', 'Baja', 'Alta: un incidente daña la confianza en el Municipio', 'Medio'],
     ['Costo y abuso de los Puntos Tigre', 'Media', 'Media: topes y vencimiento limitan el costo', 'Medio'],
-    ['Problemas con una compra', 'Media', 'Baja: respuesta en 24 horas y mediación municipal', 'Bajo'],
+    ['Problemas con una compra', 'Media', 'Baja: respuesta en 24 horas y reintegro automático', 'Bajo'],
     ['Brecha digital', 'Media', 'Baja: modo accesible, versión web y WhatsApp', 'Bajo'],
 ], [5.0, 2.3, 6.7, 2.0])
 p('Peligrosidad es la probabilidad de que el riesgo ocurra; vulnerabilidad, cuánto afectaría al proyecto con las mitigaciones ya previstas en la sección 6. El nivel combina las dos. Es una valoración cualitativa de la autora, a revisar con los datos del piloto. Los dos riesgos altos son los que se validan primero: la meta de 40 comercios en tres meses y el acuerdo con un banco o billetera.')
@@ -442,8 +442,8 @@ tabla([
     ['Función', 'Qué hace', 'Quién la usa'],
     ['Credencial digital', 'QR que cambia cada 30 segundos e historial del ahorro de cada mes. La tarjeta física sigue vigente.', 'Lucía'],
     ['Beneficios', 'Comercios adheridos con sus descuentos, en lista y mapa, ordenados por cercanía.', 'Lucía'],
-    ['Comprar', 'Pedido con descuento automático, pago desde la app, retiro en el local o envío con el cadete del comercio a la ubicación que comparte el celular (sin escribir la dirección) y código de entrega.', 'Lucía y Rosa'],
-    ['Problemas con una compra', 'El vecino reclama con foto; el comercio tiene 24 horas para devolver o reponer; si no hay acuerdo, media el municipio.', 'Lucía, Rosa y Carlos'],
+    ['Comprar', 'Pedido con descuento automático, pago desde la app, retiro en el local o envío con el cadete del comercio a la ubicación que comparte el celular (sin escribir la dirección), con hora de llegada, aviso de demora y código de entrega.', 'Lucía y Rosa'],
+    ['Problemas con una compra', 'El vecino reclama con foto; el comercio tiene 24 horas para devolver o reponer. Si no responde, el pago se devuelve solo; si la propuesta no sirve, el vecino pide otra.', 'Lucía y Rosa'],
     ['Turnos municipales', 'Licencia de conducir, zoonosis y otros trámites, con recordatorio.', 'Lucía y Carlos'],
     ['Reclamos', 'Alumbrado, bacheo, poda y residuos, con foto, ubicación en el mapa y seguimiento por etapas.', 'Lucía y Carlos'],
     ['Pagos', 'Tasas municipales, multas de tránsito y estacionamiento medido con mapa de zonas.', 'Lucía'],
@@ -453,13 +453,13 @@ tabla([
     ['Altura del río', 'Nivel del río Luján, pronóstico a 24 horas, niveles de atención (1,90 m) y alerta (2,30 m) y aviso al celular si hay crecida.', 'Lucía'],
     ['Botón de alerta', 'Visible en todas las pantallas: envía la ubicación al Centro de Operaciones y muestra los teléfonos de emergencia.', 'Lucía'],
     ['Colectivos y farmacias', 'Cuánto falta para el colectivo y farmacias de turno en el mapa.', 'Lucía'],
-    ['Agenda cultural', 'Ferias, música, talleres y corridas del distrito.', 'Lucía'],
+    ['Eventos', 'Ferias, música, talleres y corridas del distrito.', 'Lucía'],
     ['Reciclaje', 'Puntos verdes en el mapa; al escanear su QR se suman puntos.', 'Lucía'],
     ['Puntos Tigre', 'Se suman por comprar (1 cada $1.000), pagar la tasa en término (200), reciclar (40), reclamo resuelto (100) e ir al turno (30). Se canjean por cupón de $2.000, 10% en la tasa, saldo de estacionamiento o entrada cultural. Niveles: Cachorro, Tigre (1.000 puntos) y Tigre de Oro (3.000). Vencen a los 12 meses.', 'Lucía y Marina'],
     ['Tigri', 'Asistente que entiende lenguaje cotidiano, escrito o hablado, y lleva a la acción.', 'Lucía'],
     ['Cerca tuyo y accesibilidad', 'Ordena todo por distancia con el botón Cómo llegar; modo de letra grande y alto contraste; se instala en el celular.', 'Lucía'],
     ['Panel del comercio', 'Pedidos en tablero o lista, clientes, reclamos, productos y ofertas flash, Mi local, envío propio, cobros y Plan Destacado.', 'Rosa'],
-    ['Panel de Atención al Vecino', 'Casos por estado y urgencia, mapa de calor, cuadrillas, mediación de compras y turnos del día.', 'Carlos'],
+    ['Panel de Atención al Vecino', 'Casos por estado y urgencia, mapa de calor, cuadrillas y turnos del día.', 'Carlos'],
     ['Panel de Desarrollo Económico', 'Ventas y ahorro por período y localidad, comercios como cuentas, embudo AARRR, proyección financiera e informe descargable.', 'Marina'],
     ['Recorrido guiado y opinión', 'Diez pasos que muestran un pedido y un reclamo pasando por los cuatro perfiles, y un formulario de opinión.', 'Todos'],
 ], [3.6, 9.4, 3.0])

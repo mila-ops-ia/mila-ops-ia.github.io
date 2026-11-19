@@ -38,12 +38,12 @@ El botón **"▶ Ver el recorrido guiado"** muestra, en 10 pasos, cómo un pedid
 
 - Credencial digital con QR que cambia cada 30 segundos
 - Beneficios en lista y mapa (OpenStreetMap)
-- Compra con descuento automático, retiro en el local o envío con el cadete del comercio a la ubicación del celular (sin escribir la dirección), y código de entrega
+- Compra con descuento automático, retiro en el local o envío con el cadete del comercio a la ubicación del celular (sin escribir la dirección), con hora de llegada, aviso de demora y código de entrega
 - Pagos simulados con Mercado Pago, Cuenta DNI, tarjeta o efectivo
 - **Puntos Tigre:** se suman al comprar en el barrio, pagar la tasa a tiempo, reciclar y por reclamos resueltos. Se canjean por cupones, descuento en la tasa, estacionamiento o entradas culturales
 - **Tigri:** asistente de chat que entiende frases como "quiero pizza", "hay un bache" o "farmacia de turno". Por ahora funciona con reglas, y en la etapa 3 se conectaría a inteligencia artificial
 - **Salud, deporte y trabajo:** turnos médicos en la red municipal, escuelas deportivas y colonia, búsquedas laborales y cursos
-- **Lo propio de Tigre:** altura del río con pronóstico y aviso de crecida, botón de alerta que envía la ubicación, colectivos, farmacias de turno, agenda cultural y puntos verdes
+- **Lo propio de Tigre:** altura del río con pronóstico y aviso de crecida, botón de alerta que envía la ubicación, colectivos, farmacias de turno, eventos culturales y puntos verdes
 - Modo de letra grande y alto contraste
 - Versión de escritorio y app instalable (PWA) que abre sin conexión
 

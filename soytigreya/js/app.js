@@ -147,7 +147,7 @@ function seed() {
   };
 }
 
-// Reclamos de compras: uno esperando respuesta de Rosa y otro vencido, que ya pasó a mediación.
+// Reclamos de compras: uno esperando respuesta de Rosa y otro vencido, con reintegro automático.
 function seedRP(pedidos) {
   const ret = pedidos.filter((p) => p.cid === 'c2' && p.estado === 'retirado' && !p.mio).sort((a, b) => b.creado - a.creado);
   const ahora = Date.now();
@@ -344,8 +344,8 @@ function vInicio() {
   const grupos = [
     ['Ahorrar y comprar', 'r', [['🎁', 'Beneficios', 'tab', 'beneficios'], ['🛍️', 'Comprar', 'tab', 'comprar'], ['⭐', 'Puntos', 'sub', 'puntos'], ['🪪', 'Credencial', 'tab', 'credencial']]],
     ['Trámites y pagos', 'p', [['📅', 'Turnos', 'serv', 'turnos'], ['📣', 'Reclamar', 'serv', 'reclamos'], ['💳', 'Pagar', 'serv', 'pagos'], ['🚗', 'Estacionar', 'sub', 'estacionamiento']]],
-    ['Salud y deporte', 's', [['🏥', 'Salud', 'sub', 'salud'], ['💊', 'Farmacias', 'sub', 'farmacias'], ['🏅', 'Deporte', 'sub', 'deportes'], ['🆘', 'Alerta', 'sub', 'alerta']]],
-    ['Trabajo y ciudad', 'a', [['💼', 'Empleo', 'sub', 'trabajo'], ['🚌', 'Colectivos', 'sub', 'colectivos'], ['🌊', `Río ${alto} m`, 'sub', 'rio'], ['🎪', 'Agenda', 'serv', 'agenda']]],
+    ['Salud, deporte y eventos', 's', [['🏥', 'Salud', 'sub', 'salud'], ['💊', 'Farmacias', 'sub', 'farmacias'], ['🏅', 'Deporte', 'sub', 'deportes'], ['🎪', 'Eventos', 'serv', 'agenda']]],
+    ['Trabajo y ciudad', 'a', [['💼', 'Empleo', 'sub', 'trabajo'], ['🚌', 'Colectivos', 'sub', 'colectivos'], ['🌊', `Río ${alto} m`, 'sub', 'rio'], ['🆘', 'Alerta', 'sub', 'alerta']]],
   ];
   const aviso = r.nivel.clase !== 'normal' ? `<button class="aviso-rio ${r.nivel.clase}" data-a="sub" data-v="rio"><span>🌊</span><div><b>Río Luján en ${r.nivel.txt.toLowerCase()}: ${alto} m</b><small>${r.sube ? 'Subiendo' : 'Bajando'} · tocá para ver el pronóstico</small></div></button>` : '';
   return `
@@ -562,6 +562,10 @@ function horarios(c) {
   }
   return out;
 }
+// Envío: minutos de viaje del cadete según la distancia (5 de base + 4 por km, redondeado a 5)
+function viajeMin(c) { const d = S.envPos && c.pos ? distKm(S.envPos.pos, c.pos) : 1.2; return Math.max(5, Math.round((5 + d * 4) / 5) * 5); }
+function conEnvioElegido(c) { return conEnvio(c) && S.entrega === 'envio'; }
+function horariosDe(c) { return conEnvioElegido(c) ? horariosRetiro(c.prep + viajeMin(c)) : horarios(c); }
 function horariosRetiro(prep) {
   const base = new Date(Date.now() + prep * 60000);
   base.setSeconds(0, 0);
@@ -592,6 +596,7 @@ function pedidoActivo(p) {
       <div><span class="muted">${p.servicio ? 'Tu turno' : p.entrega === 'envio' ? `Te lo llevan a ${esc(p.dir)}` : 'Retirás'}</span><b>${p.retiro}</b><span class="muted">${p.servicio ? 'Código de reserva' : p.entrega === 'envio' ? 'Código para el cadete' : 'Código de retiro'}</span><b class="codigo">${p.codigo}</b></div>
       <div class="qr chico" data-qr="RETIRO|${p.id}|${p.codigo}"></div>
     </div>
+    ${p.entrega === 'envio' ? `<p class="ped-llega ${p.demora ? 'dem' : ''}">${p.demora ? `⏱️ El comercio avisó una demora de ${p.demora} min. Hora nueva: <b>${esc(p.retiro.replace('a las ', ''))}</b>` : p.estado === 'listo' ? `🛵 El cadete ya salió. Llega <b>${esc(p.retiro)}</b>` : `🛵 Llega <b>${esc(p.retiro)}</b>. Si hay demora, el comercio te avisa.`}</p>` : ''}
     <details><summary>Detalle · ${plata(p.total)}</summary>
       ${p.items.map((it) => `<p class="linea"><span>${it.qty} × ${esc(it.nombre)}</span><span>${plata(it.precio * it.qty)}</span></p>`).join('')}
       <p class="linea verde"><span>Beneficio ${MARCA.tarjeta} (-${p.desc}%)</span><span>-${plata(p.descuento)}</span></p>
@@ -643,7 +648,7 @@ function vCredencial() {
 // ---------- trámites ----------
 function vServicios() {
   const t = S.servTab;
-  const tabs = [['turnos', '📅 Turnos'], ['reclamos', '📣 Reclamos'], ['pagos', '💳 Pagos'], ['agenda', '🎪 Agenda']];
+  const tabs = [['turnos', '📅 Turnos'], ['reclamos', '📣 Reclamos'], ['pagos', '💳 Pagos'], ['agenda', '🎪 Eventos']];
   let cuerpo = '';
   if (t === 'turnos') cuerpo = vTurnos();
   else if (t === 'reclamos') cuerpo = vReclamos();
@@ -961,7 +966,8 @@ function sheet() {
       ${porEnvio ? `${envUbicHtml(t.c)}
       <p class="muted chico">Lo lleva el cadete de ${esc(t.c.nombre)}, hasta ${env.radio} km del local. El envío lo cobra el comercio: la app no se queda con nada.</p>` : ''}` : ''}
       <p class="muted">${t.c.servicio ? '¿Cuándo es tu turno?' : porEnvio ? '¿Para cuándo?' : '¿Cuándo lo retirás?'}</p>
-      <div class="chips">${horarios(t.c).map((h) => `<button class="chip ${S.retiro === h.i ? 'on' : ''}" data-a="retiro" data-v="${h.i}">${h.txt}</button>`).join('')}</div>
+      ${porEnvio ? `<p class="llega">🛵 Llega en unos <b>${t.c.prep + viajeMin(t.c)} min</b>: ${t.c.prep} de preparación y ${viajeMin(t.c)} de viaje. Si hay demora, el comercio te avisa.</p>` : ''}
+      <div class="chips">${horariosDe(t.c).map((h) => `<button class="chip ${S.retiro === h.i ? 'on' : ''}" data-a="retiro" data-v="${h.i}">${h.txt}</button>`).join('')}</div>
       <p class="muted">¿Cómo pagás?</p>
       <div class="pagos">${PAGOS.map((p) => `<button class="${S.pago === p.id ? 'on' : ''}" data-a="pago" data-v="${p.id}">${p.emoji} ${p.id === 'efectivo' && porEnvio ? 'Efectivo al recibir' : p.nombre}</button>`).join('')}</div>
       <button class="btn grande" data-a="pagar">${t.c.servicio ? (S.pago === 'efectivo' ? 'Reservar turno' : 'Reservar y pagar') : S.pago === 'efectivo' ? 'Confirmar pedido' : 'Pagar'} ${plata(aPagar)}</button>`;
@@ -1005,7 +1011,7 @@ function sheet() {
       <div class="chips rp-motivos">${MOTIVOS_RP.map(([id, t]) => `<button class="chip ${f.motivo === id ? 'on' : ''}" data-a="rpMotivo" data-v="${id}">${t}</button>`).join('')}</div>
       <div class="form"><label>Contanos qué pasó<textarea data-f="rpTxt" rows="3" placeholder="Por ejemplo: faltó una porción de tiramisú">${esc(f.texto)}</textarea></label>
       <label class="foto-btn">${f.foto ? `<img src="${f.foto}" alt="Foto">` : '<span>📷 Agregar una foto (opcional)</span>'}<input type="file" accept="image/*" capture="environment" data-f="rpFoto"></label></div>
-      <p class="tip">El comercio tiene 24 horas para proponerte una solución: devolverte la plata o reponer el producto. Si no responde o no te convence, interviene la oficina de defensa del consumidor del municipio.</p>
+      <p class="tip">El comercio tiene 24 horas para proponerte una solución: devolverte la plata o reponer el producto. Si no responde, te devolvemos el pago completo. Si no te convence, le pedís otra.</p>
       <button class="btn grande" data-a="rpEnviar">Enviar reclamo</button>`;
   } else if (s === 'onboarding') {
     const pasos = [
@@ -1052,7 +1058,7 @@ function tigriResponde(texto) {
     return R(`Si es una emergencia, <b>llamá ya al 911</b> (o al 107 si es médica, 144 por violencia de género). También podés usar el botón de alerta: le manda tu ubicación al Centro de Operaciones.`, [{ t: '🆘 Botón de alerta', a: 'sub', v: 'alerta' }]);
   }
   if (tiene(q, 'problema con', 'falto', 'llego mal', 'vino mal', 'me cobraron', 'devolucion', 'reembolso', 'reclamar un pedido', 'reclamo del pedido')) {
-    return R('Si tuviste un problema con una compra, reportalo desde <b>Mis pedidos</b> con "Tuve un problema con este pedido". El comercio tiene <b>24 horas</b> para proponerte una solución (devolverte la plata o reponer el producto). Si no responde o no te convence, media la oficina de defensa del consumidor del municipio.', [{ t: 'Ir a mis pedidos', a: 'verPedidos', v: '' }]);
+    return R('Si tuviste un problema con una compra, reportalo desde <b>Mis pedidos</b> con "Tuve un problema con este pedido". El comercio tiene <b>24 horas</b> para proponerte una solución (devolverte la plata o reponer el producto). Si no responde, te devolvemos el pago completo.', [{ t: 'Ir a mis pedidos', a: 'verPedidos', v: '' }]);
   }
   if (tiene(q, 'recicl', 'punto verde', 'ecopunto')) {
     return R(`¡Bien ahí! Cada vez que dejás tus residuos separados en un punto verde y escaneás su QR, sumás <b>⭐ ${PUNTOS.reciclar} puntos</b>. Hay en ${PUNTOS_VERDES.length} lugares del distrito ♻️`, [{ t: '♻️ Reciclar y sumar', a: 'sub', v: 'reciclar' }]);
@@ -1289,7 +1295,8 @@ function tarjetaPedido(p) {
       : `<div class="validar"><input inputmode="numeric" maxlength="4" placeholder="Código" id="cod-${p.id}"><button class="btn" data-a="entregar" data-v="${p.id}">Entregar</button></div>`;
   return `<div class="tped">
     <div class="tped-cab"><b>#${p.id}</b><span class="muted">${p.entrega === 'envio' ? 'Entregar' : 'Retira'} ${p.retiro}</span></div>
-    ${p.entrega === 'envio' ? `<p class="tped-env">🛵 Llevar a ${esc(p.dir)}${p.envio ? ` · envío ${plata(p.envio)} para vos` : ''}</p>` : ''}
+    ${p.entrega === 'envio' ? `<p class="tped-env">🛵 Llevar a ${esc(p.dir)}${p.envio ? ` · envío ${plata(p.envio)} para vos` : ''}</p>
+    <p class="tped-dem">${p.demora ? `<span class="pill asignado">Demora avisada: +${p.demora} min</span>` : '<span class="muted chico">¿Se atrasa el cadete?</span>'}<button class="link" data-a="demora" data-v="${p.id}">Avisar demora de 10 min</button></p>` : ''}
     ${p.items.map((it) => `<p>${it.qty} × ${esc(it.nombre)}</p>`).join('')}
     <p class="linea"><span>${pago.emoji} ${pago.nombre}</span><b>${plata(p.total)}</b></p>
     <p class="muted chico">Incluye beneficio ${MARCA.tarjeta} de ${plata(p.descuento)}. ${p.pago === 'efectivo' ? 'Cobrar al entregar.' : 'Ya pagado.'}</p>
@@ -1486,16 +1493,13 @@ function vAtencion() {
   const turnosHoy = [...TURNOS_DEMO, ...S.turnos.map((t) => ({ hora: t.hora, nombre: S.usuario.nombre.split(' ')[0] + ' ' + S.usuario.nombre.split(' ')[1][0] + '.', tramite: t.tramite, app: true }))].sort((a, b) => a.hora.localeCompare(b.hora));
   if (!F.estado) F.estado = null;
   const tab = S.cTab || 'casos';
-  const med = (S.reclamosPed || []).filter((x) => estadoRP(x) === 'mediacion').length;
   const cuerpo = tab === 'mapa'
     ? `<div class="card"><div class="h2-fila"><h3>Mapa de reclamos</h3><div class="seg mini-seg"><button class="${!S.cCalor ? 'on' : ''}" data-a="cCalor" data-v="0">Puntos</button><button class="${S.cCalor ? 'on' : ''}" data-a="cCalor" data-v="1">Calor</button></div></div><div class="mapa" data-map="municipio"></div>
       <p class="muted chico">${S.cCalor ? 'Cuanto más grande y rojo el círculo, más reclamos abiertos en la zona.' : '🔴 recibido · 🟡 asignado o en curso · 🟢 resuelto · los puntos grandes llegaron desde la app'}</p></div>`
     : tab === 'cuadrillas'
       ? `<div class="dos">${cuadrillasHtml()}<div class="card"><h3>Reclamos por tipo</h3>
         ${TIPOS_RECLAMO.map((x) => `<p class="linea"><span>${x.emoji} ${x.nombre}</span><span><b class="rojo">${S.reclamos.filter((r) => r.tipo === x.id && r.estado !== 'resuelto').length} abiertos</b> · <span class="verde">${S.reclamos.filter((r) => r.tipo === x.id && r.estado === 'resuelto').length} resueltos</span></span></p>`).join('')}</div></div>`
-      : tab === 'mediacion'
-        ? `<div class="card"><h3>Mediación de compras · Defensa del Consumidor</h3><p class="muted chico">Casos que el comercio no respondió en 24 horas o que el vecino no aceptó.</p>${mediacionesHtml()}</div>`
-        : tab === 'turnos'
+      : tab === 'turnos'
           ? `<div class="card"><h3>Turnos de hoy</h3>
             ${turnosHoy.map((x) => { const tr = TRAMITES.find((y) => y.id === x.tramite); return `<p class="linea"><span><b>${x.hora}</b> · ${esc(x.nombre)}${x.app ? ' <span class="pill recibido">desde la app</span>' : ''}</span><span class="muted">${tr.emoji} ${tr.nombre}</span></p>`; }).join('')}</div>`
           : casosHtml();
@@ -1508,7 +1512,7 @@ function vAtencion() {
     ${kpi('Resueltos esta semana', resueltosSemana, 'verde')}
     ${kpi('Turnos de hoy', turnosHoy.length)}
   </div>
-  ${crmTabs(tab, [['casos', 'inbox', 'Casos', abiertos.length], ['mapa', 'map', 'Mapa'], ['cuadrillas', 'hard-hat', 'Cuadrillas'], ['mediacion', 'scale', 'Mediación', med || null], ['turnos', 'calendar', 'Turnos', turnosHoy.length]], 'cTab')}
+  ${crmTabs(tab, [['casos', 'inbox', 'Casos', abiertos.length], ['mapa', 'map', 'Mapa'], ['cuadrillas', 'hard-hat', 'Cuadrillas'], ['turnos', 'calendar', 'Turnos', turnosHoy.length]], 'cTab')}
   ${cuerpo}`;
 }
 
@@ -1678,7 +1682,7 @@ function vEconomia() {
     <div><span>Pedidos retirados</span><b>${mes.length.toLocaleString('es-AR')}</b></div>
     <div><span>Puntos Tigre canjeados</span><b>${(184200 + S.puntos.canjeados).toLocaleString('es-AR')}</b></div>
     <div><span>Tasas pagadas en término <small>meta 80%</small></span><b>71%</b></div>
-    <div><span>Reclamos de compras <small>${indicadoresRP().sinMed}% sin mediación</small></span><b>${indicadoresRP().tasa} c/100</b></div>
+    <div><span>Reclamos de compras <small>${indicadoresRP().sinMed}% con acuerdo</small></span><b>${indicadoresRP().tasa} c/100</b></div>
     <div><span>Pagos hechos por la app</span><b>${(1840 + S.pagosApp).toLocaleString('es-AR')}</b></div>
   </div>
   <div class="dos">
@@ -1943,7 +1947,8 @@ function crearPedido(t, retiro) {
     items: t.items.map(({ pid, nombre, precio, qty }) => ({ pid, nombre, precio, qty })),
     desc: t.c.desc + (t.extra || 0), pago: S.pago, creado: Date.now(), estado: 'recibido', mio: true, loc: t.c.loc, servicio: !!t.c.servicio, retiro: t.c.servicio ? retiro.toLowerCase() : `a las ${retiro}`,
   });
-  if (conEnvio(t.c) && S.entrega === 'envio') { p.entrega = 'envio'; p.envio = envioDe(t.c).costo; const ref = (S.envRef || '').trim(); p.pos = S.envPos.pos; p.dir = `la ubicación ${S.envPos.tipo === 'gps' ? 'compartida' : 'de demostración'} (a ${kmTxt(distKm(S.envPos.pos, t.c.pos))})${ref ? ' · ' + ref : ''}`; p.total += p.envio; }
+  if (conEnvio(t.c) && S.entrega === 'envio') { p.entrega = 'envio'; p.envio = envioDe(t.c).costo; const ref = (S.envRef || '').trim(); p.pos = S.envPos.pos; p.dir = `la ubicación ${S.envPos.tipo === 'gps' ? 'compartida' : 'de demostración'} (a ${kmTxt(distKm(S.envPos.pos, t.c.pos))})${ref ? ' · ' + ref : ''}`; p.total += p.envio;
+    const [hh, mm] = retiro.split(':').map(Number); const ll = new Date(); ll.setHours(hh, mm, 0, 0); if (ll.getTime() < Date.now() - 6e5) ll.setDate(ll.getDate() + 1); p.llega = ll.getTime(); }
   S.entrega = 'retiro';
   if (t.cupon) { p.cupon = t.cupon; p.total -= t.cupon; S.puntos.cupones.splice(S.puntos.cupones.findIndex((c) => c.tipo === 'cupon'), 1); }
   S.pedidos.push(p);
@@ -1953,11 +1958,11 @@ function crearPedido(t, retiro) {
   return p;
 }
 
-// ---------- reclamos de compras: vecino → comercio (24 h) → mediación del municipio ----------
+// ---------- reclamos de compras: vecino → comercio (24 h) → reintegro automático si no responde ----------
 const MOTIVOS_RP = [['falta', 'Faltó un producto'], ['mal', 'Llegó en mal estado'], ['demora', 'No estaba listo a la hora'], ['cobro', 'Me cobraron de más'], ['otro', 'Otro problema']];
-const RP_TXT = { abierto: 'Esperando respuesta del comercio', respondido: 'El comercio propuso una solución', resuelto: 'Resuelto', mediacion: 'En mediación del municipio', cerrado: 'Cerrado por el municipio' };
+const RP_TXT = { abierto: 'Esperando respuesta del comercio', respondido: 'El comercio propuso una solución', resuelto: 'Resuelto', reintegro: 'Reintegro automático', cerrado: 'Cerrado' };
 const motivoRP = (m) => (MOTIVOS_RP.find((x) => x[0] === m) || ['', 'Otro problema'])[1];
-function estadoRP(r) { return r.estado === 'abierto' && Date.now() - r.creado > 24 * 36e5 ? 'mediacion' : r.estado; }
+function estadoRP(r) { return r.estado === 'mediacion' || (r.estado === 'abierto' && Date.now() - r.creado > 24 * 36e5) ? 'reintegro' : r.estado; }
 function rpDePedido(pid) { return (S.reclamosPed || []).find((r) => r.pid === pid); }
 function horasRestantes(r) { return Math.max(0, Math.ceil((r.creado + 24 * 36e5 - Date.now()) / 36e5)); }
 function propuestaTxt(r) {
@@ -1969,34 +1974,26 @@ function bloqueRP(p) {
   if (!r) return p.estado === 'rechazado' ? '' : `<button class="link rp-link" data-a="rpAbrir" data-v="${p.id}">⚠️ Tuve un problema con este pedido</button>`;
   const e = estadoRP(r);
   let acc = '';
-  if (e === 'abierto') acc = `<p class="muted chico">${comercio(r.cid).nombre} tiene ${horasRestantes(r)} h para responder. Si no responde, interviene el municipio.</p>`;
-  if (e === 'respondido') acc = `<p><b>Propuesta del comercio:</b> ${propuestaTxt(r)}.</p><div class="rp-acc"><button class="btn mini-btn" data-a="rpAceptar" data-v="${r.id}">Aceptar</button><button class="link rojo" data-a="rpRechazar" data-v="${r.id}">No acepto, que medie el municipio</button></div>`;
-  if (e === 'mediacion') acc = '<p class="muted chico">La oficina de defensa del consumidor del municipio está revisando el caso.</p>';
+  if (e === 'abierto') acc = `<p class="muted chico">${comercio(r.cid).nombre} tiene ${horasRestantes(r)} h para responder. Si no responde, te devolvemos el pago completo.</p>`;
+  if (e === 'respondido') acc = `<p><b>Propuesta del comercio:</b> ${propuestaTxt(r)}.</p><div class="rp-acc"><button class="btn mini-btn" data-a="rpAceptar" data-v="${r.id}">Aceptar</button><button class="link rojo" data-a="rpRechazar" data-v="${r.id}">Pedir otra solución</button></div>`;
+  if (e === 'reintegro') acc = '<p class="muted chico">El comercio no respondió en 24 horas: te devolvimos el pago completo.</p>';
   if (e === 'resuelto' || e === 'cerrado') acc = `<p class="muted chico">${esc(r.historial[r.historial.length - 1].txt)}</p>`;
-  return `<div class="rp-box ${e}"><div class="rp-cab"><b>Reclamo ${r.id} · ${motivoRP(r.motivo)}</b><span class="pill ${e === 'resuelto' || e === 'cerrado' ? 'resuelto' : e === 'mediacion' ? 'abierto' : 'asignado'}">${RP_TXT[e]}</span></div>${acc}</div>`;
+  return `<div class="rp-box ${e}"><div class="rp-cab"><b>Reclamo ${r.id} · ${motivoRP(r.motivo)}</b><span class="pill ${e === 'resuelto' || e === 'cerrado' || e === 'reintegro' ? 'resuelto' : 'asignado'}">${RP_TXT[e]}</span></div>${acc}</div>`;
 }
 function pcReclamos(c) {
   const lista = (S.reclamosPed || []).filter((r) => r.cid === c.id).sort((a, b) => b.creado - a.creado);
   if (!lista.length) return '<p class="vacio">No tenés reclamos de vecinos. ¡Bien ahí!</p>';
-  return `<p class="muted sub">Tenés 24 horas para proponer una solución. Si no respondés o el vecino no acepta, el caso pasa a la oficina de defensa del consumidor del municipio.</p><div class="lista">${lista.map((r) => {
+  return `<p class="muted sub">Tenés 24 horas para proponer una solución. Si no respondés, al vecino se le devuelve el pago completo. Si tu propuesta no le sirve, te pide otra.</p><div class="lista">${lista.map((r) => {
     const p = S.pedidos.find((x) => x.id === r.pid); const e = estadoRP(r);
-    const acc = e === 'abierto' ? `<p class="rp-plazo">Quedan ${horasRestantes(r)} h para responder</p><div class="rp-acc">
+    const acc = e === 'abierto' ? `<p class="rp-plazo">${r.otra ? 'El vecino pidió otra solución. ' : ''}Quedan ${horasRestantes(r)} h para responder</p><div class="rp-acc">
         <button class="btn mini-btn" data-a="rpProponer" data-v="${r.id}|total">Devolver todo (${plata(p.total)})</button>
         <span class="rp-parcial">$<input type="number" min="1" max="${p.total}" step="100" placeholder="Monto" id="rpm-${r.id}"><button class="btn mini-btn claro" data-a="rpProponer" data-v="${r.id}|parcial">Devolver parte</button></span>
         <button class="btn mini-btn claro" data-a="rpProponer" data-v="${r.id}|reponer">Reponer el producto</button></div>`
-      : `<p class="muted chico">${esc(r.historial[r.historial.length - 1].txt)}</p>`;
-    return `<div class="card rp-card"><div class="rp-cab"><b>${r.id} · ${motivoRP(r.motivo)}</b><span class="pill ${e === 'abierto' ? 'abierto' : e === 'resuelto' || e === 'cerrado' ? 'resuelto' : 'asignado'}">${RP_TXT[e]}</span></div>
+      : `<p class="muted chico">${e === 'reintegro' ? 'Pasaron 24 horas sin respuesta: se le devolvió el pago completo al vecino.' : esc(r.historial[r.historial.length - 1].txt)}</p>`;
+    return `<div class="card rp-card"><div class="rp-cab"><b>${r.id} · ${motivoRP(r.motivo)}</b><span class="pill ${e === 'abierto' ? 'abierto' : e === 'resuelto' || e === 'cerrado' || e === 'reintegro' ? 'resuelto' : 'asignado'}">${RP_TXT[e]}</span></div>
       <p class="muted chico">${r.mio ? esc(S.usuario.nombre) : esc(r.vecino || 'Vecino')} · pedido #${r.pid} · ${p ? p.items.map((it) => `${it.qty} × ${esc(it.nombre)}`).join(', ') : ''} · ${plata(p ? p.total : 0)}</p>
       ${r.texto ? `<p>"${esc(r.texto)}"</p>` : ''}${r.foto ? `<img class="rp-foto" src="${r.foto}" alt="Foto del reclamo">` : ''}${acc}</div>`;
   }).join('')}</div>`;
-}
-function mediacionesHtml() {
-  const lista = (S.reclamosPed || []).filter((r) => estadoRP(r) === 'mediacion');
-  if (!lista.length) return '<p class="muted">No hay casos en mediación.</p>';
-  return lista.map((r) => { const p = S.pedidos.find((x) => x.id === r.pid); const c = comercio(r.cid);
-    const motivo = r.propuesta ? `El vecino no aceptó la propuesta: ${propuestaTxt(r)}.` : 'El comercio no respondió en 24 horas.';
-    return `<div class="gest de-app"><span class="ico">🤝</span><div class="grow"><b>${r.id} · ${esc(c.nombre)} · ${motivoRP(r.motivo)}</b><p class="muted chico">${motivo} Pedido de ${plata(p ? p.total : 0)}.</p>${r.texto ? `<p class="chico">"${esc(r.texto)}"</p>` : ''}</div>
-      <div class="rp-acc col-acc"><button class="btn mini-btn" data-a="rpMediar" data-v="${r.id}|vecino">Reintegro al vecino</button><button class="link" data-a="rpMediar" data-v="${r.id}|comercio">A favor del comercio</button></div></div>`; }).join('');
 }
 function indicadoresRP() {
   const rps = S.reclamosPed || [];
@@ -2119,7 +2116,7 @@ const METODO = [
     ['Product-Market Fit', 'Se mide con retención, NPS y uso recurrente en el piloto.', 'Encuesta NPS y embudo'],
     ['Growth hacking: gamificación', 'Puntos Tigre con niveles y canjes.', 'Puntos Tigre'],
     ['Growth hacking: escasez y descuentos', 'Ofertas flash de 2 horas que lanza el comercio.', 'Panel de Rosa › Productos'],
-    ['Satisfacción y retención', 'Reclamos de compras cada 100 pedidos y porcentaje resuelto sin mediación: un reclamo bien resuelto retiene al cliente.', 'Panel de Marina'],
+    ['Satisfacción y retención', 'Reclamos de compras cada 100 pedidos y porcentaje resuelto con acuerdo entre vecino y comercio: un reclamo bien resuelto retiene al cliente.', 'Panel de Marina'],
     ['Growth hacking: referidos', 'Invitá a un vecino y suman 50 puntos cada uno.', 'Puntos Tigre'],
   ] },
 ];
@@ -2240,7 +2237,7 @@ function irPaso(i) {
 function mientrasTanto(id) {
   if (id === 'lucia') { const n = S.notifs.filter((x) => !x.leida); return n.length ? `${n[n.length - 1].emoji} ${n[n.length - 1].txt}` : ''; }
   if (id === 'rosa') { const n = S.pedidos.filter((p) => p.cid === 'c2' && p.estado === 'recibido').length; const r = (S.reclamosPed || []).filter((x) => x.cid === 'c2' && estadoRP(x) === 'abierto').length; return n || r ? `Mientras tanto: ${n ? plural(n, 'pedido nuevo', 'pedidos nuevos') : ''}${n && r ? ' y ' : ''}${r ? plural(r, 'reclamo para responder', 'reclamos para responder') : ''}.` : ''; }
-  if (id === 'carlos') { const m = (S.reclamosPed || []).filter((x) => estadoRP(x) === 'mediacion').length; if (m) return `Mientras tanto: ${plural(m, 'caso de compra espera', 'casos de compras esperan')} mediación.`; const n = S.reclamos.filter((r) => r.mio && r.estado === 'recibido').length; return n ? `📣 Mientras tanto: entró ${plural(n, 'reclamo nuevo', 'reclamos nuevos')} desde la app.` : ''; }
+  if (id === 'carlos') { const n = S.reclamos.filter((r) => r.mio && r.estado === 'recibido').length; return n ? `📣 Mientras tanto: entró ${plural(n, 'reclamo nuevo', 'reclamos nuevos')} desde la app.` : ''; }
   return '';
 }
 
@@ -2295,16 +2292,10 @@ const ACT = {
     r.historial.push({ t: Date.now(), txt }); toast(txt);
   },
   rpRechazar(id) {
-    if (!confirm('¿No aceptás la propuesta? El caso pasa a la oficina de defensa del consumidor del municipio.')) return false;
-    const r = S.reclamosPed.find((x) => x.id === id); r.estado = 'mediacion';
-    r.historial.push({ t: Date.now(), txt: 'No aceptaste la propuesta: pasó a mediación del municipio' });
-    toast('Tu caso pasó a mediación del municipio.');
-  },
-  rpMediar(v) {
-    const [id, fav] = v.split('|'); const r = S.reclamosPed.find((x) => x.id === id); const p = S.pedidos.find((x) => x.id === r.pid);
-    r.estado = 'cerrado'; r.fallo = fav;
-    const txt = fav === 'vecino' ? `Mediación: el municipio resolvió devolverte ${plata(p.total)}.` : 'Mediación: el municipio resolvió a favor del comercio.';
-    r.historial.push({ t: Date.now(), txt }); notificar(r, txt, '🤝'); toast('Caso cerrado. Se avisó al vecino y al comercio.');
+    const r = S.reclamosPed.find((x) => x.id === id);
+    r.estado = 'abierto'; r.creado = Date.now(); r.propuesta = null; r.otra = (r.otra || 0) + 1;
+    r.historial.push({ t: Date.now(), txt: 'Pediste otra solución: el comercio tiene 24 horas para responder' });
+    toast('Listo: le pedimos otra solución al comercio. Tiene 24 horas.');
   },
   metodo() { S.metodo = true; S.metodoTab = S.metodoTab || 'm1'; window.scrollTo(0, 0); },
   metodoTab(v) { S.metodoTab = v; },
@@ -2478,7 +2469,7 @@ const ACT = {
   pagar() {
     const t = totalesCarrito();
     if (conEnvio(t.c) && S.entrega === 'envio' && !S.envPos) { toast('Tocá "Usar mi ubicación" para que sepan a dónde llevarlo.'); return false; }
-    const retiro = horarios(t.c)[S.retiro].txt.replace(/Lo antes posible \((.*)\)/, '$1');
+    const retiro = horariosDe(t.c)[S.retiro].txt.replace(/Lo antes posible \((.*)\)/, '$1');
     procesando(S.pago === 'efectivo' ? 'Enviando tu pedido…' : `Procesando el pago con ${PAGOS.find((p) => p.id === S.pago).nombre}…`, () => crearPedido(t, retiro));
   },
   // cobros municipales
@@ -2576,6 +2567,12 @@ const ACT = {
     p.estado = ESTADOS[ESTADOS.indexOf(p.estado) + 1];
     if (p.estado === 'preparacion') notificar(p, `${c.nombre} está preparando tu pedido`, '👩‍🍳');
     if (p.estado === 'listo') notificar(p, p.entrega === 'envio' ? `Tu pedido de ${c.nombre} salió con el cadete del comercio` : `Tu pedido de ${c.nombre} está listo para retirar`, p.entrega === 'envio' ? '🛵' : '✅');
+  },
+  demora(id) {
+    const p = S.pedidos.find((x) => x.id === id); const c = comercio(p.cid);
+    p.demora = (p.demora || 0) + 10; p.llega = (p.llega || Date.now()) + 10 * 60000; p.retiro = `a las ${hora(p.llega)}`;
+    notificar(p, `${c.nombre} avisa una demora de 10 min: tu pedido llega a las ${hora(p.llega)}`, '⏱️');
+    toast(`Le avisamos al vecino: ahora llega a las ${hora(p.llega)}.`);
   },
   rechazar(id) {
     if (!confirm('¿Rechazar este pedido? Se le avisa al vecino y se le devuelve el pago.')) return false;
