@@ -3,258 +3,207 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex">
-<title>SoyTigreYa · Folleto</title>
+<title>SoyTigreYa · Folleto plegable</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
 <style>
-:root { --rojo: #D02013; --tinta: #17181C; --muted: #5F6370; --fondo: #F2F2F4; --linea: #E3E5EA; --celeste: #3BA3D9; --verde: #1B7A47; }
-@page { size: A4; margin: 0; }
+:root { --rojo: #D02013; --rojo-o: #A81A10; --tinta: #17181C; --muted: #5F6370; --fondo: #F4F4F6; --marron: #B5541C; --piz: #3A3F4D; --verde: #1B7A47; --linea: #E3E5EA; --celeste: #3BA3D9; }
+@page { size: A4 landscape; margin: 0; }
 * { box-sizing: border-box; }
 html, body { margin: 0; }
 body { font-family: 'Montserrat', Arial, sans-serif; color: var(--tinta); background: #9A9CA3; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-.hoja { width: 210mm; height: 297mm; margin: 0 auto; background: var(--fondo); position: relative; overflow: hidden; display: flex; flex-direction: column; }
-@media screen { .hoja { margin: 20px auto; box-shadow: 0 10px 40px rgba(0,0,0,.25); } }
-p { margin: 0; }
-/* cabecera */
-.cab { background: var(--rojo); color: #fff; padding: 11mm 13mm 10mm; position: relative; overflow: hidden; }
-.cab::after { content: ''; position: absolute; right: -30mm; bottom: -16mm; width: 120mm; height: 46mm; background: linear-gradient(115deg, transparent 40%, rgba(59,163,217,.45) 40%, rgba(59,163,217,.45) 58%, transparent 58%, transparent 66%, rgba(255,255,255,.16) 66%, rgba(255,255,255,.16) 80%, transparent 80%); }
-.cab > * { position: relative; z-index: 1; }
-.marca { display: flex; align-items: center; gap: 3mm; font-weight: 800; font-size: 13pt; }
-.marca b span { font-weight: 500; opacity: .85; }
-.logo { width: 11mm; height: 11mm; border-radius: 50%; background: #fff; padding: .8mm; }
-.cab .fila { display: flex; justify-content: space-between; align-items: flex-end; gap: 8mm; margin-top: 6mm; }
-.cab h1 { font-size: 25pt; line-height: 1.05; font-weight: 900; letter-spacing: -.02em; margin: 0; }
-.cab .sub { font-size: 10.5pt; margin-top: 3mm; max-width: 120mm; opacity: .95; line-height: 1.4; }
-.qr { background: #fff; border-radius: 4mm; padding: 2.5mm; width: 33mm; text-align: center; color: var(--tinta); flex: none; }
-.qr img { width: 100%; display: block; }
-.qr b { font-size: 7.5pt; display: block; margin-top: 1mm; }
-/* cuerpo */
-.cuerpo { padding: 6mm 13mm 0; display: flex; flex-direction: column; gap: 4.5mm; flex: 1; }
-.ceja { font-size: 7.5pt; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; color: var(--rojo); margin-bottom: 2mm; }
-.tarjeta { background: #fff; border-radius: 4mm; padding: 4.5mm 5mm; }
-.dos { display: grid; grid-template-columns: 1fr 1fr; gap: 4.5mm; }
-.problema p { font-size: 9.3pt; line-height: 1.45; }
-.problema b.big { font-size: 22pt; font-weight: 900; color: var(--rojo); display: block; line-height: 1; margin-bottom: 1.5mm; }
-.lista { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 1.6mm; font-size: 9pt; line-height: 1.35; }
-.lista li { display: flex; gap: 2mm; } .lista li::before { content: ''; width: 1.6mm; height: 1.6mm; border-radius: 50%; background: var(--rojo); flex: none; margin-top: 1.4mm; }
-.perfiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; }
-.perfil { background: #fff; border-radius: 4mm; padding: 3.5mm; display: flex; flex-direction: column; gap: 1mm; }
-.av { width: 8mm; height: 8mm; border-radius: 50%; color: #fff; font-weight: 800; display: grid; place-items: center; font-size: 9pt; margin-bottom: 1mm; }
-.perfil b { font-size: 9pt; } .perfil small { font-size: 7.4pt; color: var(--muted); line-height: 1.35; }
-/* números */
-.numeros { background: var(--tinta); color: #fff; border-radius: 4mm; padding: 5mm; }
-.numeros .ceja { color: #FF8F84; }
-.kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; margin-bottom: 3.5mm; }
-.kpi b { display: block; font-size: 19pt; font-weight: 900; line-height: 1.05; }
-.kpi small { font-size: 7.6pt; opacity: .8; line-height: 1.35; display: block; margin-top: 1mm; }
-.kpi.verde b { color: #6FD39B; } .kpi.rojo b { color: #FF8F84; }
-.tabla { width: 100%; border-collapse: collapse; font-size: 8pt; }
-.tabla th { text-align: right; font-weight: 700; opacity: .7; padding: 0 0 1.2mm; font-size: 7.4pt; }
-.tabla th:first-child, .tabla td:first-child { text-align: left; }
-.tabla td { padding: 1.3mm 0; border-top: 1px solid rgba(255,255,255,.12); text-align: right; white-space: nowrap; }
-.tabla td:first-child { white-space: normal; opacity: .9; }
-.pos { color: #6FD39B; font-weight: 700; } .neg { color: #FF8F84; font-weight: 700; }
-.nota { font-size: 7pt; opacity: .65; margin-top: 2mm; }
-.modelo .fila3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3mm; }
-.chip { background: var(--fondo); border-radius: 3mm; padding: 2.8mm; }
-.chip b { font-size: 9pt; display: block; } .chip small { font-size: 7.4pt; color: var(--muted); line-height: 1.35; display: block; margin-top: .6mm; }
-/* pedido */
-.pedido { background: var(--rojo); color: #fff; border-radius: 4mm; padding: 4.5mm 5mm; display: grid; grid-template-columns: 1fr auto; gap: 5mm; align-items: center; }
-.pedido .ceja { color: #fff; opacity: .85; }
-.pedido h2 { font-size: 14pt; margin: 0; font-weight: 900; line-height: 1.15; }
-.pasos { display: flex; gap: 2.5mm; margin-top: 2.5mm; flex-wrap: wrap; }
-.pasos span { background: rgba(255,255,255,.16); border-radius: 10mm; padding: 1.2mm 3mm; font-size: 7.8pt; font-weight: 600; }
-.cta { background: #fff; color: var(--rojo); border-radius: 3mm; padding: 3mm 4mm; text-align: center; font-weight: 800; font-size: 9pt; line-height: 1.3; }
-.cta small { display: block; color: var(--tinta); font-weight: 600; font-size: 7.4pt; margin-top: .8mm; }
-.pie { padding: 3.5mm 13mm 6mm; font-size: 7pt; color: var(--muted); display: flex; justify-content: space-between; gap: 6mm; }
-.pie b { color: var(--rojo); }
-
-.cab, .pie { flex-shrink: 0; }
-.cab { padding: 9mm 12mm 8mm; } .cab .fila { margin-top: 4mm; } .cab h1 { font-size: 22pt; } .cab .sub { font-size: 9.6pt; margin-top: 2.5mm; }
-.qr { width: 30mm; }
-.cuerpo { padding: 5mm 12mm 0; gap: 3.6mm; }
-.tarjeta { padding: 4mm 4.5mm; }
-.problema b.big { font-size: 18pt; } .problema p { font-size: 8.7pt; line-height: 1.42; }
-.lista { font-size: 8.5pt; gap: 1.3mm; }
-.perfil { padding: 3mm; } .av { width: 7mm; height: 7mm; font-size: 8pt; }
-.numeros { padding: 4.5mm 5mm; } .kpis { margin-bottom: 3mm; } .kpi b { font-size: 16pt; }
-.tabla td:not(:first-child), .tabla th:not(:first-child) { width: 18mm; padding-left: 3mm; }
-.sostiene { margin-top: 3mm; padding-top: 2.5mm; border-top: 1px solid rgba(255,255,255,.14); font-size: 7.8pt; line-height: 1.45; }
-.sostiene b { color: #FF8F84; }
-.pedido { padding: 4mm 5mm; } .pedido h2 { font-size: 13pt; }
-.cab { padding: 7mm 12mm 7mm; } .cab .fila { margin-top: 3mm; }
-.cuerpo { gap: 3mm; padding-top: 4mm; }
-.problema p { font-size: 8.4pt; } .lista { font-size: 8.2pt; }
-.perfil small { font-size: 7.1pt; }
-.pasos span { padding: .9mm 2.6mm; font-size: 7.4pt; } .pasos { margin-top: 2mm; gap: 2mm; }
-.pie { padding: 2.5mm 12mm 4mm; }
-.vueltas { display: flex; align-items: stretch; gap: 2mm; }
-.vueltas > i { align-self: center; font-style: normal; font-weight: 900; font-size: 16pt; color: var(--rojo); }
-.vta { flex: 1; background: #fff; border-radius: 4mm; padding: 4.5mm 4mm; display: flex; flex-direction: column; gap: 1mm; }
-.vta span { width: 7mm; height: 7mm; border-radius: 50%; background: var(--rojo); color: #fff; font-weight: 800; font-size: 9.5pt; display: grid; place-items: center; }
-.vta b { font-size: 21pt; font-weight: 900; color: var(--rojo); line-height: 1.1; margin-top: 1.5mm; letter-spacing: -.02em; }
-.vta strong { font-size: 10.5pt; }
-.vta small { font-size: 8.8pt; color: var(--muted); line-height: 1.35; }
-.inversion { background: var(--tinta); color: #fff; border-radius: 4mm; padding: 5mm; display: grid; grid-template-columns: repeat(3, 1fr); gap: 5mm; }
-.inversion div { display: flex; flex-direction: column; gap: .8mm; }
-.inversion small { font-size: 8.5pt; opacity: .75; font-weight: 600; }
-.inversion b { font-size: 17pt; font-weight: 900; line-height: 1.1; }
-.inversion b.verde { color: #6FD39B; }
-.inversion span { font-size: 8.5pt; opacity: .85; line-height: 1.35; }
-.aclara { font-size: 8pt; color: var(--muted); text-align: center; }
-.vta em.usd { font-style: normal; font-size: 8.6pt; font-weight: 700; color: var(--muted); margin-top: -.6mm; }
-.vta { padding: 3.5mm 4mm; }
-.inversion { padding: 4mm 5mm; }
-.cuerpo { gap: 2.6mm; }
-.pedido { padding: 3.5mm 5mm; }
-/* sin el bloque de propuesta: más aire entre secciones */
-.cuerpo { gap: 6mm; padding-top: 7mm; }
-
-/* ===== v2 · folleto vendedor ===== */
-.cab { padding: 9mm 12mm 9mm; }
-.cab .fila { align-items: center; margin-top: 5mm; }
-.cab h1 { font-size: 27pt; line-height: 1.04; }
-.cab .sub { font-size: 11pt; max-width: 118mm; margin-top: 3mm; }
-.sellos { display: flex; gap: 2.5mm; margin-top: 4.5mm; flex-wrap: wrap; }
-.sellos span { background: #fff; color: var(--rojo); font-weight: 800; font-size: 9pt; border-radius: 10mm; padding: 1.6mm 4mm; }
-.sellos span.b { background: rgba(255,255,255,.18); color: #fff; }
-.qr { width: 36mm; padding: 3mm; }
-.qr b { font-size: 9pt; margin-top: 1.5mm; }
-.qr small { display: block; font-size: 6.6pt; color: var(--muted); font-weight: 600; margin-top: .5mm; }
-.cuerpo { padding: 6mm 12mm 0; gap: 5mm; }
-.ceja { font-size: 8pt; margin-bottom: 2.5mm; }
-/* gancho */
-.gancho { display: grid; grid-template-columns: 1fr 9mm 1fr; align-items: stretch; }
-.gancho > i { align-self: center; justify-self: center; font-style: normal; font-weight: 900; font-size: 18pt; color: var(--rojo); }
-.gh { border-radius: 4mm; padding: 4.5mm 5mm; display: flex; flex-direction: column; gap: .8mm; }
-.gh small { font-size: 7.6pt; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-.gh b { font-size: 34pt; font-weight: 900; line-height: 1; letter-spacing: -.03em; }
-.gh b em { font-style: normal; font-size: 12pt; letter-spacing: 0; margin-left: 1.5mm; }
-.gh span { font-size: 9.6pt; line-height: 1.35; }
-.gh.hoy { background: #fff; } .gh.hoy small { color: var(--muted); } .gh.hoy b { color: #3A3F4D; } .gh.hoy span { color: var(--muted); }
-.gh.ya { background: var(--rojo); color: #fff; } .gh.ya small { opacity: .9; }
-/* qué ganás */
-.gana { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3.5mm; }
-.gn { background: #fff; border-radius: 4mm; padding: 4.5mm 4.5mm 5mm; display: flex; flex-direction: column; gap: 1.2mm; border-top: 1.4mm solid var(--rojo); }
-.gn.c2 { border-top-color: #B5541C; } .gn.c3 { border-top-color: #3A3F4D; }
-.gn small.q { font-size: 7.6pt; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
-.gn b.n { font-size: 17pt; font-weight: 900; line-height: 1.08; color: var(--rojo); letter-spacing: -.02em; margin-top: .5mm; }
-.gn.c2 b.n { color: #B5541C; } .gn.c3 b.n { color: #3A3F4D; }
-.gn p.d { font-size: 8.4pt; color: var(--muted); line-height: 1.35; margin-bottom: 1.2mm; }
-.gn ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 1.3mm; font-size: 8.6pt; line-height: 1.35; }
-.gn li { display: flex; gap: 1.8mm; } .gn li::before { content: '✓'; font-weight: 900; color: var(--verde); flex: none; }
-/* todo en una app */
-.todo { display: flex; flex-wrap: wrap; gap: 2mm; }
-.todo span { background: #fff; border-radius: 10mm; padding: 1.5mm 3.6mm; font-size: 8.4pt; font-weight: 700; }
-.todo span.r { background: var(--rojo); color: #fff; }
-/* inversión */
-.inversion { grid-template-columns: 1fr 1fr 1.25fr; padding: 4.5mm 5mm; gap: 5mm; }
-.inversion b { font-size: 17pt; }
-.inversion b em { font-style: normal; font-size: 10pt; margin-left: 1mm; }
-/* cierre */
-.cierre { background: var(--rojo); color: #fff; border-radius: 4mm; padding: 4.5mm 5mm; display: flex; align-items: center; gap: 4.5mm; }
-.duo { display: flex; align-items: center; flex: none; }
-.duo img { width: 17mm; height: 17mm; border-radius: 50%; object-fit: cover; border: .9mm solid #fff; }
-.duo i { width: 17mm; height: 17mm; border-radius: 50%; background: #fff; border: .9mm solid #fff; margin-left: -4mm; display: block; padding: .6mm; }
+p, h1, h2, h3 { margin: 0; }
+.cara { width: 297mm; height: 210mm; margin: 0 auto; background: #fff; display: grid; grid-template-columns: repeat(3, 99mm); position: relative; overflow: hidden; page-break-after: always; }
+@media screen { .cara { margin: 18px auto; box-shadow: 0 10px 40px rgba(0,0,0,.25); } .guia { text-align: center; color: #fff; font-size: 13px; font-weight: 600; margin: 14px 0 -6px; } }
+@media print { .guia { display: none; } }
+.panel { display: flex; flex-direction: column; min-width: 0; position: relative; overflow: hidden; }
 .tg { width: 100%; height: 100%; display: block; }
-.cierre .t { flex: 1; display: flex; flex-direction: column; gap: .6mm; }
-.cierre .t b { font-size: 15pt; font-weight: 900; line-height: 1.1; }
-.cierre .t span { font-size: 9.4pt; opacity: .95; }
-.cierre .ir { background: #fff; color: var(--rojo); border-radius: 3mm; padding: 2.8mm 4mm; text-align: center; font-weight: 800; font-size: 9.4pt; line-height: 1.3; flex: none; }
-.cierre .ir small { display: block; color: var(--tinta); font-weight: 600; font-size: 7.6pt; margin-top: .6mm; }
-.aclara { font-size: 7.4pt; line-height: 1.4; }
-/* ajuste para que entre en una hoja */
-.cab { padding: 7.5mm 12mm 7mm; } .cab .fila { margin-top: 3.5mm; } .cab h1 { font-size: 25pt; } .sellos { margin-top: 3.5mm; }
-.qr { width: 33mm; padding: 2.6mm; }
-.cuerpo { padding-top: 4.5mm; gap: 3.4mm; }
-.ceja { margin-bottom: 1.8mm; }
-.gh { padding: 3.4mm 5mm; } .gh b { font-size: 29pt; }
-.gn { padding: 3.6mm 4.2mm 4mm; gap: .9mm; } .gn b.n { font-size: 16pt; } .gn ul { gap: .9mm; font-size: 8.4pt; } .gn p.d { margin-bottom: .6mm; }
-.todo { gap: 1.6mm; } .todo span { padding: 1.3mm 3.4mm; font-size: 8.2pt; }
-.inversion { padding: 3.6mm 5mm; } .inversion b { font-size: 16pt; }
-.cierre { padding: 3.4mm 5mm; } .duo img, .duo i { width: 15mm; height: 15mm; } .cierre .t b { font-size: 14pt; }
-/* QR más grande */
-.qr { width: 46mm; padding: 3mm; border-radius: 5mm; } .qr b { font-size: 10.5pt; } .qr small { font-size: 7.2pt; }
-.cab .sub { max-width: 108mm; }
-/* lectura en 2 minutos: menos texto, letra más grande */
-.cuerpo { gap: 5mm; padding-top: 6mm; }
-.cab .sub { font-size: 11.5pt; }
-.gh { padding: 4.2mm 5.5mm; } .gh b { font-size: 34pt; } .gh span { font-size: 10.5pt; } .gh small { font-size: 8pt; }
-.gn { padding: 4.6mm 4.8mm 5mm; gap: 1.2mm; } .gn b.n { font-size: 18pt; } .gn p.d { font-size: 9.4pt; margin-bottom: 1.4mm; } .gn ul { font-size: 9.8pt; gap: 1.6mm; } .gn small.q { font-size: 8pt; }
-.todo { gap: 2.2mm; } .todo span { font-size: 9.4pt; padding: 1.8mm 4.2mm; }
-.inversion { padding: 4.8mm 5.5mm; } .inversion b { font-size: 19pt; } .inversion span, .inversion small { font-size: 9.4pt; }
-.cierre { padding: 4.4mm 5.5mm; } .duo img, .duo i { width: 18mm; height: 18mm; } .cierre .t b { font-size: 15.5pt; } .cierre .t span { font-size: 10pt; }
-.ceja { font-size: 8.4pt; margin-bottom: 2.2mm; }
-/* ajuste final de alto */
-.cab { padding: 7mm 12mm 6.5mm; } .qr { width: 42mm; }
-.cuerpo { gap: 3.6mm; padding-top: 4.6mm; }
-.gh { padding: 3.4mm 5.5mm; } .gh b { font-size: 30pt; }
-.gn { padding: 3.8mm 4.6mm 4.2mm; gap: 1mm; } .gn ul { gap: 1.2mm; font-size: 9.6pt; } .gn p.d { margin-bottom: .8mm; }
-.todo { gap: 1.8mm; } .todo span { padding: 1.5mm 4mm; font-size: 9.2pt; }
-.inversion { padding: 4mm 5.5mm; } .inversion b { font-size: 18pt; }
-.cierre { padding: 3.6mm 5.5mm; } .duo img, .duo i { width: 16mm; height: 16mm; } .cierre .t b { font-size: 14.5pt; }
-.ceja { margin-bottom: 1.8mm; }
-/* viñetas: punto del color de cada tarjeta, en vez de la tilde verde */
-.gn li::before { content: ''; width: 1.7mm; height: 1.7mm; border-radius: 50%; background: var(--rojo); margin-top: 1.5mm; }
-.gn.c2 li::before { background: #B5541C; } .gn.c3 li::before { background: #3A3F4D; }
+.ceja { font-size: 8pt; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+/* celular entero, nunca cortado */
+.cel { border: 1.3mm solid var(--tinta); border-radius: 6mm; overflow: hidden; background: #fff; flex: none; }
+.cel img { display: block; width: 100%; }
+.franjas { position: absolute; right: -34mm; bottom: -14mm; width: 130mm; height: 60mm; background: linear-gradient(115deg, transparent 38%, rgba(59,163,217,.5) 38%, rgba(59,163,217,.5) 56%, transparent 56%, transparent 64%, rgba(255,255,255,.16) 64%, rgba(255,255,255,.16) 80%, transparent 80%); }
+
+/* ---------- TAPA ---------- */
+.tapa { background: var(--rojo); color: #fff; padding: 12mm 9mm 0; }
+.tapa > *:not(.franjas) { position: relative; z-index: 1; }
+.marca { display: flex; align-items: center; gap: 3mm; font-weight: 800; font-size: 13pt; }
+.marca i { width: 12mm; height: 12mm; border-radius: 50%; background: #fff; padding: .8mm; display: block; }
+.marca span { font-weight: 500; opacity: .85; }
+.tapa h1 { font-size: 24pt; line-height: 1.05; font-weight: 900; letter-spacing: -.02em; margin-top: 7mm; }
+.tapa .sub { font-size: 10.5pt; line-height: 1.4; margin-top: 3mm; opacity: .96; }
+.tapa .cel { width: 58mm; margin: auto auto 0; border-color: #fff; border-bottom: 0; border-radius: 6mm 6mm 0 0; }
+.tapa .cel img { height: 123mm; object-fit: cover; object-position: top; }
+.pild { position: absolute; z-index: 2; background: #fff; color: var(--tinta); border-radius: 10mm; padding: 1.6mm 3.6mm; font-size: 8.4pt; font-weight: 800; box-shadow: none; border: .4mm solid rgba(23,24,28,.08); }
+.pild b { color: var(--rojo); }
+
+/* ---------- CONTRATAPA ---------- */
+.contra { background: var(--tinta); color: #fff; padding: 13mm 10mm 9mm; align-items: center; text-align: center; }
+.contra h2 { font-size: 22pt; font-weight: 900; line-height: 1.08; }
+.contra .baj { font-size: 10.5pt; opacity: .8; margin-top: 2mm; }
+.qr { background: #fff; border-radius: 6mm; padding: 5mm; width: 68mm; margin-top: 6mm; }
+.qr img { width: 100%; display: block; }
+.url { font-size: 10pt; font-weight: 800; color: #FF8F84; margin-top: 4mm; }
+.firma { margin-top: auto; display: flex; flex-direction: column; align-items: center; gap: 3mm; }
+.duo { display: flex; align-items: center; }
+.duo img { width: 23mm; height: 23mm; border-radius: 50%; object-fit: cover; border: 1mm solid #fff; }
+.duo i { width: 23mm; height: 23mm; border-radius: 50%; background: #fff; border: 1mm solid #fff; margin-left: -4.5mm; display: block; padding: .6mm; }
+.firma b { font-size: 12.5pt; line-height: 1.3; }
+.legal { font-size: 7.2pt; opacity: .6; line-height: 1.45; margin-top: 5mm; }
+
+/* ---------- SOLAPA ---------- */
+.solapa { background: var(--fondo); padding: 13mm 9mm 9mm; }
+.solapa .ceja { color: var(--rojo); }
+.solapa h2 { font-size: 17pt; font-weight: 900; line-height: 1.12; margin-top: 2.5mm; }
+.vs { margin-top: 6mm; display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; }
+.vs div { border-radius: 5mm; padding: 5mm 4.5mm; }
+.vs small { display: block; font-size: 7.4pt; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; line-height: 1.3; min-height: 6mm; }
+.vs b { display: block; font-size: 36pt; font-weight: 900; line-height: 1; letter-spacing: -.03em; margin-top: 2mm; }
+.vs span { display: block; font-size: 9pt; line-height: 1.35; margin-top: 1.5mm; }
+.vs .hoy { background: #fff; } .vs .hoy small, .vs .hoy span { color: var(--muted); } .vs .hoy b { color: var(--piz); }
+.vs .ya { background: var(--rojo); color: #fff; }
+.gana { margin-top: 6mm; display: flex; flex-direction: column; gap: 2.6mm; }
+.g { background: #fff; border-radius: 4mm; padding: 3.6mm 4.5mm; border-left: 1.6mm solid var(--rojo); }
+.g.b { border-left-color: var(--marron); } .g.c { border-left-color: var(--piz); }
+.g small { display: block; font-size: 7.4pt; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.g b { display: block; font-size: 13.5pt; font-weight: 900; line-height: 1.15; margin-top: .6mm; color: var(--rojo); }
+.g.b b { color: var(--marron); } .g.c b { color: var(--piz); }
+.g span { display: block; font-size: 8.6pt; color: var(--muted); margin-top: .4mm; }
+.base { margin-top: auto; font-size: 10.5pt; font-weight: 800; line-height: 1.3; }
+.base em { font-style: normal; color: var(--rojo); }
+
+/* ---------- INTERIOR: una sola pieza de tres cuerpos ---------- */
+.int { background: #fff; padding: 12mm 8mm 9mm; }
+.int h2 { font-size: 19pt; font-weight: 900; line-height: 1.08; letter-spacing: -.01em; margin-top: 2.5mm; }
+.int .ceja { color: var(--rojo); }
+.serv { margin-top: 6mm; display: grid; grid-template-columns: 1fr 1fr; gap: 2.6mm; flex: 1; align-content: stretch; }
+.s { background: var(--fondo); border-radius: 4mm; padding: 3.4mm 3.4mm 3.2mm; display: flex; flex-direction: column; gap: 1mm; justify-content: center; }
+.s i { width: 8.6mm; height: 8.6mm; border-radius: 2.6mm; background: #fff; display: grid; place-items: center; color: var(--rojo); }
+.s i svg { width: 5mm; height: 5mm; stroke-width: 2.2; }
+.s b { font-size: 9.6pt; font-weight: 800; line-height: 1.15; margin-top: .8mm; }
+.s span { font-size: 7.8pt; color: var(--muted); line-height: 1.3; }
+.s.r { background: var(--rojo); color: #fff; } .s.r span { color: #fff; opacity: .92; } .s.r i { color: var(--rojo); }
+.s.n { background: var(--tinta); color: #fff; } .s.n span { color: #fff; opacity: .8; } .s.n i { color: var(--tinta); }
+.medio { background: var(--rojo); color: #fff; padding: 12mm 9mm 0; align-items: center; text-align: center; }
+.medio > *:not(.franjas) { position: relative; z-index: 1; }
+.medio .ceja { color: #fff; opacity: .9; }
+.medio h2 { color: #fff; font-size: 20pt; }
+.medio { padding-top: 11mm; }
+.medio p.b { font-size: 10pt; line-height: 1.4; margin-top: 2.5mm; opacity: .96; }
+.medio .cel { width: 72mm; margin: auto auto 0; border-color: #fff; border-bottom: 0; border-radius: 7mm 7mm 0 0; }
+.medio .cel img { height: 153mm; object-fit: cover; object-position: top; }
+.der .tigre { margin-top: 6mm; display: flex; flex-direction: column; gap: 2.6mm; flex: 1; }
+.t { background: var(--fondo); border-radius: 4mm; padding: 3.6mm 4mm; display: flex; gap: 3.2mm; align-items: center; flex: 1; }
+.t i { flex: none; width: 10mm; height: 10mm; border-radius: 3mm; background: #fff; display: grid; place-items: center; color: var(--rojo); }
+.t i svg { width: 5.6mm; height: 5.6mm; stroke-width: 2.2; }
+.t b { display: block; font-size: 10.4pt; font-weight: 800; line-height: 1.15; }
+.t span { display: block; font-size: 8.2pt; color: var(--muted); line-height: 1.3; margin-top: .4mm; }
+.inv { margin-top: 4mm; background: var(--tinta); color: #fff; border-radius: 5mm; padding: 4.5mm 5mm; display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; }
+.inv small { display: block; font-size: 8pt; opacity: .75; font-weight: 600; }
+.inv b { display: block; font-size: 16pt; font-weight: 900; line-height: 1.1; }
+.inv b em { font-style: normal; font-size: 8.6pt; } .inv b.v { color: #6FD39B; }
+/* ===== más llamativo: contraste oscuro / rojo / claro ===== */
+.int.izq { background: var(--tinta); color: #fff; }
+.int.izq .ceja { color: #FF8F84; }
+.int.izq .s { background: #24262E; }
+.int.izq .s span { color: #fff; opacity: .72; }
+.int.izq .s i { background: var(--rojo); color: #fff; }
+.int.izq .s.r { background: var(--rojo); } .int.izq .s.r i { background: #fff; color: var(--rojo); } .int.izq .s.r span { opacity: .95; }
+.s b { font-size: 10.4pt; } .s span { font-size: 8.2pt; }
+.s i { width: 9.4mm; height: 9.4mm; } .s i svg { width: 5.4mm; height: 5.4mm; }
+.der .t { background: #fff; border: .5mm solid var(--linea); }
+.der .t i { background: var(--rojo); color: #fff; width: 11mm; height: 11mm; }
+.der .t b { font-size: 11pt; }
+.der { background: var(--fondo); }
+.inv { grid-template-columns: 1fr 1fr 1.25fr; background: var(--rojo); padding: 5mm 4.5mm; gap: 2.5mm; }
+.inv small { font-size: 7.4pt; opacity: .92; }
+.inv b { font-size: 15pt; } .inv b.v { color: #fff; }
+.inv b em { display: block; font-size: 7.6pt; font-weight: 700; opacity: .92; margin-top: .4mm; }
+.sticker { position: absolute !important; z-index: 3 !important; right: 6mm; top: 60mm; width: 30mm; height: 30mm; border-radius: 50%; background: #fff; color: var(--rojo); display: flex; flex-direction: column; align-items: center; justify-content: center; transform: rotate(-11deg); border: 1mm solid var(--tinta); text-align: center; }
+.sticker b { font-size: 21pt; font-weight: 900; line-height: .95; letter-spacing: -.03em; }
+.sticker span { font-size: 6.2pt; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--tinta); line-height: 1.15; margin-top: .6mm; }
+.tapa .cel { margin-left: auto; margin-right: auto; }
+.tapa .sub { max-width: 46mm; }
+.tapa h1 { font-size: 25pt; }
+.vs b { font-size: 40pt; }
+.medio h2 { font-size: 21pt; }
+.contra .qr { border: 1.2mm solid var(--rojo); }
 </style>
 </head>
 <body>
-<div class="hoja">
-  <header class="cab">
-    <div class="marca"><svg class="logo" viewBox="0 0 100 100" aria-hidden="true"><circle cx="23" cy="27" r="14" fill="#E2701A"/><circle cx="77" cy="27" r="14" fill="#E2701A"/><circle cx="23" cy="28" r="7.5" fill="#FFC6B3"/><circle cx="77" cy="28" r="7.5" fill="#FFC6B3"/><ellipse cx="50" cy="57" rx="41" ry="36" fill="#F28C28"/><path d="M50 21 l-5 11 h10z M38 24 l-1 10 l-5 -7z M62 24 l1 10 l5 -7z" fill="#3A2414"/><ellipse cx="50" cy="72" rx="21" ry="15" fill="#FFF4E6"/><ellipse cx="35" cy="54" rx="6.5" ry="7.5" fill="#2B1A10"/><ellipse cx="65" cy="54" rx="6.5" ry="7.5" fill="#2B1A10"/><circle cx="37.5" cy="51" r="2.4" fill="#fff"/><circle cx="67.5" cy="51" r="2.4" fill="#fff"/><path d="M44.5 64.5 q5.5 -3.5 11 0 q-1.5 5 -5.5 6 q-4 -1 -5.5 -6z" fill="#C2456A"/><path d="M50 70.5 v3 M50 73.5 q-5 4.5 -9 0.5 M50 73.5 q5 4.5 9 0.5" stroke="#3A2414" stroke-width="2" fill="none" stroke-linecap="round"/></svg><b>SOYTIGRE<span>YA</span></b></div>
-    <div class="fila">
-      <div>
-        <h1>Que el ahorro y la venta<br>se queden en Tigre.</h1>
-        <p class="sub">La app Soy Tigre que ya conocés, ahora también para comprar cerca de tu casa.</p>
-      </div>
-      <div class="qr"><img src="img/qr-soytigreya.png" alt="QR para abrir la app"><b>Escaneá y probala</b><small>Gratis, sin instalar nada</small></div>
+<p class="guia">Cara de afuera · al doblar: solapa (izquierda) · contratapa (centro) · tapa (derecha)</p>
+<div class="cara">
+  <section class="panel solapa">
+    <p class="ceja">Por qué ahora</p>
+    <h2>Vender por internet le cuesta caro al comercio de barrio.</h2>
+    <div class="vs">
+      <div class="hoy"><small>Hoy, con apps de delivery</small><b>25%</b><span>de cada venta se va en comisión.</span></div>
+      <div class="ya"><small>Con SoyTigreYa</small><b>0%</b><span>La venta queda en el barrio.</span></div>
     </div>
-  </header>
-
-  <div class="cuerpo">
-    <div>
-      <p class="ceja">Vender por internet: hoy y con SoyTigreYa</p>
-      <div class="gancho">
-        <div class="gh hoy"><small>Hoy, con apps de delivery</small><b>25%<em>de comisión</em></b><span>La cuarta parte de cada venta se va de Tigre.</span></div>
-        <i>→</i>
-        <div class="gh ya"><small>Con SoyTigreYa</small><b>0%</b><span>La venta entera queda en el barrio.</span></div>
-      </div>
+    <div class="gana">
+      <div class="g"><small>Si sos vecino</small><b>Ahorrás en cada compra</b><span>El descuento de tu tarjeta se aplica solo.</span></div>
+      <div class="g b"><small>Si tenés un comercio</small><b>$300.000 más por mes</b><span>Lo que hoy se te va en comisiones.</span></div>
+      <div class="g c"><small>Si sos el Municipio</small><b>$360 millones por año</b><span>Quedan en Tigre, con 100 locales adheridos.</span></div>
     </div>
-
-    <div>
-      <p class="ceja">¿Qué ganás vos?</p>
-      <div class="gana">
-        <div class="gn"><small class="q">Si sos vecino</small><b class="n">Ahorrás en cada compra</b><p class="d">El descuento de tu tarjeta se aplica solo.</p>
-          <ul><li>Pedís a un local y te lo lleva su cadete.</li><li>Turnos médicos y pagos desde el celu.</li></ul></div>
-        <div class="gn c2"><small class="q">Si tenés un comercio</small><b class="n">$300.000 más por mes</b><p class="d">Lo que hoy se te va en comisiones.</p>
-          <ul><li>Tus clientes siguen siendo tuyos.</li><li>Un panel simple para vender y cobrar.</li></ul></div>
-        <div class="gn c3"><small class="q">Si sos el Municipio</small><b class="n">$360 millones por año</b><p class="d">Quedan en Tigre, con 100 locales adheridos.</p>
-          <ul><li>Sabés qué se compra y dónde.</li><li>Reclamos ordenados por urgencia.</li></ul></div>
-      </div>
-    </div>
-
-    <div>
-      <p class="ceja">Todo en la app que Tigre ya tiene</p>
-      <div class="todo"><span class="r">Comprar</span><span>Beneficios</span><span>Envío del local</span><span>Trámites</span><span>Salud</span><span>Deporte</span><span>Eventos</span><span>Altura del río</span><span>Botón de alerta</span><span>Puntos Tigre</span><span>Tigri, tu asistente</span></div>
-    </div>
-
-    <div class="inversion">
-      <div><small>La inversión</small><b>$109<em>millones</em></b><span>USD 69.000, el primer año</span></div>
-      <div><small>Se recupera en</small><b class="verde">2 años</b><span>con ingresos propios</span></div>
-      <div><small>No se empieza de cero</small><span><b style="font-size:10.5pt">Tigre ya tiene la base:</b> la tarjeta, la app y más de 500 locales con descuento. Falta unirlos.</span></div>
-    </div>
-
-    <div class="cierre">
+    <p class="base">Tigre ya tiene la tarjeta, la app y más de 500 locales. <em>Falta unirlos.</em></p>
+  </section>
+  <section class="panel contra">
+    <h2>Probala ahora</h2>
+    <p class="baj">Gratis y sin instalar nada.</p>
+    <div class="qr"><img src="img/qr-soytigreya.png" alt="QR para abrir la app"></div>
+    <p class="url">mila-ops-ia.github.io/soytigreya</p>
+    <div class="firma">
       <div class="duo"><img src="img/mila.jpg" alt="Milagros Sanabria"><i><svg class="tg" viewBox="0 0 100 100" aria-hidden="true"><circle cx="23" cy="27" r="14" fill="#E2701A"/><circle cx="77" cy="27" r="14" fill="#E2701A"/><circle cx="23" cy="28" r="7.5" fill="#FFC6B3"/><circle cx="77" cy="28" r="7.5" fill="#FFC6B3"/><ellipse cx="50" cy="57" rx="41" ry="36" fill="#F28C28"/><path d="M50 21 l-5 11 h10z M38 24 l-1 10 l-5 -7z M62 24 l1 10 l5 -7z" fill="#3A2414"/><ellipse cx="50" cy="72" rx="21" ry="15" fill="#FFF4E6"/><ellipse cx="35" cy="54" rx="6.5" ry="7.5" fill="#2B1A10"/><ellipse cx="65" cy="54" rx="6.5" ry="7.5" fill="#2B1A10"/><circle cx="37.5" cy="51" r="2.4" fill="#fff"/><circle cx="67.5" cy="51" r="2.4" fill="#fff"/><path d="M44.5 64.5 q5.5 -3.5 11 0 q-1.5 5 -5.5 6 q-4 -1 -5.5 -6z" fill="#C2456A"/><path d="M50 70.5 v3 M50 73.5 q-5 4.5 -9 0.5 M50 73.5 q5 4.5 9 0.5" stroke="#3A2414" stroke-width="2" fill="none" stroke-linecap="round"/></svg></i></div>
-      <div class="t"><b>Milagros y Tigri te esperan para hacerlo realidad.</b><span>No es una idea: ya podés usarla.</span></div>
-      <div class="ir">Desde la compu<small>mila-ops-ia.github.io/soytigreya</small></div>
+      <b>Milagros y Tigri te esperan<br>para hacerlo realidad.</b>
     </div>
-
-    <p class="aclara">La cuenta: 60 pedidos por mes × $20.000 × 25% = $300.000 · × 100 locales × 12 meses = $360 millones · Dólar oficial: $1.580 (18/11/2026)</p>
-  </div>
-
-  <footer class="pie"><span><b>SoyTigreYa</b> · Milagros Sanabria · Trabajo Final Integrador, UNDelta · 2026</span><span>Prototipo académico · No es una app oficial del Municipio de Tigre</span></footer>
+    <p class="legal">Milagros Sanabria · Trabajo Final Integrador · Diplomatura en Negocios Digitales e Innovación, UNDelta · 2026<br>Prototipo académico · No es una app oficial del Municipio de Tigre</p>
+  </section>
+  <section class="panel tapa">
+    <div class="franjas"></div>
+    <p class="marca"><i><svg class="tg" viewBox="0 0 100 100" aria-hidden="true"><circle cx="23" cy="27" r="14" fill="#E2701A"/><circle cx="77" cy="27" r="14" fill="#E2701A"/><circle cx="23" cy="28" r="7.5" fill="#FFC6B3"/><circle cx="77" cy="28" r="7.5" fill="#FFC6B3"/><ellipse cx="50" cy="57" rx="41" ry="36" fill="#F28C28"/><path d="M50 21 l-5 11 h10z M38 24 l-1 10 l-5 -7z M62 24 l1 10 l5 -7z" fill="#3A2414"/><ellipse cx="50" cy="72" rx="21" ry="15" fill="#FFF4E6"/><ellipse cx="35" cy="54" rx="6.5" ry="7.5" fill="#2B1A10"/><ellipse cx="65" cy="54" rx="6.5" ry="7.5" fill="#2B1A10"/><circle cx="37.5" cy="51" r="2.4" fill="#fff"/><circle cx="67.5" cy="51" r="2.4" fill="#fff"/><path d="M44.5 64.5 q5.5 -3.5 11 0 q-1.5 5 -5.5 6 q-4 -1 -5.5 -6z" fill="#C2456A"/><path d="M50 70.5 v3 M50 73.5 q-5 4.5 -9 0.5 M50 73.5 q5 4.5 9 0.5" stroke="#3A2414" stroke-width="2" fill="none" stroke-linecap="round"/></svg></i><span style="opacity:1;font-weight:800">SOYTIGRE<span>YA</span></span></p>
+    <h1>Que el ahorro y la venta se queden en Tigre.</h1>
+    <p class="sub">El upgrade digital de la app Soy Tigre.</p>
+    <div class="sticker"><b>0%</b><span>de comisión<br>para el comercio</span></div>
+    <div class="cel"><img src="capturas/inicio-hd.jpg" alt="La app en el celular"></div>
+  </section>
 </div>
+<p class="guia">Cara de adentro · se imprime al dorso</p>
+<div class="cara">
+  <section class="panel int izq">
+    <p class="ceja">Todo Tigre en una app</p>
+    <h2>Lo de todos los días, a un toque.</h2>
+    <div class="serv">
+      <div class="s r"><i><i data-lucide="shopping-bag"></i></i><b>Comprar</b><span>0% de comisión para el comercio</span></div>
+      <div class="s "><i><i data-lucide="bike"></i></i><b>Envío del local</b><span>Con el cadete del propio comercio</span></div>
+      <div class="s "><i><i data-lucide="gift"></i></i><b>Beneficios</b><span>Más de 500 comercios con descuento</span></div>
+      <div class="s "><i><i data-lucide="star"></i></i><b>Puntos Tigre</b><span>Cachorro, Tigre y Tigre de Oro</span></div>
+      <div class="s "><i><i data-lucide="megaphone"></i></i><b>Reclamos</b><span>Con foto, mapa y seguimiento</span></div>
+      <div class="s "><i><i data-lucide="credit-card"></i></i><b>Pagos</b><span>Tasas, multas y estacionamiento</span></div>
+      <div class="s "><i><i data-lucide="stethoscope"></i></i><b>Salud</b><span>Turnos médicos y guardias</span></div>
+      <div class="s "><i><i data-lucide="medal"></i></i><b>Deporte</b><span>18 polideportivos y colonia</span></div>
+      <div class="s "><i><i data-lucide="tent"></i></i><b>Eventos</b><span>Ferias, música y talleres</span></div>
+      <div class="s "><i><i data-lucide="briefcase"></i></i><b>Empleo</b><span>Búsquedas y cursos gratuitos</span></div>
+    </div>
+  </section>
+  <section class="panel medio">
+    <div class="franjas"></div>
+    <p class="ceja">No es una idea: ya funciona</p>
+    <h2>Pedís, ahorrás y te lo traen.</h2>
+    <div class="cel"><img src="capturas/checkout-hd.jpg" alt="Un pedido en la app"></div>
+  </section>
+  <section class="panel int der">
+    <p class="ceja">Pensada para Tigre</p>
+    <h2>Lo que ninguna otra app tiene.</h2>
+    <div class="tigre">
+      <div class="t"><i><i data-lucide="waves"></i></i><div><b>Altura del río</b><span>Pronóstico a 24 horas y aviso al celular si hay crecida.</span></div></div>
+      <div class="t"><i><i data-lucide="siren"></i></i><div><b>Botón de alerta</b><span>En todas las pantallas: envía tu ubicación.</span></div></div>
+      <div class="t"><i><i data-lucide="map-pin"></i></i><div><b>Envío por ubicación</b><span>El pedido llega a donde estás, sin escribir la dirección.</span></div></div>
+      <div class="t"><i><i data-lucide="message-circle"></i></i><div><b>Tigri, tu asistente</b><span>Le escribís "quiero pizza" o "hay un bache" y te lleva.</span></div></div>
+      <div class="t"><i><i data-lucide="layout-dashboard"></i></i><div><b>Paneles estilo CRM</b><span>Para el comercio y para el Municipio, con datos al día.</span></div></div>
+    </div>
+    <div class="inv"><div><small>Inversión</small><b>$109<em>millones</em></b></div><div><small>Se recupera en</small><b class="v">2<em>años</em></b></div><div><small>Queda en Tigre</small><b>$360<em>millones por año</em></b></div></div>
+  </section>
+</div>
+<script>lucide.createIcons();</script>
 </body>
 </html>

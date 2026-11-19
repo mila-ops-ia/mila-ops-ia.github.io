@@ -53,7 +53,7 @@ El botón **"▶ Ver el recorrido guiado"** muestra, en 10 pasos, cómo un pedid
 - [Presentación](https://mila-ops-ia.github.io/soytigreya/presentacion/): portada, 4 diapositivas y cierre. Flechas para avanzar, F pantalla completa ([PDF](documentos/Presentacion%20-%20SoyTigreYa.pdf)). La versión extendida de 9 está en presentacion/completa.html
 - [Trabajo Final Integrador (PDF)](documentos/Trabajo%20Final%20Integrador%20-%20SoyTigreYa.pdf): 8 hojas contando la portada ([Word](documentos/Trabajo%20Final%20Integrador%20-%20SoyTigreYa.docx))
 - [Anexos del trabajo (PDF)](documentos/Anexos%20-%20SoyTigreYa.pdf): herramientas, fórmulas, escenarios, hoja de ruta y fuentes
-- [Folleto de una hoja (PDF)](documentos/Folleto%20-%20SoyTigreYa.pdf)
+- [Folleto plegable, para imprimir doble faz y doblar en tres (PDF)](documentos/Folleto%20-%20SoyTigreYa.pdf)
 - [Pitch de 5 minutos (PDF)](documentos/Speech%20-%20SoyTigreYa.pdf)
 - [Instructivos de uso para cada perfil (PDF)](documentos/Instructivos%20de%20uso%20-%20SoyTigreYa.pdf)
 - [Formulario de opiniones](https://docs.google.com/forms/d/e/1FAIpQLSdKRXBPEiUi4mCrS9Q42NO-v4DuR-QqupuJ9cMIeXA5iHMqNg/viewform)
