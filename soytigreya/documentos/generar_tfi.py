@@ -221,7 +221,7 @@ doc.add_heading('7. Resultados esperados', 1)
 viñetas([
     ('Para los usuarios: ', 'ahorro concreto y visible cada mes, menos tiempo en filas y trámites, seguimiento de pedidos y reclamos, y una sola app para la vida en el distrito.'),
     ('Para los comercios y el municipio: ', 'más ventas sin comisiones abusivas, un canal digital propio y un incentivo a la formalización. El municipio obtiene datos de consumo por localidad, mejora la gestión de reclamos y aumenta la recaudación digital.'),
-    ('Impacto en la comunidad: ', 'la plata que se queda en Tigre trabaja tres veces. En el año 2, $360 M dejan de irse en comisiones y quedan en los comercios; con una recirculación local del 48%, unos $173 M vuelven al barrio en sueldos, proveedores y mejoras; y el comercio tributa en Tigre su tasa del 0,80% sobre las ventas, hasta $11,5 M. No es solo una app: es infraestructura económica local (Anexo A).'),
+    ('Impacto en la comunidad: ', 'un comercio con 60 pedidos de $20.000 por mes deja de pagar $300.000 mensuales de comisión. Con 100 comercios son $360 M por año que quedan en Tigre; parte vuelve al barrio en sueldos y proveedores (unos $173 M) y al Municipio por tasa (hasta $11,5 M). No es solo una app: es infraestructura económica local (Anexo A).'),
     ('Crecimiento futuro: ', 'Tigri con inteligencia artificial, integración con transporte y turismo del Delta, y un modelo replicable en otros municipios.'),
 ])
 p('Viabilidad económica. Lo que vuelve a la caja del Municipio (Plan Destacado, publicidad local, un banco que cofinancia descuentos y el ahorro de trámites presenciales) es de $40,6 M, $124,4 M y $152,6 M en los años 1 a 3: recupera la inversión en 2 años. Por cada $1 invertido en tres años quedan $4,4 en los comercios de Tigre. Como referencia, Santa Fe presupuestó $316 M (2025) por su app municipal. Detalle en el Anexo A.')
@@ -351,6 +351,7 @@ tabla([
     ['Plata que queda en los comercios', '$67,5 M', '50 comercios × 30 pedidos por mes × $20.000 × 25% × 9 meses', 'Ventas registradas en la app'],
     ['Vuelve a la caja del Municipio', '$40,6 M', 'Plan $4,5 M + publicidad $3,6 M + banco $25 M + ahorro $7,5 M', 'Cobros y convenio con el banco'],
 ], [4.0, 2.0, 6.5, 3.5])
+p('El número base. Un comercio que vende 60 pedidos por mes de $20.000 factura $1.200.000 por la app; el 25% que cobraría una plataforma de delivery son $300.000 por mes, o $3,6 M por año. Con 100 comercios son $360 M por año. La inversión del año 1 ($109 M) equivale a lo que esos 100 comercios pagan hoy en comisiones en menos de cuatro meses ($30 M por mes). Es una comparación de escala; el recupero del Municipio se calcula aparte, con sus propios ingresos.')
 p('Fórmulas del modelo. Plata que queda en los comercios = comercios × pedidos por mes × ticket × 25% × meses; en el año 2: 100 × 60 × $20.000 × 25% × 12 = $360 M (sobre $1.440 M de ventas). Vuelve al barrio = lo anterior × 48%. Vuelve al Municipio = ventas × 0,80%. Recupero = momento en que el resultado acumulado deja de ser negativo: −$68,4 M (año 1) + $69,2 M (año 2) = +$0,8 M, es decir, al cierre del año 2. Todas las metas se leen en los paneles de la app, por lo que se pueden auditar mes a mes.')
 doc.add_heading('Ventaja competitiva: el envío a cargo del comercio', 2)
 tabla([

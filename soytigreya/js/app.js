@@ -1464,6 +1464,14 @@ function finanzasHtml() {
     <div class="comp"><p class="fin-tit">¿Es mucho? Lo que pagaron otros</p>
       ${(() => { const filas = [{ quien: 'SoyTigreYa', que: 'Año 1: piloto, escalamiento y 6 meses de soporte', monto: y[0].costo, yo: true }, ...COMPARACION]; const max = Math.max(...filas.map((f) => f.monto)); return filas.map((f) => `<div class="comp-f ${f.yo ? 'yo' : ''}"><span class="comp-t"><b>${f.quien}</b><small>${f.que}${f.anio ? ` · ${f.anio}` : ''}</small></span><div class="comp-b"><i style="width:${(f.monto / max) * 100}%"></i></div><b class="comp-m">${millones(f.monto)}</b></div>`).join(''); })()}
       <p class="muted chico">Santa Fe presupuestó $316 M para una app municipal comparable: SoyTigreYa, al ser un upgrade de Soy Tigre, cuesta cerca de un tercio el primer año. Fuentes: portales de compras y prensa local.</p></div>
+    <div class="comp"><p class="fin-tit">Ya se hizo en Argentina</p>
+      <div class="antec">
+        <p><b>Rosario · MuniShop</b><span>Tienda municipal sin comisión del Banco Municipal: unos 150 comercios (La Capital, 2023).</span></p>
+        <p><b>Santa Fe · Billetera Santa Fe</b><span>Reintegros en comercios de cercanía, financiados entre el comercio y el banco.</span></p>
+        <p><b>Provincia de Buenos Aires · Cuenta DNI</b><span>Más de 10 millones de usuarios y 100.000 comercios con descuentos (2026).</span></p>
+        <p><b>Rosario · cooperativa de cadetes</b><span>Reparto para más de 100 comercios, cobrando por hora y no por comisión.</span></p>
+      </div>
+      <p class="muted chico">Ninguno junta tarjeta, compra sin comisión, trámites y medición en una sola app: eso es lo que propone SoyTigreYa. Fuentes en el trabajo escrito.</p></div>
     <p class="muted chico">Supuestos a validar en el piloto. Precios de mila·ops: costo del equipo más 30% de margen.</p>
   </div>`;
 }
