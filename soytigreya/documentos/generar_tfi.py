@@ -455,8 +455,7 @@ viñetas([
     'Técnica think aloud, con moderador y observador, consentimiento informado y medición de éxito o fracaso por tarea.',
     'Revisión complementaria con las 10 heurísticas de Nielsen y los principios de accesibilidad POUR.',
 ])
-doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
-doc.add_heading('Anexo B: todo lo que tiene el prototipo', 1)
+_hb = doc.add_heading('Anexo B: todo lo que tiene el prototipo', 1); _hb.paragraph_format.page_break_before = True
 p('Inventario completo de las funciones implementadas en el prototipo, por perfil. Todas se pueden recorrer en mila-ops-ia.github.io/soytigreya, con datos de demostración.')
 tabla([
     ['Función', 'Qué hace', 'Quién la usa'],
