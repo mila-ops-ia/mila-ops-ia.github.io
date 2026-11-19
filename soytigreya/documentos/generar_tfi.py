@@ -263,15 +263,17 @@ viñetas([
     ('Impacto en la comunidad: ', 'un comercio con 60 pedidos de $20.000 por mes deja de pagar $300.000 mensuales de comisión (60 × $20.000 × 25%). Con 100 comercios, desde el año 2, son $360 millones por año que quedan en Tigre ($300.000 × 100 × 12); parte vuelve al barrio en sueldos y proveedores (unos $173 millones) y al Municipio por tasa (hasta $11,5 millones).'),
     ('Crecimiento futuro: ', 'desde el año 2, partners de reparto que cobren por viaje y no por comisión y, como opción, la misma plataforma para otros municipios.'),
 ])
-p('Lo que vuelve a la caja del Municipio (Plan Destacado, publicidad local, un banco que cofinancia descuentos y el ahorro de trámites presenciales) es de $40,6, $124,4 y $152,6 millones en los años 1 a 3. Año 1: $40,6 − $109 = −$68,4; año 2: $124,4 − $55,2 = +$69,2: la inversión se recupera en 2 años. A 5 años se proyectaron tres escenarios: conservador (175 comercios), recupera en 3 años y 3 meses; esperado (250), en 2 años; optimista (500), en 1 año y 8 meses.', negrita_inicio='Viabilidad económica. ')
-p('vecinos activos y retención a 90 días, pedidos y comercios activos, comisiones evitadas, tiempo de resolución de reclamos y NPS. Objetivos del primer año:', negrita_inicio='Indicadores de éxito: ')
+p('además de dejar plata en los comercios, la app genera ingresos y ahorros propios para el Municipio por cuatro vías (en millones de pesos):', negrita_inicio='Cómo se paga sola: ').paragraph_format.keep_with_next = True
 tabla([
-    ['Objetivo', 'Meta', 'Cómo se calcula'],
-    ['Comercios con Plan Destacado', '30', 'Planes activos: 30 × $25.000 × 6 meses = $4,5 millones de ingreso.'],
-    ['Trámites hechos por la app', '5.000', 'Trámites iniciados en la app: 5.000 × $1.500 = $7,5 millones de ahorro.'],
-    ['Plata que queda en los comercios', '$67,5 millones', '50 comercios × 30 pedidos por mes × $20.000 × 25% × 9 meses.'],
-    ['Vuelve a la caja del Municipio', '$40,6 millones', 'Plan $4,5 + publicidad $3,6 + banco $25 + ahorro $7,5 (en millones).'],
-], [5.2, 2.6, 8.2])
+    ['Vía de ingreso o ahorro', 'Año 1', 'Año 2', 'Cómo se calcula (año 2)'],
+    ['Plan Destacado para comercios', '$4,5', '$30', '100 comercios × $25.000 × 12 meses.'],
+    ['Publicidad local en la app', '$3,6', '$14,4', '4 espacios × $300.000 × 12 meses.'],
+    ['Banco o billetera socia', '$25', '$50', 'Aporte para cofinanciar descuentos.'],
+    ['Trámites hechos por la app', '$7,5', '$30', '20.000 trámites × $1.500 de ahorro.'],
+    ['Vuelve a la caja del Municipio', '$40,6', '$124,4', 'Suma de las cuatro vías.'],
+    ['Resultado, descontada la inversión', '−$68,4', '+$69,2', 'Se recupera en 2 años.'],
+], [6.0, 1.8, 1.8, 6.4])
+p('A 5 años se proyectaron tres escenarios: conservador (175 comercios), recupera en 3 años y 3 meses; esperado (250), en 2 años; optimista (500), en 1 año y 8 meses. Indicadores de éxito: vecinos activos y retención a 90 días, comercios activos, comisiones evitadas, tiempo de resolución de reclamos y NPS. Metas del primer año: 30 comercios con Plan Destacado, 5.000 trámites por la app y 50 comercios vendiendo.')
 
 # ---------- 8 ----------
 doc.add_heading('8. Conclusiones', 1)
@@ -332,6 +334,7 @@ tabla([
     ['Resultado del año', '−$68,4 M', '+$69,2 M', '+$97,4 M'],
     ['Acumulado', '−$68,4 M', '+$0,8 M', '+$98,2 M'],
 ], [7.0, 3.0, 3.0, 3.0])
+p('Cómo se calcula cada vía. Plan Destacado: comercios × $25.000 por mes (año 1: 30 comercios × 6 meses = $4,5 M); es opcional y da prioridad en las búsquedas, ofertas flash ilimitadas y un informe de clientes. Publicidad local: espacios en el inicio de la app, siempre identificados como publicidad, a $300.000 por mes cada uno (año 1: 2 espacios × 6 meses = $3,6 M). Banco o billetera socia: aporte anual para cofinanciar los descuentos (año 1: medio año, $25 M). Ahorro en trámites: trámites hechos por la app × $1.500 que cuesta atenderlos en persona (año 1: 5.000 trámites = $7,5 M). Cuando el trabajo dice que SoyTigreYa "no compite por publicidad" se refiere a que no gasta en publicitarse como las apps de delivery; vender espacios a comercios locales es otra cosa, y es la vía que menos pesa: $14,4 M sobre $124,4 M en el año 2.')
 p('Recupero de la inversión: 2 años. Sin las palancas (suscripción de $6,9 millones por mes desde el año 2 y aporte bancario de $30 millones), 3 años y 4 meses. El año 1 incluye solo seis meses de ingresos, porque la plataforma está en piloto. Supuestos a validar en el piloto; el panel de Desarrollo Económico permite simular las palancas.')
 doc.add_heading('Proyección a 5 años en tres escenarios', 2)
 tabla([
