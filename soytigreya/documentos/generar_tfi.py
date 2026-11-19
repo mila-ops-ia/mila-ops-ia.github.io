@@ -201,10 +201,9 @@ tabla([
 # ---------- 6 ----------
 doc.add_heading('6. Plan de implementación', 1)
 viñetas([
-    ('Etapa 1 · Piloto (meses 1 a 3): ', 'Tigre Centro con 40 comercios: credencial, beneficios y compra con retiro o con envío del cadete del comercio. Metas para pasar de etapa: 40 comercios vendiendo, 2.000 vecinos que compraron, NPS de 40 o más y 95% de pedidos sin incidencias.'),
-    ('Etapa 2 · Todo Tigre (meses 4 a 6): ', 'solo si el piloto cumple sus metas: todas las localidades y comercios no gastronómicos, pago de tasas y estacionamiento, y reclamos con foto y mapa.'),
-    ('Etapa 3 · Mejora continua (meses 7 a 12): ', 'turnero completo, Tigri con inteligencia artificial conectada a los sistemas municipales, Puntos Tigre y canal por WhatsApp.'),
-    ('Desde el año 2 · Partners y scale-up: ', 'partners estratégicos de reparto que cobren por viaje y no por comisión y, como opción de crecimiento, la misma plataforma para otros municipios.'),
+    ('Etapa 1 · Piloto (meses 1 a 3), qué se hace primero: ', 'Tigre Centro con 40 comercios: credencial, beneficios y compra con retiro o con envío del cadete del comercio. Metas para pasar de etapa: 40 comercios vendiendo, 2.000 vecinos que compraron, NPS de 40 o más y 95% de pedidos sin incidencias.'),
+    ('Etapa 2 · Todo Tigre (meses 4 a 6), qué hace falta: ', 'solo si el piloto cumple sus metas: todas las localidades y comercios no gastronómicos, pago de tasas y estacionamiento, y reclamos con foto y mapa.'),
+    ('Etapa 3 · Mejora continua (meses 7 a 12), cómo queda funcionando: ', 'turnero completo, Tigri con inteligencia artificial conectada a los sistemas municipales, Puntos Tigre y canal por WhatsApp.'),
 ])
 doc.add_heading('Recursos necesarios', 2)
 viñetas([
@@ -213,22 +212,22 @@ viñetas([
     ('Tecnología: ', 'aplicación web progresiva, base de datos en la nube, pasarela de pagos, validación de identidad (Mi Argentina o RENAPER) y servicios de mapas.'),
     ('Comunicación: ', 'las redes que el Municipio ya tiene activas, con Tigri como cara y los comercios como difusores.'),
 ])
-doc.add_heading('Posibles aliados', 2)
-p('Secretaría de Desarrollo Económico del Municipio, cámaras de comercio locales, Mercado Pago y Banco Provincia (Cuenta DNI) como medios de pago, partners de reparto que cobren por viaje, la Universidad Nacional del Delta para investigación y prácticas, y el área de Modernización para la integración con los sistemas existentes.')
-p('', negrita_inicio='Inversión del Municipio (precio = costo del equipo × 1,30 de margen):').paragraph_format.keep_with_next = True
+p('', negrita_inicio='Inversión del Municipio por etapa (precio = costo del equipo × 1,30):').paragraph_format.keep_with_next = True
 tabla([
     ['Concepto', 'Monto', 'Cómo se calcula (meses × costo por mes)'],
     ['Piloto (meses 1 a 3)', '$37 millones', '3 × $9,5 millones de equipo × 1,30.'],
-    ['Escalamiento (meses 4 a 6)', '$30 millones', '3 × $7,7 millones de equipo × 1,30.'],
-    ['Soporte (meses 7 a 12)', '$42 millones', '6 × $6,9 millones + $0,6 millones de hosting.'],
-    ['Total del año 1', '$109 millones', '$37 + $30 + $42 millones = USD 69.000 al oficial.'],
-    ['Desde el año 2, por año', '$55 millones', '12 × $4,5 millones + $1,2 millones de hosting.'],
-], [4.9, 2.5, 8.6])
+    ['Todo Tigre (meses 4 a 6)', '$30 millones', '3 × $7,7 millones de equipo × 1,30.'],
+    ['Mejora continua (meses 7 a 12)', '$42 millones', '6 × $6,9 millones + $0,6 millones de hosting.'],
+    ['Total del año 1', '$109 millones', '$37 + $30 + $42 millones (USD 69.000).'],
+    ['Desde el año 2, por año', '$55,2 millones', '12 × $4,5 millones + $1,2 millones de hosting.'],
+], [5.3, 2.8, 7.9])
+doc.add_heading('Posibles aliados', 2)
+p('Secretaría de Desarrollo Económico del Municipio, cámaras de comercio locales, Mercado Pago y Banco Provincia (Cuenta DNI) como medios de pago, partners de reparto que cobren por viaje, la Universidad Nacional del Delta para investigación y prácticas, y el área de Modernización para la integración con los sistemas existentes.')
 doc.add_heading('Principales desafíos o riesgos', 2)
 tabla([
     ['Riesgo', 'Nivel', 'Mitigación'],
-    ['Baja adopción de los comercios', 'Alto', 'Panel muy simple, capacitación presencial y acompañamiento en el alta.'],
-    ['Financiamiento del descuento', 'Alto', 'Cofinanciamiento con un banco o billetera y topes por compra.'],
+    ['Baja adopción de los comercios', 'Alto', 'Panel simple y capacitación presencial. Se prueba en el piloto.'],
+    ['Financiamiento del descuento', 'Alto', 'Banco o billetera socia y topes por compra. Se prueba en el piloto.'],
     ['Logística del envío', 'Medio', 'Retiro y envío a cargo del comercio; partners de reparto desde el año 2.'],
     ['Competencia de plataformas privadas', 'Medio', 'Competir por precio final y cercanía, no por publicidad.'],
     ['Protección de datos personales', 'Medio', 'Cumplir la Ley 25.326, usar datos agregados y consentimiento explícito.'],
@@ -236,16 +235,16 @@ tabla([
     ['Problemas con una compra', 'Bajo', 'El comercio responde en 24 horas; si no responde, el pago se devuelve automáticamente al vecino.'],
     ['Abuso de los Puntos Tigre', 'Bajo', 'Canjes con tope, vencimiento a 12 meses y puntos solo por compras con QR.'],
 ], [4.6, 1.6, 9.8])
-p('Los dos riesgos altos se prueban primero, en el piloto (matriz completa en los Anexos).')
 
 # ---------- 7 ----------
 doc.add_heading('7. Resultados esperados', 1)
 viñetas([
-    ('Para los usuarios: ', 'ahorro concreto y visible cada mes, menos tiempo en filas y trámites, seguimiento de pedidos y reclamos, y una sola app para la vida en el distrito.'),
+    ('Para los usuarios: ', 'ahorro visible cada mes, menos filas y trámites, y seguimiento de pedidos y reclamos en una sola app.'),
     ('Para los comercios y el municipio: ', 'más ventas sin comisión y un canal digital propio; datos de consumo por localidad, mejor gestión de reclamos y más recaudación digital.'),
-    ('Impacto en la comunidad: ', 'un comercio con 60 pedidos de $20.000 por mes deja de pagar $300.000 mensuales de comisión (60 × $20.000 × 25%). Con 100 comercios son $360 millones por año que quedan en Tigre ($300.000 × 100 × 12); parte vuelve al barrio en sueldos y proveedores (unos $173 millones) y al Municipio por tasa (hasta $11,5 millones).'),
+    ('Impacto en la comunidad: ', 'un comercio con 60 pedidos de $20.000 por mes deja de pagar $300.000 mensuales de comisión (60 × $20.000 × 25%). Con 100 comercios, desde el año 2, son $360 millones por año que quedan en Tigre ($300.000 × 100 × 12); parte vuelve al barrio en sueldos y proveedores (unos $173 millones) y al Municipio por tasa (hasta $11,5 millones).'),
+    ('Crecimiento futuro: ', 'desde el año 2, partners de reparto que cobren por viaje y no por comisión y, como opción, la misma plataforma para otros municipios.'),
 ])
-p('Lo que vuelve a la caja del Municipio (Plan Destacado, publicidad local, un banco que cofinancia descuentos y el ahorro de trámites presenciales) es de $40,6, $124,4 y $152,6 millones en los años 1 a 3: la inversión se recupera en 2 años. A 5 años se proyectaron tres escenarios: conservador (175 comercios), recupera en 3 años y 3 meses; esperado (250), en 2 años; optimista (500), en 1 año y 8 meses.', negrita_inicio='Viabilidad económica. ')
+p('Lo que vuelve a la caja del Municipio (Plan Destacado, publicidad local, un banco que cofinancia descuentos y el ahorro de trámites presenciales) es de $40,6, $124,4 y $152,6 millones en los años 1 a 3. Año 1: $40,6 − $109 = −$68,4; año 2: $124,4 − $55,2 = +$69,2: la inversión se recupera en 2 años. A 5 años se proyectaron tres escenarios: conservador (175 comercios), recupera en 3 años y 3 meses; esperado (250), en 2 años; optimista (500), en 1 año y 8 meses.', negrita_inicio='Viabilidad económica. ')
 p('vecinos activos y retención a 90 días, pedidos y comercios activos, comisiones evitadas, tiempo de resolución de reclamos y NPS. Objetivos del primer año:', negrita_inicio='Indicadores de éxito: ')
 tabla([
     ['Objetivo', 'Meta', 'Cómo se calcula'],
@@ -259,7 +258,7 @@ tabla([
 doc.add_heading('8. Conclusiones', 1)
 p('Empecé este trabajo con una pregunta: ¿por qué un comercio de mi barrio tiene que entregar hasta un tercio de cada venta para llegar al celular de sus vecinos, si el Municipio ya tiene una tarjeta y una app que los conectan? La respuesta que encontré es que no hace falta inventar nada nuevo: hace falta unir lo que ya existe.')
 p('Por eso creo que SoyTigreYa es viable en Tigre y en Argentina. No parte de cero, porque la tarjeta, los comercios adheridos y la app municipal ya están. Y se puede probar con poco riesgo: un piloto de tres meses con 40 comercios, que crece solo si cumple sus metas.')
-p('La Diplomatura me dio el orden para llegar hasta acá: mirar primero a las personas y después a la tecnología, convertir una idea en algo que se puede probar y ponerle números que se puedan explicar. Confirmé que lo digital puede ser una herramienta de equidad: cuando la infraestructura es pública, el comercio chico compite con las mismas herramientas que el grande.')
+p('La Diplomatura me dio el orden para llegar hasta acá: mirar primero a las personas y después a la tecnología, convertir una idea en algo que se puede probar y ponerle números que se puedan explicar. Confirmé que lo digital puede ser una herramienta de equidad: con infraestructura pública, el comercio chico compite de igual a igual.')
 p('Por ahora no tengo la oportunidad de llevar este proyecto adelante, pero estoy contenta con lo que pude crear: una app que logré materializar, aunque sea en un ambiente de prueba. No soy desarrolladora; para construirla me apoyé mucho en Claude Code. Aprendí que hoy se puede pasar de una idea a un prototipo sin saber programar, y que lo que no se puede delegar es entender el problema.')
 if MODO == 'tfi':
     p('además del trabajo, la app y la presentación, por iniciativa propia sumé un folleto, un pitch, instructivos de uso y anexos. Todo está en mila-ops-ia.github.io/soytigreya/enlaces.html.', negrita_inicio='Material adicional: ')
