@@ -81,6 +81,46 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
 .cuerpo h3 { margin:2px 0 0; font-size:21px; line-height:1.2; font-weight:800; text-wrap:balance; }
 .texto { margin:0; font-size:14.5px; font-weight:500; line-height:1.58; white-space:pre-line; overflow-wrap:anywhere; }
 .siguiente { align-self:flex-start; margin-top:auto; font:700 14px 'Montserrat',Arial,sans-serif; color:var(--medio); background:none; border:0; padding:11px 0; cursor:pointer; }
+.li0 { max-width:1080px; margin:0 auto; padding:30px 18px 6px; scroll-margin-top:12px; }
+.li0 > h2 { margin:0; font-size:27px; line-height:1.15; font-weight:800; color:var(--medio); text-wrap:balance; }
+.li0 > p { margin:6px 0 16px; color:var(--muted); font-size:14.5px; line-height:1.45; }
+.liguia { display:grid; gap:14px; min-width:0; }
+.licaja { background:var(--blanco); border-radius:22px; padding:20px 18px; display:grid; gap:16px; min-width:0; }
+.limili { display:flex; gap:13px; align-items:flex-start; min-width:0; }
+.limili img { width:62px; height:62px; flex:none; border-radius:50%; object-fit:cover; object-position:50% 25%; border:2px solid var(--lila); background:#eeedf9; }
+.limili div { min-width:0; background:var(--suave); border-radius:4px 15px 15px 15px; padding:11px 14px; }
+.limili b { display:block; font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--medio); }
+.limili h3 { margin:2px 0 0; font-size:18px; line-height:1.25; font-weight:800; text-wrap:balance; outline:0; }
+.limili p { margin:3px 0 0; font-size:14px; line-height:1.45; font-weight:500; }
+.libarra { height:7px; border-radius:7px; background:var(--suave); overflow:hidden; }
+.libarra i { display:block; height:100%; background:var(--medio); border-radius:7px; transition:width .25s; }
+.liop { display:grid; gap:9px; }
+.liop button { width:100%; text-align:left; font:600 14.5px/1.35 'Montserrat',Arial,sans-serif; color:var(--tinta); background:transparent; border:1.5px solid var(--linea); border-radius:13px; padding:13px 14px; min-height:48px; cursor:pointer; }
+.liop button:hover { border-color:var(--medio); background:var(--suave); }
+.liop button:focus-visible, .liacc button:focus-visible, .liniveles button:focus-visible, .licopia button:focus-visible { outline:2px solid var(--medio); outline-offset:2px; }
+.liacc { display:flex; justify-content:space-between; align-items:center; gap:10px; color:var(--muted); font-size:12.5px; font-weight:600; }
+.liacc button { font:700 13.5px 'Montserrat',Arial,sans-serif; color:var(--medio); background:none; border:0; padding:10px 0; cursor:pointer; }
+.liniveles { display:flex; gap:7px; overflow-x:auto; scrollbar-width:none; padding:2px; }
+.liniveles::-webkit-scrollbar { display:none; }
+.liniveles button { flex:none; font:700 13px 'Montserrat',Arial,sans-serif; color:var(--tinta); background:transparent; border:1.5px solid var(--linea); border-radius:999px; padding:10px 14px; cursor:pointer; }
+.liniveles button[aria-pressed="true"] { background:var(--medio); border-color:var(--medio); color:var(--fondo); }
+.lipasos { list-style:none; margin:0; padding:0; display:grid; gap:0; counter-reset:li; }
+.lipasos li { counter-increment:li; display:grid; grid-template-columns:34px minmax(0,1fr); gap:11px; padding:11px 0; border-bottom:1px solid var(--linea); }
+.lipasos li:last-child { border-bottom:0; }
+.lipasos li::before { content:counter(li); width:34px; height:34px; border-radius:50%; background:var(--medio); color:var(--fondo); font-weight:800; font-size:14px; display:grid; place-items:center; }
+.lipasos b { display:block; font-size:15px; line-height:1.3; }
+.lipasos span { display:block; margin-top:2px; color:var(--muted); font-size:13.5px; line-height:1.45; font-weight:500; }
+.licopia { background:#24233a; color:#f1f0ff; border-radius:13px; overflow:hidden; min-width:0; }
+.licopia > div { display:flex; justify-content:space-between; align-items:center; gap:10px; padding:7px 8px 7px 14px; border-bottom:1px solid rgba(255,255,255,.14); font-size:12px; font-weight:700; }
+.licopia button { font:700 12px 'Montserrat',Arial,sans-serif; color:#f1f0ff; background:rgba(255,255,255,.14); border:0; border-radius:7px; padding:8px 12px; cursor:pointer; }
+.licopia pre { margin:0; padding:13px 14px; font:13px/1.55 ui-monospace,Menlo,monospace; white-space:pre-wrap; overflow-wrap:anywhere; }
+@media screen and (min-width:900px) {
+  .li0 { padding:34px 28px 6px; }
+  .li0 > h2 { font-size:34px; }
+  .licaja { padding:26px; }
+  .liop { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .liguia { display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:26px; align-items:start; }
+}
 .videos { max-width:1080px; margin:0 auto; padding:26px 18px 6px; }
 .videos > h2 { margin:0; font-size:27px; line-height:1.15; font-weight:800; color:var(--medio); text-wrap:balance; }
 .videos > p { margin:6px 0 16px; color:var(--muted); font-size:14.5px; line-height:1.45; }
@@ -213,6 +253,12 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
       <button class="siguiente" id="otra" type="button"></button>
     </div>
   </article>
+</section>
+
+<section class="li0" id="linkedin" aria-labelledby="t-li">
+  <h2 id="t-li">LinkedIn desde 0</h2>
+  <p>Respondé 5 preguntas y Mili te muestra la guía para tu nivel.</p>
+  <div class="licaja" id="licaja"></div>
 </section>
 
 <section class="videos" aria-labelledby="t-videos">
@@ -485,6 +531,66 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
       dejarDeEsperar(); tocarMusica();
     }, function () {});
   }
+  var LI_PREGUNTAS = [
+    { p: '¿Cómo está tu perfil hoy?', o: ['No tengo o está casi vacío', 'Tiene lo básico', 'Está completo y actualizado'] },
+    { p: '¿Qué dice tu titular?', o: ['Nada o solo mi puesto', 'Mi puesto y mi área', 'Lo que hago, lo que busco y palabras clave'] },
+    { p: '¿Cómo contás tu experiencia?', o: ['Casi no la cargué', 'Con mis tareas', 'Con logros y resultados'] },
+    { p: '¿Cómo usás tu red?', o: ['Casi no tengo contactos', 'Tengo conocidos, pero no escribo', 'Le escribo a gente de mi rubro'] },
+    { p: '¿Qué hacés en el feed?', o: ['Solo miro, o ni entro', 'Reacciono o comento a veces', 'Publico lo que hago o aprendo'] }
+  ];
+  var LI_GUIAS = [
+    { chip: 'Nivel 1 · Arrancar', cara: 'risa', titulo: 'Tu guía: Armá tu base', dice: 'Empezamos simple. Con estos 5 pasos ya tenés un perfil que se entiende.',
+      pasos: [['Poné una foto clara', 'Tu cara, buena luz y un fondo simple. Con el celu alcanza.'], ['Escribí tu titular', 'Qué hacés y qué estás buscando, en una línea.'], ['Cargá tu recorrido', 'Puesto, empresa y fechas reales. Después lo mejoramos.'], ['Sumá educación y aptitudes', 'Lo que estudiaste y las 5 cosas que mejor sabés hacer.'], ['Conectá con gente conocida', 'Ex compañeros, amigos y docentes. Tu red arranca por ahí.']],
+      nombre: 'Tu primer perfil', prompt: 'Quiero armar mi LinkedIn desde cero. Haceme de a una estas preguntas: qué hice, qué sé hacer, qué busco y en qué zona.\n\nCon mis respuestas escribí 3 opciones de titular y un "Acerca de" corto, en primera persona. No inventes nada.' },
+    { chip: 'Nivel 2 · Ordenar', cara: 'pensando', titulo: 'Tu guía: Hacé que se entienda tu valor', dice: 'Ya tenés la base. Ahora ordenamos para que quien te lea entienda rápido qué aportás.',
+      pasos: [['Elegí tu próximo rol', 'Un perfil que le habla a todos no le habla a nadie.'], ['Juntá 3 avisos de ese rol', 'Sus palabras te dicen cómo te van a buscar.'], ['Reescribí tu titular', 'Rol, especialidad y 2 o 3 herramientas.'], ['Mostrá resultados', 'En cada puesto, qué cambió gracias a vos.'], ['Destacá tus 5 aptitudes', 'Las que más se repiten en esos avisos y sean ciertas.']],
+      nombre: 'Mi perfil contra 3 avisos', prompt: 'Te paso mi perfil de LinkedIn y 3 avisos del rol que busco.\n\nHaceme una tabla con las palabras que más piden, si aparecen en mi perfil y dónde conviene sumarlas. Marcá las que no puedo usar porque no tengo esa experiencia.\n\nPerfil: [pegalo]\nAvisos: [pegalos]' },
+    { chip: 'Nivel 3 · Destacar', cara: 'sorpresa', titulo: 'Tu guía: Hacé que te encuentren', dice: 'Tu perfil ya está bien. Ahora toca que tu nombre aparezca donde están las oportunidades.',
+      pasos: [['Elegí 3 temas', 'Los que querés que asocien con vos.'], ['Comentá con algo propio', 'Una experiencia o una duda real suma más que un "excelente".'], ['Publicá lo que probaste', 'Qué hiciste, qué pasó y qué no salió.'], ['Sumá gente de tu rubro', 'Con una nota corta que diga por qué le escribís.'], ['Medí cada 2 semanas', 'Visitas al perfil, apariciones en búsquedas y mensajes.']],
+      nombre: 'Tu plan de 4 semanas', prompt: 'Quiero que me conozcan en LinkedIn por estos 3 temas: [temas]. Trabajo en [rubro] y busco [objetivo].\n\nArmame un plan de 4 semanas con una publicación por semana basada en cosas reales que yo hice. Antes de escribir, preguntame qué experiencias tengo para contar.' }
+  ];
+  var liCaja = $('licaja'), liResp = [];
+  function liMili(cara, chico, titulo, texto) {
+    return '<div class="limili"><img src="img/mili-' + cara + '.png" alt="Mili"><div><b>' + chico + '</b><h3 tabindex="-1">' + limpio(titulo) + '</h3>' + (texto ? '<p>' + limpio(texto) + '</p>' : '') + '</div></div>';
+  }
+  function liPregunta(foco) {
+    var i = liResp.length, q = LI_PREGUNTAS[i];
+    liCaja.innerHTML = liMili(['pensando', 'risa', 'pensando', 'sorpresa', 'feliz'][i], 'Mili · pregunta ' + (i + 1) + ' de 5', q.p) +
+      '<div class="libarra" role="progressbar" aria-label="Progreso" aria-valuemin="0" aria-valuemax="5" aria-valuenow="' + i + '"><i style="width:' + (i / 5 * 100) + '%"></i></div>' +
+      '<div class="liop">' + q.o.map(function (t, v) { return '<button type="button" data-v="' + v + '">' + limpio(t) + '</button>'; }).join('') + '</div>' +
+      '<div class="liacc">' + (i ? '<button type="button" data-a="volver">← Volver</button>' : '<span>Tus respuestas no se guardan ni se envían.</span>') + '<span>' + (i + 1) + '/5</span></div>';
+    if (foco) liCaja.querySelector('h3').focus({ preventScroll: true });
+  }
+  function liNivel(n, foco) {
+    var g = LI_GUIAS[n];
+    liCaja.innerHTML = liMili(g.cara, 'Mili · ' + g.chip, g.titulo, g.dice) +
+      '<div class="liniveles" role="group" aria-label="Ver guía por nivel">' + LI_GUIAS.map(function (x, k) { return '<button type="button" data-n="' + k + '" aria-pressed="' + (k === n) + '">' + x.chip + '</button>'; }).join('') + '</div>' +
+      '<div class="liguia"><ol class="lipasos">' + g.pasos.map(function (p) { return '<li><div><b>' + limpio(p[0]) + '</b><span>' + limpio(p[1]) + '</span></div></li>'; }).join('') + '</ol>' +
+      '<div class="licopia"><div><span>' + limpio(g.nombre) + '</span><button type="button" data-a="copiar">Copiar prompt</button></div><pre>' + limpio(g.prompt) + '</pre></div></div>' +
+      '<div class="liacc"><button type="button" data-a="otra">↺ Responder de nuevo</button></div>';
+    if (foco) liCaja.querySelector('h3').focus({ preventScroll: true });
+  }
+  liCaja.addEventListener('click', function (e) {
+    var b = e.target.closest('button');
+    if (!b) return;
+    if (b.dataset.v !== undefined) {
+      liResp.push(+b.dataset.v);
+      if (liResp.length < 5) return liPregunta(true);
+      var t = liResp.reduce(function (a, x) { return a + x; }, 0);
+      liNivel(t <= 3 ? 0 : t <= 7 ? 1 : 2, true);
+      $('linkedin').scrollIntoView({ block: 'start', behavior: suave() });
+    } else if (b.dataset.n !== undefined) liNivel(+b.dataset.n, true);
+    else if (b.dataset.a === 'volver') { liResp.pop(); liPregunta(true); }
+    else if (b.dataset.a === 'otra') { liResp = []; liPregunta(true); }
+    else if (b.dataset.a === 'copiar') {
+      var pre = liCaja.querySelector('.licopia pre');
+      var listo = function () { b.textContent = 'Copiado'; setTimeout(function () { b.textContent = 'Copiar prompt'; }, 1600); };
+      var manual = function () { var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = 'Seleccionado'; };
+      try { navigator.clipboard.writeText(pre.textContent).then(listo, manual); } catch (x) { manual(); }
+    }
+  });
+  liPregunta(false);
+
   var ENVIO = 'https://script.google.com/macros/s/AKfycbz4939EEZXoejDVMwi1dE2gyIeWCxg8G1q53vp1p_UlNPlibYDwH2JrfN7omVuGwebc/exec';
   var RESPALDO = 'No pude enviarla. Escribime a <a href="mailto:milagrosbelensanabria@gmail.com?subject=Quiero%20la%20contrase%C3%B1a%20de%20la%20Gu%C3%ADa%20completa">milagrosbelensanabria@gmail.com</a>.';
   function estadoPedido(clase, html) { var s = $('estado'); s.className = clase; s.innerHTML = html; }
