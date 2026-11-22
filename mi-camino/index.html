@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Mi camino de búsqueda con Claude · Milagros Sanabria</title>
 <meta name="description" content="Capítulo de Milagros Sanabria: cómo ordenó su búsqueda laboral con Claude, sus publicaciones, videos y su guía completa con 10 prompts clave.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_AR">
+<meta property="og:site_name" content="Milagros Sanabria">
+<meta property="og:title" content="Mi camino de búsqueda con Claude">
+<meta property="og:description" content="Publicaciones, guías y prompts para ordenar tu búsqueda laboral. Con Mili.">
+<meta property="og:url" content="https://mila-ops-ia.github.io/mi-camino/">
+<meta property="og:image" content="https://mila-ops-ia.github.io/mi-camino/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mili presenta Mi camino de búsqueda con Claude">
+<meta name="twitter:card" content="summary_large_image">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root { --violeta:#4f47b3; --medio:#6b63d0; --lila:#a29bf2; --suave:#eeedf9; --tinta:#1c1c27; --muted:#5f5f75; --fondo:#f6f4f0; --blanco:#fff; --linea:#e3e1f2; }
@@ -169,6 +180,18 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
   .video { flex-basis:330px; }
   .vnav { display:flex; }
 }
+.contratar { max-width:1044px; margin:34px 18px 0; padding:26px 22px; display:grid; gap:18px; background:#1c1c27; color:#fff; border-radius:22px; scroll-margin-top:12px; }
+.contratar h2 { margin:0; font-size:25px; line-height:1.16; font-weight:800; text-wrap:balance; }
+.contratar p { margin:8px 0 0; color:rgba(255,255,255,.78); font-size:14.5px; line-height:1.45; }
+.botones { display:flex; flex-wrap:wrap; gap:8px; }
+.botones a { flex:1 1 auto; text-align:center; min-height:46px; display:grid; place-items:center; padding:0 17px; border-radius:12px; border:1.5px solid rgba(255,255,255,.35); font-size:14px; font-weight:700; }
+.botones a.fuerte { background:#6b63d0; border-color:#6b63d0; }
+.botones a:focus-visible { outline:2px solid var(--lila); outline-offset:2px; }
+@media screen and (min-width:900px) {
+  .contratar { margin:38px auto 0; width:calc(100% - 56px); grid-template-columns:minmax(0,1.3fr) minmax(0,1fr); align-items:center; padding:32px; }
+  .contratar h2 { font-size:30px; }
+}
+.pie small { font-size:11.5px; }
 .pie { text-align:center; font-size:13px; color:var(--muted); padding:18px 18px 88px; line-height:1.8; }
 .pedido { display:grid; gap:8px; background:var(--blanco); border-radius:18px; padding:15px 16px; scroll-margin-top:16px; }
 .pedido label { font-size:15px; font-weight:800; }
@@ -219,16 +242,15 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
 <body>
 <div class="hoja">
   <header class="cab">
-    <img class="foto" src="../img/mila.jpg" alt="Milagros Sanabria">
+    <img class="foto" src="img/mili.png" alt="Mili, el avatar de Milagros">
     <span class="eti">Capítulo</span>
     <h1>Mi camino de búsqueda con Claude</h1>
     <p>Lo que fui probando para ordenar mi búsqueda: publicaciones, videos y una guía.</p>
   </header>
 
   <section class="mili" aria-label="Bienvenida de Mili">
-    <img src="img/mili.png" alt="Mili, el avatar de Milagros">
     <div><b>¡Hola! Soy Mili</b><p>Qué bueno que llegaste. Acá te cuento lo que fuimos probando en esta búsqueda. Mirá, copiá y llevate lo que te sirva.</p>
-      <nav class="miniindice" aria-label="Ir a una sección"><a href="#linkedin">LinkedIn desde 0</a><a href="#guia">🎁 Tu regalo</a><a href="#publicaciones">Publicaciones</a><a href="#videos">Videos</a></nav>
+      <nav class="miniindice" aria-label="Ir a una sección"><a href="#linkedin">LinkedIn desde 0</a><a href="#guia">🎁 Tu regalo</a><a href="#publicaciones">Publicaciones</a><a href="#videos">Videos</a><a href="#contacto">Contacto</a></nav>
     </div>
   </section>
 
@@ -271,7 +293,7 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
       <div class="puntos" id="puntos"></div>
     </div>
     <div class="cuerpo" id="cuerpo">
-      <div class="quien"><img src="../img/mila.jpg" alt=""><div><b>Milagros Sanabria</b><small id="fecha"></small></div></div>
+      <div class="quien"><img src="img/mili.png" alt=""><div><b>Milagros Sanabria</b><small id="fecha"></small></div></div>
       <span class="sello" id="sello" hidden>Solo acá</span>
       <h3 id="titulo"></h3>
       <p class="texto" id="texto"></p>
@@ -289,7 +311,19 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
   <p class="vnota">Son videos de sus creadores en YouTube. Las 5 estrellas son mi recomendación personal.</p>
 </section>
 
-<p class="pie">Milagros Sanabria · <a href="../">mi portfolio</a></p>
+<section class="contratar" id="contacto" aria-labelledby="t-contacto">
+  <div>
+    <h2 id="t-contacto">¿Buscás a alguien para procesos, operaciones o IA?</h2>
+    <p>10 años en operaciones, Supply Chain y fintech. Hoy busco mi próximo desafío.</p>
+  </div>
+  <div class="botones">
+    <a class="fuerte" href="../cv-milagros-sanabria.pdf" target="_blank" rel="noopener" data-evento="cv">Ver mi CV</a>
+    <a href="https://www.linkedin.com/in/milagros-sanabria/" target="_blank" rel="noopener" data-evento="linkedin">LinkedIn</a>
+    <a href="mailto:milagrosbelensanabria@gmail.com?subject=Quiero%20hablar%20con%20vos" data-evento="correo">Escribime</a>
+  </div>
+</section>
+
+<p class="pie">¿Te sirvió? <a href="mailto:milagrosbelensanabria@gmail.com?subject=Me%20sirvi%C3%B3%20tu%20gu%C3%ADa" data-evento="comentario">Contame cómo te fue</a> 💜<br>Milagros Sanabria · <a href="../">mi portfolio</a><br><small>Cuento las visitas de forma anónima, sin cookies.</small></p>
 <button class="musica" id="musica" type="button" aria-pressed="false"><span class="barras" aria-hidden="true"><i></i><i></i><i></i></span><span id="musicaTxt">Música tranqui</span></button>
 
 <script>
@@ -469,6 +503,7 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
     f.allowFullscreen = true;
     b.parentNode.replaceChildren(f);
     pausarMusica();
+    contar('video');
     f.focus();
   });
   var varr = null;
@@ -541,18 +576,6 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
     sonido.master.gain.cancelScheduledValues(t); sonido.master.gain.setValueAtTime(sonido.master.gain.value, t); sonido.master.gain.linearRampToValueAtTime(0, t + .7);
     corte = setTimeout(function () { if (!sonando) sonido.c.suspend(); }, 760);
   }
-  /* Intenta sonar al entrar. Si el navegador lo bloquea, arranca con el primer gesto. Nunca insiste si la persona la pausó o puso un video. */
-  var decidio = false, GESTOS = ['mousedown', 'touchend', 'keydown'];
-  function dejarDeEsperar() { GESTOS.forEach(function (g) { document.removeEventListener(g, primerGesto, true); }); }
-  function primerGesto(e) {
-    if (decidio) return dejarDeEsperar();
-    if (e.target.closest && e.target.closest('#musica')) return;
-    if (e.target.closest && e.target.closest('.play')) { decidio = true; return dejarDeEsperar(); }
-    sonido.c.resume().then(function () {
-      if (decidio || sonando || sonido.c.state !== 'running') return;
-      dejarDeEsperar(); tocarMusica();
-    }, function () {});
-  }
   var LI_PREGUNTAS = [
     { p: '¿Cómo está tu perfil hoy?', o: ['No tengo o está casi vacío', 'Tiene lo básico', 'Está completo y actualizado'] },
     { p: '¿Qué dice tu titular?', o: ['Nada o solo mi puesto', 'Mi puesto y mi área', 'Lo que hago, lo que busco y palabras clave'] },
@@ -599,7 +622,9 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
       liResp.push(+b.dataset.v);
       if (liResp.length < 5) return liPregunta(true);
       var t = liResp.reduce(function (a, x) { return a + x; }, 0);
-      liNivel(t <= 3 ? 0 : t <= 7 ? 1 : 2, true);
+      var nivelFinal = t <= 3 ? 0 : t <= 7 ? 1 : 2;
+      liNivel(nivelFinal, true);
+      contar('nivel' + (nivelFinal + 1));
       $('linkedin').scrollIntoView({ block: 'start', behavior: suave() });
     } else if (b.dataset.n !== undefined) liNivel(+b.dataset.n, true);
     else if (b.dataset.a === 'volver') { liResp.pop(); liPregunta(true); }
@@ -632,15 +657,21 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
       .then(function () { b.disabled = false; b.textContent = 'Enviármela'; });
   });
 
-  $('musica').addEventListener('click', function () {
-    decidio = true; dejarDeEsperar();
-    if (sonando) pausarMusica(); else tocarMusica();
-  });
-  try { sonido = crearSonido(); } catch (e) { sonido = null; }
-  if (sonido) {
-    if (sonido.c.state === 'running') tocarMusica();
-    else GESTOS.forEach(function (g) { document.addEventListener(g, primerGesto, true); });
+  $('musica').addEventListener('click', function () { if (sonando) pausarMusica(); else tocarMusica(); });
+
+  function contar(evento) {
+    if (!/github\.io$/.test(location.hostname) || /[?&]prueba=/.test(location.search) || navigator.webdriver) return;
+    try { navigator.sendBeacon(ENVIO, new URLSearchParams({ evento: evento })); } catch (e) {}
   }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('[data-evento]');
+    if (a) contar(a.dataset.evento);
+  });
+  var guiaEnlace = document.querySelector('.enl.prin');
+  if (guiaEnlace) guiaEnlace.addEventListener('click', function () { contar('guia'); });
+  try {
+    if (!sessionStorage.getItem('visita')) { sessionStorage.setItem('visita', '1'); contar('visita'); }
+  } catch (e) { contar('visita'); }
 
   abrir(0);
 })();
