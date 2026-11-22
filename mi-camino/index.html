@@ -121,7 +121,18 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
   .video { flex-basis:330px; }
   .vnav { display:flex; }
 }
-.pie { text-align:center; font-size:13px; color:var(--muted); padding:18px 18px 32px; line-height:1.8; }
+.pie { text-align:center; font-size:13px; color:var(--muted); padding:18px 18px 88px; line-height:1.8; }
+.musica { position:fixed; z-index:20; right:max(16px,env(safe-area-inset-right,0px)); bottom:max(16px,env(safe-area-inset-bottom,0px)); min-height:46px; display:flex; align-items:center; gap:9px; padding:0 17px 0 14px; border:0; border-radius:999px; background:#1c1c27; color:#fff; font:700 13.5px 'Montserrat',Arial,sans-serif; box-shadow:0 5px 18px rgba(28,28,39,.32); cursor:pointer; }
+.musica:focus-visible { outline:2px solid var(--lila); outline-offset:2px; }
+.musica[aria-pressed="true"] { background:#6b63d0; }
+.barras { display:flex; align-items:flex-end; gap:2px; width:16px; height:15px; }
+.barras i { flex:1; height:35%; background:currentColor; border-radius:2px; }
+.barras i:nth-child(2) { height:75%; } .barras i:nth-child(3) { height:50%; }
+.musica[aria-pressed="true"] .barras i { animation:barra 1.5s ease-in-out infinite alternate; }
+.musica[aria-pressed="true"] .barras i:nth-child(2) { animation-delay:-.5s; }
+.musica[aria-pressed="true"] .barras i:nth-child(3) { animation-delay:-1s; }
+@keyframes barra { from { height:25%; } to { height:100%; } }
+@media (prefers-reduced-motion: reduce) { .musica .barras i { animation:none !important; } }
 .pie a { color:var(--tinta); font-weight:700; text-decoration:underline; text-underline-offset:3px; }
 @media screen and (min-width:900px) {
   .hoja { max-width:1080px; padding:28px 28px 0; display:grid; grid-template-columns:1fr 1fr; gap:0 26px; align-items:stretch; }
@@ -194,6 +205,7 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
 </section>
 
 <p class="pie">Milagros Sanabria · <a href="../">mi portfolio</a></p>
+<button class="musica" id="musica" type="button" aria-pressed="false"><span class="barras" aria-hidden="true"><i></i><i></i><i></i></span><span id="musicaTxt">Música tranqui</span></button>
 
 <script>
 (function () {
@@ -364,6 +376,7 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
     f.referrerPolicy = 'strict-origin-when-cross-origin';
     f.allowFullscreen = true;
     b.parentNode.replaceChildren(f);
+    pausarMusica();
     f.focus();
   });
   var varr = null;
@@ -384,6 +397,59 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
   vpista.addEventListener('pointerup', soltarVideo);
   vpista.addEventListener('pointercancel', soltarVideo);
   pintarVideos('Todos');
+
+  /* Música original generada en el navegador: no usa archivos ni obras de terceros. */
+  var sonido = null, sonando = false, reloj = null, proximo = 0, compas = 0, corte = null;
+  var ACORDES = [[130.81, 196, 246.94, 329.63], [110, 164.81, 261.63, 329.63], [87.31, 174.61, 220, 329.63], [98, 146.83, 246.94, 293.66]];
+  var ESCALA = [392, 440, 523.25, 587.33, 659.25, 783.99];
+  function crearSonido() {
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return null;
+    var c = new Ctx(), master = c.createGain(), filtro = c.createBiquadFilter(), eco = c.createDelay(2), vuelta = c.createGain();
+    master.gain.value = 0; filtro.type = 'lowpass'; filtro.frequency.value = 1300; eco.delayTime.value = .62; vuelta.gain.value = .34;
+    filtro.connect(master); filtro.connect(eco); eco.connect(vuelta); vuelta.connect(eco); vuelta.connect(master); master.connect(c.destination);
+    return { c: c, master: master, salida: filtro };
+  }
+  function nota(f, t, dur, vol, tipo, subida) {
+    var o = sonido.c.createOscillator(), g = sonido.c.createGain();
+    o.type = tipo; o.frequency.value = f;
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vol, t + subida); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+    o.connect(g); g.connect(sonido.salida); o.start(t); o.stop(t + dur + .05);
+  }
+  function programar() {
+    while (proximo < sonido.c.currentTime + 3) {
+      ACORDES[compas % ACORDES.length].forEach(function (f, i) { nota(f, proximo + i * .08, 10, i ? .075 : .1, i ? 'sine' : 'triangle', 2.8); });
+      for (var i = 0; i < 3; i++) if (Math.random() > .22) nota(ESCALA[Math.floor(Math.random() * ESCALA.length)], proximo + 1 + i * 2.3 + Math.random() * .4, 3.6, .035, 'sine', .04);
+      proximo += 8; compas++;
+    }
+  }
+  function marcarMusica() {
+    $('musica').setAttribute('aria-pressed', sonando ? 'true' : 'false');
+    $('musicaTxt').textContent = sonando ? 'Pausar música' : 'Música tranqui';
+  }
+  function tocarMusica() {
+    if (!sonido) sonido = crearSonido();
+    if (!sonido) { $('musicaTxt').textContent = 'Sin audio aquí'; return; }
+    clearTimeout(corte);
+    var r = sonido.c.resume();
+    sonando = true; marcarMusica();
+    var seguir = function () {
+      if (!sonando) return;
+      var t = sonido.c.currentTime;
+      proximo = Math.max(proximo, t + .05);
+      sonido.master.gain.cancelScheduledValues(t); sonido.master.gain.setValueAtTime(sonido.master.gain.value, t); sonido.master.gain.linearRampToValueAtTime(.55, t + 1.6);
+      programar(); clearInterval(reloj); reloj = setInterval(programar, 1000);
+    };
+    if (r && r.then) r.then(seguir, seguir); else seguir();
+  }
+  function pausarMusica() {
+    if (!sonando) return;
+    sonando = false; marcarMusica(); clearInterval(reloj);
+    var t = sonido.c.currentTime;
+    sonido.master.gain.cancelScheduledValues(t); sonido.master.gain.setValueAtTime(sonido.master.gain.value, t); sonido.master.gain.linearRampToValueAtTime(0, t + .7);
+    corte = setTimeout(function () { if (!sonando) sonido.c.suspend(); }, 760);
+  }
+  $('musica').addEventListener('click', function () { if (sonando) pausarMusica(); else tocarMusica(); });
 
   abrir(0);
 })();
