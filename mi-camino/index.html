@@ -240,7 +240,7 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
 
 /* Caminito de asesorías */
 .as-camino { max-width:1080px; margin:0 auto; padding:30px 18px 6px; scroll-margin-top:12px; }
-.as-camino h2 { margin:0; max-width:15ch; font-size:27px; line-height:1.15; font-weight:800; color:var(--medio); text-wrap:balance; }
+.as-camino h2 { margin:0; max-width:18ch; font-size:27px; line-height:1.15; font-weight:800; color:var(--medio); text-wrap:balance; }
 .as-camino button:focus-visible, .as-camino a:focus-visible { outline:3px solid var(--lila); outline-offset:3px; }
 .as-cabeza { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:14px 28px; margin-bottom:18px; }
 .as-casos { display:inline-flex; max-width:100%; padding:4px; border-radius:999px; background:var(--suave); }
@@ -273,6 +273,7 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
 .as-fin p b { color:var(--medio); }
 .as-fin a { display:grid; place-items:center; min-height:46px; padding:0 18px; border-radius:13px; background:var(--medio); color:var(--fondo); font-size:14px; font-weight:800; text-decoration:none; }
 .as-fin a[hidden] { display:none; }
+.as-sub { margin:7px 0 0; color:var(--muted); font-size:14.5px; line-height:1.45; }
 .as-nota { margin:11px 2px 0; color:var(--muted); font-size:12px; line-height:1.4; }
 @media (min-width:820px) {
   .as-camino { padding:34px 28px 6px; }
@@ -331,7 +332,7 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
 
 <section class="as-camino" id="asesorias" aria-labelledby="t-asesorias">
   <div class="as-cabeza">
-    <h2 id="t-asesorias">Asesorías 1:1: ¿tu perfil es el próximo?</h2>
+    <div><h2 id="t-asesorias">¿Te animás a probar mi método?</h2><p class="as-sub">Asesorías 1:1 con Claude. Mirá cómo cambiaron estos perfiles.</p></div>
     <div class="as-casos" id="as-casos" role="group" aria-label="Elegí un camino"></div>
   </div>
   <div class="as-panel">
@@ -339,7 +340,7 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
       <svg aria-hidden="true"><path id="as-base"></path><path id="as-hecho"></path></svg>
       <span class="as-mili" id="as-mili" aria-hidden="true"></span>
     </div>
-    <div class="as-fin" aria-live="polite"><p id="as-mensaje"></p><a id="as-cta" href="mailto:milagrosbelensanabria@gmail.com?subject=Quiero%20mi%20asesor%C3%ADa%201%3A1" data-evento="correo" hidden>Quiero mi asesoría 1:1</a></div>
+    <div class="as-fin" aria-live="polite"><p id="as-mensaje"></p><a id="as-cta" href="mailto:milagrosbelensanabria@gmail.com?subject=Quiero%20probar%20tu%20m%C3%A9todo" data-evento="correo" hidden>Quiero probar tu método</a></div>
   </div>
   <p class="as-nota">Casos reales de asesorías 1:1 con Claude, contados sin nombres.</p>
 </section>
