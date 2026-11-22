@@ -323,6 +323,11 @@ section.acordeon > h2 { margin:0; max-width:none; font:inherit; letter-spacing:n
 .contador b { font-size:48px; line-height:1; font-weight:800; letter-spacing:-.02em; font-variant-numeric:tabular-nums; }
 .contador span { font-size:16px; line-height:1.25; font-weight:700; }
 @media (min-width:900px) { .contador { margin:14px auto 0; width:calc(100% - 56px); padding:26px; } .contador b { font-size:58px; } .contador span { font-size:20px; } }
+.contador { flex-direction:column; gap:3px; text-align:center; padding:26px 20px; }
+.contador em { font-style:normal; }
+.contador .c-a { font-size:15px; font-weight:700; opacity:.9; }
+.contador .c-b { margin-top:5px; font-size:16px; font-weight:700; }
+@media (min-width:900px) { .contador { padding:30px; } .contador .c-a { font-size:17px; } .contador .c-b { font-size:19px; } }
 </style>
 </head>
 <body>
@@ -422,9 +427,9 @@ section.acordeon > h2 { margin:0; max-width:none; font:inherit; letter-spacing:n
   </div>
 </section>
 
-<div class="contador" id="contador" hidden aria-live="polite"><b id="visitas">0</b><span>visitas ya recorrieron este camino.<br>¿Te sumás? 💜</span></div>
+<div class="contador" id="contador" hidden aria-live="polite"><span class="c-a">Sos la visita</span><b>N.º <em id="visitas">0</em></b><span class="c-b">¡Gracias por ser parte de este camino! 💜</span></div>
 
-<p class="pie">¿Te sirvió la guía? <a href="https://www.linkedin.com/in/milagros-sanabria/" target="_blank" rel="noopener" data-evento="comentario">Contame por LinkedIn</a> 💜<br>Milagros Sanabria · <a href="../">mi portfolio</a><br><small>Cuento las visitas de forma anónima, sin cookies.</small></p>
+<p class="pie">Milagros Sanabria · <a href="../">mi portfolio</a><br><small>Cuento las visitas de forma anónima, sin cookies.</small></p>
 <button class="musica" id="musica" type="button" aria-pressed="false"><span class="barras" aria-hidden="true"><i></i><i></i><i></i></span><span id="musicaTxt">Música tranqui</span></button>
 
 <script>
@@ -900,7 +905,7 @@ section.acordeon > h2 { margin:0; max-width:none; font:inherit; letter-spacing:n
   }
   setTimeout(function () {
     fetch(URL_TOTAL, { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (d) {
-      if (d && d.ok && d.total > 0) mostrar(d.total);
+      if (!d || !d.ok || !(d.total > 0)) return; var n = d.total; try { var g = +sessionStorage.getItem('mi-numero'); if (g) n = g; else sessionStorage.setItem('mi-numero', n); } catch (e) {} mostrar(n);
     }).catch(function () {});
   }, 900);
 })();
