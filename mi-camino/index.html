@@ -317,6 +317,12 @@ section.acordeon > h2 { margin:0; max-width:none; font:inherit; letter-spacing:n
   .acc-desc { font-size:14.5px; }
 }
 @media (prefers-reduced-motion: reduce) { .acc-cuerpo { animation:none; } .acc-mas, .acc-boton { transition:none; } }
+
+.contador { max-width:1044px; margin:14px 18px 0; padding:24px 20px; display:flex; align-items:center; justify-content:center; gap:14px; background:#4f47b3; color:#fff; border-radius:22px; text-align:left; }
+.contador[hidden] { display:none; }
+.contador b { font-size:48px; line-height:1; font-weight:800; letter-spacing:-.02em; font-variant-numeric:tabular-nums; }
+.contador span { font-size:16px; line-height:1.25; font-weight:700; }
+@media (min-width:900px) { .contador { margin:14px auto 0; width:calc(100% - 56px); padding:26px; } .contador b { font-size:58px; } .contador span { font-size:20px; } }
 </style>
 </head>
 <body>
@@ -368,7 +374,7 @@ section.acordeon > h2 { margin:0; max-width:none; font:inherit; letter-spacing:n
       <svg aria-hidden="true"><path id="as-base"></path><path id="as-hecho"></path></svg>
       <span class="as-mili" id="as-mili" aria-hidden="true"></span>
     </div>
-    <div class="as-fin" aria-live="polite"><p id="as-mensaje"></p><a id="as-cta" href="mailto:milagrosbelensanabria@gmail.com?subject=Quiero%20probar%20tu%20m%C3%A9todo" data-evento="correo" hidden>Quiero probar tu método</a></div>
+    <div class="as-fin" aria-live="polite"><p id="as-mensaje"></p><a id="as-cta" href="https://docs.google.com/forms/d/e/1FAIpQLScmbnu0aRJONMjFqXUlnXOUqYn2CMhx-JE_GlaxfeM27jq9pg/viewform" target="_blank" rel="noopener" data-evento="correo" hidden>Quiero probar tu método</a></div>
   </div>
   <p class="as-nota">Casos reales de asesorías 1:1 con Claude, contados sin nombres.</p>
 </section>
@@ -413,11 +419,13 @@ section.acordeon > h2 { margin:0; max-width:none; font:inherit; letter-spacing:n
   <div class="botones">
     <a class="fuerte" href="../cv-milagros-sanabria.pdf" target="_blank" rel="noopener" data-evento="cv">Ver mi CV</a>
     <a href="https://www.linkedin.com/in/milagros-sanabria/" target="_blank" rel="noopener" data-evento="linkedin">LinkedIn</a>
-    <a href="mailto:milagrosbelensanabria@gmail.com?subject=Quiero%20hablar%20con%20vos" data-evento="correo">Escribime</a>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLScmbnu0aRJONMjFqXUlnXOUqYn2CMhx-JE_GlaxfeM27jq9pg/viewform" target="_blank" rel="noopener" data-evento="correo">Escribime</a>
   </div>
 </section>
 
-<p class="pie">¿Te sirvió la guía? <a href="mailto:milagrosbelensanabria@gmail.com?subject=Me%20sirvi%C3%B3%20tu%20gu%C3%ADa" data-evento="comentario">Escribime y contame</a> 💜<br>Milagros Sanabria · <a href="../">mi portfolio</a><br><small>Cuento las visitas de forma anónima, sin cookies.</small></p>
+<div class="contador" id="contador" hidden aria-live="polite"><b id="visitas">0</b><span>visitas a este camino 💜</span></div>
+
+<p class="pie">¿Te sirvió la guía? <a href="https://docs.google.com/forms/d/e/1FAIpQLScmbnu0aRJONMjFqXUlnXOUqYn2CMhx-JE_GlaxfeM27jq9pg/viewform" target="_blank" rel="noopener" data-evento="comentario">Escribime y contame</a> 💜<br>Milagros Sanabria · <a href="../">mi portfolio</a><br><small>Cuento las visitas de forma anónima, sin cookies.</small></p>
 <button class="musica" id="musica" type="button" aria-pressed="false"><span class="barras" aria-hidden="true"><i></i><i></i><i></i></span><span id="musicaTxt">Música tranqui</span></button>
 
 <script>
@@ -871,6 +879,30 @@ section.acordeon > h2 { margin:0; max-width:none; font:inherit; letter-spacing:n
   });
   addEventListener('hashchange', function () { irA(location.hash.slice(1)); });
   irA(location.hash.slice(1));
+})();
+</script>
+<script>
+(function () {
+  var URL_TOTAL = 'https://script.google.com/macros/s/AKfycbz4939EEZXoejDVMwi1dE2gyIeWCxg8G1q53vp1p_UlNPlibYDwH2JrfN7omVuGwebc/exec?total=1';
+  var caja = document.getElementById('contador'), num = document.getElementById('visitas');
+  function mostrar(total) {
+    caja.hidden = false;
+    var quieto = matchMedia('(prefers-reduced-motion: reduce)').matches, t0 = performance.now(), dur = 900;
+    function paso(t) {
+      var k = quieto ? 1 : Math.min(1, (t - t0) / dur);
+      num.textContent = Math.round(total * (1 - Math.pow(1 - k, 3))).toLocaleString('es-AR');
+      if (k < 1) requestAnimationFrame(paso);
+    }
+    if (!('IntersectionObserver' in window)) return paso(t0 + dur);
+    new IntersectionObserver(function (e, o) {
+      if (e[0].isIntersecting) { o.disconnect(); t0 = performance.now(); requestAnimationFrame(paso); }
+    }).observe(caja);
+  }
+  setTimeout(function () {
+    fetch(URL_TOTAL, { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (d) {
+      if (d && d.ok && d.total > 0) mostrar(d.total);
+    }).catch(function () {});
+  }, 900);
 })();
 </script>
 </body>
