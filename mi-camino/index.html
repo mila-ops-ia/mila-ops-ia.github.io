@@ -449,7 +449,27 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
     sonido.master.gain.cancelScheduledValues(t); sonido.master.gain.setValueAtTime(sonido.master.gain.value, t); sonido.master.gain.linearRampToValueAtTime(0, t + .7);
     corte = setTimeout(function () { if (!sonando) sonido.c.suspend(); }, 760);
   }
-  $('musica').addEventListener('click', function () { if (sonando) pausarMusica(); else tocarMusica(); });
+  /* Intenta sonar al entrar. Si el navegador lo bloquea, arranca con el primer gesto. Nunca insiste si la persona la pausó o puso un video. */
+  var decidio = false, GESTOS = ['mousedown', 'touchend', 'keydown'];
+  function dejarDeEsperar() { GESTOS.forEach(function (g) { document.removeEventListener(g, primerGesto, true); }); }
+  function primerGesto(e) {
+    if (decidio) return dejarDeEsperar();
+    if (e.target.closest && e.target.closest('#musica')) return;
+    if (e.target.closest && e.target.closest('.play')) { decidio = true; return dejarDeEsperar(); }
+    sonido.c.resume().then(function () {
+      if (decidio || sonando || sonido.c.state !== 'running') return;
+      dejarDeEsperar(); tocarMusica();
+    }, function () {});
+  }
+  $('musica').addEventListener('click', function () {
+    decidio = true; dejarDeEsperar();
+    if (sonando) pausarMusica(); else tocarMusica();
+  });
+  try { sonido = crearSonido(); } catch (e) { sonido = null; }
+  if (sonido) {
+    if (sonido.c.state === 'running') tocarMusica();
+    else GESTOS.forEach(function (g) { document.addEventListener(g, primerGesto, true); });
+  }
 
   abrir(0);
 })();
