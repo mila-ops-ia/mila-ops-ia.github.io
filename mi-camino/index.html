@@ -170,12 +170,12 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
     <img class="foto" src="../img/mila.jpg" alt="Milagros Sanabria">
     <span class="eti">Capítulo</span>
     <h1>Mi camino de búsqueda con Claude</h1>
-    <p>Si mi trabajo es mejorar procesos, ¿por qué no mejorar el de mi propia búsqueda?</p>
+    <p>Lo que fui probando para ordenar mi búsqueda: publicaciones, videos y una guía.</p>
   </header>
 
   <section class="mili">
     <img src="img/mili.png" alt="Mili, el avatar de Milagros">
-    <div><b>Hola, soy Mili</b><p>Acá está lo que Milagros fue probando: lo que publicó, lo que le sirvió y lo que no le salió a la primera.</p></div>
+    <div><b>Hola, soy Mili</b><p>Acá vas a ver lo que Milagros publicó y también lo que todavía no mostró en ningún otro lado.</p></div>
   </section>
 
   <nav class="lista" aria-label="Accesos">
@@ -194,7 +194,7 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
 
 <section class="pubs" aria-labelledby="t-pubs">
   <h2 id="t-pubs">Lo que voy compartiendo</h2>
-  <p>Deslizá con el mouse o con el dedo para recorrer cada publicación.</p>
+  <p>Deslizá para recorrerlas. Las que tienen ✦ son inéditas: están solo acá.</p>
   <div class="chips" id="chips" role="tablist" aria-label="Publicaciones"></div>
   <article class="visor" id="visor" role="tabpanel">
     <div class="marco">
@@ -230,21 +230,25 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
 <script>
 (function () {
   var img = function (carpeta, n) { var a = []; for (var i = 1; i <= n; i++) a.push({ src: 'posts/' + carpeta + '/' + i + '.jpg' }); return a; };
-  var leccion = function (paso, antes, ahora) { return { html: '<div class="propia clara"><span>' + paso + ' de 5</span><p class="antes">' + antes + '</p><hr><p>' + ahora + '</p></div>' }; };
   var POSTS = [
     { chip: 'Mi búsqueda', fecha: '17 de noviembre', titulo: 'Si mi trabajo es mejorar procesos, ¿por qué no mejorar el de mi propia búsqueda? ⚙️',
-      texto: 'Lo encaré como cualquier proceso:\n\n→ AS-IS: me postulaba a todo, sin filtro.\n→ KPIs: definí qué roles encajan conmigo y qué me falta.\n→ Automatización: con Claude Code armé un script que cada mañana puntúa los avisos y los carga en un Sheet.\n→ TO-BE: LinkedIn y CV con logros en lugar de tareas.\n→ Mejora: a las 2 semanas medí y vi que la IA solo movía datos. La rediseñé: de 1,6 M tokens por día a cero.\n\nEn las últimas imágenes te dejo 2 prompts para copiar 👇',
-      placas: img('busqueda', 7), alt: 'Mi búsqueda' },
-    { chip: '✦ Solo acá', fecha: 'Contenido exclusivo', exclusivo: true, titulo: 'El detrás de escena de esta página',
-      texto: 'Esto no está en LinkedIn ni en la guía. Es cómo armé este mismo espacio con Claude: lo que le fui pidiendo, lo que falló y cómo lo resolvimos.\n\nSalió de ir probando y corrigiendo. 💜',
-      placas: [
-        { html: '<div class="propia"><span>Solo acá</span><h3>Así armé <em>esta página</em> con Claude.</h3><p>5 ajustes reales, en una sola charla.</p></div>' },
-        leccion('Ajuste 1', 'Mis posts eran solo links.', 'Los traje acá para recorrerlos con el mouse o el dedo.'),
-        leccion('Ajuste 2', 'El PDF salía cortado al imprimir.', 'Le sumamos márgenes y una versión clara.'),
-        leccion('Ajuste 3', 'La contraseña correcta daba error.', 'Era una versión vieja guardada en el navegador.'),
-        leccion('Ajuste 4', 'La música no podía sonar sola en todos lados.', 'Ahora arranca con el primer clic o toque.'),
-        leccion('Ajuste 5', 'Pedir la contraseña dependía de que yo respondiera.', 'Ahora te llega sola al correo.')
-      ], alt: 'Solo acá' },
+      texto: 'Lo encaré como cualquier proceso:\n\n→ AS-IS: me postulaba a todo, sin filtro.\n→ KPIs: definí qué roles encajan conmigo y qué me falta.\n→ Automatización: con Claude Code armé un script que cada mañana puntúa los avisos y los carga en un Sheet.\n→ TO-BE: LinkedIn y CV con logros en lugar de tareas.\n→ Mejora: a las 2 semanas medí y vi que la IA solo movía datos. La rediseñé: de 1,6 M tokens por día a cero.',
+      placas: img('busqueda', 5), alt: 'Mi búsqueda' },
+    { chip: "✦ Mi GitHub", fecha: 'Inédito', exclusivo: true, titulo: "No soy programadora. Tengo un GitHub. 💜",
+      texto: "Ninguno de mis repos nació de «quiero hacer una app». Cada uno es un proceso que fallaba y me cansé de resolver a mano.\n\n→ Cobros de préstamos en planillas sueltas → una app con rentabilidad mes a mes.\n→ Mi recorrido desparramado en PDFs → un portfolio con apps para probar en vivo.\n→ Una ciudad con 10 trámites en 10 lugares → el prototipo de mi trabajo final.\n\nLo que cambió no es la herramienta, es el orden: primero entiendo el proceso, después lo construyo con Claude Code.\n\nEn las últimas imágenes te dejo las 5 preguntas que me hago antes de automatizar y un prompt para copiar 👇",
+      placas: img("github", 6), alt: "Mi GitHub" },
+    { chip: "✦ Mis skills", fecha: 'Inédito', exclusivo: true, titulo: "Le mandé un audio a la IA. Y ahora sabe cómo trabajo 💜",
+      texto: "Uso la IA todos los días. Y en cada conversación le volvía a explicar lo mismo: mis colores, cómo escribo, qué datos no se publican, dónde guardo cada cosa.\n\nHasta que lo miré como lo que es: un proceso que se repite. Y un proceso se documenta.\n\n→ Listé lo que hago seguido: posts, CVs, proyectos de datos y apps.\n→ Escribí las reglas con su porqué, como un instructivo para alguien nuevo en el equipo. En la IA eso se llama skill.\n→ Sumé ejemplos que ya habían funcionado.\n→ Y le mandé un audio de WhatsApp contando por qué publico y cómo hablo.\n\nLo que no salió: en el primer audio leí las preguntas en voz alta… y no las contesté 🙈 Así que nada, grabé otro.\n\nLo que más aprendí: la IA no necesita más instrucciones, necesita tu proceso escrito.",
+      placas: img("skills", 6), alt: "Mis skills" },
+    { chip: "✦ De principiante a experta", fecha: 'Inédito', exclusivo: true, titulo: "¿Cómo se pasa de principiante a experta? Puse mi carrera al lado de la ciencia. 🪜",
+      texto: "El modelo Dreyfus (Stuart y Hubert Dreyfus, 1986) es de los más citados sobre cómo se aprende una habilidad. Propone 5 etapas, y yo las reconozco en mis 10 años.\n\nLo que más me hizo sentido: avanzar no es saber más reglas, es necesitarlas cada vez menos. No cambiaron tanto mis herramientas, cambió mi mirada.\n\nY algo que lo explica todo: el nivel es por dominio. Hoy soy experta en procesos y operaciones, y en datos estoy en competente. Por eso estoy subiendo una escalera nueva, con SQL, Python y proyectos propios.\n\nComo dice Marshall Goldsmith: lo que te trajo hasta acá no te va a llevar hasta allá.",
+      placas: img("principiante-experta", 5), alt: "De principiante a experta" },
+    { chip: "✦ Mi analista con Claude", fecha: 'Inédito', exclusivo: true, titulo: "Convertí a Claude en mi analista de datos. 🤯",
+      texto: "Le di un Excel oficial del BCRA de 9 hojas, con encabezados combinados en 3 niveles. Esa misma tarde ya tenía 10.558 registros ordenados, un forecast y 5 gráficos.\n\nNo le pedí \"analizá esto\". Le pedí lo mismo que le pediría a un analista:\n\n→ Ordenar los datos: de 9 hojas a una sola tabla.\n→ Controlar: que la suma por canal diera el total oficial. Dio exacto.\n→ Ajustar por inflación: todos los montos a pesos de hoy.\n→ Comparar modelos contra 12 meses reales que no habían visto.\n→ Contarlo simple: un notebook con gráficos y 5 conclusiones.\n\nPero el criterio no lo pone la IA. Yo decidí qué preguntar, qué controlar y qué conclusión se sostenía con los datos. Claude escribió el código; yo revisé cada número.",
+      placas: img("analista", 1), alt: "Mi analista con Claude" },
+    { chip: "✦ El contexto", fecha: 'Inédito', exclusivo: true, titulo: "Dicen que mientras más senior, más corto el mail. 📧 Con la IA es al revés.",
+      texto: "El \"?\" del CEO funciona porque el equipo ya sabe de qué se habla. La IA no: arranca de cero cada vez.\n\nPor eso, el que más sabe del proceso es el que más contexto le da:\n\n→ Para quién es.\n→ Qué decisión se va a tomar con eso.\n→ Qué datos hay (y cuáles faltan).\n\n\"Haceme un dashboard\" te da uno genérico. Contarle que lo mira el gerente los lunes para decidir promos te da uno que sirve.\n\nTe dejo un truco para tu próximo prompt: terminalo con \"Antes de armarlo, preguntame lo que te falte.\"",
+      placas: img("contexto", 1), alt: "El contexto" },
     { chip: 'Business case', fecha: '18 de noviembre', titulo: '"Queremos un chatbot." Así empezó uno de mis últimos proyectos. 🤖',
       texto: 'Lo primero que hice no fue pedir presupuesto. Fue medir.\n\nPorque la pregunta de la dirección nunca es "¿qué IA usamos?". Es "¿vale la pena?". Y para responder eso necesitás un business case, no una demo.\n\nAsí lo armé, en 4 pasos:\n\n1️⃣ Medí el AS-IS: tiempos, volumen, personas y retrabajo. Sin línea base, no hay ROI.\n2️⃣ Traducí el problema a horas y armé dos escenarios: el ideal y el conservador (el que defendés).\n3️⃣ Puse todos los costos sobre la mesa: desarrollo, integración, uso de IA y mantenimiento.\n4️⃣ Lo convertí en una decisión: roadmap, áreas alineadas antes de la reunión, piloto y una sola página para presentar.\n\nLo que más aprendí: la IA es la parte fácil. Lo difícil es que el número sea creíble y que todos lleguen a la reunión ya de acuerdo.',
       placas: img('business-case', 1), alt: 'Infografía de business case' },
@@ -270,7 +274,7 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
   function abrir(i, enfocar) {
     actual = i; indice = 0;
     var p = POSTS[i];
-    [].forEach.call(chips.children, function (c, n) { c.setAttribute('aria-selected', n === i ? 'true' : 'false'); if (n === i) chips.scrollTo({ left: c.offsetLeft - 24, behavior: suave() }); });
+    [].forEach.call(chips.children, function (c, n) { c.setAttribute('aria-selected', n === i ? 'true' : 'false'); if (n === i) chips.scrollTo({ left: Math.max(0, c.offsetLeft - chips.offsetLeft - 24), behavior: suave() }); });
     $('fecha').textContent = p.fecha; $('titulo').textContent = p.titulo; $('texto').textContent = p.texto; $('sello').hidden = !p.exclusivo;
     $('cuerpo').scrollTop = 0;
     $('otra').textContent = 'Siguiente: ' + POSTS[(i + 1) % POSTS.length].chip.replace('✦ ', '') + ' →';
