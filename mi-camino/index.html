@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Mi camino de búsqueda con Claude · Milagros Sanabria</title>
-<meta name="description" content="Capítulo de Milagros Sanabria: cómo ordenó su búsqueda laboral con Claude, sus publicaciones y La Hoja de Ruta.">
+<meta name="description" content="Capítulo de Milagros Sanabria: cómo ordenó su búsqueda laboral con Claude, sus publicaciones, videos y su guía completa con 10 prompts clave.">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root { --violeta:#4f47b3; --medio:#6b63d0; --lila:#a29bf2; --suave:#eeedf9; --tinta:#1c1c27; --muted:#5f5f75; --fondo:#f6f4f0; --blanco:#fff; --linea:#e3e1f2; }
@@ -84,7 +84,20 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
 .videos { max-width:1080px; margin:0 auto; padding:26px 18px 6px; }
 .videos > h2 { margin:0; font-size:27px; line-height:1.15; font-weight:800; color:var(--medio); text-wrap:balance; }
 .videos > p { margin:6px 0 16px; color:var(--muted); font-size:14.5px; line-height:1.45; }
-.video { display:grid; gap:16px; background:var(--blanco); border-radius:22px; padding:12px; }
+.vfiltros { display:flex; gap:8px; overflow-x:auto; padding:0 2px 14px; margin-inline:-2px; scrollbar-width:none; }
+.vfiltros::-webkit-scrollbar { display:none; }
+.chip[aria-pressed="true"] { background:var(--medio); border-color:var(--medio); color:var(--fondo); }
+.vpista { display:flex; gap:12px; overflow-x:auto; scroll-snap-type:x proximity; scrollbar-width:none; cursor:grab; padding-bottom:4px; user-select:none; -webkit-user-select:none; }
+.vpista::-webkit-scrollbar { display:none; }
+.vpista.arrastrando { cursor:grabbing; scroll-snap-type:none; }
+.vpista.arrastrando .play, .vpista.arrastrando a { pointer-events:none; }
+.video { flex:0 0 min(86%,340px); scroll-snap-align:start; display:flex; flex-direction:column; gap:12px; background:var(--blanco); border-radius:20px; padding:10px; min-width:0; }
+.video.fav { box-shadow:inset 0 0 0 2px var(--medio); }
+.dur { position:absolute; right:7px; bottom:7px; background:rgba(28,28,39,.88); color:#fff; font-size:11.5px; font-style:normal; font-weight:700; border-radius:5px; padding:3px 6px; }
+.vnav { display:none; justify-content:flex-end; gap:8px; padding-top:10px; }
+.vnav button { width:44px; height:44px; border-radius:50%; border:1.5px solid var(--linea); background:var(--blanco); color:var(--tinta); font:800 20px/1 'Montserrat',Arial,sans-serif; cursor:pointer; }
+.vnav button:disabled { opacity:.35; cursor:default; }
+.vnota { margin:10px 0 0; color:var(--muted); font-size:12.5px; line-height:1.45; }
 .pantalla { position:relative; aspect-ratio:16/9; border-radius:14px; overflow:hidden; background:#1c1c27; min-width:0; }
 .pantalla iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
 .play { position:absolute; inset:0; width:100%; height:100%; padding:0; border:0; background:none; cursor:pointer; display:block; }
@@ -96,14 +109,17 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
 .dato { min-width:0; padding:2px 8px 8px; display:flex; flex-direction:column; gap:7px; justify-content:center; }
 .estrellas { color:#e8a100; font-size:21px; letter-spacing:2px; line-height:1; }
 .dato small { color:var(--muted); font-size:12.5px; font-weight:700; }
-.dato h3 { margin:0; font-size:20px; line-height:1.22; font-weight:800; text-wrap:balance; }
-.dato p { margin:0; color:var(--muted); font-size:14.5px; font-weight:500; line-height:1.5; }
-.dato a { align-self:flex-start; color:var(--medio); font-size:14px; font-weight:700; padding-block:9px; }
+.dato { flex:1; justify-content:flex-start; }
+.dato h3 { margin:0; font-size:16.5px; line-height:1.25; font-weight:800; }
+.dato p { margin:0; color:var(--muted); font-size:13.5px; font-weight:500; line-height:1.45; }
+.dato a { align-self:flex-start; margin-top:auto; color:var(--medio); font-size:13.5px; font-weight:700; padding-block:9px; }
+.estrellas { font-size:17px; }
 @media screen and (min-width:900px) {
   .mili { align-items:center; }
   .videos { padding:30px 28px 6px; }
   .videos > h2 { font-size:34px; }
-  .video { grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); gap:30px; padding:16px; }
+  .video { flex-basis:330px; }
+  .vnav { display:flex; }
 }
 .pie { text-align:center; font-size:13px; color:var(--muted); padding:18px 18px 32px; line-height:1.8; }
 .pie a { color:var(--tinta); font-weight:700; text-decoration:underline; text-underline-offset:3px; }
@@ -140,8 +156,8 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
   </section>
 
   <nav class="lista" aria-label="Accesos">
-    <a class="enl prin" href="guia/"><span class="ico"><svg viewBox="0 0 24 24"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg></span><span class="txt"><b>La Hoja de Ruta</b><small>10 pasos y prompts · con contraseña</small></span><span class="flecha">›</span></a>
-    <a class="enl" href="mailto:milagrosbelensanabria@gmail.com?subject=Quiero%20la%20contrase%C3%B1a%20de%20La%20Hoja%20de%20Ruta"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span><span class="txt"><b>Pedí la contraseña</b><small style="font-size:11.5px;letter-spacing:-.01em;overflow-wrap:anywhere">milagrosbelensanabria@gmail.com</small></span><span class="flecha">›</span></a>
+    <a class="enl prin" href="guia/"><span class="ico"><svg viewBox="0 0 24 24"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg></span><span class="txt"><b>Guía completa + mis 10 prompts clave</b><small>Copiá, pegá y ordená tu búsqueda · con contraseña</small></span><span class="flecha">›</span></a>
+    <a class="enl" href="mailto:milagrosbelensanabria@gmail.com?subject=Quiero%20la%20contrase%C3%B1a%20de%20la%20Gu%C3%ADa%20completa"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span><span class="txt"><b>Pedí la contraseña</b><small style="font-size:11.5px;letter-spacing:-.01em;overflow-wrap:anywhere">milagrosbelensanabria@gmail.com</small></span><span class="flecha">›</span></a>
   </nav>
 </div>
 
@@ -170,22 +186,11 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
 
 <section class="videos" aria-labelledby="t-videos">
   <h2 id="t-videos">Videos destacados</h2>
-  <p>Los que me acompañaron en este camino y te recomiendo ver.</p>
-  <article class="video">
-    <div class="pantalla" id="pantalla">
-      <button class="play" id="play" type="button" aria-label="Reproducir CLAUDE CODE 2026: Curso Completo en Español (actualizado)">
-        <img src="https://i.ytimg.com/vi/h49d1-d_fYk/maxresdefault.jpg" alt="" loading="lazy" width="1280" height="720">
-        <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
-      </button>
-    </div>
-    <div class="dato">
-      <div class="estrellas" role="img" aria-label="Mi recomendación: 5 de 5 estrellas">★★★★★</div>
-      <small>Mi recomendación · Benjamín Cordero</small>
-      <h3>CLAUDE CODE 2026: Curso Completo en Español (actualizado)</h3>
-      <p>Para entender Claude Code en español y animarte a probarlo.</p>
-      <a href="https://www.youtube.com/watch?v=h49d1-d_fYk" target="_blank" rel="noopener">Ver en YouTube →</a>
-    </div>
-  </article>
+  <p>Mi recomendación y una selección en español para seguir este camino.</p>
+  <div class="vfiltros" id="vfiltros" role="group" aria-label="Filtrar videos por tema"></div>
+  <div class="vpista" id="vpista" tabindex="0" aria-label="Videos. Deslizá para ver más."></div>
+  <div class="vnav"><button id="vant" type="button" aria-label="Videos anteriores">‹</button><button id="vsig" type="button" aria-label="Videos siguientes">›</button></div>
+  <p class="vnota">Son videos de sus creadores en YouTube. Las 5 estrellas son mi recomendación personal.</p>
 </section>
 
 <p class="pie">Milagros Sanabria · <a href="../">mi portfolio</a></p>
@@ -304,16 +309,81 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
   pista.addEventListener('pointerup', soltar);
   pista.addEventListener('pointercancel', soltar);
 
-  $('play').addEventListener('click', function () {
-    var v = document.createElement('iframe');
-    v.src = 'https://www.youtube-nocookie.com/embed/h49d1-d_fYk?autoplay=1&rel=0';
-    v.title = 'CLAUDE CODE 2026: Curso Completo en Español (actualizado)';
-    v.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
-    v.referrerPolicy = 'strict-origin-when-cross-origin';
-    v.allowFullscreen = true;
-    $('pantalla').replaceChildren(v);
-    v.focus();
+  var VIDEOS = [
+    { id: 'h49d1-d_fYk', tema: 'Claude', canal: 'Benjamín Cordero', dur: '6 h', fav: true, titulo: 'CLAUDE CODE 2026: Curso Completo en Español (actualizado)', nota: 'Mi favorito para entender Claude Code de punta a punta.' },
+    { id: 'vnXp2Brga-U', tema: 'Búsqueda con IA', canal: 'CafeinaArtificial2.0', dur: '7 min', titulo: 'Busca Trabajo con IA: Tutorial Completo con Claude', nota: 'Claude como asistente, del CV a las postulaciones.' },
+    { id: '6qs389GvzZo', tema: 'Búsqueda con IA', canal: 'Daniel Cucuma', dur: '19 min', titulo: 'Puse a Claude Code a buscar empleo por mí', nota: 'Una prueba real: buscar vacantes y adaptar el CV.' },
+    { id: 'LNBjfICuEbs', tema: 'LinkedIn', canal: 'Modo Inteligente', dur: '13 min', titulo: 'Claude Cowork: la IA que usa tu navegador y automatiza tu trabajo', nota: 'Lo más cercano a completar tu perfil con Claude en el navegador.' },
+    { id: 'C_xucL1NaAA', tema: 'LinkedIn', canal: 'The Hiring Revolution', dur: '34 min', titulo: 'Cómo transformar tu perfil de LinkedIn para recibir ofertas de empleo', nota: 'Para que tu perfil atraiga a quienes reclutan.' },
+    { id: 'XC32YekrZ14', tema: 'LinkedIn', canal: 'Barbi Borrajo', dur: '11 min', titulo: 'Cómo mejorar y optimizar tu perfil de LinkedIn', nota: 'Tips para posicionar tu perfil.' },
+    { id: 'DcBs4u7UwFQ', tema: 'CV', canal: 'Dothaking115', dur: '16 min', titulo: 'Cómo hacer un buen CV en 5 minutos que pase los filtros ATS', nota: 'Un CV que los sistemas de selección puedan leer.' },
+    { id: 'ZiTm7HkE2Do', tema: 'Entrevistas', canal: 'Michelle Engelmann', dur: '6 min', titulo: 'Responde con Éxito en Entrevistas por Competencias: Domina el Método STAR', nota: 'Para contar tus logros con una estructura clara.' },
+    { id: '6lQBavPOnkM', tema: 'Claude', canal: 'Claridad Artificial', dur: '20 min', titulo: 'Claude Code para los que NUNCA Han Programado (3 Casos Reales)', nota: 'Si recién arrancás y no programás.' }
+  ];
+  var vpista = $('vpista'), vfiltros = $('vfiltros');
+  var limpio = function (t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; };
+  ['Todos', 'Búsqueda con IA', 'LinkedIn', 'CV', 'Entrevistas', 'Claude'].forEach(function (t, i) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'chip'; b.textContent = t; b.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
+    b.addEventListener('click', function () {
+      [].forEach.call(vfiltros.children, function (c) { c.setAttribute('aria-pressed', c === b ? 'true' : 'false'); });
+      pintarVideos(t);
+    });
+    vfiltros.appendChild(b);
   });
+  function pintarVideos(tema) {
+    vpista.innerHTML = VIDEOS.filter(function (v) { return tema === 'Todos' || v.tema === tema; }).map(function (v) {
+      return '<article class="video' + (v.fav ? ' fav' : '') + '"><div class="pantalla"><button class="play" type="button" data-id="' + v.id + '" aria-label="Reproducir ' + limpio(v.titulo) + '"><img src="https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg" alt="" loading="lazy" draggable="false" width="480" height="360"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span><i class="dur">' + v.dur + '</i></button></div><div class="dato">' +
+        (v.fav ? '<div class="estrellas" role="img" aria-label="Mi recomendación: 5 de 5 estrellas">★★★★★</div>' : '') +
+        '<small>' + (v.fav ? 'Mi recomendación · ' : limpio(v.tema) + ' · ') + limpio(v.canal) + '</small><h3>' + limpio(v.titulo) + '</h3><p>' + limpio(v.nota) + '</p><a href="https://www.youtube.com/watch?v=' + v.id + '" target="_blank" rel="noopener" draggable="false">Ver en YouTube →</a></div></article>';
+    }).join('');
+    vpista.scrollLeft = 0;
+    flechasVideos();
+  }
+  function flechasVideos() {
+    $('vant').disabled = vpista.scrollLeft < 4;
+    $('vsig').disabled = vpista.scrollLeft + vpista.clientWidth >= vpista.scrollWidth - 4;
+  }
+  var pasoVideo = function (s) { var c = vpista.querySelector('.video'); vpista.scrollBy({ left: s * (c ? c.offsetWidth + 12 : 340), behavior: suave() }); };
+  $('vant').addEventListener('click', function () { pasoVideo(-1); });
+  $('vsig').addEventListener('click', function () { pasoVideo(1); });
+  vpista.addEventListener('scroll', flechasVideos, { passive: true });
+  addEventListener('resize', flechasVideos);
+  vpista.addEventListener('keydown', function (e) {
+    if (e.target !== vpista) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); pasoVideo(1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); pasoVideo(-1); }
+  });
+  vpista.addEventListener('click', function (e) {
+    var b = e.target.closest('.play');
+    if (!b) return;
+    var v = VIDEOS.filter(function (x) { return x.id === b.dataset.id; })[0], f = document.createElement('iframe');
+    f.src = 'https://www.youtube-nocookie.com/embed/' + v.id + '?autoplay=1&rel=0';
+    f.title = v.titulo;
+    f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    f.referrerPolicy = 'strict-origin-when-cross-origin';
+    f.allowFullscreen = true;
+    b.parentNode.replaceChildren(f);
+    f.focus();
+  });
+  var varr = null;
+  vpista.addEventListener('pointerdown', function (e) {
+    if (e.pointerType === 'mouse' && e.button === 0) varr = { x: e.clientX, left: vpista.scrollLeft, id: e.pointerId, movio: false };
+  });
+  vpista.addEventListener('pointermove', function (e) {
+    if (!varr || e.pointerId !== varr.id) return;
+    var dx = e.clientX - varr.x;
+    if (!varr.movio && Math.abs(dx) > 6) { varr.movio = true; vpista.setPointerCapture(e.pointerId); vpista.classList.add('arrastrando'); }
+    if (varr.movio) vpista.scrollLeft = varr.left - dx;
+  });
+  function soltarVideo(e) {
+    if (!varr || e.pointerId !== varr.id) return;
+    var movio = varr.movio; varr = null;
+    if (movio) setTimeout(function () { vpista.classList.remove('arrastrando'); }, 60);
+  }
+  vpista.addEventListener('pointerup', soltarVideo);
+  vpista.addEventListener('pointercancel', soltarVideo);
+  pintarVideos('Todos');
 
   abrir(0);
 })();
