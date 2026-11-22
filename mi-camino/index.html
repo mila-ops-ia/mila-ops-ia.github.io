@@ -349,17 +349,17 @@ section.acordeon > h2 { margin:0; max-width:none; font:inherit; letter-spacing:n
 
 <section class="acceso" id="guia" aria-labelledby="t-guia">
   <h2 id="t-guia"><span aria-hidden="true">🎁</span> Un regalo para vos</h2>
-  <p>Dejá tu correo, recibí la contraseña y entrá.</p>
+  <p>Dejá tu correo y te llega el link para entrar.</p>
   <nav class="lista" aria-label="Accesos">
     <a class="enl prin" href="guia/"><span class="ico"><svg viewBox="0 0 24 24"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg></span><span class="txt"><b>Guía completa + mis 10 prompts clave</b><small>Copiá, pegá y ordená tu búsqueda · con contraseña</small></span><span class="flecha">›</span></a>
     <form class="pedido" id="pedir" novalidate>
-      <label for="correo">Recibí la contraseña en tu correo</label>
+      <label for="correo">Recibí la guía en tu correo</label>
       <div class="fila">
         <input id="correo" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="none" spellcheck="false" placeholder="tu@correo.com" required maxlength="254">
         <button id="enviar" type="submit">Enviármela</button>
       </div>
       <input class="trampa" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <p id="estado" role="status">Uso tu correo solo para enviarte la contraseña.</p>
+      <p id="estado" role="status">Uso tu correo solo para enviarte la guía.</p>
     </form>
   </nav>
 </section>
@@ -751,7 +751,7 @@ section.acordeon > h2 { margin:0; max-width:none; font:inherit; letter-spacing:n
     fetch(ENVIO, { method: 'POST', body: new URLSearchParams({ email: correo, website: f.website.value }) })
       .then(function (r) { return r.json(); })
       .then(function (d) {
-        if (d.ok) { estadoPedido('bien', '¡Listo! Revisá tu correo, y también Spam 💜'); f.email.value = ''; }
+        if (d.ok) { var dominio = correo.split('@')[1].toLowerCase(), bandeja = /^(gmail|googlemail)\./.test(dominio) ? 'https://mail.google.com/' : /^(hotmail|outlook|live)\./.test(dominio) ? 'https://outlook.live.com/mail/' : /^yahoo\./.test(dominio) ? 'https://mail.yahoo.com/' : ''; estadoPedido('bien', '¡Listo! Tocá el link que te llegó 💜' + (bandeja ? ' <a href="' + bandeja + '" target="_blank" rel="noopener">Abrir mi correo →</a>' : ' Si no lo ves, mirá en Spam.')); f.email.value = ''; }
         else if (d.motivo === 'correo') estadoPedido('mal', 'Revisá el correo, parece incompleto.');
         else estadoPedido('mal', RESPALDO);
       })
@@ -762,6 +762,7 @@ section.acordeon > h2 { margin:0; max-width:none; font:inherit; letter-spacing:n
   $('musica').addEventListener('click', function () { if (sonando) pausarMusica(); else tocarMusica(); });
 
   function contar(evento) {
+    try { if (/[?&]soy=mila/.test(location.search)) localStorage.setItem('mi-camino-no-contar', '1'); if (localStorage.getItem('mi-camino-no-contar')) return; } catch (e) {}
     if (!/github\.io$/.test(location.hostname) || /[?&]prueba=/.test(location.search) || navigator.webdriver) return;
     try { navigator.sendBeacon(ENVIO, new URLSearchParams({ evento: evento })); } catch (e) {}
   }
