@@ -237,6 +237,56 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
   .cuerpo { padding:12px 18px 8px 0; max-height:600px; overflow-y:auto; }
   .texto { font-size:15px; }
 }
+
+/* Caminito de asesorías */
+.as-camino { max-width:1080px; margin:0 auto; padding:30px 18px 6px; scroll-margin-top:12px; }
+.as-camino h2 { margin:0; max-width:15ch; font-size:27px; line-height:1.15; font-weight:800; color:var(--medio); text-wrap:balance; }
+.as-camino button:focus-visible, .as-camino a:focus-visible { outline:3px solid var(--lila); outline-offset:3px; }
+.as-cabeza { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:14px 28px; margin-bottom:18px; }
+.as-casos { display:inline-flex; max-width:100%; padding:4px; border-radius:999px; background:var(--suave); }
+.as-casos button { font:700 13.5px 'Montserrat',Arial,sans-serif; color:var(--tinta); background:transparent; border:0; border-radius:999px; padding:11px 16px; min-height:44px; cursor:pointer; white-space:nowrap; }
+.as-casos button[aria-pressed="true"] { background:var(--medio); color:var(--fondo); }
+.as-panel { border-radius:28px; padding:48px 18px 16px; background-color:#4f47b3; background-image:radial-gradient(rgba(255,255,255,.14) 1.5px, transparent 1.6px); background-size:24px 24px; color:#fff; }
+.as-tablero { position:relative; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); grid-auto-rows:172px; gap:44px 12px; }
+.as-tablero svg { position:absolute; inset:0; width:100%; height:100%; overflow:visible; pointer-events:none; }
+#as-base { fill:none; stroke:rgba(255,255,255,.42); stroke-width:6; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:2 14; }
+#as-hecho { fill:none; stroke:#fff; stroke-width:7; stroke-linecap:round; stroke-linejoin:round; transition:stroke-dashoffset .38s ease; }
+.as-tarjeta { position:relative; z-index:1; min-width:0; width:100%; height:100%; padding:0; border:0; background:none; color:inherit; font-family:inherit; text-align:left; cursor:pointer; perspective:900px; }
+.as-tarjeta:nth-of-type(3) { grid-area:2/2; } .as-tarjeta:nth-of-type(4) { grid-area:2/1; } .as-tarjeta:nth-of-type(5) { grid-area:3/1; } .as-tarjeta:nth-of-type(6) { grid-area:3/2; }
+.as-gira { display:block; position:relative; width:100%; height:100%; transform-style:preserve-3d; transition:transform .5s cubic-bezier(.3,1.25,.5,1); }
+.as-tarjeta:hover .as-gira { filter:brightness(1.03); }
+.as-tarjeta.vuelta .as-gira { transform:rotateY(180deg); }
+.as-cara { position:absolute; inset:0; display:flex; flex-direction:column; gap:6px; padding:15px 13px 12px; border-radius:18px; overflow:hidden; backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+.as-frente { background:#3d3695; border:2px solid rgba(255,255,255,.28); color:#fff; }
+.as-dorso { transform:rotateY(180deg); background:var(--blanco); color:var(--tinta); box-shadow:0 10px 22px rgba(20,18,60,.3); }
+.as-num { font-size:11px; font-weight:800; letter-spacing:.07em; text-transform:uppercase; opacity:.82; }
+.as-dorso .as-num { color:var(--medio); opacity:1; }
+.as-etapa { margin-top:auto; font-size:10.5px; font-weight:800; letter-spacing:.09em; text-transform:uppercase; }
+.as-frente .as-etapa { color:#d6d2ff; } .as-dorso .as-etapa { color:#16795a; }
+.as-frente strong { font-size:16px; line-height:1.2; font-weight:600; color:#e4e2fa; text-decoration:line-through; text-decoration-color:#ff9aa2; text-decoration-thickness:2px; }
+.as-dorso strong { font-size:16px; line-height:1.18; font-weight:800; overflow-wrap:anywhere; }
+.as-mili { position:absolute; z-index:4; left:0; top:0; width:56px; height:56px; margin:-47px 0 0 -28px; border:3px solid #fff; border-radius:50%; background:#eeedf9 url("img/mili.png") center 20%/cover; box-shadow:0 6px 14px rgba(20,18,60,.42); pointer-events:none; transition:transform .38s cubic-bezier(.3,1.35,.5,1); }
+.as-mili.as-salta { animation:as-salto .38s ease; }
+@keyframes as-salto { 40% { margin-top:-66px; } }
+.as-fin { display:flex; flex-direction:column; gap:12px; justify-content:center; min-height:104px; margin-top:20px; padding:15px 16px; border-radius:18px; background:var(--blanco); color:var(--tinta); }
+.as-fin p { margin:0; font-size:14.5px; line-height:1.42; font-weight:600; }
+.as-fin p b { color:var(--medio); }
+.as-fin a { display:grid; place-items:center; min-height:46px; padding:0 18px; border-radius:13px; background:var(--medio); color:var(--fondo); font-size:14px; font-weight:800; text-decoration:none; }
+.as-fin a[hidden] { display:none; }
+.as-nota { margin:11px 2px 0; color:var(--muted); font-size:12px; line-height:1.4; }
+@media (min-width:820px) {
+  .as-camino { padding:34px 28px 6px; }
+  .as-camino h2 { font-size:34px; max-width:none; }
+  .as-panel { padding:54px 30px 22px; }
+  .as-tablero { grid-template-columns:repeat(3,minmax(0,1fr)); grid-auto-rows:178px; gap:54px 24px; }
+  .as-tarjeta:nth-of-type(3) { grid-area:1/3; } .as-tarjeta:nth-of-type(4) { grid-area:2/3; } .as-tarjeta:nth-of-type(5) { grid-area:2/2; } .as-tarjeta:nth-of-type(6) { grid-area:2/1; }
+  .as-cara { padding:19px 20px 16px; }
+  .as-frente strong { font-size:20px; } .as-dorso strong { font-size:22px; }
+  .as-num { font-size:12px; } .as-etapa { font-size:11.5px; }
+  .as-fin { flex-direction:row; align-items:center; justify-content:space-between; gap:22px; min-height:82px; padding:14px 22px; }
+  .as-fin a { flex:none; }
+}
+@media (prefers-reduced-motion: reduce) { .as-gira, .as-mili, #as-hecho { transition:none; } .as-mili.as-salta { animation:none; } }
 </style>
 </head>
 <body>
@@ -250,7 +300,7 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
 
   <section class="mili" aria-label="Bienvenida de Mili">
     <div><b>¡Hola! Soy Mili</b><p>Qué bueno que llegaste. Acá te cuento lo que fuimos probando en esta búsqueda. Mirá, copiá y llevate lo que te sirva.</p>
-      <nav class="miniindice" aria-label="Ir a una sección"><a href="#linkedin">LinkedIn desde 0</a><a href="#guia">🎁 Tu regalo</a><a href="#publicaciones">Publicaciones</a><a href="#videos">Videos</a><a href="#contacto">Contacto</a></nav>
+      <nav class="miniindice" aria-label="Ir a una sección"><a href="#linkedin">LinkedIn desde 0</a><a href="#guia">🎁 Tu regalo</a><a href="#asesorias">Asesorías</a><a href="#publicaciones">Publicaciones</a><a href="#videos">Videos</a><a href="#contacto">Contacto</a></nav>
     </div>
   </section>
 
@@ -277,6 +327,21 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
       <p id="estado" role="status">Uso tu correo solo para enviarte la contraseña.</p>
     </form>
   </nav>
+</section>
+
+<section class="as-camino" id="asesorias" aria-labelledby="t-asesorias">
+  <div class="as-cabeza">
+    <h2 id="t-asesorias">Del perfil invisible al elegido</h2>
+    <div class="as-casos" id="as-casos" role="group" aria-label="Elegí un camino"></div>
+  </div>
+  <div class="as-panel">
+    <div class="as-tablero" id="as-tablero">
+      <svg aria-hidden="true"><path id="as-base"></path><path id="as-hecho"></path></svg>
+      <span class="as-mili" id="as-mili" aria-hidden="true"></span>
+    </div>
+    <div class="as-fin" aria-live="polite"><p id="as-mensaje"></p><a id="as-cta" href="mailto:milagrosbelensanabria@gmail.com?subject=Quiero%20mi%20asesor%C3%ADa%201%3A1" data-evento="correo" hidden>Quiero mi asesoría 1:1</a></div>
+  </div>
+  <p class="as-nota">Casos reales de asesorías 1:1 con Claude, contados sin nombres.</p>
 </section>
 
 <section class="pubs" id="publicaciones" aria-labelledby="t-pubs">
@@ -674,6 +739,71 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
   } catch (e) { contar('visita'); }
 
   abrir(0);
+})();
+</script>
+<script>
+(function () {
+  var CASOS = [
+    { chip: 'De cero a datos', giro: 'primero lo orientamos a administración. Después lo dimos vuelta hacia datos, porque ahí quería ir.',
+      pasos: [['Imagen', 'Ilustración genérica', 'Foto real y portada de su nuevo rumbo'], ['Titular', 'Vacío', 'Qué estudia, qué usa y qué sabe hacer'], ['Acerca de', 'Vacío', 'Quién es y qué busca'], ['Experiencia', 'Sin cargar', '3 puestos, lo más cercano a datos primero'], ['Proyectos', 'Ninguno', '2 proyectos y un dashboard propio'], ['CV', 'Foco administrativo', 'Una página, lista para filtros y orientada a datos']] },
+    { chip: 'Senior, mejor contado', giro: 'no hizo falta sumar experiencia. Hizo falta ordenarla para que se vea la escalera.',
+      pasos: [['Recorrido', 'Dos etapas en un solo puesto', 'Dos roles: se ve el crecimiento'], ['Cargos', 'En español', 'En inglés estándar del mercado'], ['Puestos', '8 puestos por ordenar', 'Alcance, logros y 5 aptitudes en cada uno'], ['Aptitudes', '13 viejas o repetidas', 'Limpias, con 5 principales al frente'], ['Educación', 'Secundario y cursos sueltos', 'Solo la formación que suma'], ['Entrevistas', 'Una versión del CV', 'CV en 2 idiomas y guion de entrevistas']] }
+  ];
+  var $ = function (id) { return document.getElementById(id); };
+  var tablero = $('as-tablero'), mili = $('as-mili'), base = $('as-base'), hecho = $('as-hecho');
+  var caso = 0, actual = 0, vistos = {}, centros = [], largos = [], total = 0;
+  var tactil = matchMedia('(hover: none)').matches;
+  var limpio = function (t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; };
+
+  CASOS.forEach(function (c, i) {
+    var b = document.createElement('button'); b.type = 'button'; b.textContent = c.chip;
+    b.addEventListener('click', function () { abrir(i); }); $('as-casos').appendChild(b);
+  });
+  function tarjetas() { return tablero.querySelectorAll('.as-tarjeta'); }
+  function medir() {
+    centros = [].map.call(tarjetas(), function (t) { return { x: t.offsetLeft + t.offsetWidth / 2, y: t.offsetTop + t.offsetHeight / 2, top: t.offsetTop, borde: t.offsetLeft + t.offsetWidth - 34 }; });
+    var d = centros.map(function (p, i) { return (i ? 'L' : 'M') + p.x + ' ' + p.y; }).join(' ');
+    base.setAttribute('d', d); hecho.setAttribute('d', d);
+    largos = [0]; total = 0;
+    for (var i = 1; i < centros.length; i++) { total += Math.hypot(centros[i].x - centros[i - 1].x, centros[i].y - centros[i - 1].y); largos.push(total); }
+    hecho.style.strokeDasharray = total + ' ' + total;
+    ubicar();
+  }
+  function ubicar() {
+    var p = centros[actual];
+    mili.style.transform = 'translate(' + p.borde + 'px,' + p.top + 'px)';
+    hecho.style.strokeDashoffset = total - largos[actual];
+  }
+  function pintarFin() {
+    var c = CASOS[caso], n = Object.keys(vistos).length, listo = n === 6;
+    $('as-mensaje').innerHTML = listo ? '<b>El giro:</b> ' + limpio(c.giro) : (tactil ? 'Tocá' : 'Pasá el mouse por') + ' cada tarjeta y mirá qué cambió · <b>' + n + ' de 6</b>';
+    $('as-cta').hidden = !listo;
+  }
+  function activar(i) {
+    if (i !== actual) {
+      actual = i; mili.classList.remove('as-salta'); void mili.offsetWidth; mili.classList.add('as-salta'); ubicar();
+    }
+    if (!vistos[i]) { vistos[i] = 1; tarjetas()[i].classList.add('vuelta'); tarjetas()[i].setAttribute('aria-pressed', 'true'); pintarFin(); }
+  }
+  function abrir(i) {
+    caso = i; actual = 0; vistos = {};
+    [].forEach.call($('as-casos').children, function (b, n) { b.setAttribute('aria-pressed', n === i ? 'true' : 'false'); });
+    [].slice.call(tarjetas()).forEach(function (t) { t.remove(); });
+    var html = CASOS[i].pasos.map(function (s, n) {
+      return '<button class="as-tarjeta" type="button" data-n="' + n + '" aria-pressed="false" aria-label="' + limpio(s[0]) + '. Antes: ' + limpio(s[1]) + '. Después: ' + limpio(s[2]) + '"><span class="as-gira">' +
+        '<span class="as-cara as-frente"><span class="as-num">' + (n + 1) + ' · ' + limpio(s[0]) + '</span><strong>' + limpio(s[1]) + '</strong><span class="as-etapa">Antes</span></span>' +
+        '<span class="as-cara as-dorso"><span class="as-num">' + (n + 1) + ' · ' + limpio(s[0]) + '</span><strong>' + limpio(s[2]) + '</strong><span class="as-etapa">✓ Después</span></span>' +
+        '</span></button>';
+    }).join('');
+    mili.insertAdjacentHTML('beforebegin', html);
+    medir(); pintarFin();
+  }
+  tablero.addEventListener('mouseover', function (e) { var t = e.target.closest('.as-tarjeta'); if (t) activar(+t.dataset.n); });
+  tablero.addEventListener('click', function (e) { var t = e.target.closest('.as-tarjeta'); if (t) activar(+t.dataset.n); });
+  tablero.addEventListener('focusin', function (e) { var t = e.target.closest('.as-tarjeta'); if (t && t.matches(':focus-visible')) activar(+t.dataset.n); });
+  addEventListener('resize', medir);
+  abrir(0);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(medir);
 })();
 </script>
 </body>
