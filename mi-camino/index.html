@@ -81,6 +81,14 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
 .cuerpo h3 { margin:2px 0 0; font-size:21px; line-height:1.2; font-weight:800; text-wrap:balance; }
 .texto { margin:0; font-size:14.5px; font-weight:500; line-height:1.58; white-space:pre-line; overflow-wrap:anywhere; }
 .siguiente { align-self:flex-start; margin-top:auto; font:700 14px 'Montserrat',Arial,sans-serif; color:var(--medio); background:none; border:0; padding:11px 0; cursor:pointer; }
+.acceso { max-width:1080px; margin:0 auto; padding:30px 18px 6px; scroll-margin-top:12px; }
+.acceso > h2 { margin:0; font-size:27px; line-height:1.15; font-weight:800; color:var(--medio); text-wrap:balance; }
+.acceso > p { margin:6px 0 16px; color:var(--muted); font-size:14.5px; line-height:1.45; }
+.acceso .lista { padding:0; }
+.pubs, .videos { scroll-margin-top:12px; }
+.miniindice { display:flex; flex-wrap:wrap; gap:6px; margin-top:11px; }
+.miniindice a { font-size:12.5px; font-weight:700; color:var(--medio); background:var(--suave); border-radius:999px; padding:9px 12px; }
+.miniindice a:hover { text-decoration:underline; }
 .li0 { max-width:1080px; margin:0 auto; padding:30px 18px 6px; scroll-margin-top:12px; }
 .li0 > h2 { margin:0; font-size:27px; line-height:1.15; font-weight:800; color:var(--medio); text-wrap:balance; }
 .li0 > p { margin:6px 0 16px; color:var(--muted); font-size:14.5px; line-height:1.45; }
@@ -188,14 +196,18 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
 .pie a { color:var(--tinta); font-weight:700; text-decoration:underline; text-underline-offset:3px; }
 @media screen and (min-width:900px) {
   .hoja { max-width:1080px; padding:28px 28px 0; display:grid; grid-template-columns:1fr 1fr; gap:0 26px; align-items:stretch; }
-  .cab { grid-column:1; grid-row:1 / span 2; border-radius:28px; display:flex; flex-direction:column; justify-content:center; padding:40px; text-align:left; }
+  .cab { grid-column:1; grid-row:1; border-radius:28px; display:flex; flex-direction:column; justify-content:center; padding:40px; text-align:left; }
   .cab .foto { width:132px; height:132px; margin:0 0 20px; }
   .cab h1 { font-size:40px; line-height:1.08; }
   .cab p { margin:14px 0 0; font-size:18px; max-width:420px; }
-  .mili { grid-column:2; margin:0; padding:20px 22px; }
-  .mili b { font-size:18px; }
-  .mili p { font-size:14.5px; }
-  .lista { grid-column:2; padding:12px 0 0; }
+  .mili { grid-column:2; margin:0; }
+  .mili { gap:22px; padding:28px; }
+  .mili img { width:116px; height:116px; }
+  .mili b { font-size:25px; }
+  .mili p { font-size:16px; margin-top:7px; }
+  .acceso { padding:34px 28px 6px; }
+  .acceso > h2 { font-size:34px; }
+  .acceso .lista { display:grid; grid-template-columns:1fr 1fr; gap:12px; align-items:stretch; padding:0; }
   .pubs { padding:44px 28px 20px; }
   .pubs > h2 { font-size:34px; }
   .visor { grid-template-columns:minmax(0,440px) minmax(0,1fr); gap:30px; padding:16px; }
@@ -213,11 +225,24 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
     <p>Lo que fui probando para ordenar mi búsqueda: publicaciones, videos y una guía.</p>
   </header>
 
-  <section class="mili">
+  <section class="mili" aria-label="Bienvenida de Mili">
     <img src="img/mili.png" alt="Mili, el avatar de Milagros">
-    <div><b>Hola, soy Mili</b><p>Acá vas a ver lo que Milagros publicó y también lo que todavía no mostró en ningún otro lado.</p></div>
+    <div><b>¡Hola! Soy Mili</b><p>Qué bueno que llegaste. Acá te cuento lo que fuimos probando en esta búsqueda. Mirá, copiá y llevate lo que te sirva.</p>
+      <nav class="miniindice" aria-label="Ir a una sección"><a href="#linkedin">LinkedIn desde 0</a><a href="#guia">La guía</a><a href="#publicaciones">Publicaciones</a><a href="#videos">Videos</a></nav>
+    </div>
   </section>
 
+</div>
+
+<section class="li0" id="linkedin" aria-labelledby="t-li">
+  <h2 id="t-li">LinkedIn desde 0</h2>
+  <p>Respondé 5 preguntas y Mili te muestra la guía para tu nivel.</p>
+  <div class="licaja" id="licaja"></div>
+</section>
+
+<section class="acceso" id="guia" aria-labelledby="t-guia">
+  <h2 id="t-guia">Llevate la guía</h2>
+  <p>Dejá tu correo, recibí la contraseña y entrá.</p>
   <nav class="lista" aria-label="Accesos">
     <a class="enl prin" href="guia/"><span class="ico"><svg viewBox="0 0 24 24"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg></span><span class="txt"><b>Guía completa + mis 10 prompts clave</b><small>Copiá, pegá y ordená tu búsqueda · con contraseña</small></span><span class="flecha">›</span></a>
     <form class="pedido" id="pedir" novalidate>
@@ -230,9 +255,9 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
       <p id="estado" role="status">Uso tu correo solo para enviarte la contraseña.</p>
     </form>
   </nav>
-</div>
+</section>
 
-<section class="pubs" aria-labelledby="t-pubs">
+<section class="pubs" id="publicaciones" aria-labelledby="t-pubs">
   <h2 id="t-pubs">Lo que voy compartiendo</h2>
   <p>Deslizá para recorrerlas. Las que tienen ✦ son inéditas: están solo acá.</p>
   <div class="chips" id="chips" role="tablist" aria-label="Publicaciones"></div>
@@ -255,13 +280,7 @@ a:focus-visible, button:focus-visible, .pista:focus-visible { outline:2px solid 
   </article>
 </section>
 
-<section class="li0" id="linkedin" aria-labelledby="t-li">
-  <h2 id="t-li">LinkedIn desde 0</h2>
-  <p>Respondé 5 preguntas y Mili te muestra la guía para tu nivel.</p>
-  <div class="licaja" id="licaja"></div>
-</section>
-
-<section class="videos" aria-labelledby="t-videos">
+<section class="videos" id="videos" aria-labelledby="t-videos">
   <h2 id="t-videos">Videos destacados</h2>
   <p>Mi recomendación y una selección en español para seguir este camino.</p>
   <div class="vfiltros" id="vfiltros" role="group" aria-label="Filtrar videos por tema"></div>
