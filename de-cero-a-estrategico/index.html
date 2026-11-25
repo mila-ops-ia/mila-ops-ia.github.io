@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>De Cero a Estratégico</title>
+  <meta name="description" content="Milagros Sanabria comparte lo que aprende, prueba y construye con IA, datos y estrategia: lo que funcionó y lo que no." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <script>
+    try { const t = localStorage.getItem("dce:theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="#/">
+        <span class="brand-mark"><span></span><span></span><span></span></span>
+        <span>De Cero a Estratégico<small>por Milagros Sanabria</small></span>
+      </a>
+      <button class="icon-btn menu-btn" data-action="menu" aria-label="Menú">☰</button>
+      <nav class="nav" id="nav"></nav>
+    </div>
+  </header>
+
+  <main id="app"></main>
+
+  <footer>
+    <div class="wrap row between">
+      <span>© De Cero a Estratégico · Milagros Sanabria</span>
+      <span>Un escalón a la vez</span>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/mili.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
